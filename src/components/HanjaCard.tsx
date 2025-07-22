@@ -1,0 +1,214 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { HanjaData } from "@/data/hanjaData";
+
+interface HanjaCardProps {
+  hanja: HanjaData;
+  onFlip?: () => void;
+  resetFlip?: boolean;
+}
+
+const CardContainer = styled.div`
+  width: 480px; /* 기존 410px에서 30px 증가 */
+  height: 600px;
+  perspective: 2000px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 0 auto;
+  @media (max-width: 768px) {
+    width: 320px; /* 기존 290px에서 30px 증가 */
+    height: 440px;
+  }
+  @media (max-width: 480px) {
+    width: 230px; /* 기존 200px에서 30px 증가 */
+    height: 340px;
+  }
+`;
+
+const CardInner = styled.div<{ $isFlipped: boolean; $noAnimation: boolean }>`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: ${(props) => (props.$noAnimation ? "none" : "transform 0.8s")};
+  transform-style: preserve-3d;
+  transform: ${(props) =>
+    props.$isFlipped ? "rotateY(180deg)" : "rotateY(0deg)"};
+`;
+
+const CardFace = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    padding: 24px;
+    border-radius: 20px;
+  }
+`;
+
+const CardFront = styled(CardFace)`
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+`;
+
+const CardBack = styled(CardFace)`
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  transform: rotateY(180deg);
+`;
+
+const HanjaCharacter = styled.div`
+  font-size: 12rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  font-family: "Noto Sans KR", "Noto Sans CJK KR", sans-serif;
+
+  @media (max-width: 768px) {
+    font-size: 7.5rem;
+    margin-bottom: 16px;
+  }
+`;
+
+const BackContent = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+
+  @media (max-width: 768px) {
+    gap: 20px;
+  }
+`;
+
+const InfoSection = styled.div`
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 20px;
+
+  @media (max-width: 768px) {
+    padding: 16px;
+    border-radius: 12px;
+  }
+`;
+
+const InfoTitle = styled.h3`
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+  color: rgba(0, 0, 0, 0.9);
+  font-family: "Noto Sans KR", sans-serif;
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+`;
+
+const InfoText = styled.p`
+  font-size: 2rem;
+  line-height: 1.5;
+  margin: 0;
+  font-weight: 700;
+
+  font-family: "Noto Sans KR", sans-serif;
+  color: rgba(0, 0, 0, 0.9);
+
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+    line-height: 1.4;
+  }
+`;
+
+const FlipHint = styled.div`
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1rem;
+  width: 90%;
+  opacity: 0.9;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 12px 20px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  font-family: "Noto Sans KR", sans-serif;
+  @media (max-width: 768px) {
+    bottom: 16px;
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+`;
+
+const HanjaCard: React.FC<HanjaCardProps> = ({ hanja, onFlip, resetFlip }) => {
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [noAnimation, setNoAnimation] = useState(false);
+
+  // 외부에서 resetFlip이 변경되면 카드를 애니메이션 없이 앞면으로 리셋
+  useEffect(() => {
+    if (resetFlip) {
+      setNoAnimation(true); // 애니메이션 비활성화
+      setIsFlipped(false);
+
+      // 다음 프레임에서 애니메이션을 다시 활성화
+      setTimeout(() => {
+        setNoAnimation(false);
+      }, 50);
+    }
+  }, [resetFlip]);
+
+  const handleCardClick = () => {
+    // 클릭 시에는 애니메이션 활성화
+    setNoAnimation(false);
+    setIsFlipped(!isFlipped);
+    onFlip?.();
+  };
+
+  return (
+    <CardContainer onClick={handleCardClick}>
+      <CardInner $isFlipped={isFlipped} $noAnimation={noAnimation}>
+        <CardFront>
+          <HanjaCharacter>{hanja.character}</HanjaCharacter>
+          <FlipHint>카드를 클릭해서 뒤집어보세요!</FlipHint>
+        </CardFront>
+
+        <CardBack>
+          <BackContent>
+            <InfoSection>
+              <InfoTitle>뜻(음)</InfoTitle>
+              <InfoText>{hanja.meaning}</InfoText>
+            </InfoSection>
+
+            <InfoSection>
+              <InfoTitle>단어예시</InfoTitle>
+              <InfoText>{hanja.example}</InfoText>
+            </InfoSection>
+
+            <InfoSection>
+              <InfoTitle>사자성어/예문</InfoTitle>
+              <InfoText>{hanja.idiom}</InfoText>
+            </InfoSection>
+          </BackContent>
+        </CardBack>
+      </CardInner>
+    </CardContainer>
+  );
+};
+
+export default HanjaCard;

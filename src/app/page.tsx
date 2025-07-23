@@ -5,7 +5,7 @@ import styled from "styled-components";
 import HanjaCard from "@/components/HanjaCard";
 import { hanjaData, HanjaData } from "@/data/hanjaData";
 import emailjs from "@emailjs/browser";
-import { IoShuffle, IoMail } from "react-icons/io5";
+import { IoShuffle, IoMail, IoChatbubbleEllipses, IoClose, IoSend, IoStar, IoStarOutline } from "react-icons/io5";
 
 const Container = styled.main`
   min-height: 100vh;
@@ -234,7 +234,7 @@ const LevelButton = styled.button<{ $active: boolean }>`
   background: ${(props) => (props.$active ? "#3b82f6" : "#ffffff")};
   color: ${(props) => (props.$active ? "white" : "#64748b")};
   border: 2px solid ${(props) => (props.$active ? "#3b82f6" : "#e2e8f0")};
-  padding: 5px 20px;
+  padding: 5px 10px;
   border-radius: 25px;
   font-size: 1.1rem;
   font-weight: 600;
@@ -320,40 +320,6 @@ const SideButton = styled(Button)`
     &.next {
       right: -70px;
     }
-  }
-`;
-
-const RequestButton = styled(Button)`
-  padding: 5px 10px;
-  font-size: 1rem;
-  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
-  border: none;
-  color: white;
-  border-radius: 8px;
-  box-shadow: none;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  &:hover {
-    background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
-    transform: none;
-  }
-
-  &:active {
-    background: linear-gradient(135deg, #1a202c 0%, #171923 100%);
-    transform: scale(0.98);
-  }
-
-  @media (max-width: 768px) {
-    top: 16px;
-    right: 120px;
-    padding: 10px 16px;
-    font-size: 0.9rem;
-    border-radius: 6px;
-    gap: 6px;
   }
 `;
 
@@ -479,6 +445,290 @@ const CloseButton = styled.button`
   }
 `;
 
+// 플로팅 채팅 버튼
+const FloatingChatButton = styled.button`
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  @media (max-width: 768px) {
+    width: 55px;
+    height: 55px;
+    bottom: 25px;
+    right: 25px;
+    font-size: 1.3rem;
+  }
+`;
+
+// 채팅 레이어
+const ChatOverlay = styled.div<{ $isOpen: boolean }>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: ${(props) => (props.$isOpen ? "flex" : "none")};
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+  padding: 20px;
+`;
+
+const ChatContainer = styled.div`
+  background: white;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 400px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    max-width: 350px;
+    height: 450px;
+  }
+`;
+
+const ChatHeader = styled.div`
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Noto Sans KR", sans-serif;
+
+  @media (max-width: 768px) {
+    padding: 16px;
+  }
+`;
+
+const ChatTitle = styled.h3`
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
+`;
+
+const ChatCloseButton = styled.button`
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+    width: 28px;
+    height: 28px;
+  }
+`;
+
+const ChatBody = styled.div`
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+
+  @media (max-width: 768px) {
+    padding: 16px;
+    gap: 12px;
+  }
+`;
+
+const ChatMessage = styled.div`
+  background: #f1f5f9;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #475569;
+  font-family: "Noto Sans KR", sans-serif;
+`;
+
+const ChatInputArea = styled.div`
+  padding: 20px;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  @media (max-width: 768px) {
+    padding: 16px;
+  }
+`;
+
+const ChatTextArea = styled.textarea`
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 0.95rem;
+  font-family: "Noto Sans KR", sans-serif;
+  resize: none;
+  height: 80px;
+  outline: none;
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  }
+
+  &::placeholder {
+    color: #9ca3af;
+  }
+
+  @media (max-width: 768px) {
+    height: 70px;
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+`;
+
+const ChatSendButton = styled.button`
+width:100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: "Noto Sans KR", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  align-self: flex-end;
+
+  &:hover {
+    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  @media (max-width: 768px) {
+    padding: 10px 18px;
+    font-size: 0.9rem;
+  }
+`;
+
+const SuccessMessage = styled.div`
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  text-align: center;
+  font-weight: 500;
+  font-family: "Noto Sans KR", sans-serif;
+`;
+
+// 별점 관련 스타일
+const RatingSection = styled.div`
+  background: #ffffff;
+  margin-bottom: 16px;
+
+  @media (max-width: 768px) {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+`;
+
+const StarContainer = styled.div`
+  display: flex;
+  gap: 3px;
+  align-items: center;
+`;
+
+const StarButton = styled.button<{ $filled: boolean }>`
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: ${(props) => (props.$filled ? "#fbbf24" : "#d1d5db")};
+  font-size: 1.5rem;
+  transition: all 0.2s ease;
+  padding: 2px;
+  border-radius: 4px;
+
+  &:hover {
+    color: #fbbf24;
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+  }
+`;
+
+const RatingText = styled.span`
+  margin-left: 8px;
+  font-size: 0.9rem;
+  color: #6b7280;
+  font-family: "Noto Sans KR", sans-serif;
+
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
+`;
+
 export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
   // 초기에는 모든 급수의 카드를 랜덤으로 섞어서 표시
@@ -500,6 +750,13 @@ export default function Home() {
   const [contactEmail, setContactEmail] = useState("");
   const [contactKakao, setContactKakao] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // 채팅 관련 상태
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [chatMessage, setChatMessage] = useState("");
+  const [isChatSubmitting, setIsChatSubmitting] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [rating, setRating] = useState(0);
 
   const levels = ["8급", "7급", "6급", "준5급", "5급"];
 
@@ -734,6 +991,94 @@ export default function Home() {
     }
   };
 
+  // 채팅 관련 함수들
+  const handleChatOpen = () => {
+    setIsChatOpen(true);
+  };
+
+  const handleChatClose = () => {
+    setIsChatOpen(false);
+    setChatMessage("");
+    setShowSuccessMessage(false);
+    setRating(0);
+  };
+
+  const handleRatingClick = (starValue: number) => {
+    setRating(starValue);
+  };
+
+  const handleChatSubmit = async () => {
+    if (!chatMessage.trim()) {
+      return;
+    }
+
+    setIsChatSubmitting(true);
+
+    try {
+      // 별점을 메시지에 포함
+      const ratingText = rating > 0 ? `\n\n⭐ 별점: ${rating}/5점 (${"★".repeat(rating)}${"☆".repeat(5-rating)})` : "";
+      const fullMessage = `${chatMessage}${ratingText}`;
+console.log('fullMessage',fullMessage)
+      const templateParams = {
+        to_name: "관리자",
+        to_email: "euneundh@gmail.com",
+        from_name: "한자카드게임 사용자 (채팅)",
+        from_email: "noreply@hanjacard.com",
+        subject: "[한자카드게임] 채팅 문의",
+        message: fullMessage,
+        reply_to: "noreply@hanjacard.com",
+      };
+
+      console.log("채팅 전송 파라미터:", templateParams);
+
+      // EmailJS로 이메일 전송
+      const result = await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "YOUR_SERVICE_ID",
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "YOUR_TEMPLATE_ID",
+        templateParams,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "YOUR_PUBLIC_KEY"
+      );
+
+      console.log("채팅 전송 성공:", result);
+      
+      // 성공 메시지 표시
+      setShowSuccessMessage(true);
+      setChatMessage("");
+      
+      // 3초 후 자동으로 채팅창 닫기
+      setTimeout(() => {
+        handleChatClose();
+      }, 3000);
+      
+    } catch (error: unknown) {
+      console.error("채팅 전송 실패:", error);
+      
+      let errorMessage = "메시지 전송에 실패했습니다.";
+      
+      if (error && typeof error === "object") {
+        const emailError = error as {
+          status?: number;
+          text?: string;
+          message?: string;
+        };
+
+        if (emailError.status === 400) {
+          errorMessage += " 설정을 확인해주세요.";
+        } else if (emailError.status === 401) {
+          errorMessage += " 인증에 실패했습니다.";
+        } else if (emailError.status === 404) {
+          errorMessage += " 서비스를 찾을 수 없습니다.";
+        } else if (emailError.text) {
+          errorMessage += ` (${emailError.text})`;
+        }
+      }
+
+      alert(errorMessage);
+    } finally {
+      setIsChatSubmitting(false);
+    }
+  };
+
   if (filteredData.length === 0) {
     return (
       <Container>
@@ -745,17 +1090,6 @@ export default function Home() {
 
   return (
     <Container>
-      <ButtonBox>
-        <ShuffleButton onClick={handleShuffle} $variant="secondary">
-          <IoShuffle size={18} />
-          랜덤 섞기
-        </ShuffleButton>
-
-        <RequestButton onClick={handleRequestClick} $variant="secondary">
-          <IoMail size={18} />
-          요청하기
-        </RequestButton>
-      </ButtonBox>
       <Header>
         <Title> 대한검정회 한자카드</Title>
       </Header>
@@ -770,6 +1104,10 @@ export default function Home() {
             {level}
           </LevelButton>
         ))}
+        <ShuffleButton onClick={handleShuffle} $variant="secondary">
+          <IoShuffle size={18} />
+          랜덤 섞기
+        </ShuffleButton>
       </LevelFilter>
 
       <GameArea>
@@ -840,6 +1178,71 @@ export default function Home() {
           </ModalButtons>
         </Modal>
       </ModalOverlay>
+
+      {/* 플로팅 채팅 버튼 */}
+      <FloatingChatButton onClick={handleChatOpen}>
+        <IoChatbubbleEllipses />
+      </FloatingChatButton>
+
+      {/* 채팅 레이어 */}
+      <ChatOverlay $isOpen={isChatOpen} onClick={handleChatClose}>
+        <ChatContainer onClick={(e) => e.stopPropagation()}>
+          <ChatHeader>
+            <ChatTitle>CS</ChatTitle>
+            <ChatCloseButton onClick={handleChatClose}>
+              <IoClose />
+            </ChatCloseButton>
+          </ChatHeader>
+          
+          <ChatBody>
+            
+            
+            <ChatMessage>
+              안녕하세요! 요청사항, 궁금한사항을 편하게 적어주세요. 연락처나 이메일주소를 함께 알려주시면 답변드릴께요!
+            </ChatMessage>
+            
+            {showSuccessMessage &&(
+              <SuccessMessage>
+                보냈어요!
+              </SuccessMessage>
+            )}
+          </ChatBody>
+          
+          <ChatInputArea>
+           
+            <ChatTextArea
+              value={chatMessage}
+              onChange={(e) => setChatMessage(e.target.value)}
+              placeholder="요청사항, 궁금한사항을 편하게 적어주세요..."
+              disabled={isChatSubmitting || showSuccessMessage}
+            /> {!showSuccessMessage &&
+            <StarContainer>
+                {[1, 2, 3, 4, 5].map((starValue) => (
+                  <StarButton
+                    key={starValue}
+                    $filled={starValue <= rating}
+                    onClick={() => handleRatingClick(starValue)}
+                  >
+                    {starValue <= rating ? <IoStar /> : <IoStarOutline />}
+                  </StarButton>
+                ))}
+              </StarContainer>}
+            <ChatSendButton
+              onClick={handleChatSubmit}
+              disabled={isChatSubmitting || showSuccessMessage || !chatMessage.trim()}
+            >
+              {isChatSubmitting ? (
+                "보내는 중..."
+              ) : (
+                <>
+                  <IoSend />
+                  보내기
+                </>
+              )}
+            </ChatSendButton>
+          </ChatInputArea>
+        </ChatContainer>
+      </ChatOverlay>
     </Container>
   );
 }

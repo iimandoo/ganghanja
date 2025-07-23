@@ -71,6 +71,29 @@ const CardBack = styled(CardFace)`
   transform: rotateY(180deg);
 `;
 
+const LevelBadge = styled.div`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #2d3748;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: "Noto Sans KR", sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  z-index: 10;
+
+  @media (max-width: 768px) {
+    top: 16px;
+    right: 16px;
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+`;
+
 const HanjaCharacter = styled.div`
   font-size: 12rem;
   font-weight: 700;
@@ -184,11 +207,13 @@ const HanjaCard: React.FC<HanjaCardProps> = ({ hanja, onFlip, resetFlip }) => {
     <CardContainer onClick={handleCardClick}>
       <CardInner $isFlipped={isFlipped} $noAnimation={noAnimation}>
         <CardFront>
+          <LevelBadge>{hanja.level}</LevelBadge>
           <HanjaCharacter>{hanja.character}</HanjaCharacter>
           <FlipHint>카드를 클릭해서 뒤집어보세요!</FlipHint>
         </CardFront>
 
         <CardBack>
+          <LevelBadge>{hanja.level}</LevelBadge>
           <BackContent>
             <InfoSection>
               <InfoTitle>뜻(음)</InfoTitle>

@@ -922,7 +922,7 @@ export const hanjaData: HanjaData[] = [
   {
     character: "短",
     meaning: "짧을 단",
-    example: "단점(짧은점)",
+    example: "단점",
     idiom: "短期決戰(단기결전:짧은기간에싸움)",
     level: "5급",
   },

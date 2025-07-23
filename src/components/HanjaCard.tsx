@@ -217,7 +217,9 @@ const HanjaCard: React.FC<HanjaCardProps> = ({ hanja, onFlip, resetFlip }) => {
           <BackContent>
             <InfoSection>
               <InfoTitle>뜻(음)</InfoTitle>
-              <InfoText>{hanja.meaning}</InfoText>
+              <InfoText>
+                {hanja.meaning} {hanja.meaningKey}
+              </InfoText>
             </InfoSection>
 
             <InfoSection>

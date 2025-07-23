@@ -32,7 +32,7 @@ const Header = styled.header`
 `;
 
 const Title = styled.h1`
-  font-size: 4rem;
+  font-size: 3.5rem;
   font-weight: 800;
   color: #1e293b;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -156,11 +156,18 @@ const Button = styled.button<{ $variant?: "primary" | "secondary" }>`
   }
 `;
 
-const ShuffleButton = styled(Button)`
+const ButtonBox = styled.div`
   position: absolute;
   top: 20px;
   right: 20px;
-  padding: 12px 20px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ShuffleButton = styled(Button)`
+  padding: 5px 10px;
   font-size: 1rem;
   background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
   border: none;
@@ -227,7 +234,7 @@ const LevelButton = styled.button<{ $active: boolean }>`
   background: ${(props) => (props.$active ? "#3b82f6" : "#ffffff")};
   color: ${(props) => (props.$active ? "white" : "#64748b")};
   border: 2px solid ${(props) => (props.$active ? "#3b82f6" : "#e2e8f0")};
-  padding: 12px 24px;
+  padding: 5px 20px;
   border-radius: 25px;
   font-size: 1.1rem;
   font-weight: 600;
@@ -317,10 +324,7 @@ const SideButton = styled(Button)`
 `;
 
 const RequestButton = styled(Button)`
-  position: absolute;
-  top: 20px;
-  right: 140px;
-  padding: 12px 20px;
+  padding: 5px 10px;
   font-size: 1rem;
   background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
   border: none;
@@ -519,10 +523,14 @@ export default function Home() {
   useEffect(() => {
     // selectedLevels 값이 변하면 모든 상태를 초기화
     if (selectedLevels.length > 0) {
-      const filtered = hanjaData.filter((hanja) =>
-        selectedLevels.includes(hanja.level)
-      );
-      // 급수 선택 시 hanjaData.ts에 적힌 순서대로 표시
+      const filtered = hanjaData
+        .filter((hanja) => selectedLevels.includes(hanja.level))
+        .sort((a, b) =>
+          a.meaningKey.localeCompare(b.meaningKey, "ko-KR", {
+            caseFirst: "lower",
+            sensitivity: "base",
+          })
+        );
       setFilteredData(filtered);
     } else {
       // 전체 보기 시에는 다시 랜덤으로 섞기
@@ -541,6 +549,7 @@ export default function Home() {
     setTimeout(() => setResetCardFlip(false), 100);
   }, [selectedLevels]);
 
+  // 랜덤 인덱스 함수는 섞기 기능에서만 사용
   const getRandomIndex = () => {
     if (usedIndices.size >= filteredData.length) {
       setUsedIndices(new Set());
@@ -558,8 +567,8 @@ export default function Home() {
   const handleNext = () => {
     // 히스토리의 끝에 있거나 히스토리 중간에 있는 경우
     if (historyPosition >= history.length - 1) {
-      // 새로운 랜덤 인덱스 생성
-      const nextIndex = getRandomIndex();
+      // filteredData 순서대로 다음 인덱스 생성
+      const nextIndex = (currentIndex + 1) % filteredData.length;
       setCurrentIndex(nextIndex);
       setUsedIndices((prev) => new Set(prev).add(nextIndex));
 
@@ -736,16 +745,17 @@ export default function Home() {
 
   return (
     <Container>
-      <ShuffleButton onClick={handleShuffle} $variant="secondary">
-        <IoShuffle size={18} />
-        랜덤 섞기
-      </ShuffleButton>
+      <ButtonBox>
+        <ShuffleButton onClick={handleShuffle} $variant="secondary">
+          <IoShuffle size={18} />
+          랜덤 섞기
+        </ShuffleButton>
 
-      <RequestButton onClick={handleRequestClick} $variant="secondary">
-        <IoMail size={18} />
-        요청하기
-      </RequestButton>
-
+        <RequestButton onClick={handleRequestClick} $variant="secondary">
+          <IoMail size={18} />
+          요청하기
+        </RequestButton>
+      </ButtonBox>
       <Header>
         <Title> 대한검정회 한자카드</Title>
       </Header>

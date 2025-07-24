@@ -34,7 +34,6 @@ function generateDynamicMetadata(selectedLevels: string[]) {
 }
 
 const Container = styled.main`
-  min-height: 100vh;
   background: #f8fafc;
   padding: 20px;
   display: flex;
@@ -45,7 +44,8 @@ const Container = styled.main`
 
   @media (max-width: 768px) {
     padding: 16px;
-    min-height: 100%;
+    background: red;
+    height: 100dvh;
   }
 `;
 

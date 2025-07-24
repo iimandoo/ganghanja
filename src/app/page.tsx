@@ -142,7 +142,6 @@ const Button = styled.button<{ $variant?: "primary" | "secondary" }>`
       props.$variant === "secondary"
         ? "linear-gradient(135deg, #4b5563 0%, #374151 100%)"
         : "linear-gradient(135deg, #1a202c 0%, #171923 100%)"};
-    transform: scale(0.98);
   }
 
   &:disabled {
@@ -180,7 +179,6 @@ const ShuffleButton = styled(Button)`
 
   &:active {
     background: linear-gradient(135deg, #1a202c 0%, #171923 100%);
-    transform: scale(0.98);
   }
 
   @media (max-width: 768px) {
@@ -199,12 +197,12 @@ const ShuffleButton = styled(Button)`
 `;
 
 const ProgressBar = styled.div`
-  width: 100%;
+  width: 90%;
   height: 6px;
   background: #e2e8f0;
   border-radius: 3px;
   overflow: hidden;
-  margin-top: 20px;
+  margin:15px auto 0px auto;
 `;
 
 const ProgressFill = styled.div<{ $progress: number }>`
@@ -313,15 +311,6 @@ const SideButton = styled(Button)`
     }
   }
 
-  &:active {
-    &.previous {
-      transform: translate(-330px, -50%) scale(0.95);
-    }
-
-    &.next {
-      transform: translate(260px, -50%) scale(0.95);
-    }
-  }
 
   @media (max-width: 768px) {
     min-width: 50px;
@@ -348,19 +337,33 @@ const SideButton = styled(Button)`
       }
     }
 
-    &:active {
-      &.previous {
-        transform: translate(-220px, -50%) scale(0.95);
-      }
-
-      &.next {
-        transform: translate(170px, -50%) scale(0.95);
-      }
-    }
   }
 
   @media (max-width: 480px) {
-    display: none;
+    min-width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+
+    &.previous {
+      left: 50%;
+      transform: translate(-180px, -50%);
+    }
+
+    &.next {
+      left: 50%;
+      transform: translate(135px, -50%);
+    }
+
+    &:hover {
+      &.previous {
+        transform: translate(-180px, -50%) scale(1.05);
+      }
+
+      &.next {
+        transform: translate(135px, -50%) scale(1.05);
+      }
+    }
+
   }
 `;
 
@@ -489,10 +492,10 @@ const CloseButton = styled.button`
 // 플로팅 채팅 버튼
 const FloatingChatButton = styled.button`
   position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 60px;
-  height: 60px;
+  bottom: 10px;
+  right: 10px;
+  width: 50px;
+  height: 50px;
   background: linear-gradient(135deg, #f4a261 0%, #e76f51 100%);
   border: none;
   border-radius: 50%;
@@ -1198,8 +1201,6 @@ console.log('fullMessage',fullMessage)
           <HanjaCard
             hanja={filteredData[currentIndex]}
             resetFlip={resetCardFlip}
-            onSwipeLeft={handleNext}
-            onSwipeRight={handlePrevious}
           />
 
           <SideButton 

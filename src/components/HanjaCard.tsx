@@ -8,8 +8,6 @@ interface HanjaCardProps {
   hanja: HanjaData;
   onFlip?: () => void;
   resetFlip?: boolean;
-  onSwipeLeft?: () => void;
-  onSwipeRight?: () => void;
 }
 
 const CardContainer = styled.div`
@@ -77,20 +75,19 @@ const LevelBadge = styled.div`
   position: absolute;
   top: 20px;
   right: 20px;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.7);
   color: #2d3748;
   padding: 8px 16px;
-  border-radius: 20px;
+  border-radius: 10px;
   font-size: 0.9rem;
   font-weight: 700;
   font-family: "Noto Sans KR", sans-serif;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
   z-index: 10;
 
   @media (max-width: 768px) {
-    top: 16px;
-    right: 16px;
+    top: 10px;
+    right: 10px;
     font-size: 0.8rem;
     padding: 5px 10px;
   }
@@ -181,12 +178,9 @@ const FlipHint = styled.div`
   }
 `;
 
-const HanjaCard: React.FC<HanjaCardProps> = ({ hanja, onFlip, resetFlip, onSwipeLeft, onSwipeRight }) => {
+const HanjaCard: React.FC<HanjaCardProps> = ({ hanja, onFlip, resetFlip }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [noAnimation, setNoAnimation] = useState(false);
-  const touchStartX = useRef<number | null>(null);
-  const touchStartTime = useRef<number | null>(null);
-  const touchHandled = useRef<boolean>(false);
 
   // 외부에서 resetFlip이 변경되면 카드를 애니메이션 없이 앞면으로 리셋
   useEffect(() => {
@@ -202,62 +196,14 @@ const HanjaCard: React.FC<HanjaCardProps> = ({ hanja, onFlip, resetFlip, onSwipe
   }, [resetFlip]);
 
   const handleCardClick = () => {
-    // 터치 이벤트가 처리된 경우 클릭 이벤트 무시
-    if (touchHandled.current) {
-      touchHandled.current = false;
-      return;
-    }
-    
-    // 클릭 시에는 애니메이션 활성화
     setNoAnimation(false);
     setIsFlipped(!isFlipped);
     onFlip?.();
   };
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-    touchStartTime.current = Date.now();
-    touchHandled.current = false;
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null || touchStartTime.current === null) return;
-
-    const touchEndX = e.changedTouches[0].clientX;
-    const touchDuration = Date.now() - touchStartTime.current;
-    const deltaX = touchEndX - touchStartX.current;
-    const absDeltaX = Math.abs(deltaX);
-
-    // 스와이프 감지 조건: 최소 50px 이동, 최대 500ms 시간
-    if (absDeltaX > 50 && touchDuration < 500) {
-      e.preventDefault(); // 기본 클릭 이벤트 방지
-      touchHandled.current = true;
-      
-      if (deltaX > 0) {
-        // 오른쪽 스와이프 (이전 카드)
-        onSwipeRight?.();
-      } else {
-        // 왼쪽 스와이프 (다음 카드)
-        onSwipeLeft?.();
-      }
-    } else {
-      // 스와이프가 아닌 경우 - 터치로 카드 뒤집기
-      touchHandled.current = true;
-      setNoAnimation(false);
-      setIsFlipped(!isFlipped);
-      onFlip?.();
-    }
-
-    touchStartX.current = null;
-    touchStartTime.current = null;
-  };
 
   return (
-    <CardContainer 
-      onClick={handleCardClick}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-    >
+    <CardContainer onClick={handleCardClick}>
       <CardInner $isFlipped={isFlipped} $noAnimation={noAnimation}>
         <CardFront>
           <LevelBadge>{hanja.level}</LevelBadge>

@@ -50,34 +50,43 @@ const Container = styled.main`
 
 const Header = styled.header`
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 340px;
 
   @media (max-width: 768px) {
-    margin-bottom: 32px;
+    margin-bottom: 20px;
   }
 `;
 
 const Title = styled.h1`
   font-size: 3.5rem;
-  font-weight: 800;
+  font-weight: 700;
   color: #1e293b;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-family: "Noto Sans KR", sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
 
   @media (max-width: 768px) {
     font-size: 2.2rem;
     margin-bottom: 12px;
-    gap: 12px;
   }
 
   @media (max-width: 480px) {
     font-size: 1.8rem;
     margin-bottom: 8px;
-    gap: 8px;
+  }
+`;
+const SubTitle = styled.h2`
+  font-size: 2rem;
+  font-weight: 400;
+  color: #1e293b;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: "Noto Sans KR", sans-serif;
+
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.3rem;
   }
 `;
 
@@ -352,8 +361,8 @@ const SideButton = styled(Button)`
     position: fixed;
     top: auto;
     bottom: 10px;
-    min-width: 50px;
-    height: 50px;
+    min-width: 40px;
+    height: 40px;
     font-size: 1.4rem;
     z-index: 20;
     transform: none;
@@ -1149,10 +1158,7 @@ export default function Home() {
 
   if (filteredData.length === 0) {
     return (
-      <Container>
-        <Title>대한검정회 한자카드</Title>
-        <Subtitle>데이터를 불러오는 중...</Subtitle>
-      </Container>
+     <></>
     );
   }
 
@@ -1199,7 +1205,8 @@ export default function Home() {
         }}
       />
       <Header>
-        <Title as="h1">대한검정회 한자카드</Title>
+        <SubTitle as="h2">[대한검정회]</SubTitle>
+        <Title as="h1">급수시험 한자 카드</Title>
       </Header>
 
       <LevelFilter>

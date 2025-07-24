@@ -19,6 +19,7 @@ const CardContainer = styled.div`
   justify-content: center;
   position: relative;
   margin: 0 auto;
+  touch-action: manipulation;
   @media (max-width: 768px) {
     width: 360px;
     height: 470px;
@@ -114,7 +115,7 @@ const LevelBadgeBack = styled(LevelBadgeBase)`
 `;
 
 const HanjaCharacter = styled.div`
-  font-size: 14rem;
+  font-size: 15rem;
   font-weight: 700;
   margin-bottom: 24px;
   text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);

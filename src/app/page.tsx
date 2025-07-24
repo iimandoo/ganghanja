@@ -5,7 +5,7 @@ import styled from "styled-components";
 import HanjaCard from "@/components/HanjaCard";
 import { hanjaData, HanjaData } from "@/data/hanjaData";
 import emailjs from "@emailjs/browser";
-import { IoShuffle, IoChatbubbleEllipses, IoClose, IoSend, IoStar, IoStarOutline } from "react-icons/io5";
+import { IoShuffle, IoChatbubbleEllipses, IoClose, IoSend, IoStar, IoStarOutline, IoChevronBack, IoChevronForward } from "react-icons/io5";
 
 // 동적 메타데이터 생성 함수 (내부 함수로 변경)
 function generateDynamicMetadata(selectedLevels: string[]) {
@@ -347,6 +347,7 @@ const SideButton = styled(Button)`
     height: 50px;
     font-size: 1.4rem;
     z-index: 20;
+    transform: none;
 
     &.previous {
       left: 20%;
@@ -361,15 +362,35 @@ const SideButton = styled(Button)`
 
     &:hover {
       &.previous {
-        transform: translateX(-50%) scale(1.05);
+        transform: translateX(-50%);
       }
 
       &.next {
-        transform: translateX(50%) scale(1.05);
+        transform: translateX(50%);
       }
     }
 
+    &:active {
+      &.previous {
+        transform: translateX(-50%);
+      }
 
+      &.next {
+        transform: translateX(50%);
+      }
+    }
+
+    &:focus {
+      outline: none;
+      
+      &.previous {
+        transform: translateX(-50%);
+      }
+
+      &.next {
+        transform: translateX(50%);
+      }
+    }
   }
 `;
 
@@ -1201,7 +1222,7 @@ console.log('fullMessage',fullMessage)
             aria-label="이전 한자 카드"
             title="이전 한자 카드"
           >
-            <span aria-hidden="true">←</span>
+            <IoChevronBack />
           </SideButton>
 
           <HanjaCard
@@ -1215,7 +1236,7 @@ console.log('fullMessage',fullMessage)
             aria-label="다음 한자 카드"
             title="다음 한자 카드"
           >
-            <span aria-hidden="true">→</span>
+            <IoChevronForward />
           </SideButton>
         </CardSection>
 

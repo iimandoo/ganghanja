@@ -36,8 +36,12 @@ const CardInner = styled.div<{ $isFlipped: boolean; $noAnimation: boolean }>`
   text-align: center;
   transition: ${(props) => (props.$noAnimation ? "none" : "transform 0.8s")};
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
   transform: ${(props) =>
     props.$isFlipped ? "rotateY(180deg)" : "rotateY(0deg)"};
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 `;
 
 const CardFace = styled.div`
@@ -45,6 +49,7 @@ const CardFace = styled.div`
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   border-radius: 24px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -53,6 +58,8 @@ const CardFace = styled.div`
   align-items: center;
   padding: 32px;
   box-sizing: border-box;
+  will-change: transform;
+  transform: translateZ(0);
 
   @media (max-width: 768px) {
     padding: 10px;
@@ -71,12 +78,10 @@ const CardBack = styled(CardFace)`
   transform: rotateY(180deg);
 `;
 
-const LevelBadge = styled.div`
+const LevelBadgeBase = styled.div`
   position: absolute;
   top: 20px;
   right: 20px;
-  background: rgba(255, 255, 255, 0.7);
-  color: #2d3748;
   padding: 8px 16px;
   border-radius: 10px;
   font-size: 0.9rem;
@@ -84,6 +89,9 @@ const LevelBadge = styled.div`
   font-family: "Noto Sans KR", sans-serif;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   z-index: 10;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
 
   @media (max-width: 768px) {
     top: 10px;
@@ -91,6 +99,18 @@ const LevelBadge = styled.div`
     font-size: 0.8rem;
     padding: 5px 10px;
   }
+`;
+
+const LevelBadgeFront = styled(LevelBadgeBase)`
+  background: rgba(255, 255, 255, 0.7);
+  color: #2d3748;
+  transform: translateZ(1px);
+`;
+
+const LevelBadgeBack = styled(LevelBadgeBase)`
+  background: rgba(255, 255, 255, 0.8);
+  color: #2d3748;
+  transform: rotateY(180deg) translateZ(1px);
 `;
 
 const HanjaCharacter = styled.div`
@@ -132,7 +152,7 @@ const InfoSection = styled.div`
 `;
 
 const InfoTitle = styled.h3`
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin-bottom: 12px;
   color: rgba(45, 55, 72, 0.9);
   font-family: "Noto Sans KR", sans-serif;
@@ -206,13 +226,13 @@ const HanjaCard: React.FC<HanjaCardProps> = ({ hanja, onFlip, resetFlip }) => {
     <CardContainer onClick={handleCardClick}>
       <CardInner $isFlipped={isFlipped} $noAnimation={noAnimation}>
         <CardFront>
-          <LevelBadge>{hanja.level}</LevelBadge>
+          <LevelBadgeFront>{hanja.level}</LevelBadgeFront>
           <HanjaCharacter>{hanja.character}</HanjaCharacter>
           <FlipHint>카드를 클릭해서 뒤집어보세요!</FlipHint>
         </CardFront>
 
         <CardBack>
-          <LevelBadge>{hanja.level}</LevelBadge>
+          <LevelBadgeBack>{hanja.level}</LevelBadgeBack>
           <BackContent>
             <InfoSection>
               <InfoTitle>뜻(음)</InfoTitle>

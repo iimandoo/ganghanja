@@ -114,7 +114,7 @@ const LevelBadgeBack = styled(LevelBadgeBase)`
 `;
 
 const HanjaCharacter = styled.div`
-  font-size: 12rem;
+  font-size: 13rem;
   font-weight: 700;
   margin-bottom: 24px;
   text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);

@@ -34,7 +34,8 @@ function generateDynamicMetadata(selectedLevels: string[]) {
 }
 
 const Container = styled.main`
-  background: #f8fafc;
+  height: 100dvh;
+
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -44,8 +45,6 @@ const Container = styled.main`
 
   @media (max-width: 768px) {
     padding: 16px;
-    background: red;
-    height: 100dvh;
   }
 `;
 
@@ -511,7 +510,7 @@ const FloatingChatButton = styled.button`
   right: 10px;
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #f4a261 0%, #e76f51 100%);
+  background: #000000;
   border: none;
   border-radius: 50%;
   color: white;
@@ -575,7 +574,11 @@ const ChatContainer = styled.div`
 `;
 
 const ChatHeader = styled.div`
-  background: linear-gradient(135deg, #f4a261 0%, #e76f51 100%);
+  background: linear-gradient(
+    135deg,
+    rgb(4, 190, 231) 0%,
+    rgb(26, 180, 223) 100%
+  );
   color: white;
   padding: 20px;
   display: flex;
@@ -671,7 +674,7 @@ const ChatTextArea = styled.textarea`
   transition: border-color 0.2s ease;
 
   &:focus {
-    border-color: #f4a261;
+    border-color: #b7e1ea;
     box-shadow: 0 0 0 3px rgba(244, 162, 97, 0.1);
   }
 
@@ -688,7 +691,11 @@ const ChatTextArea = styled.textarea`
 
 const ChatSendButton = styled.button`
   width: 100%;
-  background: linear-gradient(135deg, #f4a261 0%, #e76f51 100%);
+  background: linear-gradient(
+    135deg,
+    rgb(4, 190, 231) 0%,
+    rgb(26, 180, 223) 100%
+  );
   color: white;
   border: none;
   padding: 12px 20px;
@@ -705,7 +712,11 @@ const ChatSendButton = styled.button`
   align-self: flex-end;
 
   &:hover {
-    background: linear-gradient(135deg, #e8964e 0%, #d85b3e 100%);
+    background: linear-gradient(
+      135deg,
+      rgb(4, 190, 231) 0%,
+      rgb(26, 180, 223) 100%
+    );
     transform: translateY(-1px);
   }
 
@@ -1227,15 +1238,14 @@ export default function Home() {
           >
             <IoChevronBack />
           </SideButton>
-
           <HanjaCard
             hanja={filteredData[currentIndex]}
             resetFlip={resetCardFlip}
           />
-
           <SideButton
             className="next"
             onClick={handleNext}
+            disabled={currentIndex >= filteredData.length - 1 && historyPosition >= history.length - 1}
             aria-label="다음 한자 카드"
             title="다음 한자 카드"
           >

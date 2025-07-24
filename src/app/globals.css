@@ -50,10 +50,3 @@ button {
 .hanja-text {
   font-family: "Noto Sans KR", "Noto Sans CJK KR", sans-serif;
 }
-
-/* 터치 디바이스 최적화 */
-@media (hover: none) and (pointer: coarse) {
-  button:hover {
-    transform: none !important;
-  }
-}

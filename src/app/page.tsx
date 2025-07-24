@@ -5,14 +5,24 @@ import styled from "styled-components";
 import HanjaCard from "@/components/HanjaCard";
 import { hanjaData, HanjaData } from "@/data/hanjaData";
 import emailjs from "@emailjs/browser";
-import { IoShuffle, IoChatbubbleEllipses, IoClose, IoSend, IoStar, IoStarOutline, IoChevronBack, IoChevronForward } from "react-icons/io5";
+import {
+  IoShuffle,
+  IoChatbubbleEllipses,
+  IoClose,
+  IoSend,
+  IoStar,
+  IoStarOutline,
+  IoChevronBack,
+  IoChevronForward,
+} from "react-icons/io5";
 
 // 동적 메타데이터 생성 함수 (내부 함수로 변경)
 function generateDynamicMetadata(selectedLevels: string[]) {
-  const levelText = selectedLevels.length > 0 
-    ? selectedLevels.join(', ') + ' 한자 학습'
-    : '전체 급수 한자 학습';
-    
+  const levelText =
+    selectedLevels.length > 0
+      ? selectedLevels.join(", ") + " 한자 학습"
+      : "전체 급수 한자 학습";
+
   return {
     title: `${levelText} | 대한검정회 한자카드`,
     description: `${levelText}을 위한 대한검정회 한자카드게임입니다. 스와이프와 클릭으로 쉽게 한자 뜻과 음을 익힐 수 있습니다.`,
@@ -71,7 +81,6 @@ const Title = styled.h1`
   }
 `;
 
-
 const Subtitle = styled.p`
   font-size: 1.5rem;
   color: #64748b;
@@ -103,15 +112,13 @@ const CardSection = styled.div`
   justify-content: center;
   gap: 30px;
   width: 100%;
-  height:100%;
+  height: 100%;
   position: relative;
 
   @media (max-width: 768px) {
     gap: 20px;
   }
 `;
-
-
 
 const Button = styled.button<{ $variant?: "primary" | "secondary" }>`
   background: ${(props) =>
@@ -157,7 +164,6 @@ const Button = styled.button<{ $variant?: "primary" | "secondary" }>`
   }
 `;
 
-
 const ShuffleButton = styled(Button)`
   padding: 4px 8px;
   font-size: 1rem;
@@ -189,7 +195,7 @@ const ShuffleButton = styled(Button)`
     border-radius: 6px;
     gap: 0;
     min-width: 40px;
-    
+
     span {
       display: none;
     }
@@ -197,17 +203,23 @@ const ShuffleButton = styled(Button)`
 `;
 
 const ProgressBar = styled.div`
-  width: 90%;
+  width: 480px;
   height: 6px;
   background: #e2e8f0;
   border-radius: 3px;
   overflow: hidden;
-  margin:20px auto 0px auto;
+  margin: 0px auto 20px auto;
+  @media (max-width: 768px) {
+    width: 360px;
+  }
+  @media (max-width: 480px) {
+    width: 280px;
+  }
 `;
 
 const ProgressFill = styled.div<{ $progress: number }>`
   height: 100%;
-  background: #3b82f6;
+  background: #26a69a;
   border-radius: 3px;
   transition: width 0.3s ease;
   width: ${(props) => props.$progress}%;
@@ -227,7 +239,6 @@ const LevelFilter = styled.div`
 
   @media (max-width: 480px) {
     gap: 6px;
-    margin-bottom: 12px;
     padding: 0 10px;
   }
 `;
@@ -311,7 +322,6 @@ const SideButton = styled(Button)`
     }
   }
 
-
   @media (max-width: 768px) {
     min-width: 50px;
     height: 50px;
@@ -336,13 +346,12 @@ const SideButton = styled(Button)`
         transform: translate(170px, -50%) scale(1.05);
       }
     }
-
   }
 
   @media (max-width: 480px) {
     position: fixed;
     top: auto;
-    bottom: 60px;
+    bottom: 10px;
     min-width: 50px;
     height: 50px;
     font-size: 1.4rem;
@@ -361,28 +370,6 @@ const SideButton = styled(Button)`
     }
 
     &:hover {
-      &.previous {
-        transform: translateX(-50%);
-      }
-
-      &.next {
-        transform: translateX(50%);
-      }
-    }
-
-    &:active {
-      &.previous {
-        transform: translateX(-50%);
-      }
-
-      &.next {
-        transform: translateX(50%);
-      }
-    }
-
-    &:focus {
-      outline: none;
-      
       &.previous {
         transform: translateX(-50%);
       }
@@ -699,7 +686,7 @@ const ChatTextArea = styled.textarea`
 `;
 
 const ChatSendButton = styled.button`
-width:100%;
+  width: 100%;
   background: linear-gradient(135deg, #f4a261 0%, #e76f51 100%);
   color: white;
   border: none;
@@ -748,7 +735,6 @@ const SuccessMessage = styled.div`
   font-family: "Noto Sans KR", sans-serif;
 `;
 
-
 const StarContainer = styled.div`
   display: flex;
   gap: 3px;
@@ -779,7 +765,6 @@ const StarButton = styled.button<{ $filled: boolean }>`
   }
 `;
 
-
 export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
   // 초기에는 모든 급수의 카드를 랜덤으로 섞어서 표시
@@ -791,28 +776,38 @@ export default function Home() {
     "준5급",
     "5급",
   ]);
-  
+
   // 동적 메타데이터 업데이트
   useEffect(() => {
-    if (typeof document !== 'undefined') {
+    if (typeof document !== "undefined") {
       const metadata = generateDynamicMetadata(selectedLevels);
       document.title = metadata.title as string;
-      
+
       // description 메타태그 업데이트
-      const descriptionMeta = document.querySelector('meta[name="description"]');
+      const descriptionMeta = document.querySelector(
+        'meta[name="description"]'
+      );
       if (descriptionMeta) {
-        descriptionMeta.setAttribute('content', metadata.description as string);
+        descriptionMeta.setAttribute("content", metadata.description as string);
       }
-      
+
       // Open Graph 메타태그 업데이트
       const ogTitleMeta = document.querySelector('meta[property="og:title"]');
       if (ogTitleMeta) {
-        ogTitleMeta.setAttribute('content', metadata.openGraph?.title as string);
+        ogTitleMeta.setAttribute(
+          "content",
+          metadata.openGraph?.title as string
+        );
       }
-      
-      const ogDescMeta = document.querySelector('meta[property="og:description"]');
+
+      const ogDescMeta = document.querySelector(
+        'meta[property="og:description"]'
+      );
       if (ogDescMeta) {
-        ogDescMeta.setAttribute('content', metadata.openGraph?.description as string);
+        ogDescMeta.setAttribute(
+          "content",
+          metadata.openGraph?.description as string
+        );
       }
     }
   }, [selectedLevels]);
@@ -826,7 +821,7 @@ export default function Home() {
   const [contactEmail, setContactEmail] = useState("");
   const [contactKakao, setContactKakao] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   // 채팅 관련 상태
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [chatMessage, setChatMessage] = useState("");
@@ -881,7 +876,6 @@ export default function Home() {
     setResetCardFlip(true);
     setTimeout(() => setResetCardFlip(false), 100);
   }, [selectedLevels]);
-
 
   const handleNext = () => {
     // 히스토리의 끝에 있거나 히스토리 중간에 있는 경우
@@ -960,7 +954,6 @@ export default function Home() {
   };
 
   const progress = (usedIndices.size / filteredData.length) * 100;
-
 
   const handleModalClose = () => {
     setIsModalOpen(false);
@@ -1075,9 +1068,14 @@ export default function Home() {
 
     try {
       // 별점을 메시지에 포함
-      const ratingText = rating > 0 ? `\n\n⭐ 별점: ${rating}/5점 (${"★".repeat(rating)}${"☆".repeat(5-rating)})` : "";
+      const ratingText =
+        rating > 0
+          ? `\n\n⭐ 별점: ${rating}/5점 (${"★".repeat(rating)}${"☆".repeat(
+              5 - rating
+            )})`
+          : "";
       const fullMessage = `${chatMessage}${ratingText}`;
-console.log('fullMessage',fullMessage)
+      console.log("fullMessage", fullMessage);
       const templateParams = {
         to_name: "관리자",
         to_email: "euneundh@gmail.com",
@@ -1099,21 +1097,20 @@ console.log('fullMessage',fullMessage)
       );
 
       console.log("채팅 전송 성공:", result);
-      
+
       // 성공 메시지 표시
       setShowSuccessMessage(true);
       setChatMessage("");
-      
+
       // 3초 후 자동으로 채팅창 닫기
       setTimeout(() => {
         handleChatClose();
       }, 3000);
-      
     } catch (error: unknown) {
       console.error("채팅 전송 실패:", error);
-      
+
       let errorMessage = "메시지 전송에 실패했습니다.";
-      
+
       if (error && typeof error === "object") {
         const emailError = error as {
           status?: number;
@@ -1155,40 +1152,42 @@ console.log('fullMessage',fullMessage)
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebApplication",
-            "name": "대한검정회 한자카드",
-            "description": "대한검정회 한자 급수별 학습 카드게임입니다. 8급, 7급, 6급, 준5급, 5급 한자를 재미있게 학습하세요.",
-            "url": typeof window !== 'undefined' ? window.location.href : 'https://hanjacard.com',
-            "applicationCategory": "EducationalApplication",
-            "operatingSystem": "Any",
-            "browserRequirements": "Requires JavaScript. Requires HTML5.",
-            "softwareVersion": "1.0",
-            "author": {
+            name: "대한검정회 한자카드",
+            description:
+              "대한검정회 한자 급수별 학습 카드게임입니다. 8급, 7급, 6급, 준5급, 5급 한자를 재미있게 학습하세요.",
+            url:
+              typeof window !== "undefined"
+                ? window.location.href
+                : "https://hanjacard.com",
+            applicationCategory: "EducationalApplication",
+            operatingSystem: "Any",
+            browserRequirements: "Requires JavaScript. Requires HTML5.",
+            softwareVersion: "1.0",
+            author: {
               "@type": "Organization",
-              "name": "대한검정회 한자카드"
+              name: "대한검정회 한자카드",
             },
-            "about": {
+            about: {
               "@type": "Thing",
-              "name": "한자 학습",
-              "description": "한국 한자 급수 시험 대비 학습"
+              name: "한자 학습",
+              description: "한국 한자 급수 시험 대비 학습",
             },
-            "educationalUse": "한자 학습, 급수 시험 대비",
-            "audience": {
+            educationalUse: "한자 학습, 급수 시험 대비",
+            audience: {
               "@type": "EducationalAudience",
-              "educationalRole": "student"
+              educationalRole: "student",
             },
-            "offers": {
+            offers: {
               "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "KRW",
-              "availability": "https://schema.org/InStock"
-            }
-          })
+              price: "0",
+              priceCurrency: "KRW",
+              availability: "https://schema.org/InStock",
+            },
+          }),
         }}
       />
       <Header>
-        <Title as="h1">
-          대한검정회 한자카드
-        </Title>
+        <Title as="h1">대한검정회 한자카드</Title>
       </Header>
 
       <LevelFilter>
@@ -1201,8 +1200,8 @@ console.log('fullMessage',fullMessage)
             {level}
           </LevelButton>
         ))}
-        <ShuffleButton 
-          onClick={handleShuffle} 
+        <ShuffleButton
+          onClick={handleShuffle}
           $variant="secondary"
           aria-label="한자 카드 랜덤 섞기"
           title="한자 카드 랜덤 섞기"
@@ -1212,6 +1211,9 @@ console.log('fullMessage',fullMessage)
         </ShuffleButton>
       </LevelFilter>
 
+      <ProgressBar>
+        <ProgressFill $progress={progress} />
+      </ProgressBar>
       <GameArea>
         <CardSection>
           <SideButton
@@ -1230,8 +1232,8 @@ console.log('fullMessage',fullMessage)
             resetFlip={resetCardFlip}
           />
 
-          <SideButton 
-            className="next" 
+          <SideButton
+            className="next"
             onClick={handleNext}
             aria-label="다음 한자 카드"
             title="다음 한자 카드"
@@ -1239,10 +1241,6 @@ console.log('fullMessage',fullMessage)
             <IoChevronForward />
           </SideButton>
         </CardSection>
-
-        <ProgressBar>
-          <ProgressFill $progress={progress} />
-        </ProgressBar>
       </GameArea>
 
       <ModalOverlay $isOpen={isModalOpen} onClick={handleModalClose}>
@@ -1289,7 +1287,7 @@ console.log('fullMessage',fullMessage)
       </ModalOverlay>
 
       {/* 플로팅 채팅 버튼 */}
-      <FloatingChatButton 
+      <FloatingChatButton
         onClick={handleChatOpen}
         aria-label="고객 지원 채팅 열기"
         title="고객 지원 채팅"
@@ -1306,30 +1304,25 @@ console.log('fullMessage',fullMessage)
               <IoClose />
             </ChatCloseButton>
           </ChatHeader>
-          
+
           <ChatBody>
-            
-            
             <ChatMessage>
-              안녕하세요! 요청사항, 궁금한사항을 편하게 적어주세요. 연락처나 이메일주소를 함께 알려주시면 답변드릴께요!
+              안녕하세요! 요청사항, 궁금한사항을 편하게 적어주세요. 연락처나
+              이메일주소를 함께 알려주시면 답변드릴께요!
             </ChatMessage>
-            
-            {showSuccessMessage &&(
-              <SuccessMessage>
-                보냈어요!
-              </SuccessMessage>
-            )}
+
+            {showSuccessMessage && <SuccessMessage>보냈어요!</SuccessMessage>}
           </ChatBody>
-          
+
           <ChatInputArea>
-           
             <ChatTextArea
               value={chatMessage}
               onChange={(e) => setChatMessage(e.target.value)}
               placeholder="요청사항, 궁금한사항을 편하게 적어주세요..."
               disabled={isChatSubmitting || showSuccessMessage}
-            /> {!showSuccessMessage &&
-            <StarContainer>
+            />{" "}
+            {!showSuccessMessage && (
+              <StarContainer>
                 {[1, 2, 3, 4, 5].map((starValue) => (
                   <StarButton
                     key={starValue}
@@ -1339,10 +1332,13 @@ console.log('fullMessage',fullMessage)
                     {starValue <= rating ? <IoStar /> : <IoStarOutline />}
                   </StarButton>
                 ))}
-              </StarContainer>}
+              </StarContainer>
+            )}
             <ChatSendButton
               onClick={handleChatSubmit}
-              disabled={isChatSubmitting || showSuccessMessage || !chatMessage.trim()}
+              disabled={
+                isChatSubmitting || showSuccessMessage || !chatMessage.trim()
+              }
             >
               {isChatSubmitting ? (
                 "보내는 중..."

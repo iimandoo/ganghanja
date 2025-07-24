@@ -360,39 +360,7 @@ const SideButton = styled(Button)`
   }
 
   @media (max-width: 480px) {
-    min-width: 45px;
-    height: 45px;
-    font-size: 1.2rem;
-
-    &.previous {
-      left: 50%;
-      transform: translate(-180px, -50%);
-    }
-
-    &.next {
-      left: 50%;
-      transform: translate(135px, -50%);
-    }
-
-    &:hover {
-      &.previous {
-        transform: translate(-180px, -50%) scale(1.05);
-      }
-
-      &.next {
-        transform: translate(135px, -50%) scale(1.05);
-      }
-    }
-
-    &:active {
-      &.previous {
-        transform: translate(-180px, -50%) scale(0.95);
-      }
-
-      &.next {
-        transform: translate(135px, -50%) scale(0.95);
-      }
-    }
+    display: none;
   }
 `;
 

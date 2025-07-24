@@ -45,6 +45,7 @@ const Container = styled.main`
 
   @media (max-width: 768px) {
     padding: 16px;
+    min-height: 100%;
   }
 `;
 

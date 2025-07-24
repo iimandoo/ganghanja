@@ -1308,18 +1308,23 @@ export default function Home() {
 
           <ChatBody>
             <ChatMessage>
-              안녕하세요! 요청사항, 궁금한사항을 편하게 적어주세요. 연락처나
-              이메일주소를 함께 알려주시면 답변드릴께요!
+              강한자를 이용해주셔서 감사해요.
+              <br />
+              요청사항, 궁금한사항을 편하게 적어주세요.
+              <br />
+              답변을 원하시는 경우 연락처나 이메일주소를 함께 적어주세요!
             </ChatMessage>
 
-            {showSuccessMessage && <SuccessMessage>보냈어요!</SuccessMessage>}
+            {showSuccessMessage && (
+              <SuccessMessage>강한자에게 슝~! 보냈어요</SuccessMessage>
+            )}
           </ChatBody>
 
           <ChatInputArea>
             <ChatTextArea
               value={chatMessage}
               onChange={(e) => setChatMessage(e.target.value)}
-              placeholder="요청사항, 궁금한사항을 편하게 적어주세요..."
+              placeholder="요청사항, 궁금한사항..."
               disabled={isChatSubmitting || showSuccessMessage}
             />{" "}
             {!showSuccessMessage && (

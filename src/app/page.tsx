@@ -359,12 +359,12 @@ const SideButton = styled(Button)`
     transform: none;
 
     &.previous {
-      left: 20%;
+      left: 30%;
       transform: translateX(-50%);
     }
 
     &.next {
-      right: 20%;
+      right: 30%;
       left: auto;
       transform: translateX(50%);
     }

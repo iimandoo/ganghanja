@@ -144,6 +144,7 @@ const InfoSection = styled.div`
   backdrop-filter: blur(10px);
   border-radius: 16px;
   padding: 20px;
+  text-align: left;
 
   @media (max-width: 768px) {
     padding: 10px;
@@ -158,7 +159,8 @@ const InfoTitle = styled.h3`
   font-family: "Noto Sans KR", sans-serif;
 
   @media (max-width: 768px) {
-    font-size: 1.2rem;
+    font-weight: 400;
+    font-size: 1rem;
     margin-bottom: 8px;
   }
 `;
@@ -168,7 +170,7 @@ const InfoText = styled.p`
   line-height: 1.5;
   margin: 0;
   font-weight: 700;
-
+  text-align: left;
   font-family: "Noto Sans KR", sans-serif;
   color: rgba(45, 55, 72, 0.9);
 
@@ -220,7 +222,6 @@ const HanjaCard: React.FC<HanjaCardProps> = ({ hanja, onFlip, resetFlip }) => {
     setIsFlipped(!isFlipped);
     onFlip?.();
   };
-
 
   return (
     <CardContainer onClick={handleCardClick}>

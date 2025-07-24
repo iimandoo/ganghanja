@@ -304,7 +304,6 @@ const LevelButton = styled.button<{ $active: boolean }>`
 const SideButton = styled(Button)`
   position: fixed;
   top: 50%;
-  transform: translateY(-50%);
   min-width: 70px;
   height: 70px;
   padding: 0;
@@ -321,40 +320,72 @@ const SideButton = styled(Button)`
 
   &.previous {
     left: 50%;
-    transform: translateX(-330px);
+    transform: translate(-330px, -50%);
   }
 
   &.next {
     left: 50%;
-    transform: translateX(330px);
+    transform: translate(260px, -50%);
   }
 
   &:hover {
-    transform: translateY(-50%) scale(1.05);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
     background: #f8fafc;
     border-color: #cbd5e1;
     color: #475569;
+
+    &.previous {
+      transform: translate(-330px, -50%) scale(1.05);
+    }
+
+    &.next {
+      transform: translate(260px, -50%) scale(1.05);
+    }
   }
 
   &:active {
-    transform: translateY(-50%) scale(0.95);
+    &.previous {
+      transform: translate(-330px, -50%) scale(0.95);
+    }
+
+    &.next {
+      transform: translate(260px, -50%) scale(0.95);
+    }
   }
 
   @media (max-width: 768px) {
     min-width: 50px;
     height: 50px;
     font-size: 1.4rem;
-      transform: translateX(0px);
 
     &.previous {
-      left: 10px;
-      right:auto;
+      left: 50%;
+      transform: translate(-220px, -50%);
     }
 
     &.next {
-      left:auto;
-      right:10px;
+      left: 50%;
+      transform: translate(170px, -50%);
+    }
+
+    &:hover {
+      &.previous {
+        transform: translate(-220px, -50%) scale(1.05);
+      }
+
+      &.next {
+        transform: translate(170px, -50%) scale(1.05);
+      }
+    }
+
+    &:active {
+      &.previous {
+        transform: translate(-220px, -50%) scale(0.95);
+      }
+
+      &.next {
+        transform: translate(170px, -50%) scale(0.95);
+      }
     }
   }
 
@@ -362,16 +393,35 @@ const SideButton = styled(Button)`
     min-width: 45px;
     height: 45px;
     font-size: 1.2rem;
-    transform: translateX(0px);
 
     &.previous {
-      left: 10px;
-      right:auto;
+      left: 50%;
+      transform: translate(-180px, -50%);
     }
 
     &.next {
-      left:auto;
-      right:10px;
+      left: 50%;
+      transform: translate(135px, -50%);
+    }
+
+    &:hover {
+      &.previous {
+        transform: translate(-180px, -50%) scale(1.05);
+      }
+
+      &.next {
+        transform: translate(135px, -50%) scale(1.05);
+      }
+    }
+
+    &:active {
+      &.previous {
+        transform: translate(-180px, -50%) scale(0.95);
+      }
+
+      &.next {
+        transform: translate(135px, -50%) scale(0.95);
+      }
     }
   }
 `;

@@ -1,15 +1,14 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Metadata } from "next";
 import styled from "styled-components";
 import HanjaCard from "@/components/HanjaCard";
 import { hanjaData, HanjaData } from "@/data/hanjaData";
 import emailjs from "@emailjs/browser";
 import { IoShuffle, IoChatbubbleEllipses, IoClose, IoSend, IoStar, IoStarOutline } from "react-icons/io5";
 
-// 동적 메탄데이터 생성 함수
-export function generateDynamicMetadata(selectedLevels: string[]): Metadata {
+// 동적 메타데이터 생성 함수 (내부 함수로 변경)
+function generateDynamicMetadata(selectedLevels: string[]) {
   const levelText = selectedLevels.length > 0 
     ? selectedLevels.join(', ') + ' 한자 학습'
     : '전체 급수 한자 학습';
@@ -54,17 +53,24 @@ const Title = styled.h1`
   color: #1e293b;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-family: "Noto Sans KR", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
 
   @media (max-width: 768px) {
     font-size: 2.2rem;
     margin-bottom: 12px;
+    gap: 12px;
   }
 
   @media (max-width: 480px) {
     font-size: 1.8rem;
     margin-bottom: 8px;
+    gap: 8px;
   }
 `;
+
 
 const Subtitle = styled.p`
   font-size: 1.5rem;
@@ -105,34 +111,7 @@ const CardSection = styled.div`
   }
 `;
 
-const CardCounter = styled.div`
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid #e2e8f0;
-  border-radius: 20px;
-  padding: 16px 32px;
-  color: #374151;
-  font-weight: 600;
-  font-size: 1.3rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  font-family: "Noto Sans KR", sans-serif;
 
-  @media (max-width: 768px) {
-    padding: 12px 24px;
-    font-size: 1.1rem;
-  }
-`;
-
-const Controls = styled.div`
-  display: flex;
-  gap: 24px;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-
-  @media (max-width: 768px) {
-    gap: 16px;
-  }
-`;
 
 const Button = styled.button<{ $variant?: "primary" | "secondary" }>`
   background: ${(props) =>
@@ -179,15 +158,6 @@ const Button = styled.button<{ $variant?: "primary" | "secondary" }>`
   }
 `;
 
-const ButtonBox = styled.div`
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  justify-content: center;
-`;
 
 const ShuffleButton = styled(Button)`
   padding: 4px 8px;
@@ -780,16 +750,6 @@ const SuccessMessage = styled.div`
   font-family: "Noto Sans KR", sans-serif;
 `;
 
-// 별점 관련 스타일
-const RatingSection = styled.div`
-  background: #ffffff;
-  margin-bottom: 16px;
-
-  @media (max-width: 768px) {
-    padding: 12px;
-    margin-bottom: 12px;
-  }
-`;
 
 const StarContainer = styled.div`
   display: flex;
@@ -821,16 +781,6 @@ const StarButton = styled.button<{ $filled: boolean }>`
   }
 `;
 
-const RatingText = styled.span`
-  margin-left: 8px;
-  font-size: 0.9rem;
-  color: #6b7280;
-  font-family: "Noto Sans KR", sans-serif;
-
-  @media (max-width: 768px) {
-    font-size: 0.8rem;
-  }
-`;
 
 export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -934,20 +884,6 @@ export default function Home() {
     setTimeout(() => setResetCardFlip(false), 100);
   }, [selectedLevels]);
 
-  // 랜덤 인덱스 함수는 섞기 기능에서만 사용
-  const getRandomIndex = () => {
-    if (usedIndices.size >= filteredData.length) {
-      setUsedIndices(new Set());
-      return Math.floor(Math.random() * filteredData.length);
-    }
-
-    let randomIndex;
-    do {
-      randomIndex = Math.floor(Math.random() * filteredData.length);
-    } while (usedIndices.has(randomIndex));
-
-    return randomIndex;
-  };
 
   const handleNext = () => {
     // 히스토리의 끝에 있거나 히스토리 중간에 있는 경우
@@ -1027,9 +963,6 @@ export default function Home() {
 
   const progress = (usedIndices.size / filteredData.length) * 100;
 
-  const handleRequestClick = () => {
-    setIsModalOpen(true);
-  };
 
   const handleModalClose = () => {
     setIsModalOpen(false);
@@ -1255,7 +1188,9 @@ console.log('fullMessage',fullMessage)
         }}
       />
       <Header>
-        <Title as="h1"> 대한검정회 한자카드</Title>
+        <Title as="h1">
+          대한검정회 한자카드
+        </Title>
       </Header>
 
       <LevelFilter>

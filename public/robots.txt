@@ -1,0 +1,37 @@
+# Robots.txt for 대한검정회 한자카드
+# https://www.robotstxt.org/
+
+User-agent: *
+Allow: /
+
+# 검색엔진별 최적화
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: NaverBot
+Allow: /
+
+User-agent: DaumBot
+Allow: /
+
+# 사이트맵 위치
+Sitemap: /sitemap.xml
+
+# Crawl-delay 설정 (서버 부하 방지)
+Crawl-delay: 1
+
+# 특정 파일/폴더 차단 (필요한 경우)
+# Disallow: /admin/
+# Disallow: /api/
+# Disallow: /_next/static/
+
+# 이미지 크롤링 허용
+User-agent: Googlebot-Image
+Allow: /
+
+# 모바일 크롤링 허용
+User-agent: Googlebot-Mobile
+Allow: /

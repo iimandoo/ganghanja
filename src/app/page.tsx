@@ -1,11 +1,28 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { Metadata } from "next";
 import styled from "styled-components";
 import HanjaCard from "@/components/HanjaCard";
 import { hanjaData, HanjaData } from "@/data/hanjaData";
 import emailjs from "@emailjs/browser";
-import { IoShuffle, IoMail, IoChatbubbleEllipses, IoClose, IoSend, IoStar, IoStarOutline } from "react-icons/io5";
+import { IoShuffle, IoChatbubbleEllipses, IoClose, IoSend, IoStar, IoStarOutline } from "react-icons/io5";
+
+// 동적 메탄데이터 생성 함수
+export function generateDynamicMetadata(selectedLevels: string[]): Metadata {
+  const levelText = selectedLevels.length > 0 
+    ? selectedLevels.join(', ') + ' 한자 학습'
+    : '전체 급수 한자 학습';
+    
+  return {
+    title: `${levelText} | 대한검정회 한자카드`,
+    description: `${levelText}을 위한 대한검정회 한자카드게임입니다. 스와이프와 클릭으로 쉽게 한자 뜻과 음을 익힐 수 있습니다.`,
+    openGraph: {
+      title: `${levelText} | 대한검정회 한자카드`,
+      description: `${levelText}을 위한 대한검정회 한자카드게임입니다.`,
+    },
+  };
+}
 
 const Container = styled.main`
   min-height: 100vh;
@@ -39,8 +56,13 @@ const Title = styled.h1`
   font-family: "Noto Sans KR", sans-serif;
 
   @media (max-width: 768px) {
-    font-size: 2.8rem;
+    font-size: 2.2rem;
     margin-bottom: 12px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
   }
 `;
 
@@ -75,6 +97,7 @@ const CardSection = styled.div`
   justify-content: center;
   gap: 30px;
   width: 100%;
+  height:100%;
   position: relative;
 
   @media (max-width: 768px) {
@@ -167,7 +190,7 @@ const ButtonBox = styled.div`
 `;
 
 const ShuffleButton = styled(Button)`
-  padding: 5px 10px;
+  padding: 4px 8px;
   font-size: 1rem;
   background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
   border: none;
@@ -193,10 +216,15 @@ const ShuffleButton = styled(Button)`
   @media (max-width: 768px) {
     top: 16px;
     right: 16px;
-    padding: 10px 16px;
+    padding: 8px;
     font-size: 0.9rem;
     border-radius: 6px;
-    gap: 6px;
+    gap: 0;
+    min-width: 40px;
+    
+    span {
+      display: none;
+    }
   }
 `;
 
@@ -228,12 +256,18 @@ const LevelFilter = styled.div`
     gap: 8px;
     margin-bottom: 16px;
   }
+
+  @media (max-width: 480px) {
+    gap: 6px;
+    margin-bottom: 12px;
+    padding: 0 10px;
+  }
 `;
 
 const LevelButton = styled.button<{ $active: boolean }>`
-  background: ${(props) => (props.$active ? "#3b82f6" : "#ffffff")};
+  background: ${(props) => (props.$active ? "#26a69a" : "#ffffff")};
   color: ${(props) => (props.$active ? "white" : "#64748b")};
-  border: 2px solid ${(props) => (props.$active ? "#3b82f6" : "#e2e8f0")};
+  border: 2px solid ${(props) => (props.$active ? "#26a69a" : "#e2e8f0")};
   padding: 5px 10px;
   border-radius: 25px;
   font-size: 1.1rem;
@@ -246,8 +280,8 @@ const LevelButton = styled.button<{ $active: boolean }>`
   &:hover {
     transform: translateY(-1px);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-    background: ${(props) => (props.$active ? "#2563eb" : "#f8fafc")};
-    border-color: ${(props) => (props.$active ? "#2563eb" : "#cbd5e1")};
+    background: ${(props) => (props.$active ? "#00897b" : "#f8fafc")};
+    border-color: ${(props) => (props.$active ? "#00897b" : "#cbd5e1")};
   }
 
   &:active {
@@ -255,14 +289,20 @@ const LevelButton = styled.button<{ $active: boolean }>`
   }
 
   @media (max-width: 768px) {
-    padding: 10px 20px;
-    font-size: 1rem;
+    padding: 5px 10px;
+    font-size: 0.95rem;
     border-radius: 20px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 5px 10px;
+    font-size: 0.85rem;
+    border-radius: 16px;
   }
 `;
 
 const SideButton = styled(Button)`
-  position: absolute;
+  position: fixed;
   top: 50%;
   transform: translateY(-50%);
   min-width: 70px;
@@ -277,13 +317,16 @@ const SideButton = styled(Button)`
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10;
 
   &.previous {
-    left: -110px;
+    left: 50%;
+    transform: translateX(-330px);
   }
 
   &.next {
-    right: -110px;
+    left: 50%;
+    transform: translateX(330px);
   }
 
   &:hover {
@@ -299,26 +342,36 @@ const SideButton = styled(Button)`
   }
 
   @media (max-width: 768px) {
-    min-width: 60px;
-    height: 60px;
-    font-size: 1.6rem;
+    min-width: 50px;
+    height: 50px;
+    font-size: 1.4rem;
+      transform: translateX(0px);
 
     &.previous {
-      left: -80px;
+      left: 10px;
+      right:auto;
     }
 
     &.next {
-      right: -80px;
+      left:auto;
+      right:10px;
     }
   }
 
   @media (max-width: 480px) {
+    min-width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+    transform: translateX(0px);
+
     &.previous {
-      left: -70px;
+      left: 10px;
+      right:auto;
     }
 
     &.next {
-      right: -70px;
+      left:auto;
+      right:10px;
     }
   }
 `;
@@ -452,13 +505,13 @@ const FloatingChatButton = styled.button`
   right: 30px;
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #f4a261 0%, #e76f51 100%);
   border: none;
   border-radius: 50%;
   color: white;
   font-size: 1.5rem;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 20px rgba(244, 162, 97, 0.4);
   transition: all 0.3s ease;
   z-index: 1000;
   display: flex;
@@ -467,7 +520,7 @@ const FloatingChatButton = styled.button`
 
   &:hover {
     transform: scale(1.1);
-    box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+    box-shadow: 0 6px 25px rgba(244, 162, 97, 0.6);
   }
 
   &:active {
@@ -516,7 +569,7 @@ const ChatContainer = styled.div`
 `;
 
 const ChatHeader = styled.div`
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #f4a261 0%, #e76f51 100%);
   color: white;
   padding: 20px;
   display: flex;
@@ -612,8 +665,8 @@ const ChatTextArea = styled.textarea`
   transition: border-color 0.2s ease;
 
   &:focus {
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    border-color: #f4a261;
+    box-shadow: 0 0 0 3px rgba(244, 162, 97, 0.1);
   }
 
   &::placeholder {
@@ -629,7 +682,7 @@ const ChatTextArea = styled.textarea`
 
 const ChatSendButton = styled.button`
 width:100%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #f4a261 0%, #e76f51 100%);
   color: white;
   border: none;
   padding: 12px 20px;
@@ -646,7 +699,7 @@ width:100%;
   align-self: flex-end;
 
   &:hover {
-    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+    background: linear-gradient(135deg, #e8964e 0%, #d85b3e 100%);
     transform: translateY(-1px);
   }
 
@@ -702,7 +755,7 @@ const StarButton = styled.button<{ $filled: boolean }>`
   font-size: 1.5rem;
   transition: all 0.2s ease;
   padding: 2px;
-  border-radius: 4px;
+  border-radius: 8px;
 
   &:hover {
     color: #fbbf24;
@@ -740,6 +793,31 @@ export default function Home() {
     "준5급",
     "5급",
   ]);
+  
+  // 동적 메타데이터 업데이트
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      const metadata = generateDynamicMetadata(selectedLevels);
+      document.title = metadata.title as string;
+      
+      // description 메타태그 업데이트
+      const descriptionMeta = document.querySelector('meta[name="description"]');
+      if (descriptionMeta) {
+        descriptionMeta.setAttribute('content', metadata.description as string);
+      }
+      
+      // Open Graph 메타태그 업데이트
+      const ogTitleMeta = document.querySelector('meta[property="og:title"]');
+      if (ogTitleMeta) {
+        ogTitleMeta.setAttribute('content', metadata.openGraph?.title as string);
+      }
+      
+      const ogDescMeta = document.querySelector('meta[property="og:description"]');
+      if (ogDescMeta) {
+        ogDescMeta.setAttribute('content', metadata.openGraph?.description as string);
+      }
+    }
+  }, [selectedLevels]);
   const [usedIndices, setUsedIndices] = useState<Set<number>>(new Set());
   const [resetCardFlip, setResetCardFlip] = useState(false);
   const [history, setHistory] = useState<number[]>([0]); // 한자 인덱스 히스토리
@@ -1090,8 +1168,44 @@ console.log('fullMessage',fullMessage)
 
   return (
     <Container>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "대한검정회 한자카드",
+            "description": "대한검정회 한자 급수별 학습 카드게임입니다. 8급, 7급, 6급, 준5급, 5급 한자를 재미있게 학습하세요.",
+            "url": typeof window !== 'undefined' ? window.location.href : 'https://hanjacard.com',
+            "applicationCategory": "EducationalApplication",
+            "operatingSystem": "Any",
+            "browserRequirements": "Requires JavaScript. Requires HTML5.",
+            "softwareVersion": "1.0",
+            "author": {
+              "@type": "Organization",
+              "name": "대한검정회 한자카드"
+            },
+            "about": {
+              "@type": "Thing",
+              "name": "한자 학습",
+              "description": "한국 한자 급수 시험 대비 학습"
+            },
+            "educationalUse": "한자 학습, 급수 시험 대비",
+            "audience": {
+              "@type": "EducationalAudience",
+              "educationalRole": "student"
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "KRW",
+              "availability": "https://schema.org/InStock"
+            }
+          })
+        }}
+      />
       <Header>
-        <Title> 대한검정회 한자카드</Title>
+        <Title as="h1"> 대한검정회 한자카드</Title>
       </Header>
 
       <LevelFilter>
@@ -1104,9 +1218,14 @@ console.log('fullMessage',fullMessage)
             {level}
           </LevelButton>
         ))}
-        <ShuffleButton onClick={handleShuffle} $variant="secondary">
-          <IoShuffle size={18} />
-          랜덤 섞기
+        <ShuffleButton 
+          onClick={handleShuffle} 
+          $variant="secondary"
+          aria-label="한자 카드 랜덤 섞기"
+          title="한자 카드 랜덤 섞기"
+        >
+          <IoShuffle size={18} aria-hidden="true" />
+          <span>랜덤 섞기</span>
         </ShuffleButton>
       </LevelFilter>
 
@@ -1117,17 +1236,26 @@ console.log('fullMessage',fullMessage)
             $variant="secondary"
             onClick={handlePrevious}
             disabled={historyPosition <= 0}
+            aria-label="이전 한자 카드"
+            title="이전 한자 카드"
           >
-            ←
+            <span aria-hidden="true">←</span>
           </SideButton>
 
           <HanjaCard
             hanja={filteredData[currentIndex]}
             resetFlip={resetCardFlip}
+            onSwipeLeft={handleNext}
+            onSwipeRight={handlePrevious}
           />
 
-          <SideButton className="next" onClick={handleNext}>
-            →
+          <SideButton 
+            className="next" 
+            onClick={handleNext}
+            aria-label="다음 한자 카드"
+            title="다음 한자 카드"
+          >
+            <span aria-hidden="true">→</span>
           </SideButton>
         </CardSection>
 
@@ -1180,8 +1308,12 @@ console.log('fullMessage',fullMessage)
       </ModalOverlay>
 
       {/* 플로팅 채팅 버튼 */}
-      <FloatingChatButton onClick={handleChatOpen}>
-        <IoChatbubbleEllipses />
+      <FloatingChatButton 
+        onClick={handleChatOpen}
+        aria-label="고객 지원 채팅 열기"
+        title="고객 지원 채팅"
+      >
+        <IoChatbubbleEllipses aria-hidden="true" />
       </FloatingChatButton>
 
       {/* 채팅 레이어 */}

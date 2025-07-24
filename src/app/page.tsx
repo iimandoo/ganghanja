@@ -93,7 +93,7 @@ const GameArea = styled.div`
   max-width: 600px;
 
   @media (max-width: 768px) {
-    gap: 32px;
+    gap: 55px;
   }
 `;
 
@@ -202,7 +202,7 @@ const ProgressBar = styled.div`
   background: #e2e8f0;
   border-radius: 3px;
   overflow: hidden;
-  margin:15px auto 0px auto;
+  margin:20px auto 0px auto;
 `;
 
 const ProgressFill = styled.div<{ $progress: number }>`
@@ -340,29 +340,35 @@ const SideButton = styled(Button)`
   }
 
   @media (max-width: 480px) {
-    min-width: 45px;
-    height: 45px;
-    font-size: 1.2rem;
+    position: fixed;
+    top: auto;
+    bottom: 60px;
+    min-width: 50px;
+    height: 50px;
+    font-size: 1.4rem;
+    z-index: 20;
 
     &.previous {
-      left: 50%;
-      transform: translate(-180px, -50%);
+      left: 20%;
+      transform: translateX(-50%);
     }
 
     &.next {
-      left: 50%;
-      transform: translate(135px, -50%);
+      right: 20%;
+      left: auto;
+      transform: translateX(50%);
     }
 
     &:hover {
       &.previous {
-        transform: translate(-180px, -50%) scale(1.05);
+        transform: translateX(-50%) scale(1.05);
       }
 
       &.next {
-        transform: translate(135px, -50%) scale(1.05);
+        transform: translateX(50%) scale(1.05);
       }
     }
+
 
   }
 `;
@@ -519,11 +525,11 @@ const FloatingChatButton = styled.button`
   }
 
   @media (max-width: 768px) {
-    width: 55px;
-    height: 55px;
-    bottom: 25px;
-    right: 25px;
-    font-size: 1.3rem;
+    width: 40px;
+    height: 40px;
+    bottom: 15px;
+    right: 15px;
+    font-size: 1.4rem;
   }
 `;
 

@@ -14,7 +14,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "아홉",
     meaningKey: "구",
     example: "구월(9월)",
-    idiom: "九死一生(아홉번죽을뻔하다가한번살아남;간신히살아남)",
+    idiom: "九死一生(아홉 번 죽을 뻔하다가 한 번 살아남; 간신히 살아남)",
     level: "8급",
   },
   {
@@ -22,7 +22,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "쇠",
     meaningKey: "금",
     example: "금속(쇠붙이)",
-    idiom: "金石之交(금과돌처럼굳은우정)",
+    idiom: "金石之交(금과 돌처럼 굳은 우정)",
     level: "8급",
   },
   {
@@ -30,7 +30,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "남녘",
     meaningKey: "남",
     example: "남쪽",
-    idiom: "南男北女(남쪽은남자가,북쪽은여자가잘생겼다)",
+    idiom: "南男北女(남쪽은 남자가, 북쪽은 여자가 잘 생겼다)",
     level: "8급",
   },
   {
@@ -38,7 +38,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "사내",
     meaningKey: "남",
     example: "남자",
-    idiom: "男兒大丈夫(대장부다운남자)",
+    idiom: "男兒大丈夫(대장부다운 남자)",
     level: "8급",
   },
   {
@@ -46,7 +46,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "여자",
     meaningKey: "녀",
     example: "여자",
-    idiom: "男女老少(남자와여자,늙은이와아이)",
+    idiom: "男女老少(남자와 여자, 늙은이와 아이)",
     level: "8급",
   },
   {
@@ -54,7 +54,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "동녘",
     meaningKey: "동",
     example: "동쪽",
-    idiom: "東問西答(동쪽물음에서쪽대답;엉뚱한대답)",
+    idiom: "東問西答(동쪽 물음에 서쪽 대답; 엉뚱한 대답)",
     level: "8급",
   },
   {
@@ -62,7 +62,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "여섯",
     meaningKey: "륙",
     example: "육학년(6학년)",
-    idiom: "六親和合(온가족이화목함)",
+    idiom: "六親和合(온 가족이 화목함)",
     level: "8급",
   },
   {
@@ -70,7 +70,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "어머니",
     meaningKey: "모",
     example: "부모(어버이)",
-    idiom: "慈母之心(자애로운어머니의마음)",
+    idiom: "慈母之心(자애로운 어머니의 마음)",
     level: "8급",
   },
   {
@@ -78,7 +78,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "나무",
     meaningKey: "목",
     example: "목재(나무재료)",
-    idiom: "木人石心(나무사람,돌마음;매우무정함)",
+    idiom: "木人石心(나무 사람, 돌 마음; 매우 무정함)",
     level: "8급",
   },
   {
@@ -86,7 +86,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "문",
     meaningKey: "문",
     example: "교문(학교문)",
-    idiom: "門前成市(문앞이시장이될정도;인기많음)",
+    idiom: "門前成市(문 앞이 시장이 될 정도; 인기 많음)",
     level: "8급",
   },
   {
@@ -94,7 +94,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "아버지",
     meaningKey: "부",
     example: "부자(아버지와아들)",
-    idiom: "父母恩重(부모의은혜가크다)",
+    idiom: "父母恩重(부모의 은혜가 크다)",
     level: "8급",
   },
   {
@@ -102,7 +102,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "북녘",
     meaningKey: "북",
     example: "북극(북쪽끝)",
-    idiom: "南征北伐(남쪽치고북쪽정벌;여러전쟁을겪음)",
+    idiom: "南征北伐(남쪽 치고 북쪽 정벌; 여러 전쟁을 겪음)",
     level: "8급",
   },
   {
@@ -110,7 +110,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "넉",
     meaningKey: "사",
     example: "사학년(4학년)",
-    idiom: "四通八達(사방으로통해있음;교통이매우편리함)",
+    idiom: "四通八達(사방으로 통해 있음; 교통이 매우 편리함)",
     level: "8급",
   },
   {
@@ -118,7 +118,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "셋",
     meaningKey: "삼",
     example: "삼촌(형제)",
-    idiom: "三三五五(여럿이모여있는모양)",
+    idiom: "三三五五(여럿이 모여 있는 모양)",
     level: "8급",
   },
   {
@@ -126,7 +126,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "서녘",
     meaningKey: "서",
     example: "서양(서쪽나라)",
-    idiom: "東西古今(동서양과고금모두)",
+    idiom: "東西古今(동서양과 고금 모두)",
     level: "8급",
   },
   {
@@ -134,7 +134,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "물",
     meaningKey: "수",
     example: "수영(물에서헤엄침)",
-    idiom: "水魚之交(물과물고기처럼친밀한사이)",
+    idiom: "水魚之交(물과 물고기처럼 친밀한 사이)",
     level: "8급",
   },
   {
@@ -142,7 +142,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "열",
     meaningKey: "십",
     example: "십일(11)",
-    idiom: "十中八九(열중여덟아홉;거의대부분)",
+    idiom: "十中八九(열 중 여덟 아홉; 거의 대부분)",
     level: "8급",
   },
   {
@@ -150,7 +150,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "다섯",
     meaningKey: "오",
     example: "오후(낮12시이후)",
-    idiom: "五花八門(다양한수단과방법)",
+    idiom: "五花八門(다양한 수단과 방법)",
     level: "8급",
   },
   {
@@ -158,7 +158,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "달",
     meaningKey: "월",
     example: "월급(매달받는돈)",
-    idiom: "月下氷人(월하노인;중매쟁이)",
+    idiom: "月下氷人(월하 노인; 중매쟁이)",
     level: "8급",
   },
   {
@@ -166,7 +166,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "두",
     meaningKey: "이",
     example: "이학년(2학년)",
-    idiom: "二人三脚(두사람이세다리로같이달리는경기)",
+    idiom: "二人三脚(두 사람이 세 다리로 같이 달리는 경기)",
     level: "8급",
   },
   {
@@ -174,7 +174,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "사람",
     meaningKey: "인",
     example: "인간(사람)",
-    idiom: "人山人海(사람이산과바다처럼많다)",
+    idiom: "人山人海(사람이 산과 바다처럼 많다)",
     level: "8급",
   },
   {
@@ -182,7 +182,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "날",
     meaningKey: "일",
     example: "일기(매일쓰는글)",
-    idiom: "日日是好日(매일매일이좋은날)",
+    idiom: "日日是好日(매일매일이 좋은 날)",
     level: "8급",
   },
   {
@@ -190,7 +190,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "하나",
     meaningKey: "일",
     example: "일학년(1학년)",
-    idiom: "一石二鳥(돌하나로새두마리잡음;일거양득)",
+    idiom: "一石二鳥(돌 하나로 새 두 마리 잡음; 일거양득)",
     level: "8급",
   },
   {
@@ -198,7 +198,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "아들",
     meaningKey: "자",
     example: "자식(아이)",
-    idiom: "孝子賢孫(효도하는아들과착한손자)",
+    idiom: "孝子賢孫(효도하는 아들과 착한 손자)",
     level: "8급",
   },
   {
@@ -206,7 +206,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "아우",
     meaningKey: "제",
     example: "형제(형과아우)",
-    idiom: "兄弟之情(형제간의정)",
+    idiom: "兄弟之情(형제간의 정)",
     level: "8급",
   },
   {
@@ -214,7 +214,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "일곱",
     meaningKey: "칠",
     example: "칠월(7월)",
-    idiom: "七轉八起(일곱번넘어져도여덟번일어남;끈기)",
+    idiom: "七轉八起(일곱 번 넘어져도 여덟 번 일어남; 끈기)",
     level: "8급",
   },
   {
@@ -222,7 +222,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "흙",
     meaningKey: "토",
     example: "토양(땅)",
-    idiom: "國土防衛(나라의땅을지킴)",
+    idiom: "國土防衛(나라의 땅을 지킴)",
     level: "8급",
   },
   {
@@ -230,7 +230,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "여덟",
     meaningKey: "팔",
     example: "팔각형(8각형)",
-    idiom: "八方美人(여러방면에서능통한사람)",
+    idiom: "八方美人(여러 방면에서 능통한 사람)",
     level: "8급",
   },
   {
@@ -238,7 +238,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "맏",
     meaningKey: "형",
     example: "형제",
-    idiom: "兄弟同心(형제가한마음으로협력함)",
+    idiom: "兄弟同心(형제가 한 마음으로 협력함)",
     level: "8급",
   },
   {
@@ -246,7 +246,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "불",
     meaningKey: "화",
     example: "화재(불이나는사고)",
-    idiom: "火上加油(불위에기름을붓다;상황을악화시킴)",
+    idiom: "火上加油(불 위에 기름을 붓다; 상황을 악화시킴)",
     level: "8급",
   },
 
@@ -256,7 +256,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "강",
     meaningKey: "강",
     example: "강물(흐르는큰물줄기)",
-    idiom: "강구연월(江口煙月):강가의아름다운풍경",
+    idiom: "강구연월(江口煙月): 강가의 아름다운 풍경",
     level: "7급",
   },
   {
@@ -264,7 +264,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "입",
     meaningKey: "구",
     example: "인구(사람수)",
-    idiom: "이구동성(異口同聲):여러사람의말이같음",
+    idiom: "이구동성(異口同聲): 여러 사람의 말이 같음",
     level: "7급",
   },
   {
@@ -272,7 +272,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "안",
     meaningKey: "내",
     example: "내부(안쪽)",
-    idiom: "내우외환(內憂外患):안팎의어려움",
+    idiom: "내우외환(內憂外患): 안팎의 어려움",
     level: "7급",
   },
   {
@@ -280,7 +280,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "해",
     meaningKey: "년",
     example: "연세(나이)",
-    idiom: "연년세세(年年歲歲):해마다,해를거듭하여",
+    idiom: "연년세세(年年歲歲): 해마다, 해를 거듭하여",
     level: "7급",
   },
   {
@@ -288,7 +288,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "큰",
     meaningKey: "대",
     example: "대문(큰문)",
-    idiom: "대동단결(大同團結):크게뭉쳐단결함",
+    idiom: "대동단결(大同團結): 크게 뭉쳐 단결함",
     level: "7급",
   },
   {
@@ -296,7 +296,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "눈",
     meaningKey: "목",
     example: "목적(눈으로보는목표)",
-    idiom: "목불인견(目不忍見):차마눈뜨고볼수없음",
+    idiom: "목불인견(目不忍見): 차마 눈 뜨고 볼 수 없음",
     level: "7급",
   },
   {
@@ -304,7 +304,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "흰",
     meaningKey: "백",
     example: "백색(흰색)",
-    idiom: "백미(白眉):여럿중가장뛰어난사람",
+    idiom: "백미(白眉): 여럿 중 가장 뛰어난 사람",
     level: "7급",
   },
   {
@@ -312,7 +312,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "산",
     meaningKey: "산",
     example: "산책(산을걷기)",
-    idiom: "산전수전(山戰水戰):온갖고생을겪음",
+    idiom: "산전수전(山戰水戰): 온갖 고생을 겪음",
     level: "7급",
   },
   {
@@ -320,7 +320,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "위",
     meaningKey: "상",
     example: "상승(위로오름)",
-    idiom: "상하탐지(上下探知):위아래를두루살핌",
+    idiom: "상하탐지(上下探知): 위아래를 두루 살핌",
     level: "7급",
   },
   {
@@ -328,7 +328,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "작을",
     meaningKey: "소",
     example: "소문(작고짧은이야기)",
-    idiom: "소탐대실(小貪大失):작은것을탐하다큰것을잃음",
+    idiom: "소탐대실(小貪大失): 작은 것을 탐하다 큰 것을 잃음",
     level: "7급",
   },
   {
@@ -336,7 +336,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "손",
     meaningKey: "수",
     example: "수공(손으로만드는일)",
-    idiom: "수수방관(袖手傍觀):팔짱끼고바라만봄",
+    idiom: "수수방관(袖手傍觀): 팔짱끼고 바라만 봄",
     level: "7급",
   },
   {
@@ -344,7 +344,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "바깥",
     meaningKey: "외",
     example: "외출(밖에나감)",
-    idiom: "내유외강(內柔外剛):속은약하고겉은강함",
+    idiom: "내유외강(內柔外剛): 속은 약하고 겉은 강함",
     level: "7급",
   },
   {
@@ -352,7 +352,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "오른",
     meaningKey: "우",
     example: "우회전(오른쪽으로돎)",
-    idiom: "좌우명(左右銘):좌우에새겨두는말",
+    idiom: "좌우명(左右銘): 좌우에 새겨두는 말",
     level: "7급",
   },
   {
@@ -360,7 +360,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "들",
     meaningKey: "입",
     example: "입장(안으로들어감)",
-    idiom: "입신양명(立身揚名):출세하여이름을날림",
+    idiom: "입신양명(立身揚名): 출세하여 이름을 날림",
     level: "7급",
   },
   {
@@ -368,7 +368,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "발",
     meaningKey: "족",
     example: "족구(발로하는구기)",
-    idiom: "족탈불급(足脫不及):발이벗겨져따라가지못함",
+    idiom: "족탈불급(足脫不及): 발이 벗겨져 따라가지 못함",
     level: "7급",
   },
   {
@@ -376,7 +376,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "왼",
     meaningKey: "좌",
     example: "좌회전(왼쪽으로돎)",
-    idiom: "좌지우지(左之右之):좌우로휘두르듯마음대로함",
+    idiom: "좌지우지(左之右之): 좌우로 휘두르듯 마음대로 함",
     level: "7급",
   },
   {
@@ -384,7 +384,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "가운데",
     meaningKey: "중",
     example: "중심(가운데)",
-    idiom: "중심불변(中心不變):중심이흔들리지않음",
+    idiom: "중심불변(中心不變): 중심이 흔들리지 않음",
     level: "7급",
   },
   {
@@ -392,7 +392,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "푸를",
     meaningKey: "청",
     example: "청춘(푸른시절)",
-    idiom: "청출어람(靑出於藍):제자가스승보다뛰어남",
+    idiom: "청출어람(靑出於藍): 제자가 스승보다 뛰어남",
     level: "7급",
   },
   {
@@ -400,7 +400,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "날",
     meaningKey: "출",
     example: "출발(시작하여나감)",
-    idiom: "출중지재(出衆之才):뛰어난재능",
+    idiom: "출중지재(出衆之才): 뛰어난 재능",
     level: "7급",
   },
   {
@@ -408,7 +408,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "아래",
     meaningKey: "하",
     example: "하락(아래로떨어짐)",
-    idiom: "하늘천따지(下天穿地):하늘을찌르고땅을꿰뚫음(과장표현)",
+    idiom: "하늘천따지(下天穿地): 하늘을 찌르고 땅을 꿰뚫음 (과장 표현)",
     level: "7급",
   },
 
@@ -418,7 +418,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "개",
     meaningKey: "견",
     example: "애견(사랑하는개)",
-    idiom: "우리가족은애견을데리고공원에산책을갔어요.",
+    idiom: "우리 가족은 애견을 데리고 공원에 산책을 갔어요.",
     level: "6급",
   },
   {
@@ -426,7 +426,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "몸",
     meaningKey: "기",
     example: "자기(자신)",
-    idiom: "그는자기일에책임을져야해요.",
+    idiom: "그는 자기 일에 책임을 져야 해요.",
     level: "6급",
   },
   {
@@ -434,7 +434,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "수풀",
     meaningKey: "림",
     example: "산림(산의나무와숲)",
-    idiom: "이지역은울창한산림으로유명해요.",
+    idiom: "이 지역은 울창한 산림으로 유명해요.",
     level: "6급",
   },
   {
@@ -442,7 +442,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "말",
     meaningKey: "마",
     example: "마차(말이끄는수레)",
-    idiom: "옛날에는마차가주요한교통수단이었어요.",
+    idiom: "옛날에는 마차가 주요한 교통수단이었어요.",
     level: "6급",
   },
   {
@@ -450,7 +450,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "이름",
     meaningKey: "명",
     example: "성명(성과이름)",
-    idiom: "시험지에는성명을정확히써야해요.",
+    idiom: "시험지에는 성명을 정확히 써야 해요.",
     level: "6급",
   },
   {
@@ -458,7 +458,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "일백",
     meaningKey: "백",
     example: "백화점(물건을파는큰가게)",
-    idiom: "주말에가족과백화점에갔어요.",
+    idiom: "주말에 가족과 백화점에 갔어요.",
     level: "6급",
   },
   {
@@ -466,7 +466,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "날",
     meaningKey: "생",
     example: "생일(태어난날)",
-    idiom: "오늘은제친구의생일이에요.",
+    idiom: "오늘은 제 친구의 생일이에요.",
     level: "6급",
   },
   {
@@ -474,7 +474,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "돌",
     meaningKey: "석",
     example: "암석(딱딱한돌)",
-    idiom: "이산은다양한암석으로이루어져있어요.",
+    idiom: "이 산은 다양한 암석으로 이루어져 있어요.",
     level: "6급",
   },
   {
@@ -482,7 +482,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "먼저",
     meaningKey: "선",
     example: "선생님(가르치는사람)",
-    idiom: "선생님께인사를드렸어요.",
+    idiom: "선생님께 인사를 드렸어요.",
     level: "6급",
   },
   {
@@ -490,7 +490,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "성씨",
     meaningKey: "성",
     example: "성명(성과이름)",
-    idiom: "성은김이고이름은지훈이에요.",
+    idiom: "성은 김이고 이름은 지훈이에요.",
     level: "6급",
   },
   {
@@ -498,7 +498,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "마음",
     meaningKey: "심",
     example: "중심(가운데마음또는중심위치)",
-    idiom: "이책은이야기의중심을잘잡고있어요.",
+    idiom: "이 책은 이야기의 중심을 잘 잡고 있어요.",
     level: "6급",
   },
   {
@@ -506,7 +506,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "양",
     meaningKey: "양",
     example: "양고기(양의고기)",
-    idiom: "나는양고기보다소고기를더좋아해요.",
+    idiom: "나는 양고기보다 소고기를 더 좋아해요.",
     level: "6급",
   },
   {
@@ -514,7 +514,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "물고기",
     meaningKey: "어",
     example: "어항(물고기를기르는통)",
-    idiom: "어항속금붕어가아주귀여워요.",
+    idiom: "어항 속 금붕어가 아주 귀여워요.",
     level: "6급",
   },
   {
@@ -522,7 +522,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "구슬",
     meaningKey: "옥",
     example: "옥돌(예쁜돌)",
-    idiom: "옥돌로만든장신구가인기를끌고있어요.",
+    idiom: "옥돌로 만든 장신구가 인기를 끌고 있어요.",
     level: "6급",
   },
   {
@@ -530,7 +530,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "소",
     meaningKey: "우",
     example: "우유(소의젖)",
-    idiom: "매일아침따뜻한우유를마셔요.",
+    idiom: "매일 아침 따뜻한 우유를 마셔요.",
     level: "6급",
   },
   {
@@ -538,7 +538,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "귀",
     meaningKey: "이",
     example: "이비인후과(귀·코·목병원)",
-    idiom: "귀가아파서이비인후과에갔어요.",
+    idiom: "귀가 아파서 이비인후과에 갔어요.",
     level: "6급",
   },
   {
@@ -546,7 +546,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "땅",
     meaningKey: "지",
     example: "지구(우리가사는행성)",
-    idiom: "지구는푸른별이라고불려요.",
+    idiom: "지구는 푸른 별이라고 불려요.",
     level: "6급",
   },
   {
@@ -554,7 +554,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "내",
     meaningKey: "천",
     example: "강천(강과내)",
-    idiom: "마을옆을흐르는강천이맑아요.",
+    idiom: "마을 옆을 흐르는 강천이 맑아요.",
     level: "6급",
   },
   {
@@ -562,7 +562,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "일천",
     meaningKey: "천",
     example: "천사(순수하고착한사람)",
-    idiom: "그녀는천사같은마음을가졌어요.",
+    idiom: "그녀는 천사같은 마음을 가졌어요.",
     level: "6급",
   },
   {
@@ -570,7 +570,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "하늘",
     meaningKey: "천",
     example: "천국(하늘나라)",
-    idiom: "착한사람은천국에간다고해요.",
+    idiom: "착한 사람은 천국에 간다고 해요.",
     level: "6급",
   },
 
@@ -580,7 +580,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "수레",
     meaningKey: "거",
     example: "자동차(스스로움직이는수레)",
-    idiom: "車水馬龍(차가끊이지않고말이달림)",
+    idiom: "車水馬龍(차가 끊이지 않고 말이 달림)",
     level: "준5급",
   },
   {
@@ -588,7 +588,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "수건",
     meaningKey: "건",
     example: "손수건(손닦는천)",
-    idiom: "無巾不濕(수건없이는젖지않음)",
+    idiom: "無巾不濕(수건 없이는 젖지 않음)",
     level: "준5급",
   },
   {
@@ -596,7 +596,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "예",
     meaningKey: "고",
     example: "고대(옛날)",
-    idiom: "古今同然(과거와현재가다르지않음)",
+    idiom: "古今同然(과거와 현재가 다르지 않음)",
     level: "준5급",
   },
   {
@@ -604,7 +604,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "장인",
     meaningKey: "공",
     example: "공장(일하는장소)",
-    idiom: "工夫(공부:노력함)",
+    idiom: "工夫(공부: 노력함)",
     level: "준5급",
   },
   {
@@ -612,7 +612,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "이제",
     meaningKey: "금",
     example: "오늘(현재)",
-    idiom: "今日是好日(오늘은좋은날이다)",
+    idiom: "今日是好日(오늘은 좋은 날이다)",
     level: "준5급",
   },
   {
@@ -620,7 +620,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "한가지",
     meaningKey: "동",
     example: "동료(같은일하는사람)",
-    idiom: "同心協力(마음을같이하여협력함)",
+    idiom: "同心協力(마음을 같이하여 협력함)",
     level: "준5급",
   },
   {
@@ -628,7 +628,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "힘",
     meaningKey: "력",
     example: "노력(힘을다함)",
-    idiom: "勉力圖存(열심히노력함)",
+    idiom: "勉力圖存(열심히 노력함)",
     level: "준5급",
   },
   {
@@ -636,7 +636,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "설",
     meaningKey: "립",
     example: "입학(학교에들어감)",
-    idiom: "自立更生(스스로일어서다시새삶)",
+    idiom: "自立更生(스스로 일어서 다시 새 삶)",
     level: "준5급",
   },
   {
@@ -644,7 +644,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "끝",
     meaningKey: "말",
     example: "말일(한달의마지막날)",
-    idiom: "末來可期(미래를기대함)",
+    idiom: "末來可期(미래를 기대함)",
     level: "준5급",
   },
   {
@@ -652,7 +652,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "글월",
     meaningKey: "문",
     example: "문화(글과예술)",
-    idiom: "文質彬彬(겉과속이조화로움)",
+    idiom: "文質彬彬(겉과 속이 조화로움)",
     level: "준5급",
   },
   {
@@ -660,7 +660,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "모",
     meaningKey: "방",
     example: "방법(방도)",
-    idiom: "方寸大亂(마음이몹시혼란함)",
+    idiom: "方寸大亂(마음이 몹시 혼란함)",
     level: "준5급",
   },
   {
@@ -668,7 +668,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "근본",
     meaningKey: "본",
     example: "본질(사물의근본)",
-    idiom: "本末顚倒(본말이뒤바뀜)",
+    idiom: "本末顚倒(본말이 뒤바뀜)",
     level: "준5급",
   },
   {
@@ -676,7 +676,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "지아비",
     meaningKey: "부",
     example: "부부(남편과아내)",
-    idiom: "夫唱婦隨(남편이노래하면아내가따름)",
+    idiom: "夫唱婦隨(남편이 노래하면 아내가 따름)",
     level: "준5급",
   },
   {
@@ -684,7 +684,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "아니",
     meaningKey: "불",
     example: "불가(할수없음)",
-    idiom: "不撓不屈(굴하지않고꺾이지않음)",
+    idiom: "不撓不屈(굴하지 않고 꺾이지 않음)",
     level: "준5급",
   },
   {
@@ -692,7 +692,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "선비",
     meaningKey: "사",
     example: "기사(기술자),사대부(선비)",
-    idiom: "士氣旺盛(사기가왕성함)",
+    idiom: "士氣旺盛(사기가 왕성함)",
     level: "준5급",
   },
   {
@@ -700,7 +700,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "저녁",
     meaningKey: "석",
     example: "석양(저녁해)",
-    idiom: "夕陽無限好(석양은무한히아름다움)",
+    idiom: "夕陽無限好(석양은 무한히 아름다움)",
     level: "준5급",
   },
   {
@@ -708,7 +708,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "세상",
     meaningKey: "세",
     example: "세계(온세상)",
-    idiom: "世外桃源(속세를벗어난이상향)",
+    idiom: "世外桃源(속세를 벗어난 이상향)",
     level: "준5급",
   },
   {
@@ -716,7 +716,7 @@ export const hanjaData: HanjaData[] = [
     meaning: "적을",
     meaningKey: "소",
     example: "소년(어린남자)",
-    idiom: "少壯不努力(젊을때노력하지않으면)",
+    idiom: "少壯不努力(젊을 때 노력하지 않으면)",
     level: "준5급",
   },
   {

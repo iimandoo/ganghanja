@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { theme } from '@/styles/theme';
-import { secondaryButton } from '@/styles/mixins';
+import styled from "styled-components";
+import { theme } from "@/styles/theme";
+import { secondaryButton } from "@/styles/mixins";
 
 export const Container = styled.div`
   display: flex;
@@ -21,9 +21,13 @@ export const Container = styled.div`
 `;
 
 export const LevelButton = styled.button<{ $active: boolean }>`
-  background: ${props => props.$active ? theme.colors.primary.main : theme.colors.white};
-  color: ${props => props.$active ? theme.colors.white : theme.colors.gray.medium};
-  border: 2px solid ${props => props.$active ? theme.colors.primary.main : theme.colors.gray.border};
+  background: ${(props) =>
+    props.$active ? theme.colors.primary.main : theme.colors.white};
+  color: ${(props) =>
+    props.$active ? theme.colors.white : theme.colors.gray.medium};
+  border: 2px solid
+    ${(props) =>
+      props.$active ? theme.colors.primary.main : theme.colors.gray.border};
   padding: 5px 10px;
   border-radius: ${theme.borderRadius.pill};
   font-size: ${theme.fontSize.lg};
@@ -36,8 +40,10 @@ export const LevelButton = styled.button<{ $active: boolean }>`
   &:hover {
     transform: translateY(-1px);
     box-shadow: ${theme.shadows.md};
-    background: ${props => props.$active ? theme.colors.primary.dark : theme.colors.gray.light};
-    border-color: ${props => props.$active ? theme.colors.primary.dark : '#cbd5e1'};
+    background: ${(props) =>
+      props.$active ? theme.colors.primary.dark : theme.colors.gray.light};
+    border-color: ${(props) =>
+      props.$active ? theme.colors.primary.dark : "#cbd5e1"};
   }
 
   &:active {
@@ -57,7 +63,9 @@ export const LevelButton = styled.button<{ $active: boolean }>`
   }
 `;
 
-export const ShuffleButton = styled.button<{ $variant?: "primary" | "secondary" }>`
+export const ShuffleButton = styled.button<{
+  $variant?: "primary" | "secondary";
+}>`
   ${secondaryButton}
   padding: 4px 8px;
   font-size: ${theme.fontSize.md};
@@ -74,6 +82,7 @@ export const ShuffleButton = styled.button<{ $variant?: "primary" | "secondary" 
 
     span {
       display: none;
+      width: 0;
     }
   }
 `;

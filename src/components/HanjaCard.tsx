@@ -5,12 +5,13 @@ import styled from "styled-components";
 import { HanjaData } from "@/data/hanjaData";
 
 interface HanjaCardProps {
-  hanja: HanjaData;
+  hanja: HanjaData | null;
   onFlip?: () => void;
   resetFlip?: boolean;
+  disabled?: boolean;
 }
 
-const CardContainer = styled.div`
+const CardContainer = styled.div<{ $disabled?: boolean }>`
   width: 480px; /* 기존 410px에서 30px 증가 */
   height: 600px;
   perspective: 2000px;
@@ -20,6 +21,7 @@ const CardContainer = styled.div`
   position: relative;
   margin: 0 auto;
   touch-action: manipulation;
+  cursor: ${(props) => (props.$disabled ? "default" : "pointer")};
   @media (max-width: 768px) {
     width: 360px;
     height: 470px;
@@ -201,7 +203,12 @@ const FlipHint = styled.div`
   }
 `;
 
-const HanjaCard: React.FC<HanjaCardProps> = ({ hanja, onFlip, resetFlip }) => {
+const HanjaCard: React.FC<HanjaCardProps> = ({
+  hanja,
+  onFlip,
+  resetFlip,
+  disabled = false,
+}) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [noAnimation, setNoAnimation] = useState(false);
 
@@ -219,39 +226,52 @@ const HanjaCard: React.FC<HanjaCardProps> = ({ hanja, onFlip, resetFlip }) => {
   }, [resetFlip]);
 
   const handleCardClick = () => {
+    if (disabled || !hanja) return;
     setNoAnimation(false);
     setIsFlipped(!isFlipped);
     onFlip?.();
   };
 
   return (
-    <CardContainer onClick={handleCardClick}>
+    <CardContainer onClick={handleCardClick} $disabled={disabled}>
       <CardInner $isFlipped={isFlipped} $noAnimation={noAnimation}>
         <CardFront>
-          <LevelBadgeFront>{hanja.level}</LevelBadgeFront>
-          <HanjaCharacter>{hanja.character}</HanjaCharacter>
-          <FlipHint>카드를 클릭해서 뒤집어보세요!</FlipHint>
+          {hanja && <LevelBadgeFront>{hanja.level}</LevelBadgeFront>}
+          <HanjaCharacter>{hanja ? hanja.character : ""}</HanjaCharacter>
+          {!disabled && <FlipHint>카드를 클릭해서 뒤집어보세요!</FlipHint>}
+          {disabled && <FlipHint>급수를 선택해주세요!</FlipHint>}
         </CardFront>
 
         <CardBack>
-          <LevelBadgeBack>{hanja.level}</LevelBadgeBack>
+          {hanja && <LevelBadgeBack>{hanja.level}</LevelBadgeBack>}
           <BackContent>
-            <InfoSection>
-              <InfoTitle>뜻(음)</InfoTitle>
-              <InfoText>
-                {hanja.meaning} {hanja.meaningKey}
-              </InfoText>
-            </InfoSection>
+            {hanja ? (
+              <>
+                <InfoSection>
+                  <InfoTitle>뜻(음)</InfoTitle>
+                  <InfoText>
+                    {hanja.meaning} {hanja.meaningKey}
+                  </InfoText>
+                </InfoSection>
 
-            <InfoSection>
-              <InfoTitle>단어예시</InfoTitle>
-              <InfoText>{hanja.example}</InfoText>
-            </InfoSection>
+                <InfoSection>
+                  <InfoTitle>단어예시</InfoTitle>
+                  <InfoText>{hanja.example}</InfoText>
+                </InfoSection>
 
-            <InfoSection>
-              <InfoTitle>사자성어/예문</InfoTitle>
-              <InfoText>{hanja.idiom}</InfoText>
-            </InfoSection>
+                <InfoSection>
+                  <InfoTitle>사자성어/예문</InfoTitle>
+                  <InfoText>{hanja.idiom}</InfoText>
+                </InfoSection>
+              </>
+            ) : (
+              <InfoSection>
+                <InfoTitle>급수를 선택해주세요</InfoTitle>
+                <InfoText>
+                  학습할 급수를 선택하면 한자 카드가 표시됩니다.
+                </InfoText>
+              </InfoSection>
+            )}
           </BackContent>
         </CardBack>
       </CardInner>

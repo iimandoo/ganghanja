@@ -7,12 +7,14 @@ interface LevelFilterProps {
   selectedLevels: Level[];
   onLevelFilter: (level: Level) => void;
   onShuffle: () => void;
+  disabled?: boolean;
 }
 
 export const LevelFilter: React.FC<LevelFilterProps> = ({
   selectedLevels,
   onLevelFilter,
   onShuffle,
+  disabled = false,
 }) => {
   return (
     <Container>
@@ -30,6 +32,7 @@ export const LevelFilter: React.FC<LevelFilterProps> = ({
         $variant="secondary"
         aria-label={MESSAGES.BUTTONS.SHUFFLE}
         title={MESSAGES.BUTTONS.SHUFFLE}
+        disabled={disabled}
       >
         <IoShuffle size={18} aria-hidden="true" />
         <span>랜덤 섞기</span>

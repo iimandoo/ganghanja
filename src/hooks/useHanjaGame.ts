@@ -50,15 +50,19 @@ export const useHanjaGame = (): UseHanjaGameReturn => {
         );
       setFilteredData(filtered);
     } else {
-      const shuffledData = [...hanjaData].sort(() => Math.random() - 0.5);
-      setFilteredData(shuffledData);
+      setFilteredData([]);
     }
 
     // 상태 초기화
     setCurrentIndex(0);
     setUsedIndices(new Set());
-    setHistory([0]);
-    setHistoryPosition(0);
+    if (selectedLevels.length > 0) {
+      setHistory([0]);
+      setHistoryPosition(0);
+    } else {
+      setHistory([]);
+      setHistoryPosition(-1);
+    }
 
     // 카드 플립 상태 리셋
     setResetCardFlip(true);
@@ -105,8 +109,8 @@ export const useHanjaGame = (): UseHanjaGameReturn => {
       const shuffledData = [...filtered].sort(() => Math.random() - 0.5);
       setFilteredData(shuffledData);
     } else {
-      const shuffledData = [...hanjaData].sort(() => Math.random() - 0.5);
-      setFilteredData(shuffledData);
+      setFilteredData([]);
+      return;
     }
 
     setUsedIndices(new Set());
@@ -127,7 +131,9 @@ export const useHanjaGame = (): UseHanjaGameReturn => {
     }
   };
 
-  const progress = (usedIndices.size / filteredData.length) * 100;
+  const progress = selectedLevels.length === 0 || filteredData.length === 0 || history.length === 0
+    ? 0
+    : ((historyPosition + 1) / history.length) * 100;
 
   return {
     currentIndex,

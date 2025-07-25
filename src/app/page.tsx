@@ -161,9 +161,7 @@ export default function Home() {
     updateDocumentMetadata(selectedLevels);
   }, [selectedLevels]);
 
-  if (filteredData.length === 0) {
-    return <></>;
-  }
+  // 선택된 급수가 없어도 카드는 보여주되, 내용은 숨김
 
   return (
     <Container>
@@ -216,6 +214,7 @@ export default function Home() {
         selectedLevels={selectedLevels}
         onLevelFilter={handleLevelFilter}
         onShuffle={handleShuffle}
+        disabled={selectedLevels.length === 0}
       />
 
       <ProgressBar progress={progress} />
@@ -224,17 +223,18 @@ export default function Home() {
           <GameControls
             onPrevious={handlePrevious}
             onNext={handleNext}
-            canGoPrevious={historyPosition > 0}
+            canGoPrevious={filteredData.length > 0 && historyPosition > 0}
             canGoNext={
-              !(
+              filteredData.length > 0 && !(
                 currentIndex >= filteredData.length - 1 &&
                 historyPosition >= history.length - 1
               )
             }
           />
           <HanjaCard
-            hanja={filteredData[currentIndex]}
+            hanja={filteredData.length > 0 ? filteredData[currentIndex] : null}
             resetFlip={resetCardFlip}
+            disabled={filteredData.length === 0}
           />
         </CardSection>
       </GameArea>

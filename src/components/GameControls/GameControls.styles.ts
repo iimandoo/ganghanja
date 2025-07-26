@@ -59,7 +59,7 @@ export const SideButton = styled.button<{ $variant?: "primary" | "secondary" }>`
   @media (max-width: ${theme.breakpoints.mobile}) {
     position: absolute;
     top: auto;
-    bottom: -50px;
+    bottom: -40px;
     min-width: 40px;
     width: 25%;
     height: 40px;

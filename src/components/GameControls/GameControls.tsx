@@ -1,7 +1,7 @@
 import React from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import { MESSAGES } from "@/constants";
-import { Container, SideButton } from "./GameControls.styles";
+import { SideButton } from "./GameControls.styles";
 
 interface GameControlsProps {
   onPrevious: () => void;
@@ -16,7 +16,6 @@ export const GameControls: React.FC<GameControlsProps> = ({
   canGoPrevious,
   canGoNext,
 }) => {
-  1;
   return (
     <>
       <SideButton

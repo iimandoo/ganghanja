@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { hanjaData, HanjaData } from '@/data/hanjaData';
-import { Level, LEVELS, ANIMATION_DELAYS } from '@/constants';
+import { useState, useEffect } from "react";
+import { hanjaData, HanjaData } from "@/data/hanjaData";
+import { Level, ANIMATION_DELAYS } from "@/constants";
 
 export interface UseHanjaGameReturn {
   currentIndex: number;
@@ -21,7 +21,12 @@ export const useHanjaGame = (): UseHanjaGameReturn => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [filteredData, setFilteredData] = useState<HanjaData[]>([]);
   const [selectedLevels, setSelectedLevels] = useState<Level[]>([
-    '8급', '7급', '6급', '준5급', '5급'
+    "8급",
+    "7급",
+    "6급",
+    "준5급",
+    "5급",
+    "준4급",
   ]);
   const [usedIndices, setUsedIndices] = useState<Set<number>>(new Set());
   const [resetCardFlip, setResetCardFlip] = useState(false);
@@ -43,9 +48,9 @@ export const useHanjaGame = (): UseHanjaGameReturn => {
       const filtered = hanjaData
         .filter((hanja) => selectedLevels.includes(hanja.level as Level))
         .sort((a, b) =>
-          a.meaningKey.localeCompare(b.meaningKey, 'ko-KR', {
-            caseFirst: 'lower',
-            sensitivity: 'base',
+          a.meaningKey.localeCompare(b.meaningKey, "ko-KR", {
+            caseFirst: "lower",
+            sensitivity: "base",
           })
         );
       setFilteredData(filtered);
@@ -78,7 +83,7 @@ export const useHanjaGame = (): UseHanjaGameReturn => {
     if (historyPosition >= history.length - 1) {
       const nextIndex = (currentIndex + 1) % filteredData.length;
       setCurrentIndex(nextIndex);
-      setUsedIndices(prev => new Set(prev).add(nextIndex));
+      setUsedIndices((prev) => new Set(prev).add(nextIndex));
 
       const newHistory = [...history.slice(0, historyPosition + 1), nextIndex];
       setHistory(newHistory);
@@ -103,7 +108,7 @@ export const useHanjaGame = (): UseHanjaGameReturn => {
 
   const handleShuffle = () => {
     if (selectedLevels.length > 0) {
-      const filtered = hanjaData.filter(hanja =>
+      const filtered = hanjaData.filter((hanja) =>
         selectedLevels.includes(hanja.level as Level)
       );
       const shuffledData = [...filtered].sort(() => Math.random() - 0.5);
@@ -125,15 +130,18 @@ export const useHanjaGame = (): UseHanjaGameReturn => {
 
   const handleLevelFilter = (level: Level) => {
     if (selectedLevels.includes(level)) {
-      setSelectedLevels(selectedLevels.filter(l => l !== level));
+      setSelectedLevels(selectedLevels.filter((l) => l !== level));
     } else {
       setSelectedLevels([...selectedLevels, level]);
     }
   };
 
-  const progress = selectedLevels.length === 0 || filteredData.length === 0 || history.length === 0
-    ? 0
-    : ((historyPosition + 1) / history.length) * 100;
+  const progress =
+    selectedLevels.length === 0 ||
+    filteredData.length === 0 ||
+    history.length === 0
+      ? 0
+      : ((historyPosition + 1) / history.length) * 100;
 
   return {
     currentIndex,

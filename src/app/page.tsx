@@ -70,17 +70,17 @@ const SubTitle = styled.h2`
   }
 `;
 
-const Subtitle = styled.p`
-  font-size: ${theme.fontSize.xl};
-  color: ${theme.colors.gray.medium};
-  margin: 0;
-  font-weight: ${theme.fontWeight.medium};
-  font-family: "Noto Sans KR", sans-serif;
+// const Subtitle = styled.p`
+//   font-size: ${theme.fontSize.xl};
+//   color: ${theme.colors.gray.medium};
+//   margin: 0;
+//   font-weight: ${theme.fontWeight.medium};
+//   font-family: "Noto Sans KR", sans-serif;
 
-  @media (max-width: ${theme.breakpoints.tablet}) {
-    font-size: 1.2rem;
-  }
-`;
+//   @media (max-width: ${theme.breakpoints.tablet}) {
+//     font-size: 1.2rem;
+//   }
+// `;
 
 const GameArea = styled.div`
   display: flex;
@@ -138,7 +138,6 @@ export default function Home() {
     setContactPhone,
     setContactEmail,
     setContactKakao,
-    handleModalOpen,
     handleModalClose,
     handleSubmitRequest,
   } = modalHook;
@@ -149,7 +148,6 @@ export default function Home() {
     rating,
     showSuccessMessage,
     setChatMessage,
-    setRating,
     handleChatOpen,
     handleChatClose,
     handleRatingClick,
@@ -174,10 +172,7 @@ export default function Home() {
             name: "대한검정회 한자카드",
             description:
               "대한검정회 한자 급수별 학습 카드게임입니다. 8급, 7급, 6급, 준5급, 5급 한자를 재미있게 학습하세요.",
-            url:
-              typeof window !== "undefined"
-                ? window.location.href
-                : "https://hanjacard.com",
+            url: "https://hanjacard.com",
             applicationCategory: "EducationalApplication",
             operatingSystem: "Any",
             browserRequirements: "Requires JavaScript. Requires HTML5.",
@@ -225,7 +220,8 @@ export default function Home() {
             onNext={handleNext}
             canGoPrevious={filteredData.length > 0 && historyPosition > 0}
             canGoNext={
-              filteredData.length > 0 && !(
+              filteredData.length > 0 &&
+              !(
                 currentIndex >= filteredData.length - 1 &&
                 historyPosition >= history.length - 1
               )

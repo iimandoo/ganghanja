@@ -1,7 +1,8 @@
-import React from 'react';
-import { IoShuffle } from 'react-icons/io5';
-import { LEVELS, MESSAGES, Level } from '@/constants';
-import { Container, LevelButton, ShuffleButton } from './LevelFilter.styles';
+import React from "react";
+import { IoShuffle } from "react-icons/io5";
+import { LEVELS, MESSAGES } from "@/constants";
+import type { Level } from "@/constants";
+import { Container, LevelButton, ShuffleButton } from "./LevelFilter.styles";
 
 interface LevelFilterProps {
   selectedLevels: Level[];

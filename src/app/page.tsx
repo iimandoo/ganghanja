@@ -209,7 +209,7 @@ export default function Home() {
         }}
       />
       <Header>
-        <Title as="h1">급수시험 한자카드</Title>{" "}
+        <Title as="h1">한자 급수시험</Title>{" "}
         <TypeSelect
           selectedType={selectedType}
           onTypeChange={handleTypeChange}

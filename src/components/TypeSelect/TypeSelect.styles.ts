@@ -20,10 +20,10 @@ export const SelectWrapper = styled.div`
   display: inline-block;
 `;
 
-export const Select = styled.select`
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+export const SelectButton = styled.button<{ $isOpen: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
   padding: 10px 12px;
   font-size: 18px;
@@ -57,45 +57,136 @@ export const Select = styled.select`
     transform: translateY(0.5px);
   }
 
-  option {
-    padding: 12px 16px;
-    font-weight: 500;
-    color: #191f28;
-    background: ${theme.colors.white};
-  }
+  ${({ $isOpen }) =>
+    $isOpen &&
+    `
+    border-color: ${theme.colors.primary.main};
+    box-shadow: 0 0 0 3px rgba(38, 166, 154, 0.1), 0 2px 8px rgba(38, 166, 154, 0.15);
+  `}
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     font-size: 14px;
-    padding: 12px 36px 12px 14px;
-    min-width: 160px;
+    min-width: 140px;
   }
 `;
 
-export const SelectIcon = styled.div`
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
+export const SelectIcon = styled.div<{ $isOpen: boolean }>`
   color: #8b95a1;
   transition: all 0.2s ease;
+  margin-left: 8px;
 
   svg {
     width: 20px;
     height: 20px;
   }
 
-  ${Select}:focus + & {
+  transform: ${({ $isOpen }) => ($isOpen ? "rotate(180deg)" : "rotate(0deg)")};
+
+  ${SelectButton}:hover & {
     color: ${theme.colors.primary.main};
-    transform: translateY(-50%) rotate(180deg);
+  }
+
+  ${SelectButton}:focus & {
+    color: ${theme.colors.primary.main};
   }
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    right: 10px;
-
     svg {
       width: 18px;
       height: 18px;
     }
   }
+`;
+
+export const DropdownList = styled.ul<{ $isOpen: boolean }>`
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 1000;
+
+  background: ${theme.colors.white};
+  border: 1.5px solid #e5e8eb;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  max-height: 240px;
+  overflow-y: auto;
+
+  opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
+  visibility: ${({ $isOpen }) => ($isOpen ? "visible" : "hidden")};
+  transform: ${({ $isOpen }) =>
+    $isOpen ? "translateY(0) scale(1)" : "translateY(-8px) scale(0.95)"};
+
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  margin: 0;
+  padding: 8px 0;
+  list-style: none;
+
+  /* 스크롤바 스타일링 */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #e5e8eb;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #d1d5db;
+  }
+`;
+
+export const DropdownItem = styled.li<{ $isSelected: boolean }>`
+  padding: 10px 12px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #191f28;
+  cursor: pointer;
+  text-align: left;
+
+  transition: all 0.15s ease;
+
+  background: ${({ $isSelected }) =>
+    $isSelected ? "rgba(38, 166, 154, 0.08)" : "transparent"};
+
+  &:hover {
+    background: rgba(38, 166, 154, 0.06);
+  }
+
+  &:active {
+    background: rgba(38, 166, 154, 0.12);
+  }
+
+  ${({ $isSelected }) =>
+    $isSelected &&
+    `
+    color: ${theme.colors.primary.main};
+    font-weight: 600;
+    
+    &::after {
+      content: "✓";
+      float: right;
+      color: ${theme.colors.primary.main};
+      font-weight: 600;
+    }
+  `}
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+`;
+
+export const HiddenSelect = styled.select`
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
 `;

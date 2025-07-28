@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { hanjaData, HanjaData } from "@/data/hanjaData";
-import { Level, ANIMATION_DELAYS } from "@/constants";
+import { Level, HanjaType, ANIMATION_DELAYS } from "@/constants";
 
 export interface UseHanjaGameReturn {
   currentIndex: number;
   filteredData: HanjaData[];
   selectedLevels: Level[];
+  selectedType: HanjaType;
   usedIndices: Set<number>;
   resetCardFlip: boolean;
   history: number[];
@@ -15,6 +16,7 @@ export interface UseHanjaGameReturn {
   handlePrevious: () => void;
   handleShuffle: () => void;
   handleLevelFilter: (level: Level) => void;
+  handleTypeChange: (type: HanjaType) => void;
 }
 
 export const useHanjaGame = (): UseHanjaGameReturn => {
@@ -28,6 +30,8 @@ export const useHanjaGame = (): UseHanjaGameReturn => {
     "5급",
     "준4급",
   ]);
+  const [selectedType, setSelectedType] =
+    useState<HanjaType>("대한검정회 TypeA");
   const [usedIndices, setUsedIndices] = useState<Set<number>>(new Set());
   const [resetCardFlip, setResetCardFlip] = useState(false);
   const [history, setHistory] = useState<number[]>([0]);
@@ -58,15 +62,15 @@ export const useHanjaGame = (): UseHanjaGameReturn => {
       setFilteredData([]);
     }
 
-    // 상태 초기화
+    // 상태 초기화 - selectedLevels 변경 시 항상 초기화
     setCurrentIndex(0);
     setUsedIndices(new Set());
+    setHistoryPosition(0);
+
     if (selectedLevels.length > 0) {
       setHistory([0]);
-      setHistoryPosition(0);
     } else {
       setHistory([]);
-      setHistoryPosition(-1);
     }
 
     // 카드 플립 상태 리셋
@@ -136,17 +140,20 @@ export const useHanjaGame = (): UseHanjaGameReturn => {
     }
   };
 
+  const handleTypeChange = (type: HanjaType) => {
+    setSelectedType(type);
+  };
+
   const progress =
-    selectedLevels.length === 0 ||
-    filteredData.length === 0 ||
-    history.length === 0
+    selectedLevels.length === 0 || filteredData.length === 0
       ? 0
-      : ((historyPosition + 1) / history.length) * 100;
+      : ((currentIndex + 1) / filteredData.length) * 100;
 
   return {
     currentIndex,
     filteredData,
     selectedLevels,
+    selectedType,
     usedIndices,
     resetCardFlip,
     history,
@@ -156,5 +163,6 @@ export const useHanjaGame = (): UseHanjaGameReturn => {
     handlePrevious,
     handleShuffle,
     handleLevelFilter,
+    handleTypeChange,
   };
 };

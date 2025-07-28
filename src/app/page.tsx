@@ -5,6 +5,7 @@ import styled from "styled-components";
 import HanjaCard from "@/components/HanjaCard";
 import { LevelFilter } from "@/components/LevelFilter";
 import { ProgressBar } from "@/components/ProgressBar";
+import { TypeSelect } from "@/components/TypeSelect";
 import { GameControls } from "@/components/GameControls";
 import { ContactModal } from "@/components/ContactModal";
 import { ChatModal } from "@/components/ChatModal";
@@ -118,6 +119,7 @@ export default function Home() {
     currentIndex,
     filteredData,
     selectedLevels,
+    selectedType,
     resetCardFlip,
     history,
     historyPosition,
@@ -126,6 +128,7 @@ export default function Home() {
     handlePrevious,
     handleShuffle,
     handleLevelFilter,
+    handleTypeChange,
   } = gameHook;
 
   const {
@@ -201,9 +204,10 @@ export default function Home() {
         }}
       />
       <Header>
-        <SubTitle as="h2">[대한검정회]</SubTitle>
         <Title as="h1">급수시험 한자 카드</Title>
       </Header>
+
+      <TypeSelect selectedType={selectedType} onTypeChange={handleTypeChange} />
 
       <LevelFilter
         selectedLevels={selectedLevels}
@@ -212,7 +216,7 @@ export default function Home() {
         disabled={selectedLevels.length === 0}
       />
 
-      <ProgressBar progress={progress} />
+      <ProgressBar key={`progress-${progress}`} progress={progress} />
       <GameArea>
         <CardSection>
           <GameControls

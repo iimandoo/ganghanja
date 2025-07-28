@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { theme } from '@/styles/theme';
+import styled from "styled-components";
+import { theme } from "@/styles/theme";
 
 export const Container = styled.div`
   width: 480px;
@@ -8,11 +8,11 @@ export const Container = styled.div`
   border-radius: 3px;
   overflow: hidden;
   margin: 0px auto 20px auto;
-  
+
   @media (max-width: ${theme.breakpoints.tablet}) {
     width: 360px;
   }
-  
+
   @media (max-width: ${theme.breakpoints.mobile}) {
     width: 280px;
   }
@@ -22,6 +22,6 @@ export const ProgressFill = styled.div<{ $progress: number }>`
   height: 100%;
   background: ${theme.colors.primary.main};
   border-radius: 3px;
-  transition: width ${theme.transitions.smooth};
-  width: ${props => props.$progress}%;
+  transition: width 0.3s ease;
+  width: ${(props) => Math.max(0, Math.min(100, props.$progress))}%;
 `;

@@ -1,5 +1,7 @@
 export const LEVELS = ["8급", "7급", "6급", "준5급", "5급", "준4급"] as const;
 
+export const HANJA_TYPES = ["대한검정회", "어문회"] as const;
+
 export const MESSAGES = {
   CHAT: {
     WELCOME:
@@ -71,3 +73,4 @@ export const ANIMATION_DELAYS = {
 } as const;
 
 export type Level = (typeof LEVELS)[number];
+export type HanjaType = (typeof HANJA_TYPES)[number];

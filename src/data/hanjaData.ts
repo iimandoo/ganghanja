@@ -6423,7 +6423,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       character: "九",
       meaning: "아홉",
       meaningKey: "구",
-      example: "구월(九月), 구사일생",
+      example: "구월(九月)",
       idiom: "구사일생(九死一生): 아홉 번 죽을 뻔하다 살아남",
       level: "8급",
     },
@@ -6432,7 +6432,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       meaning: "입",
       meaningKey: "구",
       example: "입구(入口), 구두",
-      idiom: "다문 입은 재앙을 막는다",
+      idiom: "",
       level: "8급",
     },
     {

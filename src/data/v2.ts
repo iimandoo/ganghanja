@@ -2262,7 +2262,7 @@ export const hanjaData: hanjaGroup = {
       character: "九",
       meaning: "아홉",
       meaningKey: "구",
-      example: "구월(九月), 구사일생",
+      example: "구월(九月)",
       idiom: "구사일생(九死一生): 아홉 번 죽을 뻔하다 살아남",
       level: "8급",
       type: "TYPE_B",

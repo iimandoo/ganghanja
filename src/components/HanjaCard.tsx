@@ -169,7 +169,7 @@ const InfoTitle = styled.h3`
 `;
 
 const InfoText = styled.p`
-  font-size: 2rem;
+  font-size: 1.6rem;
   line-height: 1.5;
   margin: 0;
   font-weight: 700;

@@ -1,7 +1,13 @@
-import React from 'react';
-import { IoClose, IoSend, IoStar, IoStarOutline, IoChatbubbleEllipses } from 'react-icons/io5';
-import { MESSAGES } from '@/constants';
-import { useEmailService } from '@/hooks/useEmailService';
+import React from "react";
+import {
+  IoClose,
+  IoSend,
+  IoStar,
+  IoStarOutline,
+  IoChatbubbleEllipses,
+} from "react-icons/io5";
+import { MESSAGES } from "@/constants";
+import { useEmailService } from "@/hooks/useEmailService";
 import {
   FloatingChatButton,
   ChatOverlay,
@@ -16,8 +22,8 @@ import {
   ChatTextArea,
   StarContainer,
   StarButton,
-  ChatSendButton
-} from './ChatModal.styles';
+  ChatSendButton,
+} from "./ChatModal.styles";
 
 interface ChatModalProps {
   isOpen: boolean;
@@ -58,16 +64,14 @@ export const ChatModal: React.FC<ChatModalProps> = ({
         <ChatOverlay onClick={onClose}>
           <ChatContainer onClick={(e) => e.stopPropagation()}>
             <ChatHeader>
-              <ChatTitle>CS</ChatTitle>
+              <ChatTitle>고객센터</ChatTitle>
               <ChatCloseButton onClick={onClose}>
                 <IoClose />
               </ChatCloseButton>
             </ChatHeader>
 
             <ChatBody>
-              <ChatMessage>
-                {MESSAGES.CHAT.WELCOME}
-              </ChatMessage>
+              <ChatMessage>{MESSAGES.CHAT.WELCOME}</ChatMessage>
 
               {showSuccessMessage && (
                 <SuccessMessage>{MESSAGES.CHAT.SUCCESS}</SuccessMessage>

@@ -30,6 +30,10 @@ const Container = styled.main`
 `;
 
 const Header = styled.header`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
   text-align: center;
   margin-bottom: 40px;
 
@@ -120,6 +124,7 @@ export default function Home() {
     filteredData,
     selectedLevels,
     selectedType,
+    availableLevels,
     resetCardFlip,
     history,
     historyPosition,
@@ -204,13 +209,16 @@ export default function Home() {
         }}
       />
       <Header>
-        <Title as="h1">급수시험 한자 카드</Title>
+        <Title as="h1">급수시험 한자카드</Title>{" "}
+        <TypeSelect
+          selectedType={selectedType}
+          onTypeChange={handleTypeChange}
+        />
       </Header>
-
-      <TypeSelect selectedType={selectedType} onTypeChange={handleTypeChange} />
 
       <LevelFilter
         selectedLevels={selectedLevels}
+        availableLevels={availableLevels}
         onLevelFilter={handleLevelFilter}
         onShuffle={handleShuffle}
         disabled={selectedLevels.length === 0}

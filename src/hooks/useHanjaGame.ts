@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { hanjaData, HanjaData } from "@/data/hanjaData";
+import { hanjaGroupData, HanjaData } from "@/data/hanjaData";
 import { Level, HanjaType, ANIMATION_DELAYS } from "@/constants";
 
 export interface UseHanjaGameReturn {
@@ -7,6 +7,7 @@ export interface UseHanjaGameReturn {
   filteredData: HanjaData[];
   selectedLevels: Level[];
   selectedType: HanjaType;
+  availableLevels: Level[];
   usedIndices: Set<number>;
   resetCardFlip: boolean;
   history: number[];
@@ -30,28 +31,59 @@ export const useHanjaGame = (): UseHanjaGameReturn => {
     "5급",
     "준4급",
   ]);
-  const [selectedType, setSelectedType] =
-    useState<HanjaType>("대한검정회 TypeA");
+  const [selectedType, setSelectedType] = useState<HanjaType>("대한검정회");
   const [usedIndices, setUsedIndices] = useState<Set<number>>(new Set());
   const [resetCardFlip, setResetCardFlip] = useState(false);
   const [history, setHistory] = useState<number[]>([0]);
   const [historyPosition, setHistoryPosition] = useState(0);
 
+  // 현재 선택된 타입에 따라 데이터 가져오기
+  const getCurrentHanjaData = (): HanjaData[] => {
+    return selectedType === "대한검정회"
+      ? hanjaGroupData.TypeA
+      : hanjaGroupData.TypeB;
+  };
+
+  // 현재 타입에서 사용 가능한 급수 목록 가져오기
+  const getAvailableLevels = (): Level[] => {
+    const currentData = getCurrentHanjaData();
+    const levels = [...new Set(currentData.map((item) => item.level))];
+    // 급수 순서대로 정렬
+    const levelOrder = [
+      "8급",
+      "7급",
+      "6급",
+      "준5급",
+      "5급",
+      "준4급",
+      "4급",
+      "준3급",
+      "3급",
+    ];
+    return levels.sort(
+      (a, b) => levelOrder.indexOf(a) - levelOrder.indexOf(b)
+    ) as Level[];
+  };
+
   // 초기 데이터 설정
   useEffect(() => {
-    const shuffledData = [...hanjaData].sort(() => Math.random() - 0.5);
+    const currentData = getCurrentHanjaData();
+    const shuffledData = [...currentData].sort(() => Math.random() - 0.5);
     setFilteredData(shuffledData);
     setCurrentIndex(0);
     setHistory([0]);
     setHistoryPosition(0);
-  }, []);
+  }, [selectedType]);
 
   // 선택된 급수가 변경될 때 데이터 필터링
   useEffect(() => {
     if (selectedLevels.length > 0) {
-      const filtered = hanjaData
-        .filter((hanja) => selectedLevels.includes(hanja.level as Level))
-        .sort((a, b) =>
+      const currentData = getCurrentHanjaData();
+      const filtered = currentData
+        .filter((hanja: HanjaData) =>
+          selectedLevels.includes(hanja.level as Level)
+        )
+        .sort((a: HanjaData, b: HanjaData) =>
           a.meaningKey.localeCompare(b.meaningKey, "ko-KR", {
             caseFirst: "lower",
             sensitivity: "base",
@@ -76,7 +108,7 @@ export const useHanjaGame = (): UseHanjaGameReturn => {
     // 카드 플립 상태 리셋
     setResetCardFlip(true);
     setTimeout(() => setResetCardFlip(false), ANIMATION_DELAYS.CARD_RESET);
-  }, [selectedLevels]);
+  }, [selectedLevels, selectedType]);
 
   const resetCardFlipState = () => {
     setResetCardFlip(true);
@@ -112,7 +144,8 @@ export const useHanjaGame = (): UseHanjaGameReturn => {
 
   const handleShuffle = () => {
     if (selectedLevels.length > 0) {
-      const filtered = hanjaData.filter((hanja) =>
+      const currentData = getCurrentHanjaData();
+      const filtered = currentData.filter((hanja: HanjaData) =>
         selectedLevels.includes(hanja.level as Level)
       );
       const shuffledData = [...filtered].sort(() => Math.random() - 0.5);
@@ -142,6 +175,35 @@ export const useHanjaGame = (): UseHanjaGameReturn => {
 
   const handleTypeChange = (type: HanjaType) => {
     setSelectedType(type);
+
+    // 타입 변경 시 해당 타입에서 사용 가능한 급수로 selectedLevels 업데이트
+    const newAvailableLevels =
+      type === "대한검정회"
+        ? [...new Set(hanjaGroupData.TypeA.map((item) => item.level))]
+        : [...new Set(hanjaGroupData.TypeB.map((item) => item.level))];
+
+    // 급수 순서대로 정렬
+    const levelOrder = [
+      "8급",
+      "7급",
+      "6급",
+      "준5급",
+      "5급",
+      "준4급",
+      "4급",
+      "준3급",
+      "3급",
+      "준2급",
+      "2급",
+      "준1급",
+      "1급",
+    ];
+    const sortedAvailableLevels = newAvailableLevels.sort(
+      (a, b) => levelOrder.indexOf(a) - levelOrder.indexOf(b)
+    ) as Level[];
+
+    // 새로운 타입에서 사용 가능한 급수들로 selectedLevels 설정
+    setSelectedLevels(sortedAvailableLevels);
   };
 
   const progress =
@@ -154,6 +216,7 @@ export const useHanjaGame = (): UseHanjaGameReturn => {
     filteredData,
     selectedLevels,
     selectedType,
+    availableLevels: getAvailableLevels(),
     usedIndices,
     resetCardFlip,
     history,

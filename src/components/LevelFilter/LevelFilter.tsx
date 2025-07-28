@@ -6,6 +6,7 @@ import { Container, LevelButton, ShuffleButton } from "./LevelFilter.styles";
 
 interface LevelFilterProps {
   selectedLevels: Level[];
+  availableLevels: Level[];
   onLevelFilter: (level: Level) => void;
   onShuffle: () => void;
   disabled?: boolean;
@@ -13,13 +14,14 @@ interface LevelFilterProps {
 
 export const LevelFilter: React.FC<LevelFilterProps> = ({
   selectedLevels,
+  availableLevels,
   onLevelFilter,
   onShuffle,
   disabled = false,
 }) => {
   return (
     <Container>
-      {LEVELS.map((level) => (
+      {availableLevels.map((level) => (
         <LevelButton
           key={level}
           $active={selectedLevels.includes(level)}

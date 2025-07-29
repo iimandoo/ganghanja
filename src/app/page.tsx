@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import Image from "next/image";
 import HanjaCard from "@/components/HanjaCard";
 import { LevelFilter } from "@/components/LevelFilter";
 import { ProgressBar } from "@/components/ProgressBar";
@@ -31,6 +32,7 @@ const Container = styled.main`
 
 const Header = styled.header`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 16px;
@@ -42,21 +44,47 @@ const Header = styled.header`
   }
 `;
 
+const TitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    flex-direction: column;
+    gap: 8px;
+  }
+`;
+
+const Logo = styled(Image)`
+  height: auto;
+  max-height: 60px;
+  width: auto;
+
+  @media (max-width: ${theme.breakpoints.tablet}) {
+    max-height: 50px;
+  }
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    max-height: 45px;
+  }
+`;
+
 const Title = styled.h1`
   font-size: ${theme.fontSize.xxl};
   font-weight: ${theme.fontWeight.bold};
   color: ${theme.colors.gray.dark};
   text-shadow: ${theme.shadows.sm};
   font-family: "Noto Sans KR", sans-serif;
+  margin: 0;
 
   @media (max-width: ${theme.breakpoints.tablet}) {
     font-size: ${theme.fontSize.xxl};
-    margin-bottom: 12px;
   }
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     font-size: ${theme.fontSize.xl};
-    margin-bottom: 8px;
   }
 `;
 const SubTitle = styled.h2`
@@ -241,11 +269,20 @@ export default function Home() {
         }}
       />
       <Header>
-        <Title as="h1">[COOL한자] 한자능력검정시험 학습카드</Title>{" "}
-        <TypeSelect
-          selectedType={selectedType}
-          onTypeChange={handleTypeChange}
+        <Logo
+          src="/logo_cool.png"
+          alt="COOL한자 로고"
+          width={160}
+          height={60}
+          priority
         />
+        <TitleContainer>
+          <Title as="h1"> 한자능력검정시험 </Title>
+          <TypeSelect
+            selectedType={selectedType}
+            onTypeChange={handleTypeChange}
+          />
+        </TitleContainer>
       </Header>
 
       <LevelFilter

@@ -3,14 +3,18 @@ import { supabaseAdmin } from "@/lib/supabase";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { type: string } }
+  { params }: { params: Promise<{ type: string }> }
 ) {
   try {
     const { searchParams } = new URL(request.url);
     const levels = searchParams.get("levels");
+    const resolvedParams = await params;
 
     // 타입 검증
-    if (!params.type || !["TypeA", "TypeB"].includes(params.type)) {
+    if (
+      !resolvedParams.type ||
+      !["TypeA", "TypeB"].includes(resolvedParams.type)
+    ) {
       return NextResponse.json(
         { error: "유효하지 않은 타입입니다." },
         { status: 400 }
@@ -20,7 +24,7 @@ export async function GET(
     let query = supabaseAdmin
       .from("hanja_data")
       .select("*")
-      .eq("type", params.type);
+      .eq("type", resolvedParams.type);
 
     // 급수 필터링
     if (levels) {
@@ -47,7 +51,7 @@ export async function GET(
     const response = NextResponse.json({
       data: data || [],
       count: data?.length || 0,
-      type: params.type,
+      type: resolvedParams.type,
       levels: levels?.split(",") || [],
     });
 

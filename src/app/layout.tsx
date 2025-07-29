@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { QueryProvider } from "@/components/QueryProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,22 +14,25 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "대한검정회 한자카드 | 한자 학습 게임",
-  description: "대한검정회 한자 급수별 학습 카드게임입니다. 8급, 7급, 6급, 준5급, 5급 한자를 재미있게 학습하세요. 스와이프와 클릭으로 쉽게 한자 뜻과 음을 익힐 수 있습니다.",
-  keywords: "한자, 한자카드, 한자학습, 대한검정회, 한자급수, 8급, 7급, 6급, 준5급, 5급, 한자게임, 한자공부",
-  authors: [{ name: "대한검정회 한자카드" }],
-  creator: "대한검정회 한자카드",
+  title: "대한검정회 & 어문회 한자카드 | 한자능력검정시험 학습게임",
+  description:
+    "대한검정회와 어문회 한자능력검정시험 대비 학습 카드게임입니다. 8급부터 준4급까지 급수별 한자를 재미있게 학습하고 시험에 완벽 대비하세요. 한자 뜻, 음, 예문, 사자성어까지 체계적으로 익힐 수 있습니다.",
+  keywords:
+    "대한검정회, 어문회, 한자능력검정시험, 한자카드, 한자학습, 한자급수, 8급, 7급, 6급, 준5급, 5급, 준4급, 한자게임, 한자공부, 한자시험, 한자검정, 사자성어",
+  authors: [{ name: "한자능력검정시험 학습카드" }],
+  creator: "한자능력검정시험 학습카드",
   publisher: "대한검정회 한자카드",
   robots: "index, follow",
   viewport: "width=device-width, initial-scale=1",
-  
+
   // Open Graph
   openGraph: {
     type: "website",
     locale: "ko_KR",
-    title: "대한검정회 한자카드 | 한자 학습 게임",
-    description: "대한검정회 한자 급수별 학습 카드게임입니다. 8급, 7급, 6급, 준5급, 5급 한자를 재미있게 학습하세요.",
-    siteName: "대한검정회 한자카드",
+    title: "대한검정회 & 어문회 한자카드 | 한자능력검정시험 학습게임",
+    description:
+      "대한검정회와 어문회 한자능력검정시험 대비 학습 카드게임입니다. 8급부터 준4급까지 급수별 한자를 체계적으로 학습하세요.",
+    siteName: "한자능력검정시험 학습카드",
     images: [
       {
         url: "/og-image.png",
@@ -38,15 +42,16 @@ export const metadata: Metadata = {
       },
     ],
   },
-  
+
   // Twitter Card
   twitter: {
     card: "summary_large_image",
-    title: "대한검정회 한자카드 | 한자 학습 게임",
-    description: "대한검정회 한자 급수별 학습 카드게임입니다. 8급, 7급, 6급, 준5급, 5급 한자를 재미있게 학습하세요.",
+    title: "대한검정회 & 어문회 한자카드 | 한자능력검정시험 학습게임",
+    description:
+      "대한검정회와 어문회 한자능력검정시험 대비 학습 카드게임입니다. 8급부터 준4급까지 급수별 한자를 체계적으로 학습하세요.",
     images: ["/og-image.png"],
   },
-  
+
   // 네이버 웹마스터도구, 구글 서치콘솔 인증 (실제 사용시 값 변경 필요)
   verification: {
     google: "google-site-verification-code",
@@ -54,7 +59,7 @@ export const metadata: Metadata = {
       "naver-site-verification": "naver-site-verification-code",
     },
   },
-  
+
   // 파비콘 설정
   icons: {
     icon: [
@@ -63,11 +68,9 @@ export const metadata: Metadata = {
       { url: "/favicon.ico", sizes: "32x32", type: "image/x-icon" },
     ],
     shortcut: "/favicon.ico",
-    apple: [
-      { url: "/favicon.ico", sizes: "180x180", type: "image/x-icon" },
-    ],
+    apple: [{ url: "/favicon.ico", sizes: "180x180", type: "image/x-icon" }],
   },
-  
+
   // 추가 메타태그
   other: {
     "theme-color": "#667eea",
@@ -88,7 +91,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );

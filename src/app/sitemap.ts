@@ -1,7 +1,8 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://hanjacard.com";
+  const baseUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || "https://www.coolhanja.site";
 
   // 기본 페이지들
   const routes = [

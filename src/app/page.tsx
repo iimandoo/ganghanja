@@ -177,39 +177,73 @@ export default function Home() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebApplication",
-            name: "대한검정회 한자카드",
+            name: "대한검정회 & 어문회 한자능력검정시험 학습카드",
+            alternateName: ["한자카드", "한자능력검정시험", "한자학습게임"],
             description:
-              "대한검정회 한자 급수별 학습 카드게임입니다. 8급, 7급, 6급, 준5급, 5급 한자를 재미있게 학습하세요.",
-            url: "https://hanjacard.com",
+              "대한검정회와 어문회 한자능력검정시험 대비 학습 카드게임입니다. 8급부터 준4급까지 급수별 한자를 체계적으로 학습하고 시험에 완벽 대비하세요.",
+            url: "https://www.coolhanja.site",
             applicationCategory: "EducationalApplication",
             operatingSystem: "Any",
             browserRequirements: "Requires JavaScript. Requires HTML5.",
-            softwareVersion: "1.0",
+            softwareVersion: "2.0",
             author: {
               "@type": "Organization",
-              name: "대한검정회 한자카드",
+              name: "한자능력검정시험 학습카드",
             },
-            about: {
-              "@type": "Thing",
-              name: "한자 학습",
-              description: "한국 한자 급수 시험 대비 학습",
-            },
-            educationalUse: "한자 학습, 급수 시험 대비",
-            audience: {
-              "@type": "EducationalAudience",
-              educationalRole: "student",
-            },
+            about: [
+              {
+                "@type": "Thing",
+                name: "대한검정회 한자능력검정시험",
+                description:
+                  "대한검정회에서 주관하는 한자능력검정시험 대비 학습",
+                sameAs: "https://www.coolhanja.site",
+              },
+              {
+                "@type": "Thing",
+                name: "어문회 한자시험",
+                description: "어문회에서 주관하는 한자시험 대비 학습",
+              },
+            ],
+            educationalUse: "한자능력검정시험 대비, 한자 학습, 급수 시험 준비",
+            audience: [
+              {
+                "@type": "EducationalAudience",
+                educationalRole: "student",
+                audienceType: "한자능력검정시험 응시자",
+              },
+              {
+                "@type": "EducationalAudience",
+                educationalRole: "learner",
+                audienceType: "한자 학습자",
+              },
+            ],
+            educationalLevel: ["8급", "7급", "6급", "준5급", "5급", "준4급"],
+            teaches: [
+              "한자 읽기",
+              "한자 뜻",
+              "한자 예문",
+              "사자성어",
+              "한자능력검정시험",
+            ],
             offers: {
               "@type": "Offer",
               price: "0",
               priceCurrency: "KRW",
               availability: "https://schema.org/InStock",
             },
+            featureList: [
+              "대한검정회 TypeA 한자 학습",
+              "어문회 TypeB 한자 학습",
+              "급수별 한자 필터링",
+              "한자 카드 게임",
+              "진도율 표시",
+              "랜덤 셔플 기능",
+            ],
           }),
         }}
       />
       <Header>
-        <Title as="h1">한자 급수시험</Title>{" "}
+        <Title as="h1">한자능력검정시험 학습카드</Title>{" "}
         <TypeSelect
           selectedType={selectedType}
           onTypeChange={handleTypeChange}

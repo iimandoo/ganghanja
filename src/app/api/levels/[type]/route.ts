@@ -3,11 +3,16 @@ import { supabaseAdmin } from "@/lib/supabase";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { type: string } }
+  { params }: { params: Promise<{ type: string }> }
 ) {
   try {
+    const resolvedParams = await params;
+
     // 타입 검증
-    if (!params.type || !["TypeA", "TypeB"].includes(params.type)) {
+    if (
+      !resolvedParams.type ||
+      !["TypeA", "TypeB"].includes(resolvedParams.type)
+    ) {
       return NextResponse.json(
         { error: "유효하지 않은 타입입니다." },
         { status: 400 }
@@ -18,7 +23,7 @@ export async function GET(
     const { data, error } = await supabaseAdmin
       .from("hanja_data")
       .select("level")
-      .eq("type", params.type)
+      .eq("type", resolvedParams.type)
       .order("level");
 
     if (error) {
@@ -53,7 +58,7 @@ export async function GET(
     const response = NextResponse.json({
       levels: sortedLevels,
       count: sortedLevels.length,
-      type: params.type,
+      type: resolvedParams.type,
     });
 
     // 10분간 캐시 (급수는 자주 변경되지 않음)

@@ -36,6 +36,40 @@ export const theme = {
     warning: {
       main: "#fbbf24",
     },
+    // 한자 카드 색상 팔레트 (현재 색상 + 5개 추가)
+    cardColors: {
+      green: {
+        front: "linear-gradient(135deg, #c1ff72 0%, #a3e85f 100%)",
+        back: "linear-gradient(135deg, #d4ff8f 0%, #c1ff72 100%)",
+        border: "rgba(163, 232, 95, 0.3)",
+      },
+      mint: {
+        front: "linear-gradient(135deg, #72ffda 0%, #5fe8a3 100%)",
+        back: "linear-gradient(135deg, #8fffd4 0%, #72ffda 100%)",
+        border: "rgba(95, 232, 163, 0.3)",
+      },
+      lime: {
+        front:
+          "linear-gradient(135deg,rgb(255, 239, 114) 0%,rgb(223, 232, 95) 100%)",
+        back: "linear-gradient(135deg,rgb(255, 253, 143) 0%,rgb(255, 253, 114) 100%)",
+        border: "rgba(149, 232, 95, 0.3)",
+      },
+      sage: {
+        front: "linear-gradient(135deg, #a8ff9e 0%, #8ae582 100%)",
+        back: "linear-gradient(135deg, #bbffb1 0%, #a8ff9e 100%)",
+        border: "rgba(138, 229, 130, 0.3)",
+      },
+      emerald: {
+        front: "linear-gradient(135deg, #72ffa8 0%, #5fe88a 100%)",
+        back: "linear-gradient(135deg, #8fffbb 0%, #72ffa8 100%)",
+        border: "rgba(95, 232, 138, 0.3)",
+      },
+      spring: {
+        front: "linear-gradient(135deg, #9eff72 0%, #82e85f 100%)",
+        back: "linear-gradient(135deg, #b1ff8f 0%, #9eff72 100%)",
+        border: "rgba(130, 232, 95, 0.3)",
+      },
+    },
     black: "#1a2b15",
     white: "#ffffff",
   },

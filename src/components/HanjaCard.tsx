@@ -3,6 +3,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { HanjaData } from "@/data/hanjaData";
+import {
+  getConsistentCardColor,
+  getCardColorInfo,
+  CardColorKey,
+} from "@/utils/cardColors";
 
 interface HanjaCardProps {
   hanja: HanjaData | null;
@@ -70,17 +75,17 @@ const CardFace = styled.div`
   }
 `;
 
-const CardFront = styled(CardFace)`
-  background: linear-gradient(135deg, #c1ff72 0%, #a3e85f 100%);
+const CardFront = styled(CardFace)<{ $colorKey: CardColorKey }>`
+  background: ${(props) => getCardColorInfo(props.$colorKey).front};
   color: #1a2b15;
-  border: 2px solid rgba(163, 232, 95, 0.3);
+  border: 2px solid ${(props) => getCardColorInfo(props.$colorKey).border};
 `;
 
-const CardBack = styled(CardFace)`
-  background: linear-gradient(135deg, #d4ff8f 0%, #c1ff72 100%);
+const CardBack = styled(CardFace)<{ $colorKey: CardColorKey }>`
+  background: ${(props) => getCardColorInfo(props.$colorKey).back};
   color: #1a2b15;
   transform: rotateY(180deg);
-  border: 2px solid rgba(193, 255, 114, 0.3);
+  border: 2px solid ${(props) => getCardColorInfo(props.$colorKey).border};
 `;
 
 const LevelBadgeBase = styled.div`
@@ -214,6 +219,11 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
   const [isFlipped, setIsFlipped] = useState(false);
   const [noAnimation, setNoAnimation] = useState(false);
 
+  // 한자 문자를 기반으로 일관된 색상 선택
+  const cardColorKey = hanja
+    ? getConsistentCardColor(hanja.character)
+    : "green";
+
   // 외부에서 resetFlip이 변경되면 카드를 애니메이션 없이 앞면으로 리셋
   useEffect(() => {
     if (resetFlip) {
@@ -237,14 +247,14 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
   return (
     <CardContainer onClick={handleCardClick} $disabled={disabled}>
       <CardInner $isFlipped={isFlipped} $noAnimation={noAnimation}>
-        <CardFront>
+        <CardFront $colorKey={cardColorKey}>
           {hanja && <LevelBadgeFront>{hanja.level}</LevelBadgeFront>}
           <HanjaCharacter>{hanja ? hanja.character : ""}</HanjaCharacter>
           {!disabled && <FlipHint>카드를 클릭해서 뒤집어보세요!</FlipHint>}
           {disabled && <FlipHint>급수를 선택해주세요!</FlipHint>}
         </CardFront>
 
-        <CardBack>
+        <CardBack $colorKey={cardColorKey}>
           {hanja && <LevelBadgeBack>{hanja.level}</LevelBadgeBack>}
           <BackContent>
             {hanja ? (

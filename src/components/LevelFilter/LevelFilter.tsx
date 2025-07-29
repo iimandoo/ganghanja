@@ -1,6 +1,6 @@
 import React from "react";
 import { IoShuffle } from "react-icons/io5";
-import { LEVELS, MESSAGES } from "@/constants";
+import { MESSAGES } from "@/constants";
 import type { Level } from "@/constants";
 import { Container, LevelButton, ShuffleButton } from "./LevelFilter.styles";
 

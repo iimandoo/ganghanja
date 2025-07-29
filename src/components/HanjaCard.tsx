@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { HanjaData } from "@/data/hanjaData";
+import { HanjaData } from "@/lib/api";
 import {
   getConsistentCardColor,
   getCardColorInfo,
@@ -262,7 +262,7 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
                 <InfoSection>
                   <InfoTitle>뜻(음)</InfoTitle>
                   <InfoText>
-                    {hanja.meaning} {hanja.meaningKey}
+                    {hanja.meaning} {hanja.meaning_key}
                   </InfoText>
                 </InfoSection>
 

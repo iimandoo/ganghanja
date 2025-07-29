@@ -7,7 +7,6 @@ import {
   IoChatbubbleEllipses,
 } from "react-icons/io5";
 import { MESSAGES } from "@/constants";
-import { useEmailService } from "@/hooks/useEmailService";
 import {
   FloatingChatButton,
   ChatOverlay,
@@ -53,8 +52,6 @@ export const ChatModal: React.FC<ChatModalProps> = ({
   onClose,
   onSubmit,
 }) => {
-  const { isSubmitting } = useEmailService();
-
   return (
     <>
       <FloatingChatButton
@@ -84,14 +81,14 @@ export const ChatModal: React.FC<ChatModalProps> = ({
                   value={contactInfo}
                   onChange={(e) => onContactInfoChange(e.target.value)}
                   placeholder="연락처 (선택사항)"
-                  disabled={isSubmitting || showSuccessMessage}
+                  disabled={showSuccessMessage}
                   style={{ marginTop: "8px" }}
                 />
                 <ChatTextArea
                   value={message}
                   onChange={(e) => onMessageChange(e.target.value)}
                   placeholder={MESSAGES.CHAT.PLACEHOLDER}
-                  disabled={isSubmitting || showSuccessMessage}
+                  disabled={showSuccessMessage}
                 />
                 {!showSuccessMessage && (
                   <StarContainer>
@@ -114,18 +111,12 @@ export const ChatModal: React.FC<ChatModalProps> = ({
                 ) : (
                   <ChatSendButton
                     onClick={onSubmit}
-                    disabled={
-                      isSubmitting || showSuccessMessage || !message.trim()
-                    }
+                    disabled={showSuccessMessage || !message.trim()}
                   >
-                    {isSubmitting ? (
-                      MESSAGES.LOADING.CHAT_SENDING
-                    ) : (
-                      <>
-                        <IoSend />
-                        {MESSAGES.LOADING.SEND}
-                      </>
-                    )}
+                    <>
+                      <IoSend />
+                      {MESSAGES.LOADING.SEND}
+                    </>
                   </ChatSendButton>
                 )}
               </div>

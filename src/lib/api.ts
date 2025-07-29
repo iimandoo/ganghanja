@@ -44,10 +44,12 @@ export async function fetchHanjaData(
   const apiResponse = await response.json();
 
   // API 응답 데이터를 프론트엔드 형식으로 변환
-  const transformedData = apiResponse.data.map((item: any) => ({
-    ...item,
-    meaningKey: item.meaning_key, // snake_case를 camelCase로 변환
-  }));
+  const transformedData = apiResponse.data.map(
+    (item: HanjaData & { meaning_key: string }) => ({
+      ...item,
+      meaningKey: item.meaning_key, // snake_case를 camelCase로 변환
+    })
+  );
 
   return {
     ...apiResponse,

@@ -89,21 +89,6 @@ const Title = styled.h1`
     font-size: ${theme.fontSize.xl};
   }
 `;
-const SubTitle = styled.h2`
-  font-size: ${theme.fontSize.xxl};
-  font-weight: ${theme.fontWeight.normal};
-  color: ${theme.colors.gray.dark};
-  text-shadow: ${theme.shadows.sm};
-  font-family: "Noto Sans KR", sans-serif;
-
-  @media (max-width: ${theme.breakpoints.tablet}) {
-    font-size: ${theme.fontSize.xxl};
-  }
-
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    font-size: ${theme.fontSize.xl};
-  }
-`;
 
 // const Subtitle = styled.p`
 //   font-size: ${theme.fontSize.xl};

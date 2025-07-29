@@ -9,7 +9,7 @@ import { TypeSelect } from "@/components/TypeSelect";
 import { GameControls } from "@/components/GameControls";
 import { ContactModal } from "@/components/ContactModal";
 import { ChatModal } from "@/components/ChatModal";
-import { useHanjaGame } from "@/hooks/useHanjaGame";
+import { useHanjaGameDB } from "@/hooks/useHanjaGameDB";
 import { useModal } from "@/hooks/useModal";
 import { useChat } from "@/hooks/useChat";
 import { updateDocumentMetadata } from "@/utils/metadata";
@@ -115,7 +115,7 @@ const CardSection = styled.div`
 `;
 
 export default function Home() {
-  const gameHook = useHanjaGame();
+  const gameHook = useHanjaGameDB();
   const modalHook = useModal();
   const chatHook = useChat();
 

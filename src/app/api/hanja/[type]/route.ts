@@ -1,0 +1,68 @@
+import { NextRequest, NextResponse } from "next/server";
+import { supabaseAdmin } from "@/lib/supabase";
+
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { type: string } }
+) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const levels = searchParams.get("levels");
+
+    // 타입 검증
+    if (!params.type || !["TypeA", "TypeB"].includes(params.type)) {
+      return NextResponse.json(
+        { error: "유효하지 않은 타입입니다." },
+        { status: 400 }
+      );
+    }
+
+    let query = supabaseAdmin
+      .from("hanja_data")
+      .select("*")
+      .eq("type", params.type);
+
+    // 급수 필터링
+    if (levels) {
+      const levelArray = levels.split(",").filter(Boolean);
+      if (levelArray.length > 0) {
+        query = query.in("level", levelArray);
+      }
+    }
+
+    // 정렬 (의미 키 기준)
+    query = query.order("meaning_key", { ascending: true });
+
+    const { data, error } = await query;
+
+    if (error) {
+      console.error("Database error:", error);
+      return NextResponse.json(
+        { error: "데이터를 가져오는 중 오류가 발생했습니다." },
+        { status: 500 }
+      );
+    }
+
+    // 응답 헤더에 캐시 설정
+    const response = NextResponse.json({
+      data: data || [],
+      count: data?.length || 0,
+      type: params.type,
+      levels: levels?.split(",") || [],
+    });
+
+    // 5분간 캐시
+    response.headers.set(
+      "Cache-Control",
+      "public, s-maxage=300, stale-while-revalidate=600"
+    );
+
+    return response;
+  } catch (error) {
+    console.error("API error:", error);
+    return NextResponse.json(
+      { error: "서버 오류가 발생했습니다." },
+      { status: 500 }
+    );
+  }
+}

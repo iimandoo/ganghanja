@@ -1,7 +1,7 @@
-import React from 'react';
-import { IoClose } from 'react-icons/io5';
-import { MESSAGES } from '@/constants';
-import { useEmailService } from '@/hooks/useEmailService';
+import React from "react";
+import { IoClose } from "react-icons/io5";
+import { MESSAGES } from "@/constants";
+import { useEmailService } from "@/hooks/useEmailService";
 import {
   ModalOverlay,
   Modal,
@@ -12,19 +12,15 @@ import {
   ContactLabel,
   ContactInput,
   ModalButtons,
-  Button
-} from './ContactModal.styles';
+  Button,
+} from "./ContactModal.styles";
 
 interface ContactModalProps {
   isOpen: boolean;
   requestText: string;
-  contactPhone: string;
-  contactEmail: string;
-  contactKakao: string;
+  contactInfo: string;
   onRequestTextChange: (text: string) => void;
-  onContactPhoneChange: (phone: string) => void;
-  onContactEmailChange: (email: string) => void;
-  onContactKakaoChange: (kakao: string) => void;
+  onContactInfoChange: (contactInfo: string) => void;
   onClose: () => void;
   onSubmit: () => void;
 }
@@ -32,13 +28,9 @@ interface ContactModalProps {
 export const ContactModal: React.FC<ContactModalProps> = ({
   isOpen,
   requestText,
-  contactPhone,
-  contactEmail,
-  contactKakao,
+  contactInfo,
   onRequestTextChange,
-  onContactPhoneChange,
-  onContactEmailChange,
-  onContactKakaoChange,
+  onContactInfoChange,
   onClose,
   onSubmit,
 }) => {
@@ -52,9 +44,9 @@ export const ContactModal: React.FC<ContactModalProps> = ({
         <CloseButton onClick={onClose}>
           <IoClose />
         </CloseButton>
-        
+
         <ModalTitle>{MESSAGES.MODAL.TITLE}</ModalTitle>
-        
+
         <TextArea
           value={requestText}
           onChange={(e) => onRequestTextChange(e.target.value)}
@@ -62,24 +54,12 @@ export const ContactModal: React.FC<ContactModalProps> = ({
         />
 
         <ContactSection>
-          <ContactLabel>{MESSAGES.MODAL.CONTACT_LABEL}</ContactLabel>
-          <ContactInput
-            type="tel"
-            value={contactPhone}
-            onChange={(e) => onContactPhoneChange(e.target.value)}
-            placeholder={MESSAGES.MODAL.PLACEHOLDERS.PHONE}
-          />
-          <ContactInput
-            type="email"
-            value={contactEmail}
-            onChange={(e) => onContactEmailChange(e.target.value)}
-            placeholder={MESSAGES.MODAL.PLACEHOLDERS.EMAIL}
-          />
+          <ContactLabel>연락처 (선택사항)</ContactLabel>
           <ContactInput
             type="text"
-            value={contactKakao}
-            onChange={(e) => onContactKakaoChange(e.target.value)}
-            placeholder={MESSAGES.MODAL.PLACEHOLDERS.KAKAO}
+            value={contactInfo}
+            onChange={(e) => onContactInfoChange(e.target.value)}
+            placeholder="연락처를 입력해주세요 (전화번호, 이메일, 카카오톡 ID 등)"
           />
         </ContactSection>
 

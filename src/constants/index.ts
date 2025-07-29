@@ -6,7 +6,7 @@ export const MESSAGES = {
   CHAT: {
     WELCOME:
       "요청사항이나 궁금한 사항을 편하게 적어주세요.\n답변을 원하시는 경우 연락처나 이메일주소를 함께 적어주세요!",
-    SUCCESS: "한짜에게 슝~! 보냈어요",
+    SUCCESS: "COOL한자에게 보냈어요",
     PLACEHOLDER: "요청사항, 궁금한사항...",
   },
 

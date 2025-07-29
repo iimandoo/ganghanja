@@ -1,16 +1,12 @@
-import { useState } from 'react';
-import { useEmailService } from './useEmailService';
+import { useState } from "react";
+import { submitCustomerInquiry } from "@/lib/api";
 
 interface UseModalReturn {
   isModalOpen: boolean;
   requestText: string;
-  contactPhone: string;
-  contactEmail: string;
-  contactKakao: string;
+  contactInfo: string;
   setRequestText: (text: string) => void;
-  setContactPhone: (phone: string) => void;
-  setContactEmail: (email: string) => void;
-  setContactKakao: (kakao: string) => void;
+  setContactInfo: (contactInfo: string) => void;
   handleModalOpen: () => void;
   handleModalClose: () => void;
   handleSubmitRequest: () => Promise<void>;
@@ -18,12 +14,8 @@ interface UseModalReturn {
 
 export const useModal = (): UseModalReturn => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [requestText, setRequestText] = useState('');
-  const [contactPhone, setContactPhone] = useState('');
-  const [contactEmail, setContactEmail] = useState('');
-  const [contactKakao, setContactKakao] = useState('');
-  
-  const { sendRequest } = useEmailService();
+  const [requestText, setRequestText] = useState("");
+  const [contactInfo, setContactInfo] = useState("");
 
   const handleModalOpen = () => {
     setIsModalOpen(true);
@@ -31,35 +23,37 @@ export const useModal = (): UseModalReturn => {
 
   const handleModalClose = () => {
     setIsModalOpen(false);
-    setRequestText('');
-    setContactPhone('');
-    setContactEmail('');
-    setContactKakao('');
+    setRequestText("");
+    setContactInfo("");
   };
 
   const handleSubmitRequest = async () => {
+    if (!requestText.trim()) {
+      alert("요청 내용을 입력해주세요.");
+      return;
+    }
+
     try {
-      await sendRequest(requestText, {
-        phone: contactPhone,
-        email: contactEmail,
-        kakao: contactKakao,
+      await submitCustomerInquiry({
+        message: requestText,
+        contactInfo: contactInfo || undefined,
+        inquiryType: "request",
       });
+
+      alert("요청이 성공적으로 전송되었습니다!");
       handleModalClose();
     } catch (error) {
-      // 에러는 useEmailService에서 처리됨
+      console.error("Request submission failed:", error);
+      alert("요청 전송에 실패했습니다.");
     }
   };
 
   return {
     isModalOpen,
     requestText,
-    contactPhone,
-    contactEmail,
-    contactKakao,
+    contactInfo,
     setRequestText,
-    setContactPhone,
-    setContactEmail,
-    setContactKakao,
+    setContactInfo,
     handleModalOpen,
     handleModalClose,
     handleSubmitRequest,

@@ -43,7 +43,7 @@ const Header = styled.header`
 `;
 
 const Title = styled.h1`
-  font-size: ${theme.fontSize.xxxl};
+  font-size: ${theme.fontSize.xxl};
   font-weight: ${theme.fontWeight.bold};
   color: ${theme.colors.gray.dark};
   text-shadow: ${theme.shadows.sm};
@@ -139,13 +139,9 @@ export default function Home() {
   const {
     isModalOpen,
     requestText,
-    contactPhone,
-    contactEmail,
-    contactKakao,
+    contactInfo,
     setRequestText,
-    setContactPhone,
-    setContactEmail,
-    setContactKakao,
+    setContactInfo,
     handleModalClose,
     handleSubmitRequest,
   } = modalHook;
@@ -153,9 +149,11 @@ export default function Home() {
   const {
     isChatOpen,
     chatMessage,
+    contactInfo: chatContactInfo,
     rating,
     showSuccessMessage,
     setChatMessage,
+    setContactInfo: setChatContactInfo,
     handleChatOpen,
     handleChatClose,
     handleRatingClick,
@@ -243,7 +241,7 @@ export default function Home() {
         }}
       />
       <Header>
-        <Title as="h1">한자능력검정시험 학습카드</Title>{" "}
+        <Title as="h1">[COOL한자] 한자능력검정시험 학습카드</Title>{" "}
         <TypeSelect
           selectedType={selectedType}
           onTypeChange={handleTypeChange}
@@ -284,13 +282,9 @@ export default function Home() {
       <ContactModal
         isOpen={isModalOpen}
         requestText={requestText}
-        contactPhone={contactPhone}
-        contactEmail={contactEmail}
-        contactKakao={contactKakao}
+        contactInfo={contactInfo}
         onRequestTextChange={setRequestText}
-        onContactPhoneChange={setContactPhone}
-        onContactEmailChange={setContactEmail}
-        onContactKakaoChange={setContactKakao}
+        onContactInfoChange={setContactInfo}
         onClose={handleModalClose}
         onSubmit={handleSubmitRequest}
       />
@@ -298,9 +292,11 @@ export default function Home() {
       <ChatModal
         isOpen={isChatOpen}
         message={chatMessage}
+        contactInfo={chatContactInfo}
         rating={rating}
         showSuccessMessage={showSuccessMessage}
         onMessageChange={setChatMessage}
+        onContactInfoChange={setChatContactInfo}
         onRatingClick={handleRatingClick}
         onOpen={handleChatOpen}
         onClose={handleChatClose}

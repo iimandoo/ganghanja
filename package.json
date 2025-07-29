@@ -9,7 +9,11 @@
     "lint": "next lint",
     "migrate": "dotenv -e .env.local -- tsx scripts/migrate-to-supabase.ts",
     "test-db": "dotenv -e .env.local -- tsx scripts/test-connection.ts",
-    "test-simple": "dotenv -e .env.local -- tsx scripts/simple-test.ts"
+    "test-simple": "dotenv -e .env.local -- tsx scripts/simple-test.ts",
+    "test-customer": "dotenv -e .env.local -- tsx scripts/test-customer-api.ts",
+    "create-customer-table": "dotenv -e .env.local -- tsx scripts/create-customer-table.ts",
+    "debug-customer": "dotenv -e .env.local -- tsx scripts/debug-customer-table.ts",
+    "manual-create": "dotenv -e .env.local -- tsx scripts/manual-create-table.ts"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

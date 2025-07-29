@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { theme } from '@/styles/theme';
-import { overlayBase, modalBase, inputBase } from '@/styles/mixins';
+import styled from "styled-components";
+import { theme } from "@/styles/theme";
+import { overlayBase, modalBase, inputBase } from "@/styles/mixins";
 
 export const FloatingChatButton = styled.button`
   position: fixed;
@@ -50,8 +50,8 @@ export const ChatContainer = styled.div`
   width: 100%;
   max-width: 400px;
   height: 500px;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 70px auto 1fr;
   overflow: hidden;
 
   @media (max-width: ${theme.breakpoints.tablet}) {
@@ -110,20 +110,10 @@ export const ChatCloseButton = styled.button`
 `;
 
 export const ChatBody = styled.div`
-  flex: 1;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  overflow-y: auto;
-
   @media (max-width: ${theme.breakpoints.tablet}) {
     padding: 16px;
     gap: 12px;
   }
-`;
-
-export const ChatMessage = styled.div`
   background: ${theme.colors.gray.bg};
   padding: 12px 16px;
   border-radius: ${theme.borderRadius.lg};
@@ -145,10 +135,11 @@ export const SuccessMessage = styled.div`
 `;
 
 export const ChatInputArea = styled.div`
-  padding: 20px;
+  padding: 0px 20px;
   border-top: 1px solid ${theme.colors.gray.border};
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 1fr 60px;
+  width: 100%;
   gap: 12px;
 
   @media (max-width: ${theme.breakpoints.tablet}) {
@@ -156,11 +147,17 @@ export const ChatInputArea = styled.div`
   }
 `;
 
+export const ChatInputBox = styled.div`
+  display: grid;
+  grid-template-rows: 1fr;
+  gap: 12px;
+`;
+
 export const ChatTextArea = styled.textarea`
   ${inputBase}
   resize: none;
-  height: 80px;
-  
+  height: 170px;
+  width: 100%;
   &:focus {
     border-color: #b7e1ea;
     box-shadow: 0 0 0 3px rgba(244, 162, 97, 0.1);
@@ -169,6 +166,23 @@ export const ChatTextArea = styled.textarea`
   @media (max-width: ${theme.breakpoints.tablet}) {
     height: 70px;
     padding: 10px;
+    font-size: ${theme.fontSize.sm};
+  }
+`;
+
+export const ChatInput = styled.input`
+  ${inputBase}
+  height: 40px;
+  width: 100%;
+
+  &:focus {
+    border-color: #b7e1ea;
+    box-shadow: 0 0 0 3px rgba(244, 162, 97, 0.1);
+  }
+
+  @media (max-width: ${theme.breakpoints.tablet}) {
+    height: 35px;
+    padding: 8px 10px;
     font-size: ${theme.fontSize.sm};
   }
 `;
@@ -183,10 +197,9 @@ export const StarButton = styled.button<{ $filled: boolean }>`
   background: none;
   border: none;
   cursor: pointer;
-  color: ${props => props.$filled ? theme.colors.warning.main : '#d1d5db'};
+  color: ${(props) => (props.$filled ? theme.colors.warning.main : "#d1d5db")};
   font-size: 1.5rem;
   transition: ${theme.transitions.fast};
-  padding: 2px;
   border-radius: ${theme.borderRadius.md};
 
   &:hover {

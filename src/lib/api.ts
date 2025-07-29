@@ -69,3 +69,40 @@ export async function fetchAvailableLevels(
 
   return response.json();
 }
+
+// 고객센터 문의 인터페이스
+export interface CustomerInquiry {
+  message: string;
+  contactInfo?: string;
+  rating?: number;
+  inquiryType: "chat" | "request";
+}
+
+export interface CustomerInquiryResponse {
+  success: boolean;
+  message: string;
+  inquiryId?: number;
+  createdAt?: string;
+  error?: string;
+}
+
+// 고객센터 문의 전송
+export async function submitCustomerInquiry(
+  inquiry: CustomerInquiry
+): Promise<CustomerInquiryResponse> {
+  const response = await fetch("/api/customer/inquiry", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(inquiry),
+  });
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw new Error(result.error || `API 요청 실패: ${response.status}`);
+  }
+
+  return result;
+}

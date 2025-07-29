@@ -16,10 +16,11 @@ import {
   ChatTitle,
   ChatCloseButton,
   ChatBody,
-  ChatMessage,
+  ChatInputBox,
   SuccessMessage,
   ChatInputArea,
   ChatTextArea,
+  ChatInput,
   StarContainer,
   StarButton,
   ChatSendButton,
@@ -28,9 +29,11 @@ import {
 interface ChatModalProps {
   isOpen: boolean;
   message: string;
+  contactInfo: string;
   rating: number;
   showSuccessMessage: boolean;
   onMessageChange: (message: string) => void;
+  onContactInfoChange: (contactInfo: string) => void;
   onRatingClick: (rating: number) => void;
   onOpen: () => void;
   onClose: () => void;
@@ -40,9 +43,11 @@ interface ChatModalProps {
 export const ChatModal: React.FC<ChatModalProps> = ({
   isOpen,
   message,
+  contactInfo,
   rating,
   showSuccessMessage,
   onMessageChange,
+  onContactInfoChange,
   onRatingClick,
   onOpen,
   onClose,
@@ -64,55 +69,66 @@ export const ChatModal: React.FC<ChatModalProps> = ({
         <ChatOverlay onClick={onClose}>
           <ChatContainer onClick={(e) => e.stopPropagation()}>
             <ChatHeader>
-              <ChatTitle>고객센터</ChatTitle>
+              <ChatTitle>COOL한자 고객센터</ChatTitle>
               <ChatCloseButton onClick={onClose}>
                 <IoClose />
               </ChatCloseButton>
             </ChatHeader>
 
-            <ChatBody>
-              <ChatMessage>{MESSAGES.CHAT.WELCOME}</ChatMessage>
-
-              {showSuccessMessage && (
-                <SuccessMessage>{MESSAGES.CHAT.SUCCESS}</SuccessMessage>
-              )}
-            </ChatBody>
+            <ChatBody>{MESSAGES.CHAT.WELCOME}</ChatBody>
 
             <ChatInputArea>
-              <ChatTextArea
-                value={message}
-                onChange={(e) => onMessageChange(e.target.value)}
-                placeholder={MESSAGES.CHAT.PLACEHOLDER}
-                disabled={isSubmitting || showSuccessMessage}
-              />
-
-              {!showSuccessMessage && (
-                <StarContainer>
-                  {[1, 2, 3, 4, 5].map((starValue) => (
-                    <StarButton
-                      key={starValue}
-                      $filled={starValue <= rating}
-                      onClick={() => onRatingClick(starValue)}
-                    >
-                      {starValue <= rating ? <IoStar /> : <IoStarOutline />}
-                    </StarButton>
-                  ))}
-                </StarContainer>
-              )}
-
-              <ChatSendButton
-                onClick={onSubmit}
-                disabled={isSubmitting || showSuccessMessage || !message.trim()}
-              >
-                {isSubmitting ? (
-                  MESSAGES.LOADING.CHAT_SENDING
-                ) : (
-                  <>
-                    <IoSend />
-                    {MESSAGES.LOADING.SEND}
-                  </>
+              <ChatInputBox>
+                <ChatInput
+                  type="text"
+                  value={contactInfo}
+                  onChange={(e) => onContactInfoChange(e.target.value)}
+                  placeholder="연락처 (선택사항)"
+                  disabled={isSubmitting || showSuccessMessage}
+                  style={{ marginTop: "8px" }}
+                />
+                <ChatTextArea
+                  value={message}
+                  onChange={(e) => onMessageChange(e.target.value)}
+                  placeholder={MESSAGES.CHAT.PLACEHOLDER}
+                  disabled={isSubmitting || showSuccessMessage}
+                />
+                {!showSuccessMessage && (
+                  <StarContainer>
+                    {[1, 2, 3, 4, 5].map((starValue) => (
+                      <StarButton
+                        key={starValue}
+                        $filled={starValue <= rating}
+                        onClick={() => onRatingClick(starValue)}
+                      >
+                        {starValue <= rating ? <IoStar /> : <IoStarOutline />}
+                      </StarButton>
+                    ))}
+                  </StarContainer>
                 )}
-              </ChatSendButton>
+              </ChatInputBox>
+
+              <div>
+                {showSuccessMessage ? (
+                  <SuccessMessage>{MESSAGES.CHAT.SUCCESS}</SuccessMessage>
+                ) : (
+                  <ChatSendButton
+                    onClick={onSubmit}
+                    disabled={
+                      isSubmitting || showSuccessMessage || !message.trim()
+                    }
+                  >
+                    {isSubmitting ? (
+                      MESSAGES.LOADING.CHAT_SENDING
+                    ) : (
+                      <>
+                        <IoSend />
+                        {MESSAGES.LOADING.SEND}
+                      </>
+                    )}
+                  </ChatSendButton>
+                )}
+              </div>
             </ChatInputArea>
           </ChatContainer>
         </ChatOverlay>

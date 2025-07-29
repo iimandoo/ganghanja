@@ -8,13 +8,13 @@ export const FloatingChatButton = styled.button`
   right: 10px;
   width: 50px;
   height: 50px;
-  background: ${theme.colors.black};
+  background: ${theme.colors.primary.main};
   border: none;
   border-radius: ${theme.borderRadius.round};
-  color: ${theme.colors.white};
+  color: ${theme.colors.black};
   font-size: 1.5rem;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(244, 162, 97, 0.4);
+  box-shadow: 0 4px 20px rgba(193, 255, 114, 0.4);
   transition: ${theme.transitions.smooth};
   z-index: ${theme.zIndex.modal};
   display: flex;
@@ -23,7 +23,8 @@ export const FloatingChatButton = styled.button`
 
   &:hover {
     transform: scale(1.1);
-    box-shadow: 0 6px 25px rgba(244, 162, 97, 0.6);
+    box-shadow: 0 6px 25px rgba(193, 255, 114, 0.6);
+    background: ${theme.colors.primary.dark};
   }
 
   &:active {
@@ -159,8 +160,8 @@ export const ChatTextArea = styled.textarea`
   height: 170px;
   width: 100%;
   &:focus {
-    border-color: #b7e1ea;
-    box-shadow: 0 0 0 3px rgba(244, 162, 97, 0.1);
+    border-color: ${theme.colors.primary.main};
+    box-shadow: 0 0 0 3px rgba(193, 255, 114, 0.1);
   }
 
   @media (max-width: ${theme.breakpoints.tablet}) {
@@ -176,8 +177,8 @@ export const ChatInput = styled.input`
   width: 100%;
 
   &:focus {
-    border-color: #b7e1ea;
-    box-shadow: 0 0 0 3px rgba(244, 162, 97, 0.1);
+    border-color: ${theme.colors.primary.main};
+    box-shadow: 0 0 0 3px rgba(193, 255, 114, 0.1);
   }
 
   @media (max-width: ${theme.breakpoints.tablet}) {

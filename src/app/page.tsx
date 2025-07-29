@@ -24,6 +24,8 @@ const Container = styled.main`
   align-items: center;
   justify-content: center;
   position: relative;
+  background: linear-gradient(135deg, #f8fdf8 0%, #f0fdf4 50%, #ecfdf5 100%);
+  font-family: "Noto Sans KR", sans-serif;
 
   @media (max-width: ${theme.breakpoints.tablet}) {
     padding: 16px;
@@ -122,9 +124,16 @@ const GameArea = styled.div`
   gap: ${theme.spacing.xxxl};
   width: 100%;
   max-width: 600px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: ${theme.borderRadius.xl};
+  padding: ${theme.spacing.xxxl};
+  box-shadow: 0 8px 32px rgba(193, 255, 114, 0.1);
+  border: 1px solid rgba(193, 255, 114, 0.2);
 
   @media (max-width: ${theme.breakpoints.tablet}) {
     gap: 55px;
+    padding: ${theme.spacing.xl};
   }
 `;
 

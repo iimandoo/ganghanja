@@ -1,37 +1,42 @@
 export const theme = {
   colors: {
     primary: {
-      main: "#26a69a",
-      dark: "#00897b",
-      gradient: "linear-gradient(135deg, #26a69a 0%, #00897b 100%)",
+      main: "#c1ff72",
+      dark: "#a3e85f",
+      light: "#d4ff8f",
+      gradient: "linear-gradient(135deg, #c1ff72 0%, #a3e85f 100%)",
     },
     secondary: {
-      main: "#2d3748",
-      dark: "#1a202c",
-      light: "#4a5568",
-      gradient: "linear-gradient(135deg, #2d3748 0%, #1a202c 100%)",
+      main: "#2d4a22",
+      dark: "#1a2b15",
+      light: "#4a7540",
+      gradient: "linear-gradient(135deg, #2d4a22 0%, #1a2b15 100%)",
+    },
+    accent: {
+      main: "#8fbc8f",
+      light: "#b8d4b8",
+      dark: "#6b8e6b",
     },
     gray: {
-      light: "#f8fafc",
-      medium: "#64748b",
-      dark: "#1e293b",
-      border: "#e2e8f0",
-      bg: "#f1f5f9",
+      light: "#f8fdf8",
+      medium: "#6b8e6b",
+      dark: "#2d4a22",
+      border: "#e8f5e8",
+      bg: "#f4faf4",
     },
     blue: {
-      main: "#3b82f6",
-      light: "rgba(59, 130, 246, 0.1)",
-      gradient:
-        "linear-gradient(135deg, rgb(4, 190, 231) 0%, rgb(26, 180, 223) 100%)",
+      main: "#4ade80",
+      light: "rgba(74, 222, 128, 0.1)",
+      gradient: "linear-gradient(135deg, #4ade80 0%, #22c55e 100%)",
     },
     success: {
-      main: "#10b981",
-      gradient: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+      main: "#22c55e",
+      gradient: "linear-gradient(135deg, #22c55e 0%, #16a34a 100%)",
     },
     warning: {
       main: "#fbbf24",
     },
-    black: "#000000",
+    black: "#1a2b15",
     white: "#ffffff",
   },
 

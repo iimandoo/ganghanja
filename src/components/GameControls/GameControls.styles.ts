@@ -29,8 +29,8 @@ export const SideButton = styled.button<{ $variant?: "primary" | "secondary" }>`
   }
 
   &:hover:not(:disabled) {
-    color: #475569;
-    box-shadow: 0px 3px 10px #b7e1ea;
+    color: ${theme.colors.primary.dark};
+    box-shadow: 0px 3px 10px rgba(193, 255, 114, 0.4);
   }
 
   @media (max-width: ${theme.breakpoints.tablet}) {

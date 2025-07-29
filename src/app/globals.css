@@ -23,7 +23,8 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: #ffffff;
+  background: linear-gradient(135deg, #f8fdf8 0%, #f0fdf4 50%, #ecfdf5 100%);
+  min-height: 100vh;
 }
 
 a {

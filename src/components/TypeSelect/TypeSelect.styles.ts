@@ -43,14 +43,14 @@ export const SelectButton = styled.button<{ $isOpen: boolean }>`
 
   &:hover {
     border-color: ${theme.colors.primary.main};
-    box-shadow: 0 2px 8px rgba(38, 166, 154, 0.12);
+    box-shadow: 0 2px 8px rgba(193, 255, 114, 0.12);
   }
 
   &:focus {
     outline: none;
     border-color: ${theme.colors.primary.main};
-    box-shadow: 0 0 0 3px rgba(38, 166, 154, 0.1),
-      0 2px 8px rgba(38, 166, 154, 0.15);
+    box-shadow: 0 0 0 3px rgba(193, 255, 114, 0.1),
+      0 2px 8px rgba(193, 255, 114, 0.15);
   }
 
   &:active {
@@ -61,7 +61,7 @@ export const SelectButton = styled.button<{ $isOpen: boolean }>`
     $isOpen &&
     `
     border-color: ${theme.colors.primary.main};
-    box-shadow: 0 0 0 3px rgba(38, 166, 154, 0.1), 0 2px 8px rgba(38, 166, 154, 0.15);
+    box-shadow: 0 0 0 3px rgba(193, 255, 114, 0.1), 0 2px 8px rgba(193, 255, 114, 0.15);
   `}
 
   @media (max-width: ${theme.breakpoints.mobile}) {

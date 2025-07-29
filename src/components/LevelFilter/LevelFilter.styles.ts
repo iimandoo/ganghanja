@@ -22,15 +22,17 @@ export const Container = styled.div`
 
 export const LevelButton = styled.button<{ $active: boolean }>`
   background: ${(props) =>
-    props.$active ? theme.colors.primary.main : theme.colors.white};
+    props.$active 
+      ? `linear-gradient(135deg, ${theme.colors.secondary.main} 0%, ${theme.colors.secondary.dark} 100%)`
+      : theme.colors.white};
   color: ${(props) =>
-    props.$active ? theme.colors.white : theme.colors.gray.medium};
+    props.$active ? theme.colors.white : theme.colors.secondary.main};
   border: 2px solid
     ${(props) =>
-      props.$active ? theme.colors.primary.main : theme.colors.gray.border};
-  padding: 5px 10px;
-  border-radius: ${theme.borderRadius.pill};
-  font-size: ${theme.fontSize.lg};
+      props.$active ? theme.colors.secondary.main : theme.colors.gray.border};
+  padding: 8px 16px;
+  border-radius: ${theme.borderRadius.md};
+  font-size: ${theme.fontSize.base};
   font-weight: ${theme.fontWeight.semibold};
   cursor: pointer;
   transition: ${theme.transitions.fast};
@@ -41,25 +43,32 @@ export const LevelButton = styled.button<{ $active: boolean }>`
     transform: translateY(-1px);
     box-shadow: ${theme.shadows.md};
     background: ${(props) =>
-      props.$active ? theme.colors.primary.dark : theme.colors.gray.light};
+      props.$active 
+        ? `linear-gradient(135deg, ${theme.colors.secondary.light} 0%, ${theme.colors.secondary.main} 100%)`
+        : theme.colors.gray.light};
     border-color: ${(props) =>
-      props.$active ? theme.colors.primary.dark : "#cbd5e1"};
+      props.$active ? theme.colors.secondary.light : theme.colors.secondary.main};
   }
 
   &:active {
     transform: translateY(0);
+    box-shadow: ${theme.shadows.sm};
+    background: ${(props) =>
+      props.$active 
+        ? `linear-gradient(135deg, ${theme.colors.secondary.dark} 0%, #171923 100%)`
+        : theme.colors.gray.bg};
   }
 
   @media (max-width: ${theme.breakpoints.tablet}) {
-    padding: 5px 10px;
-    font-size: ${theme.fontSize.base};
-    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: ${theme.fontSize.sm};
+    border-radius: ${theme.borderRadius.md};
   }
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    padding: 5px 10px;
+    padding: 4px 8px;
     font-size: ${theme.fontSize.xs};
-    border-radius: 16px;
+    border-radius: ${theme.borderRadius.sm};
   }
 `;
 

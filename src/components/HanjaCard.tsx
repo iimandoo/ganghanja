@@ -71,14 +71,16 @@ const CardFace = styled.div`
 `;
 
 const CardFront = styled(CardFace)`
-  background: linear-gradient(135deg, #b7e1ea 0%, #a8d5e2 100%);
-  color: #2d3748;
+  background: linear-gradient(135deg, #c1ff72 0%, #a3e85f 100%);
+  color: #1a2b15;
+  border: 2px solid rgba(163, 232, 95, 0.3);
 `;
 
 const CardBack = styled(CardFace)`
-  background: linear-gradient(135deg, #f4d4a7 0%, #e8b563 100%);
-  color: #2d3748;
+  background: linear-gradient(135deg, #d4ff8f 0%, #c1ff72 100%);
+  color: #1a2b15;
   transform: rotateY(180deg);
+  border: 2px solid rgba(193, 255, 114, 0.3);
 `;
 
 const LevelBadgeBase = styled.div`

@@ -45,28 +45,6 @@ export const MESSAGES = {
   },
 } as const;
 
-export const EMAIL_CONFIG = {
-  SERVICE_ID: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "YOUR_SERVICE_ID",
-  TEMPLATE_ID:
-    process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "YOUR_TEMPLATE_ID",
-  PUBLIC_KEY: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "YOUR_PUBLIC_KEY",
-
-  TEMPLATES: {
-    REQUEST: {
-      TO_EMAIL: "euneundh@gmail.com",
-      FROM_EMAIL: "noreply@hanjacard.com",
-      SUBJECT: "[한자카드게임] 사용자 요청사항",
-      FROM_NAME: "한자카드게임 사용자",
-    },
-    CHAT: {
-      TO_EMAIL: "euneundh@gmail.com",
-      FROM_EMAIL: "noreply@hanjacard.com",
-      SUBJECT: "[한자카드게임] 채팅 문의",
-      FROM_NAME: "한자카드게임 사용자 (채팅)",
-    },
-  },
-} as const;
-
 export const ANIMATION_DELAYS = {
   CARD_RESET: 100,
   CHAT_AUTO_CLOSE: 3000,

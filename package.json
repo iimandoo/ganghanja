@@ -8,22 +8,13 @@
     "start": "next start",
     "lint": "next lint",
     "migrate": "dotenv -e .env.local -- tsx scripts/migrate-to-supabase.ts",
-    "test-db": "dotenv -e .env.local -- tsx scripts/test-connection.ts",
-    "test-simple": "dotenv -e .env.local -- tsx scripts/simple-test.ts",
-    "test-customer": "dotenv -e .env.local -- tsx scripts/test-customer-api.ts",
-    "create-customer-table": "dotenv -e .env.local -- tsx scripts/create-customer-table.ts",
-    "debug-customer": "dotenv -e .env.local -- tsx scripts/debug-customer-table.ts",
-    "manual-create": "dotenv -e .env.local -- tsx scripts/manual-create-table.ts"
+    "create-customer-table": "dotenv -e .env.local -- tsx scripts/create-customer-table.ts"
   },
   "dependencies": {
-    "@emailjs/browser": "^4.4.1",
     "@supabase/supabase-js": "^2.53.0",
     "@tanstack/react-query": "^5.83.0",
-    "@types/node-fetch": "^2.6.12",
     "@types/styled-components": "^5.1.34",
-    "axios": "^1.11.0",
     "next": "15.4.2",
-    "node-fetch": "^2.7.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-icons": "^5.5.0",

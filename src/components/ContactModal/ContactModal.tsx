@@ -1,7 +1,6 @@
 import React from "react";
 import { IoClose } from "react-icons/io5";
 import { MESSAGES } from "@/constants";
-import { useEmailService } from "@/hooks/useEmailService";
 import {
   ModalOverlay,
   Modal,
@@ -34,8 +33,6 @@ export const ContactModal: React.FC<ContactModalProps> = ({
   onClose,
   onSubmit,
 }) => {
-  const { isSubmitting } = useEmailService();
-
   if (!isOpen) return null;
 
   return (
@@ -67,9 +64,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({
           <Button $variant="secondary" onClick={onClose}>
             {MESSAGES.BUTTONS.CANCEL}
           </Button>
-          <Button onClick={onSubmit} disabled={isSubmitting}>
-            {isSubmitting ? MESSAGES.LOADING.SENDING : MESSAGES.LOADING.SUBMIT}
-          </Button>
+          <Button onClick={onSubmit}>{MESSAGES.LOADING.SUBMIT}</Button>
         </ModalButtons>
       </Modal>
     </ModalOverlay>

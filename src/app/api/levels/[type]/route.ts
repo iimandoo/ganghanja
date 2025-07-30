@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabase";
+import { getSupabaseAdmin } from "@/lib/supabase";
 
 export async function GET(
   request: NextRequest,
@@ -20,6 +20,7 @@ export async function GET(
     }
 
     // 해당 타입의 고유한 급수 목록 조회
+    const supabaseAdmin = getSupabaseAdmin();
     const { data, error } = await supabaseAdmin
       .from("hanja_data")
       .select("level")

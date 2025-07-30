@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabase";
+import { getSupabaseAdmin } from "@/lib/supabase";
 
 export async function GET(
   request: NextRequest,
@@ -21,6 +21,7 @@ export async function GET(
       );
     }
 
+    const supabaseAdmin = getSupabaseAdmin();
     let query = supabaseAdmin
       .from("hanja_data")
       .select("*")

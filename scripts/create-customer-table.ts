@@ -1,5 +1,5 @@
 import * as dotenv from "dotenv";
-import { supabaseAdmin } from "../src/lib/supabase";
+import { getSupabaseAdmin } from "../src/lib/supabase";
 
 // .env.local 파일 로드
 dotenv.config({ path: ".env.local" });

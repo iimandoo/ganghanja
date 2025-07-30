@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabase";
+import { getSupabaseAdmin } from "@/lib/supabase";
 
 export interface CustomerInquiryRequest {
   message: string;
@@ -65,6 +65,7 @@ export async function POST(request: NextRequest) {
 
     // Supabase에 데이터 저장
     console.log("🗄️ Supabase에 데이터 저장 시도...");
+    const supabaseAdmin = getSupabaseAdmin();
     const { data, error } = await supabaseAdmin
       .from("customer_inquiries")
       .insert([inquiryData])

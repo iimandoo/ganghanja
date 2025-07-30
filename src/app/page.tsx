@@ -109,7 +109,6 @@ const GameArea = styled.div`
   gap: ${theme.spacing.xxxl};
   width: 100%;
   max-width: 600px;
-  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
   border-radius: ${theme.borderRadius.xl};
   padding: ${theme.spacing.xxxl};

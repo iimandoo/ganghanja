@@ -3,6 +3,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import Image from "next/image";
+import Script from "next/script";
 import HanjaCard from "@/components/HanjaCard";
 import { LevelFilter } from "@/components/LevelFilter";
 import { ProgressBar } from "@/components/ProgressBar";
@@ -264,6 +265,17 @@ export default function Home() {
           }),
         }}
       />
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-7M78VLX327"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-7M78VLX327');
+          `}
+      </Script>
       <HeaderBox>
         <Header>
           <Logo

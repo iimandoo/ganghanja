@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "migrate": "dotenv -e .env.local -- tsx scripts/migrate-to-supabase.ts",
-    "create-customer-table": "dotenv -e .env.local -- tsx scripts/create-customer-table.ts"
+    "create-customer-table": "dotenv -e .env.local -- tsx scripts/create-customer-table.ts",
+    "update-level-format": "dotenv -e .env.local -- tsx scripts/update-level-format.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.53.0",

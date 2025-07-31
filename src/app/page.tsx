@@ -37,12 +37,10 @@ const Header = styled.header`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 10px;
   text-align: center;
-  margin-bottom: 40px;
-
+  padding: 20px 0px;
   @media (max-width: ${theme.breakpoints.tablet}) {
-    margin-bottom: 20px;
   }
 `;
 
@@ -54,27 +52,26 @@ const TitleContainer = styled.div`
   justify-content: center;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    flex-direction: column;
     gap: 8px;
   }
 `;
 
 const Logo = styled(Image)`
   height: auto;
-  max-height: 60px;
+  max-height: 80px;
   width: auto;
 
   @media (max-width: ${theme.breakpoints.tablet}) {
-    max-height: 50px;
+    max-height: 70px;
   }
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    max-height: 45px;
+    max-height: 60px;
   }
 `;
 
 const Title = styled.h1`
-  font-size: ${theme.fontSize.xxl};
+  font-size: ${theme.fontSize.lg};
   font-weight: ${theme.fontWeight.bold};
   color: ${theme.colors.gray.dark};
   text-shadow: ${theme.shadows.sm};
@@ -82,11 +79,11 @@ const Title = styled.h1`
   margin: 0;
 
   @media (max-width: ${theme.breakpoints.tablet}) {
-    font-size: ${theme.fontSize.xxl};
+    font-size: ${theme.fontSize.lg};
   }
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    font-size: ${theme.fontSize.xl};
+    font-size: ${theme.fontSize.lg};
   }
 `;
 
@@ -106,18 +103,14 @@ const GameArea = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: ${theme.spacing.xxxl};
   width: 100%;
   max-width: 600px;
   backdrop-filter: blur(10px);
   border-radius: ${theme.borderRadius.xl};
-  padding: ${theme.spacing.xxxl};
   box-shadow: 0 8px 32px rgba(193, 255, 114, 0.1);
   border: 1px solid rgba(193, 255, 114, 0.2);
 
   @media (max-width: ${theme.breakpoints.tablet}) {
-    gap: 55px;
-    padding: ${theme.spacing.xl};
   }
 `;
 
@@ -147,8 +140,8 @@ export default function Home() {
     selectedType,
     availableLevels,
     resetCardFlip,
-    history,
-    historyPosition,
+    canGoPrevious,
+    canGoNext,
     progress,
     handleNext,
     handlePrevious,
@@ -265,8 +258,8 @@ export default function Home() {
         <Logo
           src="/logo_cool.png"
           alt="COOL한자 로고"
-          width={160}
-          height={60}
+          width={180}
+          height={80}
           priority
         />
         <TitleContainer>
@@ -286,20 +279,14 @@ export default function Home() {
         disabled={selectedLevels.length === 0}
       />
 
-      <ProgressBar key={`progress-${progress}`} progress={progress} />
       <GameArea>
+        <ProgressBar key={`progress-${progress}`} progress={progress} />
         <CardSection>
           <GameControls
             onPrevious={handlePrevious}
             onNext={handleNext}
-            canGoPrevious={filteredData.length > 0 && historyPosition > 0}
-            canGoNext={
-              filteredData.length > 0 &&
-              !(
-                currentIndex >= filteredData.length - 1 &&
-                historyPosition >= history.length - 1
-              )
-            }
+            canGoPrevious={canGoPrevious}
+            canGoNext={canGoNext}
           />
           <HanjaCard
             hanja={filteredData.length > 0 ? filteredData[currentIndex] : null}

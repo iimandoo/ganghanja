@@ -9,10 +9,9 @@ export interface UseHanjaGameReturn {
   selectedLevels: Level[];
   selectedType: HanjaType;
   availableLevels: Level[];
-  usedIndices: Set<number>;
   resetCardFlip: boolean;
-  history: number[];
-  historyPosition: number;
+  canGoPrevious: boolean;
+  canGoNext: boolean;
   progress: number;
   isLoading: boolean;
   error: string | null;
@@ -27,10 +26,7 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedLevels, setSelectedLevels] = useState<Level[]>([]);
   const [selectedType, setSelectedType] = useState<HanjaType>("대한검정회");
-  const [usedIndices, setUsedIndices] = useState<Set<number>>(new Set());
   const [resetCardFlip, setResetCardFlip] = useState(false);
-  const [history, setHistory] = useState<number[]>([0]);
-  const [historyPosition, setHistoryPosition] = useState(0);
 
   // 사용 가능한 급수 목록 조회
   const {
@@ -48,7 +44,6 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
     data: hanjaResponse,
     isLoading: hanjaLoading,
     error: hanjaError,
-    refetch: refetchHanja,
   } = useQuery({
     queryKey: ["hanja", selectedType, selectedLevels],
     queryFn: () => fetchHanjaData(selectedType, selectedLevels),
@@ -71,9 +66,6 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
   useEffect(() => {
     if (filteredData.length > 0) {
       setCurrentIndex(0);
-      setUsedIndices(new Set([0]));
-      setHistory([0]);
-      setHistoryPosition(0);
       setResetCardFlip(true);
       setTimeout(() => setResetCardFlip(false), ANIMATION_DELAYS.CARD_RESET);
     }
@@ -87,45 +79,24 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
   const handleNext = () => {
     if (filteredData.length === 0) return;
 
-    if (historyPosition >= history.length - 1) {
-      const nextIndex = (currentIndex + 1) % filteredData.length;
-      setCurrentIndex(nextIndex);
-      setUsedIndices((prev) => new Set(prev).add(nextIndex));
-
-      const newHistory = [...history.slice(0, historyPosition + 1), nextIndex];
-      setHistory(newHistory);
-      setHistoryPosition(newHistory.length - 1);
-    } else {
-      const nextPosition = historyPosition + 1;
-      setCurrentIndex(history[nextPosition]);
-      setHistoryPosition(nextPosition);
-    }
-
+    const nextIndex = (currentIndex + 1) % filteredData.length;
+    setCurrentIndex(nextIndex);
     resetCardFlipState();
   };
 
   const handlePrevious = () => {
-    if (historyPosition > 0) {
-      const prevPosition = historyPosition - 1;
-      setCurrentIndex(history[prevPosition]);
-      setHistoryPosition(prevPosition);
-      resetCardFlipState();
-    }
+    if (filteredData.length === 0) return;
+
+    const prevIndex =
+      currentIndex === 0 ? filteredData.length - 1 : currentIndex - 1;
+    setCurrentIndex(prevIndex);
+    resetCardFlipState();
   };
 
   const handleShuffle = () => {
     if (filteredData.length > 0) {
-      // 셔플은 클라이언트에서 처리
-      const shuffledIndices = Array.from(
-        { length: filteredData.length },
-        (_, i) => i
-      ).sort(() => Math.random() - 0.5);
-
-      const randomIndex = shuffledIndices[0];
+      const randomIndex = Math.floor(Math.random() * filteredData.length);
       setCurrentIndex(randomIndex);
-      setUsedIndices(new Set([randomIndex]));
-      setHistory([randomIndex]);
-      setHistoryPosition(0);
       resetCardFlipState();
     }
   };
@@ -143,6 +114,8 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
     setSelectedLevels([]); // 새로운 타입의 급수로 리셋될 예정
   };
 
+  const canGoPrevious = filteredData.length > 0;
+  const canGoNext = filteredData.length > 0;
   const progress =
     selectedLevels.length === 0 || filteredData.length === 0
       ? 0
@@ -154,10 +127,9 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
     selectedLevels,
     selectedType,
     availableLevels,
-    usedIndices,
     resetCardFlip,
-    history,
-    historyPosition,
+    canGoPrevious,
+    canGoNext,
     progress,
     isLoading,
     error,

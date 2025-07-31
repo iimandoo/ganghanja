@@ -121,7 +121,7 @@ export const DropdownList = styled.ul<{ $isOpen: boolean }>`
   transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
   margin: 0;
-  padding: 8px 0;
+  padding: 0;
   list-style: none;
 
   /* 스크롤바 스타일링 */
@@ -167,7 +167,7 @@ export const DropdownItem = styled.li<{ $isSelected: boolean }>`
   ${({ $isSelected }) =>
     $isSelected &&
     `
-    color: ${theme.colors.primary.main};
+    background-color: ${theme.colors.primary.main};
     font-weight: 600;
     
     &::after {
@@ -175,7 +175,10 @@ export const DropdownItem = styled.li<{ $isSelected: boolean }>`
       float: right;
       color: ${theme.colors.primary.main};
       font-weight: 600;
-    }
+    }  &:hover {
+    background-color: ${theme.colors.primary.main};
+  }
+
   `}
 
   @media (max-width: ${theme.breakpoints.mobile}) {

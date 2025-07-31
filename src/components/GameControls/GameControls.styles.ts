@@ -57,35 +57,57 @@ export const SideButton = styled.button<{ $variant?: "primary" | "secondary" }>`
   }
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    position: absolute;
-    top: auto;
-    bottom: -40px;
     min-width: 40px;
-    width: 25%;
-    height: 40px;
     font-size: 1.4rem;
-    z-index: ${theme.zIndex.floating};
-    transform: none;
 
     &.previous {
-      left: 30%;
-      transform: translateX(-50%);
+      left: 50%;
+      transform: translate(-180px, -50%);
     }
 
     &.next {
-      right: 30%;
-      left: auto;
-      transform: translateX(50%);
+      left: 50%;
+      transform: translate(140px, -50%);
     }
 
     &:hover:not(:disabled) {
       &.previous {
-        transform: translateX(-50%);
       }
 
       &.next {
-        transform: translateX(50%);
       }
     }
   }
+  // @media (max-width: ${theme.breakpoints.mobile}) {
+  //   position: absolute;
+  //   top: auto;
+  //   bottom: -40px;
+  //   min-width: 40px;
+  //   width: 25%;
+  //   height: 40px;
+  //   font-size: 1.4rem;
+  //   z-index: ${theme.zIndex.floating};
+  //   transform: none;
+
+  //   &.previous {
+  //     left: 30%;
+  //     transform: translateX(-50%);
+  //   }
+
+  //   &.next {
+  //     right: 30%;
+  //     left: auto;
+  //     transform: translateX(50%);
+  //   }
+
+  //   &:hover:not(:disabled) {
+  //     &.previous {
+  //       transform: translateX(-50%);
+  //     }
+
+  //     &.next {
+  //       transform: translateX(50%);
+  //     }
+  //   }
+  // }
 `;

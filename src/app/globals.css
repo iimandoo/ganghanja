@@ -8,6 +8,8 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  /* 모바일에서 더블클릭 확대 방지 */
+  touch-action: manipulation;
 }
 
 html,
@@ -19,6 +21,9 @@ body {
     "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* 모바일 더블클릭 확대 방지 추가 설정 */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
 }
 
 body {

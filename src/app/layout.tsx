@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { QueryProvider } from "@/components/QueryProvider";
@@ -13,6 +13,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: "cover",
+};
+
 export const metadata: Metadata = {
   title: "COOL한자 | 한자카드 | 한대한검정회 어문회 | 한자능력검정시험",
   description:
@@ -23,7 +31,6 @@ export const metadata: Metadata = {
   creator: "한자능력검정시험 학습카드",
   publisher: "대한검정회 한자카드",
   robots: "index, follow",
-  viewport: "width=device-width, initial-scale=1",
 
   // Open Graph
   openGraph: {

@@ -1,4 +1,4 @@
-export const LEVELS = ["8급", "7급", "6급", "준5급", "5급", "준4급"] as const;
+export const LEVELS = ["8", "7", "6", "준5", "5", "준4"] as const;
 
 export const HANJA_TYPES = ["대한검정회", "어문회"] as const;
 

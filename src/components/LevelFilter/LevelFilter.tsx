@@ -1,6 +1,6 @@
 import React from "react";
 import { IoShuffle } from "react-icons/io5";
-import { MESSAGES } from "@/constants";
+import { MESSAGES, LEVELS } from "@/constants";
 import type { Level } from "@/constants";
 import { Container, LevelButton, ShuffleButton } from "./LevelFilter.styles";
 
@@ -19,9 +19,15 @@ export const LevelFilter: React.FC<LevelFilterProps> = ({
   onShuffle,
   disabled = false,
 }) => {
+  // availableLevels를 LEVELS 순서에 맞게 정렬
+  const sortedLevels = availableLevels.sort(
+    (a, b) => LEVELS.indexOf(a) - LEVELS.indexOf(b)
+  );
+
   return (
     <Container>
-      {availableLevels.map((level) => (
+      급수
+      {sortedLevels.map((level) => (
         <LevelButton
           key={level}
           $active={selectedLevels.includes(level)}

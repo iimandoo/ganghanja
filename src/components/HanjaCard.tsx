@@ -91,7 +91,7 @@ const CardBack = styled(CardFace)<{ $colorKey: CardColorKey }>`
 const LevelBadgeBase = styled.div`
   position: absolute;
   top: 20px;
-  right: 20px;
+  left: 20px;
   padding: 8px 16px;
   border-radius: 10px;
   font-size: 0.9rem;
@@ -105,7 +105,7 @@ const LevelBadgeBase = styled.div`
 
   @media (max-width: 768px) {
     top: 10px;
-    right: 10px;
+    left: 10px;
     font-size: 0.8rem;
     padding: 5px 10px;
   }
@@ -248,14 +248,15 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
     <CardContainer onClick={handleCardClick} $disabled={disabled}>
       <CardInner $isFlipped={isFlipped} $noAnimation={noAnimation}>
         <CardFront $colorKey={cardColorKey}>
-          {hanja && <LevelBadgeFront>{hanja.level}</LevelBadgeFront>}
+          {hanja && <LevelBadgeFront>{hanja.level}급</LevelBadgeFront>}
+          {/* {hanja && <DoneBadge>{hanja.level}</DoneBadge>} */}
           <HanjaCharacter>{hanja ? hanja.character : ""}</HanjaCharacter>
           {!disabled && <FlipHint>카드를 클릭해서 뒤집어보세요!</FlipHint>}
           {disabled && <FlipHint>급수를 선택해주세요!</FlipHint>}
         </CardFront>
 
         <CardBack $colorKey={cardColorKey}>
-          {hanja && <LevelBadgeBack>{hanja.level}</LevelBadgeBack>}
+          {hanja && <LevelBadgeBack>{hanja.level}급</LevelBadgeBack>}
           <BackContent>
             {hanja ? (
               <>

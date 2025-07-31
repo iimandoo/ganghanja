@@ -265,9 +265,7 @@ export default function Home() {
           }),
         }}
       />
-      <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-7M78VLX327"
-      />
+      <Script src="https://www.googletagmanager.com/gtag/js?id=G-7M78VLX327" />
       <Script id="google-analytics" strategy="afterInteractive">
         {`
             window.dataLayer = window.dataLayer || [];

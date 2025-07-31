@@ -26,7 +26,7 @@ const Container = styled.main`
   position: relative;
   background: linear-gradient(135deg, #f8fdf8 0%, #f0fdf4 50%, #ecfdf5 100%);
   font-family: "Noto Sans KR", sans-serif;
-  gap: 30px;
+  gap: 10px;
   @media (max-width: ${theme.breakpoints.tablet}) {
     padding: 16px;
   }

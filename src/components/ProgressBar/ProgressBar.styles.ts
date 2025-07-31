@@ -7,7 +7,7 @@ export const Container = styled.div`
   background: ${theme.colors.gray.border};
   border-radius: ${theme.borderRadius.sm};
   overflow: hidden;
-  margin: 0px auto 10px auto;
+  margin: 20px auto 10px auto;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 
   @media (max-width: ${theme.breakpoints.tablet}) {

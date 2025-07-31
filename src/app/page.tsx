@@ -26,8 +26,15 @@ const Container = styled.main`
   position: relative;
   background: linear-gradient(135deg, #f8fdf8 0%, #f0fdf4 50%, #ecfdf5 100%);
   font-family: "Noto Sans KR", sans-serif;
-
+  gap: 30px;
   @media (max-width: ${theme.breakpoints.tablet}) {
+    padding: 16px;
+  }
+
+  /* 태블릿 가로 모드 (landscape) */
+  @media (min-width: 481px) and (max-width: 1180px) and (orientation: landscape) {
+    flex-direction: row;
+    gap: 20px;
     padding: 16px;
   }
 `;
@@ -87,7 +94,10 @@ const Title = styled.h1`
   }
 `;
 
-// const Subtitle = styled.p`
+const HeaderBox = styled.div`
+  margin: 0 auto;
+  overflow: hidden;
+`;
 //   font-size: ${theme.fontSize.xl};
 //   color: ${theme.colors.gray.medium};
 //   margin: 0;
@@ -254,33 +264,47 @@ export default function Home() {
           }),
         }}
       />
-      <Header>
-        <Logo
-          src="/logo_cool.png"
-          alt="COOL한자 로고"
-          width={180}
-          height={80}
-          priority
-        />
-        <TitleContainer>
-          <Title as="h1"> 한자능력검정시험 </Title>
-          <TypeSelect
-            selectedType={selectedType}
-            onTypeChange={handleTypeChange}
+      <HeaderBox>
+        <Header>
+          <Logo
+            src="/logo_cool.png"
+            alt="COOL한자 로고"
+            width={180}
+            height={80}
+            priority
           />
-        </TitleContainer>
-      </Header>
-
-      <LevelFilter
-        selectedLevels={selectedLevels}
-        availableLevels={availableLevels}
-        onLevelFilter={handleLevelFilter}
-        onShuffle={handleShuffle}
-        disabled={selectedLevels.length === 0}
-      />
+          <TitleContainer>
+            <Title as="h1"> 한자능력검정시험 </Title>
+            <TypeSelect
+              selectedType={selectedType}
+              onTypeChange={handleTypeChange}
+            />
+          </TitleContainer>
+        </Header>
+        <LevelFilter
+          selectedLevels={selectedLevels}
+          availableLevels={availableLevels}
+          onLevelFilter={handleLevelFilter}
+          onShuffle={handleShuffle}
+          disabled={selectedLevels.length === 0}
+        />
+        <ChatModal
+          isOpen={isChatOpen}
+          message={chatMessage}
+          contactInfo={chatContactInfo}
+          rating={rating}
+          showSuccessMessage={showSuccessMessage}
+          onMessageChange={setChatMessage}
+          onContactInfoChange={setChatContactInfo}
+          onRatingClick={handleRatingClick}
+          onOpen={handleChatOpen}
+          onClose={handleChatClose}
+          onSubmit={handleChatSubmit}
+        />
+        <ProgressBar key={`progress-${progress}`} progress={progress} />
+      </HeaderBox>
 
       <GameArea>
-        <ProgressBar key={`progress-${progress}`} progress={progress} />
         <CardSection>
           <GameControls
             onPrevious={handlePrevious}
@@ -304,20 +328,6 @@ export default function Home() {
         onContactInfoChange={setContactInfo}
         onClose={handleModalClose}
         onSubmit={handleSubmitRequest}
-      />
-
-      <ChatModal
-        isOpen={isChatOpen}
-        message={chatMessage}
-        contactInfo={chatContactInfo}
-        rating={rating}
-        showSuccessMessage={showSuccessMessage}
-        onMessageChange={setChatMessage}
-        onContactInfoChange={setChatContactInfo}
-        onRatingClick={handleRatingClick}
-        onOpen={handleChatOpen}
-        onClose={handleChatClose}
-        onSubmit={handleChatSubmit}
       />
     </Container>
   );

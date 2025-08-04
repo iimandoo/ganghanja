@@ -53,13 +53,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   // 세션에서 사용자 정보 추출
-  const extractUserFromSession = useCallback((session: any): AuthUser => {
-    return {
-      id: session.user.id,
-      username: session.user.user_metadata?.username || "",
-      created_at: session.user.created_at,
-    };
-  }, []);
+  const extractUserFromSession = useCallback(
+    (session: {
+      user: {
+        id: string;
+        user_metadata?: { username?: string };
+        created_at: string;
+      };
+    }): AuthUser => {
+      return {
+        id: session.user.id,
+        username: session.user.user_metadata?.username || "",
+        created_at: session.user.created_at,
+      };
+    },
+    []
+  );
 
   // 세션 초기화 및 상태 변경 리스너 등록
   useEffect(() => {

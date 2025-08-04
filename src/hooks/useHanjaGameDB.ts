@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Level, HanjaType, ANIMATION_DELAYS } from "@/constants";
 import { fetchHanjaData, fetchAvailableLevels, HanjaData } from "@/lib/api";
@@ -51,8 +51,14 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
     enabled: !!selectedType && selectedLevels.length > 0,
   });
 
-  const availableLevels = levelsData?.levels || [];
-  const filteredData = hanjaResponse?.data || [];
+  const availableLevels = useMemo(
+    () => levelsData?.levels || [],
+    [levelsData?.levels]
+  );
+  const filteredData = useMemo(
+    () => hanjaResponse?.data || [],
+    [hanjaResponse?.data]
+  );
   const isLoading = levelsLoading || hanjaLoading;
   const error = levelsError?.message || hanjaError?.message || null;
 

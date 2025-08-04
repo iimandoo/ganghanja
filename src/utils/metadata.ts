@@ -1,5 +1,3 @@
-import { Level } from "@/constants";
-
 export function generateDynamicMetadata() {
   return {
     title: `COOL한자 | 대한검정회, 어문회 급수시험 한자카드`,

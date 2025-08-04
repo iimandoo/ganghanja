@@ -239,7 +239,6 @@ const HideButton = styled.button`
   @media (max-width: 768px) {
     top: 10px;
     right: 10px;
-    width: 32px;
     height: 32px;
     font-size: 14px;
   }

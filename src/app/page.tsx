@@ -8,6 +8,7 @@ import HanjaCard from "@/components/HanjaCard";
 import EmptyCard from "@/components/EmptyCard";
 import { Snackbar } from "@/components/Snackbar/Snackbar";
 import { LevelFilter } from "@/components/LevelFilter";
+import { CardActions } from "@/components/CardActions";
 import { ProgressBar } from "@/components/ProgressBar";
 import { TypeSelect } from "@/components/TypeSelect";
 import { GameControls } from "@/components/GameControls";
@@ -54,8 +55,9 @@ const Header = styled.header`
   justify-content: center;
   gap: 10px;
   text-align: center;
-  padding: 20px 0px;
+  padding: 30px 0px 40px 0px;
   @media (max-width: ${theme.breakpoints.tablet}) {
+    padding: 30px 0px 20px 0px;
   }
 `;
 
@@ -73,7 +75,7 @@ const TitleContainer = styled.div`
 
 const Logo = styled(Image)`
   height: auto;
-  max-height: 80px;
+  max-height: 70px;
   width: auto;
 
   @media (max-width: ${theme.breakpoints.tablet}) {
@@ -85,23 +87,6 @@ const Logo = styled(Image)`
   }
 `;
 
-const Title = styled.h1`
-  font-size: ${theme.fontSize.lg};
-  font-weight: ${theme.fontWeight.bold};
-  color: ${theme.colors.gray.dark};
-  text-shadow: ${theme.shadows.sm};
-  font-family: "Noto Sans KR", sans-serif;
-  margin: 0;
-
-  @media (max-width: ${theme.breakpoints.tablet}) {
-    font-size: ${theme.fontSize.lg};
-  }
-
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    font-size: ${theme.fontSize.lg};
-  }
-`;
-
 const HeaderBox = styled.div`
   margin: 0 auto;
   overflow: hidden;
@@ -110,7 +95,7 @@ const HeaderBox = styled.div`
 
 const AuthSection = styled.div`
   position: absolute;
-  top: 20px;
+  top: 0px;
   right: 0px;
   display: flex;
   align-items: center;
@@ -201,9 +186,6 @@ export default function Home() {
     selectedType,
     availableLevels,
     resetCardFlip,
-    canGoPrevious,
-    canGoNext,
-    progress,
     handleNext,
     handlePrevious,
     handleShuffle,
@@ -255,9 +237,14 @@ export default function Home() {
   );
 
   // 현재 카드 인덱스가 숨겨진 카드 개수로 인해 범위를 벗어나는 경우 조정
-  const adjustedCurrentIndex = Math.min(currentIndex, visibleCards.length - 1);
+  const adjustedCurrentIndex = Math.min(
+    currentIndex,
+    Math.max(0, visibleCards.length - 1)
+  );
   const currentCard =
-    visibleCards.length > 0 ? visibleCards[adjustedCurrentIndex] : null;
+    visibleCards.length > 0 && adjustedCurrentIndex >= 0
+      ? visibleCards[adjustedCurrentIndex]
+      : null;
 
   // 숨겨진 카드를 제외한 진행률 계산
   const adjustedProgress =
@@ -380,30 +367,27 @@ export default function Home() {
           )}
         </AuthSection>
         <Header>
-          <Logo
-            src="/logo_cool.png"
-            alt="COOL한자 로고"
-            width={180}
-            height={80}
-            priority
-          />
           <TitleContainer>
-            <Title as="h1"> 한자능력검정시험 </Title>
+            <Logo
+              src="/logo_cool.png"
+              alt="COOL한자 로고"
+              width={170}
+              height={70}
+              priority
+            />
             <TypeSelect
               selectedType={selectedType}
               onTypeChange={handleTypeChange}
             />
           </TitleContainer>
         </Header>
-        <LevelFilter
-          selectedLevels={selectedLevels}
-          availableLevels={availableLevels}
-          onLevelFilter={handleLevelFilter}
-          onShuffle={handleShuffle}
-          onUnhideAll={hiddenCardsHook.clearHiddenCards}
-          hiddenCardsCount={hiddenCardsHook.hiddenCardsCount}
-          disabled={selectedLevels.length === 0}
-        />
+        <div>
+          <LevelFilter
+            selectedLevels={selectedLevels}
+            availableLevels={availableLevels}
+            onLevelFilter={handleLevelFilter}
+          />
+        </div>
         <ChatModal
           isOpen={isChatOpen}
           message={chatMessage}
@@ -419,14 +403,16 @@ export default function Home() {
         />
         <ProgressBar progress={adjustedProgress} />
       </HeaderBox>
-
       <GameArea>
         <CardSection>
           <GameControls
             onPrevious={handlePrevious}
             onNext={handleNext}
-            canGoPrevious={canGoPrevious && visibleCards.length > 0}
-            canGoNext={canGoNext && visibleCards.length > 0}
+            canGoPrevious={adjustedCurrentIndex > 0 && visibleCards.length > 0}
+            canGoNext={
+              adjustedCurrentIndex < visibleCards.length - 1 &&
+              visibleCards.length > 0
+            }
           />
           {selectedLevels.length === 0 ? (
             <EmptyCard reason="no-level-selected" />
@@ -434,6 +420,8 @@ export default function Home() {
             <EmptyCard reason="no-visible-cards" />
           ) : visibleCards.length === 0 ? (
             <EmptyCard reason="all-hidden" />
+          ) : currentIndex >= visibleCards.length && visibleCards.length > 0 ? (
+            <EmptyCard reason="completed" />
           ) : (
             <HanjaCard
               hanja={currentCard}
@@ -444,7 +432,12 @@ export default function Home() {
           )}
         </CardSection>
       </GameArea>
-
+      <CardActions
+        onShuffle={handleShuffle}
+        onUnhideAll={hiddenCardsHook.clearHiddenCards}
+        hiddenCardsCount={hiddenCardsHook.hiddenCardsCount}
+        disabled={selectedLevels.length === 0}
+      />
       <ContactModal
         isOpen={isModalOpen}
         requestText={requestText}
@@ -454,13 +447,11 @@ export default function Home() {
         onClose={handleModalClose}
         onSubmit={handleSubmitRequest}
       />
-
       <AuthModal
         isOpen={isAuthModalOpen}
         onClose={handleAuthModalClose}
         initialMode={authModalMode}
       />
-
       <Snackbar
         message={snackbarHook.snackbar.message}
         isVisible={snackbarHook.snackbar.isVisible}

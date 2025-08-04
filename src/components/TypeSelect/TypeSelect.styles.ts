@@ -26,7 +26,7 @@ export const SelectButton = styled.button<{ $isOpen: boolean }>`
   justify-content: space-between;
 
   padding: 10px 12px;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 500;
   line-height: 1.4;
 
@@ -37,7 +37,7 @@ export const SelectButton = styled.button<{ $isOpen: boolean }>`
 
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  min-width: 150px;
+  min-width: 210px;
 
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 
@@ -145,7 +145,7 @@ export const DropdownList = styled.ul<{ $isOpen: boolean }>`
 
 export const DropdownItem = styled.li<{ $isSelected: boolean }>`
   padding: 10px 12px;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 500;
   color: #191f28;
   cursor: pointer;

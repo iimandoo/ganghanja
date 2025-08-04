@@ -1,6 +1,9 @@
 export const LEVELS = ["8", "7", "6", "준5", "5", "준4"] as const;
 
-export const HANJA_TYPES = ["대한검정회", "어문회"] as const;
+export const HANJA_TYPES = [
+  "대한검정회 급수자격검정",
+  "어문회 검정시험",
+] as const;
 
 export const MESSAGES = {
   CHAT: {

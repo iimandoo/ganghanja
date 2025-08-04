@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { theme } from "@/styles/theme";
-import { secondaryButton } from "@/styles/mixins";
+import { buttonBase } from "@/styles/mixins";
 
 export const Container = styled.div`
   display: flex;
@@ -35,76 +35,169 @@ export const SettingContainer = styled.div`
   padding-left: 40px;
 `;
 
-export const LevelButton = styled.button<{ $active: boolean }>`
+export const LevelCheckboxContainer = styled.label<{ $active: boolean }>`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: ${theme.borderRadius.lg};
+  transition: all ${theme.transitions.smooth};
   background: ${(props) =>
     props.$active
-      ? `linear-gradient(135deg, ${theme.colors.secondary.main} 0%, ${theme.colors.secondary.dark} 100%)`
+      ? `linear-gradient(135deg, ${theme.colors.secondary.dark} 0%, #2d5016 100%)`
       : theme.colors.white};
-  color: ${(props) =>
-    props.$active ? theme.colors.white : theme.colors.secondary.main};
   border: 2px solid
     ${(props) =>
-      props.$active ? theme.colors.secondary.main : theme.colors.gray.border};
-  padding: 4px 10px;
-  border-radius: ${theme.borderRadius.md};
-  font-size: ${theme.fontSize.base};
-  font-weight: ${theme.fontWeight.semibold};
-  cursor: pointer;
-  transition: ${theme.transitions.fast};
-  font-family: "Noto Sans KR", sans-serif;
-  box-shadow: ${theme.shadows.sm};
+      props.$active ? theme.colors.secondary.dark : theme.colors.gray.border};
+  box-shadow: ${(props) =>
+    props.$active ? theme.shadows.md : theme.shadows.sm};
+  transform: ${(props) => (props.$active ? "translateY(-1px)" : "none")};
 
   &:hover {
-    transform: translateY(-1px);
-    box-shadow: ${theme.shadows.md};
     background: ${(props) =>
       props.$active
-        ? `linear-gradient(135deg, ${theme.colors.secondary.light} 0%, ${theme.colors.secondary.main} 100%)`
+        ? `linear-gradient(135deg, #2d5016 0%, ${theme.colors.secondary.dark} 100%)`
         : theme.colors.gray.light};
-    border-color: ${(props) =>
-      props.$active
-        ? theme.colors.secondary.light
-        : theme.colors.secondary.main};
+    border-color: ${theme.colors.secondary.dark};
+    transform: translateY(-2px);
+    box-shadow: ${theme.shadows.lg};
   }
 
   &:active {
     transform: translateY(0);
     box-shadow: ${theme.shadows.sm};
-    background: ${(props) =>
-      props.$active
-        ? `linear-gradient(135deg, ${theme.colors.secondary.dark} 0%, #171923 100%)`
-        : theme.colors.gray.bg};
   }
 
   @media (max-width: ${theme.breakpoints.tablet}) {
-    padding: 6px 12px;
-    font-size: ${theme.fontSize.sm};
-    border-radius: ${theme.borderRadius.md};
+    padding: 8px 12px;
+    gap: 8px;
   }
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    padding: 4px 8px;
+    padding: 6px 10px;
+    gap: 6px;
+  }
+`;
+
+export const LevelCheckbox = styled.input<{ $active: boolean }>`
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+  transition: all ${theme.transitions.smooth};
+  background: ${(props) =>
+    props.$active ? theme.colors.white : theme.colors.gray.light};
+  box-shadow: ${(props) =>
+    props.$active
+      ? "inset 0 2px 4px rgba(0,0,0,0.1)"
+      : "0 2px 4px rgba(0,0,0,0.1)"};
+
+  &:checked::after {
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: ${theme.colors.secondary.dark};
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    animation: checkPulse 0.3s ease;
+  }
+
+  @keyframes checkPulse {
+    0% {
+      transform: translate(-50%, -50%) scale(0);
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.2);
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  &:hover {
+    background: ${(props) =>
+      props.$active ? theme.colors.white : theme.colors.gray.bg};
+    transform: scale(1.1);
+  }
+
+  @media (max-width: ${theme.breakpoints.tablet}) {
+    width: 18px;
+    height: 18px;
+
+    &:checked::after {
+      font-size: 12px;
+    }
+  }
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    width: 16px;
+    height: 16px;
+
+    &:checked::after {
+      font-size: 10px;
+    }
+  }
+`;
+
+export const LevelLabel = styled.span<{ $active: boolean }>`
+  font-size: ${theme.fontSize.base};
+  font-weight: ${theme.fontWeight.semibold};
+  color: ${(props) =>
+    props.$active ? theme.colors.white : theme.colors.secondary.main};
+  font-family: "Noto Sans KR", sans-serif;
+  transition: all ${theme.transitions.fast};
+  user-select: none;
+  text-shadow: ${(props) =>
+    props.$active ? "0 1px 2px rgba(0,0,0,0.1)" : "none"};
+
+  @media (max-width: ${theme.breakpoints.tablet}) {
+    font-size: ${theme.fontSize.sm};
+  }
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
     font-size: ${theme.fontSize.xs};
-    border-radius: ${theme.borderRadius.sm};
   }
 `;
 
 export const ShuffleButton = styled.button<{
   $variant?: "primary" | "secondary";
 }>`
-  ${secondaryButton}
-  padding: 4px 8px;
-  font-size: ${theme.fontSize.md};
+  ${buttonBase}
+  background: ${theme.colors.white};
+  color: ${theme.colors.gray.dark};
+  border: 1px solid ${theme.colors.gray.border};
+  padding: 6px 12px;
+  font-size: ${theme.fontSize.sm};
+  font-weight: ${theme.fontWeight.normal};
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  box-shadow: ${theme.shadows.sm};
+
+  &:hover:not(:disabled) {
+    background: ${theme.colors.gray.light};
+    border-color: ${theme.colors.gray.medium};
+    transform: translateY(-1px);
+    box-shadow: ${theme.shadows.md};
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: ${theme.shadows.sm};
+  }
 
   @media (max-width: ${theme.breakpoints.tablet}) {
-    padding: 8px;
-    font-size: ${theme.fontSize.sm};
-    border-radius: 6px;
-    gap: 0;
-    min-width: 40px;
+    padding: 6px 8px;
+    font-size: ${theme.fontSize.xs};
+    gap: 4px;
+    min-width: 36px;
 
     span {
       display: none;

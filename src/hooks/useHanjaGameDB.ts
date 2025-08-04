@@ -25,7 +25,8 @@ export interface UseHanjaGameReturn {
 export const useHanjaGameDB = (): UseHanjaGameReturn => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedLevels, setSelectedLevels] = useState<Level[]>([]);
-  const [selectedType, setSelectedType] = useState<HanjaType>("대한검정회");
+  const [selectedType, setSelectedType] =
+    useState<HanjaType>("대한검정회 급수자격검정");
   const [resetCardFlip, setResetCardFlip] = useState(false);
 
   // 사용 가능한 급수 목록 조회
@@ -79,7 +80,10 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
   const handleNext = () => {
     if (filteredData.length === 0) return;
 
-    const nextIndex = (currentIndex + 1) % filteredData.length;
+    // 마지막 카드인 경우 더 이상 진행하지 않음 (순환 방지)
+    if (currentIndex >= filteredData.length - 1) return;
+
+    const nextIndex = currentIndex + 1;
     setCurrentIndex(nextIndex);
     resetCardFlipState();
   };
@@ -114,8 +118,9 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
     setSelectedLevels([]); // 새로운 타입의 급수로 리셋될 예정
   };
 
-  const canGoPrevious = filteredData.length > 0;
-  const canGoNext = filteredData.length > 0;
+  const canGoPrevious = filteredData.length > 0 && currentIndex > 0;
+  const canGoNext =
+    filteredData.length > 0 && currentIndex < filteredData.length - 1;
   const progress =
     selectedLevels.length === 0 || filteredData.length === 0
       ? 0

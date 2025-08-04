@@ -30,7 +30,7 @@ export async function fetchHanjaData(
   type: HanjaType,
   levels: Level[]
 ): Promise<HanjaApiResponse> {
-  const typeParam = type === "대한검정회" ? "TypeA" : "TypeB";
+  const typeParam = type === "대한검정회 급수자격검정" ? "TypeA" : "TypeB";
   const levelsParam = levels.join(",");
 
   const response = await fetch(
@@ -61,8 +61,7 @@ export async function fetchHanjaData(
 export async function fetchAvailableLevels(
   type: HanjaType
 ): Promise<LevelsApiResponse> {
-  const typeParam = type === "대한검정회" ? "TypeA" : "TypeB";
-
+  const typeParam = type === "대한검정회 급수자격검정" ? "TypeA" : "TypeB";
   const response = await fetch(`/api/levels/${typeParam}`);
 
   if (!response.ok) {

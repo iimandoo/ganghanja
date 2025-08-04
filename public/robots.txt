@@ -17,16 +17,23 @@ Allow: /
 User-agent: DaumBot
 Allow: /
 
+User-agent: Yeti
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
 # 사이트맵 위치
-Sitemap: /sitemap.xml
+Sitemap: http://coolhanja.site/sitemap.xml
 
 # Crawl-delay 설정 (서버 부하 방지)
 Crawl-delay: 1
 
-# 특정 파일/폴더 차단 (필요한 경우)
-# Disallow: /admin/
-# Disallow: /api/
-# Disallow: /_next/static/
+# 특정 파일/폴더 차단
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /private/
 
 # 이미지 크롤링 허용
 User-agent: Googlebot-Image
@@ -35,3 +42,21 @@ Allow: /
 # 모바일 크롤링 허용
 User-agent: Googlebot-Mobile
 Allow: /
+
+# 비디오 크롤링 허용
+User-agent: Googlebot-Video
+Allow: /
+
+# 뉴스 크롤링 허용
+User-agent: Googlebot-News
+Allow: /
+
+# 한국어 검색엔진 최적화
+User-agent: NaverBot
+Crawl-delay: 2
+
+User-agent: DaumBot
+Crawl-delay: 2
+
+User-agent: Yeti
+Crawl-delay: 2

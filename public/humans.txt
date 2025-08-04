@@ -1,0 +1,13 @@
+/* TEAM */
+    Developer: 쿨한자 개발팀
+    Contact: euneundh@gmail.com
+    From: 대한민국
+
+/* SITE */
+    Last update: 2024/12/19
+    Language: Korean
+    Doctype: HTML5
+    IDE: Visual Studio Code
+    Standards: HTML5, CSS3, JavaScript ES6+
+    Components: Next.js, React, TypeScript
+    Software: Node.js, npm 

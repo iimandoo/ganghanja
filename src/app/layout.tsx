@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { QueryProvider } from "@/components/QueryProvider";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { generateStructuredData } from "@/utils/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -97,8 +98,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const structuredData = generateStructuredData();
+
   return (
     <html lang="ko">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData),
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

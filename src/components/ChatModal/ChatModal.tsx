@@ -4,7 +4,7 @@ import {
   IoSend,
   IoStar,
   IoStarOutline,
-  IoChatbubbleEllipses,
+  IoMail,
 } from "react-icons/io5";
 import { MESSAGES } from "@/constants";
 import {
@@ -59,7 +59,7 @@ export const ChatModal: React.FC<ChatModalProps> = ({
         aria-label={MESSAGES.BUTTONS.CHAT}
         title={MESSAGES.BUTTONS.CHAT}
       >
-        <IoChatbubbleEllipses aria-hidden="true" />
+        <IoMail aria-hidden="true" />
       </FloatingChatButton>
 
       {isOpen && (

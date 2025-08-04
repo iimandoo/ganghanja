@@ -24,6 +24,12 @@ export const LevelContainer = styled.div`
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
+
+  @media (min-width: 481px) and (max-width: 1180px) and (orientation: landscape) {
+    && {
+      justify-content: center;
+    }
+  }
 `;
 
 export const SettingContainer = styled.div`

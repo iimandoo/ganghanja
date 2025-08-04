@@ -59,6 +59,11 @@ const Header = styled.header`
   @media (max-width: ${theme.breakpoints.tablet}) {
     padding: 30px 0px 20px 0px;
   }
+
+  /* landscape 모드에서만 표시 */
+  @media (min-width: 481px) and (max-width: 1180px) and (orientation: landscape) {
+    padding: 40px 0px 80px 0px;
+  }
 `;
 
 const TitleContainer = styled.div`
@@ -127,16 +132,6 @@ const AuthButton = styled.button`
     font-size: ${theme.fontSize.xs};
   }
 `;
-//   font-size: ${theme.fontSize.xl};
-//   color: ${theme.colors.gray.medium};
-//   margin: 0;
-//   font-weight: ${theme.fontWeight.medium};
-//   font-family: "Noto Sans KR", sans-serif;
-
-//   @media (max-width: ${theme.breakpoints.tablet}) {
-//     font-size: 1.2rem;
-//   }
-// `;
 
 const GameArea = styled.div`
   display: flex;
@@ -164,6 +159,37 @@ const CardSection = styled.div`
 
   @media (max-width: ${theme.breakpoints.tablet}) {
     padding: 0px ${theme.spacing.xxxl};
+  }
+`;
+
+const LandscapeCardActions = styled(CardActions)`
+  /* 기본적으로 숨김 */
+  && {
+    display: none;
+  }
+
+  /* landscape 모드에서만 표시 */
+  @media (min-width: 481px) and (max-width: 1180px) and (orientation: landscape) {
+    && {
+      display: flex;
+      margin-top: 26px;
+      margin-bottom: 0;
+    }
+  }
+`;
+
+const PortraitCardActions = styled(CardActions)`
+  && {
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+
+  /* landscape 모드에서는 숨김 */
+  @media (min-width: 481px) and (max-width: 1180px) and (orientation: landscape) {
+    && {
+      display: none;
+    }
   }
 `;
 
@@ -228,8 +254,8 @@ export default function Home() {
 
   // 동적 메타데이터 업데이트
   useEffect(() => {
-    updateDocumentMetadata(selectedLevels);
-  }, [selectedLevels]);
+    updateDocumentMetadata();
+  }, []);
 
   // 숨겨지지 않은 카드만 필터링
   const visibleCards = filteredData.filter(
@@ -402,6 +428,13 @@ export default function Home() {
           onSubmit={handleChatSubmit}
         />
         <ProgressBar progress={adjustedProgress} />
+        {/* landscape 모드에서 ProgressBar 아래에 CardActions 표시 */}
+        <LandscapeCardActions
+          onShuffle={handleShuffle}
+          onUnhideAll={hiddenCardsHook.clearHiddenCards}
+          hiddenCardsCount={hiddenCardsHook.hiddenCardsCount}
+          disabled={selectedLevels.length === 0}
+        />
       </HeaderBox>
       <GameArea>
         <CardSection>
@@ -432,7 +465,7 @@ export default function Home() {
           )}
         </CardSection>
       </GameArea>
-      <CardActions
+      <PortraitCardActions
         onShuffle={handleShuffle}
         onUnhideAll={hiddenCardsHook.clearHiddenCards}
         hiddenCardsCount={hiddenCardsHook.hiddenCardsCount}

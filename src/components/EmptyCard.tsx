@@ -13,9 +13,9 @@ const EmptyCard: React.FC<EmptyCardProps> = ({ reason }) => {
     switch (reason) {
       case "no-level-selected":
         return {
-          icon: "📚",
-          title: "급수를 선택해주세요",
-          description: "학습할 급수를 선택하면 한자 카드가 표시되요.",
+          icon: "",
+          title: "",
+          description: "",
         };
       case "no-visible-cards":
         return {
@@ -25,9 +25,9 @@ const EmptyCard: React.FC<EmptyCardProps> = ({ reason }) => {
         };
       case "all-hidden":
         return {
-          icon: "✨",
-          title: "모든 카드를 학습했어요",
-          description: "다른 급수를 선택하거나 숨긴 카드를 해제해보세요.",
+          icon: "",
+          title: "",
+          description: "",
         };
       case "completed":
         return {

@@ -44,7 +44,7 @@ export const MESSAGES = {
     PREVIOUS: "이전 한자 카드",
     NEXT: "다음 한자 카드",
     SHUFFLE: "한자 카드 랜덤 섞기",
-    CHAT: "고객 지원 채팅",
+    CHAT: "고객센터 문의하기",
   },
 } as const;
 

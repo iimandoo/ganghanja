@@ -8,6 +8,12 @@ export const SettingContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  margin-top: 20px;
+
+  /* landscape 모드에서는 margin-top 제거 */
+  @media (min-width: 481px) and (max-width: 1180px) and (orientation: landscape) {
+    margin-top: 0;
+  }
 
   @media (max-width: ${theme.breakpoints.tablet}) {
     margin-top: 16px;

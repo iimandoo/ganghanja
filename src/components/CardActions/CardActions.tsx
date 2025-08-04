@@ -10,6 +10,7 @@ interface CardActionsProps {
   onUnhideAll?: () => void;
   hiddenCardsCount?: number;
   disabled?: boolean;
+  className?: string;
 }
 
 export const CardActions: React.FC<CardActionsProps> = ({
@@ -17,9 +18,10 @@ export const CardActions: React.FC<CardActionsProps> = ({
   onUnhideAll,
   hiddenCardsCount = 0,
   disabled = false,
+  className,
 }) => {
   return (
-    <SettingContainer>
+    <SettingContainer className={className}>
       <ShuffleButton
         onClick={onShuffle}
         $variant="secondary"

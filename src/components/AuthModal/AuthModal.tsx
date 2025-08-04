@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { useAuth } from "@/contexts/AuthContext";
-import { SignUpData, SignInData } from "@/types/auth";
+import { SignUpData, SignInData, AuthModalMode } from "@/types/auth";
 import { theme } from "@/styles/theme";
+import { AUTH_MESSAGES } from "@/constants/authMessages";
+import { getRememberMeData } from "@/utils/localStorage";
 
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
-  initialMode?: "signin" | "signup";
+  initialMode?: AuthModalMode;
 }
 
 export const AuthModal: React.FC<AuthModalProps> = ({
@@ -15,7 +17,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   onClose,
   initialMode = "signin",
 }) => {
-  const [mode, setMode] = useState<"signin" | "signup">(initialMode);
+  const [mode, setMode] = useState<AuthModalMode>(initialMode);
   const [signUpData, setSignUpData] = useState<SignUpData>({
     username: "",
     password: "",
@@ -44,158 +46,164 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   // 자동 로그인 정보 불러오기
   useEffect(() => {
     if (mode === "signin") {
-      const rememberedUsername = localStorage.getItem("username") || "";
-      const rememberMe = localStorage.getItem("rememberMe") === "true";
-
+      const { username, rememberMe } = getRememberMeData();
       setSignInData({
-        username: rememberedUsername,
+        username,
         password: "",
-        rememberMe: rememberMe,
+        rememberMe,
       });
     }
   }, [mode]);
 
-  const handleSignUpSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // 폼 제출 핸들러
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent, type: "signup" | "signin") => {
+      e.preventDefault();
 
-    const result = await signUp(signUpData);
-    if (result?.success) {
-      onClose();
-    }
-  };
+      let result;
+      if (type === "signup") {
+        result = await signUp(signUpData);
+      } else {
+        result = await signIn(signInData);
+      }
 
-  const handleSignInSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+      if (result?.success) {
+        onClose();
+      }
+    },
+    [signUp, signIn, signUpData, signInData, onClose]
+  );
 
-    const result = await signIn(signInData);
-    if (result?.success) {
-      onClose();
-    }
-  };
+  // 입력 변경 핸들러
+  const handleInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>, type: "signup" | "signin") => {
+      const { name, value, type: inputType, checked } = e.target;
+      const inputValue = inputType === "checkbox" ? checked : value;
 
-  const handleSignUpInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSignUpData({
-      ...signUpData,
-      [e.target.name]: e.target.value,
-    });
-  };
+      if (type === "signup") {
+        setSignUpData((prev) => ({ ...prev, [name]: inputValue }));
+      } else {
+        setSignInData((prev) => ({ ...prev, [name]: inputValue }));
+      }
+    },
+    []
+  );
 
-  const handleSignInInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
-    setSignInData({
-      ...signInData,
-      [name]: type === "checkbox" ? checked : value,
-    });
-  };
-
-  const switchMode = () => {
-    setMode(mode === "signin" ? "signup" : "signin");
+  // 모드 전환
+  const switchMode = useCallback(() => {
+    setMode((prevMode) => (prevMode === "signin" ? "signup" : "signin"));
     setSignUpData({ username: "", password: "" });
     setSignInData({ username: "", password: "", rememberMe: false });
-  };
+  }, []);
+
+  // 모달 외부 클릭 시 닫기
+  const handleOverlayClick = useCallback(
+    (e: React.MouseEvent) => {
+      if (e.target === e.currentTarget) {
+        onClose();
+      }
+    },
+    [onClose]
+  );
 
   if (!isOpen) return null;
 
+  const isSignupMode = mode === "signup";
+  const currentData = isSignupMode ? signUpData : signInData;
+
   return (
-    <ModalOverlay onClick={onClose}>
+    <ModalOverlay onClick={handleOverlayClick}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
         <ModalHeader>
-          <h2>{mode === "signin" ? "로그인" : "회원가입"}</h2>
+          <h2>
+            {isSignupMode
+              ? AUTH_MESSAGES.UI.SIGNUP_TITLE
+              : AUTH_MESSAGES.UI.SIGNIN_TITLE}
+          </h2>
           <CloseButton onClick={onClose}>&times;</CloseButton>
         </ModalHeader>
 
-        {mode === "signup" ? (
-          <Form onSubmit={handleSignUpSubmit}>
-            <FormGroup>
-              <Label htmlFor="signup-username">아이디</Label>
-              <Input
-                type="text"
-                id="signup-username"
-                name="username"
-                value={signUpData.username}
-                onChange={handleSignUpInputChange}
-                placeholder="아이디를 입력하세요 (4자 이상)"
-                required
-                minLength={4}
-              />
-            </FormGroup>
+        <Form
+          onSubmit={(e) => handleSubmit(e, isSignupMode ? "signup" : "signin")}
+        >
+          {/* 아이디 입력 필드 */}
+          <FormGroup>
+            <Label htmlFor={`${mode}-username`}>아이디</Label>
+            <Input
+              type="text"
+              id={`${mode}-username`}
+              name="username"
+              value={currentData.username}
+              onChange={(e) =>
+                handleInputChange(e, isSignupMode ? "signup" : "signin")
+              }
+              placeholder={AUTH_MESSAGES.PLACEHOLDER.USERNAME}
+              required
+              minLength={4}
+            />
+          </FormGroup>
 
-            <FormGroup>
-              <Label htmlFor="signup-password">비밀번호</Label>
-              <Input
-                type="password"
-                id="signup-password"
-                name="password"
-                value={signUpData.password}
-                onChange={handleSignUpInputChange}
-                placeholder="비밀번호를 입력하세요 (6자 이상)"
-                required
-                minLength={6}
-              />
-            </FormGroup>
+          {/* 비밀번호 입력 필드 */}
+          <FormGroup>
+            <Label htmlFor={`${mode}-password`}>비밀번호</Label>
+            <Input
+              type="password"
+              id={`${mode}-password`}
+              name="password"
+              value={currentData.password}
+              onChange={(e) =>
+                handleInputChange(e, isSignupMode ? "signup" : "signin")
+              }
+              placeholder={
+                isSignupMode
+                  ? AUTH_MESSAGES.PLACEHOLDER.PASSWORD_SIGNUP
+                  : AUTH_MESSAGES.PLACEHOLDER.PASSWORD_SIGNIN
+              }
+              required
+              minLength={6}
+            />
+          </FormGroup>
 
-            {error && <ErrorMessage>{error}</ErrorMessage>}
-
-            <SubmitButton type="submit" disabled={loading}>
-              {loading ? "처리중..." : "회원가입"}
-            </SubmitButton>
-          </Form>
-        ) : (
-          <Form onSubmit={handleSignInSubmit}>
-            <FormGroup>
-              <Label htmlFor="signin-username">아이디</Label>
-              <Input
-                type="text"
-                id="signin-username"
-                name="username"
-                value={signInData.username}
-                onChange={handleSignInInputChange}
-                placeholder="아이디를 입력하세요 (4자 이상)"
-                required
-                minLength={4}
-              />
-            </FormGroup>
-
-            <FormGroup>
-              <Label htmlFor="signin-password">비밀번호</Label>
-              <Input
-                type="password"
-                id="signin-password"
-                name="password"
-                value={signInData.password}
-                onChange={handleSignInInputChange}
-                placeholder="비밀번호를 입력하세요(6자이상)"
-                required
-              />
-            </FormGroup>
-
+          {/* 자동 로그인 체크박스 (로그인 모드에서만) */}
+          {!isSignupMode && (
             <CheckboxGroup>
               <Checkbox
                 type="checkbox"
                 id="rememberMe"
                 name="rememberMe"
-                checked={signInData.rememberMe}
-                onChange={handleSignInInputChange}
+                checked={(signInData as SignInData).rememberMe}
+                onChange={(e) => handleInputChange(e, "signin")}
               />
-              <CheckboxLabel htmlFor="rememberMe">자동 로그인</CheckboxLabel>
+              <CheckboxLabel htmlFor="rememberMe">
+                {AUTH_MESSAGES.UI.AUTO_LOGIN}
+              </CheckboxLabel>
             </CheckboxGroup>
+          )}
 
-            {error && <ErrorMessage>{error}</ErrorMessage>}
+          {/* 에러 메시지 */}
+          {error && <ErrorMessage>{error}</ErrorMessage>}
 
-            <SubmitButton type="submit" disabled={loading}>
-              {loading ? "처리중..." : "로그인"}
-            </SubmitButton>
-          </Form>
-        )}
+          {/* 제출 버튼 */}
+          <SubmitButton type="submit" disabled={loading}>
+            {loading
+              ? AUTH_MESSAGES.UI.LOADING
+              : isSignupMode
+              ? AUTH_MESSAGES.UI.SIGNUP_BUTTON
+              : AUTH_MESSAGES.UI.SIGNIN_BUTTON}
+          </SubmitButton>
+        </Form>
 
+        {/* 모드 전환 */}
         <ModeSwitch>
           <span>
-            {mode === "signin"
-              ? "계정이 없으신가요?"
-              : "이미 계정이 있으신가요?"}
+            {isSignupMode
+              ? AUTH_MESSAGES.UI.SWITCH_TO_SIGNIN
+              : AUTH_MESSAGES.UI.SWITCH_TO_SIGNUP}
           </span>
           <SwitchButton type="button" onClick={switchMode}>
-            {mode === "signin" ? "회원가입" : "로그인"}
+            {isSignupMode
+              ? AUTH_MESSAGES.UI.SIGNIN_BUTTON
+              : AUTH_MESSAGES.UI.SIGNUP_BUTTON}
           </SwitchButton>
         </ModeSwitch>
       </ModalContent>
@@ -203,6 +211,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   );
 };
 
+// 스타일 컴포넌트들
 const ModalOverlay = styled.div`
   position: fixed;
   top: 0;

@@ -10,16 +10,18 @@ import React, {
   ReactNode,
 } from "react";
 import { getSupabaseClient } from "@/lib/supabase";
-import { AuthUser, SignUpData, SignInData, AuthState } from "@/types/auth";
-
-interface AuthContextType {
-  user: AuthUser | null;
-  loading: boolean;
-  error: string | null;
-  signUp: (data: SignUpData) => Promise<{ success: boolean; error?: string }>;
-  signIn: (data: SignInData) => Promise<{ success: boolean; error?: string }>;
-  signOut: () => Promise<void>;
-}
+import {
+  AuthUser,
+  SignUpData,
+  SignInData,
+  AuthState,
+  AuthContextType,
+  AuthResponse,
+} from "@/types/auth";
+import { validateSignUpData, validateSignInData } from "@/utils/authValidation";
+import { translateSupabaseError, getErrorMessage } from "@/utils/authErrors";
+import { saveRememberMe, clearRememberMe } from "@/utils/localStorage";
+import { AUTH_MESSAGES } from "@/constants/authMessages";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -37,95 +39,86 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Supabase 클라이언트를 useMemo로 최적화
   const supabase = useMemo(() => getSupabaseClient(), []);
 
+  // 인증 상태 설정 헬퍼 함수
+  const setAuthLoading = useCallback((loading: boolean) => {
+    setAuthState((prev) => ({ ...prev, loading }));
+  }, []);
+
+  const setAuthError = useCallback((error: string | null) => {
+    setAuthState((prev) => ({ ...prev, error, loading: false }));
+  }, []);
+
+  const setAuthUser = useCallback((user: AuthUser | null) => {
+    setAuthState({ user, loading: false, error: null });
+  }, []);
+
+  // 세션에서 사용자 정보 추출
+  const extractUserFromSession = useCallback((session: any): AuthUser => {
+    return {
+      id: session.user.id,
+      username: session.user.user_metadata?.username || "",
+      created_at: session.user.created_at,
+    };
+  }, []);
+
+  // 세션 초기화 및 상태 변경 리스너 등록
   useEffect(() => {
-    // 현재 세션 확인
-    const getSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      if (session?.user) {
-        setAuthState({
-          user: {
-            id: session.user.id,
-            username: session.user.user_metadata?.username || "",
-            created_at: session.user.created_at,
-          },
-          loading: false,
-          error: null,
-        });
-      } else {
-        setAuthState({
-          user: null,
-          loading: false,
-          error: null,
-        });
+    let mounted = true;
+
+    const initializeAuth = async () => {
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+
+        if (!mounted) return;
+
+        if (session?.user) {
+          const user = extractUserFromSession(session);
+          setAuthUser(user);
+        } else {
+          setAuthUser(null);
+        }
+      } catch (error) {
+        console.error("Session initialization error:", error);
+        if (mounted) {
+          setAuthUser(null);
+        }
       }
     };
 
-    getSession();
+    initializeAuth();
 
     // 인증 상태 변경 리스너
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (!mounted) return;
+
       if (session?.user) {
-        setAuthState({
-          user: {
-            id: session.user.id,
-            username: session.user.user_metadata?.username || "",
-            created_at: session.user.created_at,
-          },
-          loading: false,
-          error: null,
-        });
+        const user = extractUserFromSession(session);
+        setAuthUser(user);
       } else {
-        setAuthState({
-          user: null,
-          loading: false,
-          error: null,
-        });
+        setAuthUser(null);
       }
     });
 
-    return () => subscription.unsubscribe();
-  }, [supabase]);
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
+  }, [supabase, extractUserFromSession, setAuthUser]);
 
+  // 회원가입
   const signUp = useCallback(
-    async (data: SignUpData) => {
-      setAuthState((prev) => ({ ...prev, loading: true, error: null }));
+    async (data: SignUpData): Promise<AuthResponse> => {
+      setAuthLoading(true);
 
-      // 아이디 길이 검증
-      if (data.username.length < 4) {
-        setAuthState((prev) => ({
-          ...prev,
-          loading: false,
-          error: "아이디는 4자 이상이어야 합니다.",
-        }));
-        return { success: false, error: "아이디는 4자 이상이어야 합니다." };
-      }
-
-      // 아이디에 이메일 형식이 포함되어 있는지 검증
-      const emailPattern = /@/;
-      if (emailPattern.test(data.username)) {
-        setAuthState((prev) => ({
-          ...prev,
-          loading: false,
-          error: "아이디에 이메일 주소를 입력하지 마세요.",
-        }));
-        return {
-          success: false,
-          error: "아이디에 이메일 주소를 입력하지 마세요.",
-        };
-      }
-
-      // 비밀번호 길이 검증
-      if (data.password.length < 6) {
-        setAuthState((prev) => ({
-          ...prev,
-          loading: false,
-          error: "비밀번호는 6자 이상이어야 합니다.",
-        }));
-        return { success: false, error: "비밀번호는 6자 이상이어야 합니다." };
+      // 클라이언트 측 검증
+      const validation = validateSignUpData(data);
+      if (!validation.isValid) {
+        setAuthError(validation.error!);
+        return { success: false, error: validation.error };
       }
 
       try {
@@ -140,53 +133,44 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         });
 
         if (error) {
-          // Supabase 에러 메시지를 한글로 변환
-          let koreanErrorMessage = "회원가입에 실패했습니다.";
-
-          if (error.message.includes("already registered")) {
-            koreanErrorMessage = "이미 등록된 아이디입니다.";
-          } else if (error.message.includes("Invalid email")) {
-            koreanErrorMessage = "유효하지 않은 아이디입니다.";
-          } else if (error.message.includes("Password should be at least")) {
-            koreanErrorMessage = "비밀번호가 너무 짧습니다.";
-          }
-
-          throw new Error(koreanErrorMessage);
+          const koreanError = translateSupabaseError(error, "signup");
+          setAuthError(koreanError);
+          return { success: false, error: koreanError };
         }
 
         if (authData.user) {
-          setAuthState({
-            user: {
-              id: authData.user.id,
-              username: data.username,
-              created_at: authData.user.created_at,
-            },
-            loading: false,
-            error: null,
-          });
+          const user: AuthUser = {
+            id: authData.user.id,
+            username: data.username,
+            created_at: authData.user.created_at,
+          };
+          setAuthUser(user);
           return { success: true };
         }
 
-        return { success: false, error: "회원가입에 실패했습니다." };
+        const errorMsg = AUTH_MESSAGES.ERROR.SIGNUP_FAILED;
+        setAuthError(errorMsg);
+        return { success: false, error: errorMsg };
       } catch (error: unknown) {
-        const errorMessage =
-          error instanceof Error
-            ? error.message
-            : "알 수 없는 오류가 발생했습니다.";
-        setAuthState((prev) => ({
-          ...prev,
-          loading: false,
-          error: errorMessage,
-        }));
+        const errorMessage = getErrorMessage(error);
+        setAuthError(errorMessage);
         return { success: false, error: errorMessage };
       }
     },
-    [supabase]
+    [supabase, setAuthLoading, setAuthError, setAuthUser]
   );
 
+  // 로그인
   const signIn = useCallback(
-    async (data: SignInData) => {
-      setAuthState((prev) => ({ ...prev, loading: true, error: null }));
+    async (data: SignInData): Promise<AuthResponse> => {
+      setAuthLoading(true);
+
+      // 클라이언트 측 검증
+      const validation = validateSignInData(data);
+      if (!validation.isValid) {
+        setAuthError(validation.error!);
+        return { success: false, error: validation.error };
+      }
 
       try {
         const { data: authData, error } =
@@ -196,92 +180,66 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           });
 
         if (error) {
-          // Supabase 에러 메시지를 한글로 변환
-          let koreanErrorMessage = "로그인에 실패했습니다.";
-
-          if (error.message.includes("Invalid login credentials")) {
-            koreanErrorMessage = "아이디 또는 비밀번호가 올바르지 않습니다.";
-          } else if (error.message.includes("Email not confirmed")) {
-            koreanErrorMessage = "이메일 인증이 필요합니다.";
-          } else if (error.message.includes("Too many requests")) {
-            koreanErrorMessage =
-              "너무 많은 로그인 시도가 있었습니다. 잠시 후 다시 시도해주세요.";
-          }
-
-          throw new Error(koreanErrorMessage);
+          const koreanError = translateSupabaseError(error, "signin");
+          setAuthError(koreanError);
+          return { success: false, error: koreanError };
         }
 
         if (authData.user) {
-          setAuthState({
-            user: {
-              id: authData.user.id,
-              username: authData.user.user_metadata?.username || "",
-              created_at: authData.user.created_at,
-            },
-            loading: false,
-            error: null,
-          });
+          const user = extractUserFromSession(authData);
+          setAuthUser(user);
 
           // 자동 로그인 설정
           if (data.rememberMe) {
-            localStorage.setItem("rememberMe", "true");
-            localStorage.setItem("username", data.username);
+            saveRememberMe(data.username);
           } else {
-            localStorage.removeItem("rememberMe");
-            localStorage.removeItem("username");
+            clearRememberMe();
           }
 
           return { success: true };
         }
 
-        return { success: false, error: "로그인에 실패했습니다." };
+        const errorMsg = AUTH_MESSAGES.ERROR.SIGNIN_FAILED;
+        setAuthError(errorMsg);
+        return { success: false, error: errorMsg };
       } catch (error: unknown) {
-        const errorMessage =
-          error instanceof Error
-            ? error.message
-            : "알 수 없는 오류가 발생했습니다.";
-        setAuthState((prev) => ({
-          ...prev,
-          loading: false,
-          error: errorMessage,
-        }));
+        const errorMessage = getErrorMessage(error);
+        setAuthError(errorMessage);
         return { success: false, error: errorMessage };
       }
     },
-    [supabase]
+    [
+      supabase,
+      setAuthLoading,
+      setAuthError,
+      setAuthUser,
+      extractUserFromSession,
+    ]
   );
 
+  // 로그아웃
   const signOut = useCallback(async () => {
-    setAuthState((prev) => ({ ...prev, loading: true }));
+    setAuthLoading(true);
 
     try {
       const { error } = await supabase.auth.signOut();
 
-      if (error) throw error;
+      if (error) {
+        throw error;
+      }
 
       // 자동 로그인 정보 제거
-      localStorage.removeItem("rememberMe");
-      localStorage.removeItem("username");
+      clearRememberMe();
 
-      setAuthState({
-        user: null,
-        loading: false,
-        error: null,
-      });
+      setAuthUser(null);
     } catch (error: unknown) {
-      const errorMessage =
-        error instanceof Error
-          ? error.message
-          : "알 수 없는 오류가 발생했습니다.";
+      const errorMessage = getErrorMessage(error);
       console.error("로그아웃 오류:", errorMessage);
-      setAuthState((prev) => ({
-        ...prev,
-        loading: false,
-        error: errorMessage,
-      }));
+      setAuthError(errorMessage);
     }
-  }, [supabase]);
+  }, [supabase, setAuthLoading, setAuthError, setAuthUser]);
 
+  // Context 값 메모이제이션
   const value = useMemo(
     () => ({
       user: authState.user,

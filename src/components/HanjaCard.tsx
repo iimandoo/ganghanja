@@ -14,6 +14,7 @@ interface HanjaCardProps {
   onFlip?: () => void;
   resetFlip?: boolean;
   disabled?: boolean;
+  onHide?: (cardId: number) => void;
 }
 
 const CardContainer = styled.div<{ $disabled?: boolean }>`
@@ -97,7 +98,6 @@ const LevelBadgeBase = styled.div`
   font-size: 0.9rem;
   font-weight: 700;
   font-family: "Noto Sans KR", sans-serif;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   z-index: 10;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
@@ -112,7 +112,6 @@ const LevelBadgeBase = styled.div`
 `;
 
 const LevelBadgeFront = styled(LevelBadgeBase)`
-  background: rgba(255, 255, 255, 0.7);
   color: #2d3748;
   transform: translateZ(1px);
 `;
@@ -210,11 +209,48 @@ const FlipHint = styled.div`
   }
 `;
 
+const HideButton = styled.button`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  padding: 8px 16px;
+
+  border-radius: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #666;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  z-index: 20;
+  backface-visibility: hidden;
+
+  &:hover {
+    background: rgba(255, 255, 255, 1);
+    color: #333;
+    transform: scale(1.1);
+  }
+
+  @media (max-width: 768px) {
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+`;
+
 const HanjaCard: React.FC<HanjaCardProps> = ({
   hanja,
   onFlip,
   resetFlip,
   disabled = false,
+  onHide,
 }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [noAnimation, setNoAnimation] = useState(false);
@@ -244,12 +280,23 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
     onFlip?.();
   };
 
+  const handleHideClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); // 카드 클릭 이벤트 방지
+    if (hanja && onHide) {
+      onHide(hanja.id);
+    }
+  };
+
   return (
     <CardContainer onClick={handleCardClick} $disabled={disabled}>
       <CardInner $isFlipped={isFlipped} $noAnimation={noAnimation}>
         <CardFront $colorKey={cardColorKey}>
           {hanja && <LevelBadgeFront>{hanja.level}급</LevelBadgeFront>}
-          {/* {hanja && <DoneBadge>{hanja.level}</DoneBadge>} */}
+          {hanja && !disabled && (
+            <HideButton onClick={handleHideClick} title="이 카드 숨기기">
+              숨기기
+            </HideButton>
+          )}
           <HanjaCharacter>{hanja ? hanja.character : ""}</HanjaCharacter>
           {!disabled && <FlipHint>카드를 클릭해서 뒤집어보세요!</FlipHint>}
           {disabled && <FlipHint>급수를 선택해주세요!</FlipHint>}

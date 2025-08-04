@@ -5,6 +5,8 @@ import styled from "styled-components";
 import Image from "next/image";
 import Script from "next/script";
 import HanjaCard from "@/components/HanjaCard";
+import EmptyCard from "@/components/EmptyCard";
+import { Snackbar } from "@/components/Snackbar/Snackbar";
 import { LevelFilter } from "@/components/LevelFilter";
 import { ProgressBar } from "@/components/ProgressBar";
 import { TypeSelect } from "@/components/TypeSelect";
@@ -17,6 +19,8 @@ import { useHanjaGameDB } from "@/hooks/useHanjaGameDB";
 import { useModal } from "@/hooks/useModal";
 import { useChat } from "@/hooks/useChat";
 import { useAuth } from "@/contexts/AuthContext";
+import { useHiddenCards } from "@/hooks/useHiddenCards";
+import { useSnackbar } from "@/hooks/useSnackbar";
 import { updateDocumentMetadata } from "@/utils/metadata";
 import { theme } from "@/styles/theme";
 
@@ -183,6 +187,8 @@ export default function Home() {
   const modalHook = useModal();
   const chatHook = useChat();
   const { user, loading: authLoading } = useAuth();
+  const hiddenCardsHook = useHiddenCards();
+  const snackbarHook = useSnackbar();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authModalMode, setAuthModalMode] = useState<"signin" | "signup">(
     "signin"
@@ -242,6 +248,33 @@ export default function Home() {
   useEffect(() => {
     updateDocumentMetadata(selectedLevels);
   }, [selectedLevels]);
+
+  // 숨겨지지 않은 카드만 필터링
+  const visibleCards = filteredData.filter(
+    (card) => !hiddenCardsHook.isCardHidden(card.id)
+  );
+
+  // 현재 카드 인덱스가 숨겨진 카드 개수로 인해 범위를 벗어나는 경우 조정
+  const adjustedCurrentIndex = Math.min(currentIndex, visibleCards.length - 1);
+  const currentCard =
+    visibleCards.length > 0 ? visibleCards[adjustedCurrentIndex] : null;
+
+  // 숨겨진 카드를 제외한 진행률 계산
+  const adjustedProgress =
+    selectedLevels.length === 0 || visibleCards.length === 0
+      ? 0
+      : ((adjustedCurrentIndex + 1) / visibleCards.length) * 100;
+
+  // 카드 숨기기 핸들러 (스낵바 표시 포함)
+  const handleHideCard = (cardId: number) => {
+    const cardToHide = filteredData.find((card) => card.id === cardId);
+    if (cardToHide) {
+      hiddenCardsHook.hideCard(cardId);
+      snackbarHook.showSnackbar(
+        `${cardToHide.character} 숨길께요! 잘하셨어요.`
+      );
+    }
+  };
 
   // 선택된 급수가 없어도 카드는 보여주되, 내용은 숨김
 
@@ -367,6 +400,8 @@ export default function Home() {
           availableLevels={availableLevels}
           onLevelFilter={handleLevelFilter}
           onShuffle={handleShuffle}
+          onUnhideAll={hiddenCardsHook.clearHiddenCards}
+          hiddenCardsCount={hiddenCardsHook.hiddenCardsCount}
           disabled={selectedLevels.length === 0}
         />
         <ChatModal
@@ -382,7 +417,7 @@ export default function Home() {
           onClose={handleChatClose}
           onSubmit={handleChatSubmit}
         />
-        <ProgressBar progress={progress} />
+        <ProgressBar progress={adjustedProgress} />
       </HeaderBox>
 
       <GameArea>
@@ -390,14 +425,23 @@ export default function Home() {
           <GameControls
             onPrevious={handlePrevious}
             onNext={handleNext}
-            canGoPrevious={canGoPrevious}
-            canGoNext={canGoNext}
+            canGoPrevious={canGoPrevious && visibleCards.length > 0}
+            canGoNext={canGoNext && visibleCards.length > 0}
           />
-          <HanjaCard
-            hanja={filteredData.length > 0 ? filteredData[currentIndex] : null}
-            resetFlip={resetCardFlip}
-            disabled={filteredData.length === 0}
-          />
+          {selectedLevels.length === 0 ? (
+            <EmptyCard reason="no-level-selected" />
+          ) : visibleCards.length === 0 && filteredData.length > 0 ? (
+            <EmptyCard reason="no-visible-cards" />
+          ) : visibleCards.length === 0 ? (
+            <EmptyCard reason="all-hidden" />
+          ) : (
+            <HanjaCard
+              hanja={currentCard}
+              resetFlip={resetCardFlip}
+              disabled={false}
+              onHide={handleHideCard}
+            />
+          )}
         </CardSection>
       </GameArea>
 
@@ -415,6 +459,12 @@ export default function Home() {
         isOpen={isAuthModalOpen}
         onClose={handleAuthModalClose}
         initialMode={authModalMode}
+      />
+
+      <Snackbar
+        message={snackbarHook.snackbar.message}
+        isVisible={snackbarHook.snackbar.isVisible}
+        onClose={snackbarHook.hideSnackbar}
       />
     </Container>
   );

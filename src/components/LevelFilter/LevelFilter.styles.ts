@@ -6,10 +6,7 @@ export const Container = styled.div`
   display: flex;
   gap: 10px;
   margin-bottom: 10px;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-
+  flex-direction: column;
   @media (max-width: ${theme.breakpoints.tablet}) {
     gap: 8px;
     margin-bottom: 16px;
@@ -19,6 +16,23 @@ export const Container = styled.div`
     gap: 6px;
     padding: 0 10px;
   }
+`;
+
+export const LevelContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+export const SettingContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 40px;
 `;
 
 export const LevelButton = styled.button<{ $active: boolean }>`

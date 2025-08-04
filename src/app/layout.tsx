@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { QueryProvider } from "@/components/QueryProvider";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,7 +23,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "COOL한자 | 한자카드 | 한대한검정회 어문회 | 한자능력검정시험",
+  title:
+    "COOL한자 | 쿨한자 | 한자카드 | 한대한검정회 어문회 | 한자능력검정시험",
   description:
     "대한검정회와 어문회 한자능력검정시험 대비 학습 카드입니다. 8급부터 준4급까지 급수별 한자를 재미있게 학습하고 시험에 완벽 대비하세요. 한자 뜻, 음, 예문, 사자성어까지 체계적으로 익힐 수 있습니다.",
   keywords:
@@ -36,7 +38,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "ko_KR",
-    title: "COOL한자 | 한자카드 | 한대한검정회 어문회 | 한자능력검정시험",
+    title:
+      "COOL한자 | 쿨한자 | 한자카드 | 한대한검정회 어문회 | 한자능력검정시험",
     description:
       "대한검정회와 어문회 한자능력검정시험 대비 학습 카드입니다. 8급부터 준4급까지 급수별 한자를 체계적으로 학습하세요.",
     siteName: "한자능력검정시험 학습카드",
@@ -53,7 +56,8 @@ export const metadata: Metadata = {
   // Twitter Card
   twitter: {
     card: "summary_large_image",
-    title: "COOL한자 | 한자카드 | 한대한검정회 어문회 | 한자능력검정시험",
+    title:
+      "COOL한자 | 쿨한자 | 한자카드 | 한대한검정회 어문회 | 한자능력검정시험",
     description:
       "대한검정회와 어문회 한자능력검정시험 대비 학습 카드입니다. 8급부터 준4급까지 급수별 한자를 체계적으로 학습하세요.",
     images: ["/og-image.png"],
@@ -98,7 +102,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   );

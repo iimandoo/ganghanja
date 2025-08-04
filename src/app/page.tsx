@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import Script from "next/script";
@@ -11,9 +11,12 @@ import { TypeSelect } from "@/components/TypeSelect";
 import { GameControls } from "@/components/GameControls";
 import { ContactModal } from "@/components/ContactModal";
 import { ChatModal } from "@/components/ChatModal";
+import { AuthModal } from "@/components/AuthModal";
+import { UserInfo } from "@/components/UserInfo";
 import { useHanjaGameDB } from "@/hooks/useHanjaGameDB";
 import { useModal } from "@/hooks/useModal";
 import { useChat } from "@/hooks/useChat";
+import { useAuth } from "@/contexts/AuthContext";
 import { updateDocumentMetadata } from "@/utils/metadata";
 import { theme } from "@/styles/theme";
 
@@ -43,7 +46,7 @@ const Container = styled.main`
 const Header = styled.header`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   justify-content: center;
   gap: 10px;
   text-align: center;
@@ -98,6 +101,42 @@ const Title = styled.h1`
 const HeaderBox = styled.div`
   margin: 0 auto;
   overflow: hidden;
+  position: relative;
+`;
+
+const AuthSection = styled.div`
+  position: absolute;
+  top: 20px;
+  right: 0px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  @media (max-width: ${theme.breakpoints.tablet}) {
+    top: 16px;
+    right: 0px;
+    gap: 8px;
+  }
+`;
+
+const AuthButton = styled.button`
+  background: none;
+  border: none;
+  color: ${theme.colors.secondary.main};
+  font-size: ${theme.fontSize.sm};
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  margin: 0;
+  transition: ${theme.transitions.fast};
+
+  &:hover {
+    color: ${theme.colors.secondary.dark};
+  }
+
+  @media (max-width: ${theme.breakpoints.tablet}) {
+    font-size: ${theme.fontSize.xs};
+  }
 `;
 //   font-size: ${theme.fontSize.xl};
 //   color: ${theme.colors.gray.medium};
@@ -143,6 +182,11 @@ export default function Home() {
   const gameHook = useHanjaGameDB();
   const modalHook = useModal();
   const chatHook = useChat();
+  const { user, loading: authLoading } = useAuth();
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authModalMode, setAuthModalMode] = useState<"signin" | "signup">(
+    "signin"
+  );
 
   const {
     currentIndex,
@@ -184,6 +228,15 @@ export default function Home() {
     handleRatingClick,
     handleChatSubmit,
   } = chatHook;
+
+  const handleAuthModalOpen = (mode: "signin" | "signup") => {
+    setAuthModalMode(mode);
+    setIsAuthModalOpen(true);
+  };
+
+  const handleAuthModalClose = () => {
+    setIsAuthModalOpen(false);
+  };
 
   // 동적 메타데이터 업데이트
   useEffect(() => {
@@ -275,6 +328,24 @@ export default function Home() {
           `}
       </Script>
       <HeaderBox>
+        <AuthSection>
+          {!authLoading && (
+            <>
+              {user ? (
+                <UserInfo />
+              ) : (
+                <>
+                  <AuthButton onClick={() => handleAuthModalOpen("signin")}>
+                    로그인
+                  </AuthButton>
+                  <AuthButton onClick={() => handleAuthModalOpen("signup")}>
+                    회원가입
+                  </AuthButton>
+                </>
+              )}
+            </>
+          )}
+        </AuthSection>
         <Header>
           <Logo
             src="/logo_cool.png"
@@ -311,7 +382,7 @@ export default function Home() {
           onClose={handleChatClose}
           onSubmit={handleChatSubmit}
         />
-        <ProgressBar key={`progress-${progress}`} progress={progress} />
+        <ProgressBar progress={progress} />
       </HeaderBox>
 
       <GameArea>
@@ -338,6 +409,12 @@ export default function Home() {
         onContactInfoChange={setContactInfo}
         onClose={handleModalClose}
         onSubmit={handleSubmitRequest}
+      />
+
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={handleAuthModalClose}
+        initialMode={authModalMode}
       />
     </Container>
   );

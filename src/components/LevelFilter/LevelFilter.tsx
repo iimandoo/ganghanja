@@ -12,12 +12,14 @@ interface LevelFilterProps {
   selectedLevels: Level[];
   availableLevels: Level[];
   onLevelFilter: (level: Level) => void;
+  isLoading?: boolean;
 }
 
 export const LevelFilter: React.FC<LevelFilterProps> = ({
   selectedLevels,
   availableLevels,
   onLevelFilter,
+  isLoading = false,
 }) => {
   // availableLevels를 LEVELS 순서에 맞게 정렬
   const sortedLevels = availableLevels.sort(
@@ -37,6 +39,7 @@ export const LevelFilter: React.FC<LevelFilterProps> = ({
               checked={isSelected}
               onChange={() => onLevelFilter(level)}
               id={`level-${level}`}
+              disabled={isLoading}
             />
             <LevelLabel $active={isSelected}>{level}</LevelLabel>
           </LevelCheckboxContainer>

@@ -13,6 +13,7 @@ import { HanjaType, HANJA_TYPES } from "@/constants";
 interface TypeSelectProps {
   selectedType: HanjaType;
   onTypeChange: (type: HanjaType) => void;
+  isLoading?: boolean;
 }
 
 const ChevronDownIcon = () => (
@@ -30,6 +31,7 @@ const ChevronDownIcon = () => (
 export const TypeSelect: React.FC<TypeSelectProps> = ({
   selectedType,
   onTypeChange,
+  isLoading = false,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -68,12 +70,16 @@ export const TypeSelect: React.FC<TypeSelectProps> = ({
   }, [isOpen]);
 
   const handleToggle = () => {
-    setIsOpen(!isOpen);
+    if (!isLoading) {
+      setIsOpen(!isOpen);
+    }
   };
 
   const handleSelect = (type: HanjaType) => {
-    onTypeChange(type);
-    setIsOpen(false);
+    if (!isLoading) {
+      onTypeChange(type);
+      setIsOpen(false);
+    }
   };
 
   const handleHiddenSelectChange = (
@@ -91,6 +97,11 @@ export const TypeSelect: React.FC<TypeSelectProps> = ({
           onClick={handleToggle}
           aria-expanded={isOpen}
           aria-haspopup="listbox"
+          disabled={isLoading}
+          style={{
+            opacity: isLoading ? 0.6 : 1,
+            cursor: isLoading ? "not-allowed" : "pointer",
+          }}
         >
           <span>{selectedType}</span>
           <SelectIcon $isOpen={isOpen}>
@@ -106,6 +117,7 @@ export const TypeSelect: React.FC<TypeSelectProps> = ({
               onClick={() => handleSelect(type)}
               role="option"
               aria-selected={type === selectedType}
+              style={{ cursor: isLoading ? "not-allowed" : "pointer" }}
             >
               {type}
             </DropdownItem>

@@ -6,6 +6,7 @@ import Image from "next/image";
 import Script from "next/script";
 import HanjaCard from "@/components/HanjaCard";
 import EmptyCard from "@/components/EmptyCard";
+import { SkeletonCard } from "@/components/SkeletonCard";
 import { Snackbar } from "@/components/Snackbar/Snackbar";
 import { LevelFilter } from "@/components/LevelFilter";
 import { CardActions } from "@/components/CardActions";
@@ -212,6 +213,7 @@ export default function Home() {
     selectedType,
     availableLevels,
     resetCardFlip,
+    isDataLoading,
     handleNext,
     handlePrevious,
     handleShuffle,
@@ -404,6 +406,7 @@ export default function Home() {
             <TypeSelect
               selectedType={selectedType}
               onTypeChange={handleTypeChange}
+              isLoading={isDataLoading}
             />
           </TitleContainer>
         </Header>
@@ -412,6 +415,7 @@ export default function Home() {
             selectedLevels={selectedLevels}
             availableLevels={availableLevels}
             onLevelFilter={handleLevelFilter}
+            isLoading={isDataLoading}
           />
         </div>
         <ChatModal
@@ -447,7 +451,9 @@ export default function Home() {
               visibleCards.length > 0
             }
           />
-          {selectedLevels.length === 0 ? (
+          {isDataLoading ? (
+            <SkeletonCard />
+          ) : selectedLevels.length === 0 ? (
             <EmptyCard reason="no-level-selected" />
           ) : visibleCards.length === 0 && filteredData.length > 0 ? (
             <EmptyCard reason="no-visible-cards" />

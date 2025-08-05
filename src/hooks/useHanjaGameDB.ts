@@ -14,6 +14,7 @@ export interface UseHanjaGameReturn {
   canGoNext: boolean;
   progress: number;
   isLoading: boolean;
+  isDataLoading: boolean;
   error: string | null;
   handleNext: () => void;
   handlePrevious: () => void;
@@ -60,6 +61,7 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
     [hanjaResponse?.data]
   );
   const isLoading = levelsLoading || hanjaLoading;
+  const isDataLoading = hanjaLoading;
   const error = levelsError?.message || hanjaError?.message || null;
 
   // 타입이 변경되면 해당 타입의 모든 급수를 선택
@@ -143,6 +145,7 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
     canGoNext,
     progress,
     isLoading,
+    isDataLoading,
     error,
     handleNext,
     handlePrevious,

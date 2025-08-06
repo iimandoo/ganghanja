@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import { LEVELS } from "@/constants";
 import type { Level } from "@/constants";
 import {
@@ -40,11 +40,22 @@ export const LevelFilter: React.FC<LevelFilterProps> = ({
     return [selectedIndices[0], selectedIndices[selectedIndices.length - 1]];
   };
 
-  const [minValue, maxValue] = getSliderRange();
+  // State로 슬라이더 범위 관리
+  const [sliderRange, setSliderRange] = useState<[number, number]>(() => getSliderRange());
+  const [minValue, maxValue] = sliderRange;
+
+  // selectedLevels가 변경될 때 슬라이더 범위 업데이트
+  useEffect(() => {
+    const newRange = getSliderRange();
+    setSliderRange(newRange);
+  }, [selectedLevels]);
 
   // 범위 슬라이더 값 변경 처리
   const handleRangeChange = useCallback(
     (newMin: number, newMax: number) => {
+      // 슬라이더 상태 즉시 업데이트 (드래그 중 시각적 피드백)
+      setSliderRange([newMin, newMax]);
+
       // 새로운 범위에 포함되는 available 레벨들
       const levelsInNewRange = LEVELS.slice(newMin, newMax + 1).filter(
         (level) => availableLevels.includes(level)
@@ -83,6 +94,7 @@ export const LevelFilter: React.FC<LevelFilterProps> = ({
   const handleMouseDown =
     (thumbType: "min" | "max") => (e: React.MouseEvent) => {
       e.preventDefault();
+      e.stopPropagation();
       setIsDragging(thumbType);
     };
 

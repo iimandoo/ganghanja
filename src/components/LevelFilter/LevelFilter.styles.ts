@@ -76,7 +76,7 @@ export const RangeTrack = styled.div<{ $start: number; $end: number }>`
   left: ${(props) => (props.$start / 5) * 100}%;
   width: ${(props) => ((props.$end - props.$start) / 5) * 100}%;
   height: 2px;
-  background: #000000;
+  background: ${theme.colors.gray.medium};
   border-radius: 1px;
   pointer-events: none;
   z-index: 2;
@@ -93,7 +93,7 @@ export const SliderThumb = styled.div<{
   transform: translate(-50%, -50%);
   width: 20px;
   height: 20px;
-  background: ${theme.colors.secondary.main};
+  background: ${theme.colors.primary.dark};
   border: 3px solid ${theme.colors.white};
   border-radius: 50%;
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
@@ -101,6 +101,7 @@ export const SliderThumb = styled.div<{
   transition: all ${theme.transitions.smooth};
   z-index: 3;
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+  pointer-events: auto;
 
   &:hover {
     transform: translate(-50%, -50%) scale(1.1);
@@ -144,6 +145,15 @@ export const LevelMark = styled.div<{
   align-items: center;
   pointer-events: none;
   width: 40px;
+  &::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    width: 2px;
+    height: 8px;
+    background: ${theme.colors.primary.dark};
+    border-radius: 1px;
+  }
 `;
 
 export const LevelMarkLabel = styled.span<{
@@ -151,24 +161,24 @@ export const LevelMarkLabel = styled.span<{
   $isSelected: boolean;
   $isInRange: boolean;
 }>`
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   font-weight: ${(props) =>
     props.$isInRange && props.$isAvailable
       ? theme.fontWeight.bold
       : theme.fontWeight.semibold};
-  color: #000000;
+  color: ${theme.colors.gray.medium};
   font-family: "Noto Sans KR", sans-serif;
   transition: all ${theme.transitions.fast};
   user-select: none;
   text-align: center;
-  margin-top: 5px;
+  margin-top: 7px;
 
   @media (max-width: ${theme.breakpoints.tablet}) {
-    font-size: 0.75rem;
+    font-size: 0.9rem;
   }
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    font-size: 0.75rem;
+    font-size: 0.9rem;
   }
 `;
 

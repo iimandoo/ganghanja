@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { theme } from "@/styles/theme";
 
 export const Container = styled.div`
-  width: 480px;
+  width: 400px;
   height: 8px;
   background: ${theme.colors.gray.border};
   border-radius: ${theme.borderRadius.sm};
@@ -10,11 +10,11 @@ export const Container = styled.div`
   margin: 20px auto 10px auto;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 
-  @media (max-width: ${theme.breakpoints.tablet}) {
+  @media (max-width: 768px) {
     width: 360px;
   }
 
-  @media (max-width: ${theme.breakpoints.mobile}) {
+  @media (max-width: 480px) {
     width: 280px;
   }
 `;

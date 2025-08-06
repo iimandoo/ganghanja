@@ -8,11 +8,6 @@ import HanjaCard from "@/components/HanjaCard";
 import EmptyCard from "@/components/EmptyCard";
 import { SkeletonCard } from "@/components/SkeletonCard";
 import { Snackbar } from "@/components/Snackbar/Snackbar";
-import { LevelFilter } from "@/components/LevelFilter";
-import { VocabularyRangeFilter } from "@/components/VocabularyRangeFilter";
-import { Popover } from "@/components/Popover";
-import { SettingButton } from "@/components/SettingButton";
-import { LevelIcon, VocabularyIcon } from "@/components/Icons";
 import { CardActions } from "@/components/CardActions";
 import { ProgressBar } from "@/components/ProgressBar";
 import { TypeSelect } from "@/components/TypeSelect";
@@ -49,7 +44,7 @@ const Container = styled.main`
   /* 태블릿 가로 모드 (landscape) */
   @media (min-width: 481px) and (max-width: 1180px) and (orientation: landscape) {
     flex-direction: row;
-    gap: 20px;
+    gap: 0px;
     padding: 16px;
   }
 `;
@@ -61,7 +56,7 @@ const Header = styled.header`
   justify-content: center;
   gap: 10px;
   text-align: center;
-  padding: 30px 0px 40px 0px;
+  padding: 30px 0px 20px 0px;
   @media (max-width: ${theme.breakpoints.tablet}) {
     padding: 30px 0px 10px 0px;
   }
@@ -104,23 +99,6 @@ const HeaderBox = styled.div`
   position: relative;
 `;
 
-const SliderBox = styled.div`
-  display: flex;
-  gap: 20px;
-  padding: 10px 0px;
-  justify-content: center;
-  align-items: center;
-
-  /* landscape 모드에서만 표시 */
-  @media (min-width: 481px) and (max-width: 1180px) and (orientation: landscape) {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  @media (max-width: ${theme.breakpoints.mobile}) {
-  }
-`;
-
 const AuthSection = styled.div`
   position: absolute;
   top: 0px;
@@ -130,7 +108,7 @@ const AuthSection = styled.div`
   gap: 12px;
 
   @media (max-width: ${theme.breakpoints.tablet}) {
-    top: 16px;
+    top: 0px;
     right: 0px;
     gap: 8px;
   }
@@ -334,9 +312,7 @@ export default function Home() {
     const cardToHide = filteredData.find((card) => card.id === cardId);
     if (cardToHide) {
       hiddenCardsHook.hideCard(cardId);
-      snackbarHook.showSnackbar(
-        `${cardToHide.character} 숨길께요! 잘하셨어요.`
-      );
+      snackbarHook.showSnackbar(`${cardToHide.character}한자를 숨겼어요!`);
     }
   };
 
@@ -461,55 +437,7 @@ export default function Home() {
               />
             </TitleContainer>
           </Header>
-          <SliderBox>
-            <Popover
-              trigger={
-                <SettingButton disabled={isDataLoading}>
-                  <LevelIcon />
-                  급수 설정
-                </SettingButton>
-              }
-              width="400px"
-              height="120px"
-            >
-              <div
-                style={{
-                  marginBottom: "25px",
-                }}
-              >
-                급수를 선택해 주세요.
-              </div>
-              <LevelFilter
-                selectedLevels={selectedLevels}
-                availableLevels={availableLevels}
-                onLevelFilter={handleLevelFilter}
-                isLoading={isDataLoading}
-              />
-            </Popover>
-            <Popover
-              trigger={
-                <SettingButton disabled={isDataLoading}>
-                  <VocabularyIcon />
-                  어휘범위 설정
-                </SettingButton>
-              }
-              width="300px"
-              height="120px"
-            >
-              <div
-                style={{
-                  marginBottom: "25px",
-                }}
-              >
-                어휘범위를 선택해 주세요.
-              </div>
-              <VocabularyRangeFilter
-                selectedRange={selectedVocabularyRange}
-                onRangeChange={handleVocabularyRangeChange}
-                isLoading={isDataLoading}
-              />
-            </Popover>
-          </SliderBox>
+
           <ChatModal
             isOpen={isChatOpen}
             message={chatMessage}
@@ -530,6 +458,12 @@ export default function Home() {
             onUnhideAll={hiddenCardsHook.clearHiddenCards}
             hiddenCardsCount={hiddenCardsHook.hiddenCardsCount}
             disabled={selectedLevels.length === 0}
+            selectedLevels={selectedLevels}
+            availableLevels={availableLevels}
+            selectedVocabularyRange={selectedVocabularyRange}
+            onLevelFilter={handleLevelFilter}
+            onVocabularyRangeChange={handleVocabularyRangeChange}
+            isDataLoading={isDataLoading}
           />
         </HeaderBox>
         <GameArea>
@@ -572,6 +506,12 @@ export default function Home() {
           onUnhideAll={hiddenCardsHook.clearHiddenCards}
           hiddenCardsCount={hiddenCardsHook.hiddenCardsCount}
           disabled={selectedLevels.length === 0}
+          selectedLevels={selectedLevels}
+          availableLevels={availableLevels}
+          selectedVocabularyRange={selectedVocabularyRange}
+          onLevelFilter={handleLevelFilter}
+          onVocabularyRangeChange={handleVocabularyRangeChange}
+          isDataLoading={isDataLoading}
         />
         <ContactModal
           isOpen={isModalOpen}

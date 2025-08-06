@@ -4,25 +4,26 @@ import { buttonBase } from "@/styles/mixins";
 
 export const SettingContainer = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 20px;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   margin-top: 20px;
 
   /* landscape 모드에서는 margin-top 제거 */
   @media (min-width: 481px) and (max-width: 1180px) and (orientation: landscape) {
     margin-top: 0;
+    justify-content: center;
   }
 
   @media (max-width: ${theme.breakpoints.tablet}) {
-    margin-top: 16px;
     gap: 8px;
+    justify-content: center;
   }
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    margin-top: 12px;
     gap: 6px;
+    justify-content: center;
   }
 `;
 

@@ -132,8 +132,11 @@ const HanjaCharacter = styled.div`
   font-family: "Noto Sans KR", "Noto Sans CJK KR", sans-serif;
 
   @media (max-width: 768px) {
-    font-size: 7.5rem;
+    font-size: 12rem;
     margin-bottom: 16px;
+  }
+  @media (max-width: 480px) {
+    font-size: 8rem;
   }
 `;
 
@@ -177,13 +180,14 @@ const InfoTitle = styled.h3`
 `;
 
 const InfoText = styled.p`
-  font-size: 1.6rem;
-  line-height: 1.5;
+  font-size: 1.4rem;
+  line-height: 1.7;
   margin: 0;
   font-weight: 700;
   text-align: left;
   font-family: "Noto Sans KR", sans-serif;
   color: rgba(45, 55, 72, 0.9);
+  word-break: keep-all;
 
   @media (max-width: 768px) {
     font-size: 1.1rem;

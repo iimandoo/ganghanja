@@ -7,7 +7,10 @@
       "Bash(npm run dev:*)",
       "Bash(mv:*)",
       "Bash(git config:*)",
-      "Bash(npm run lint)"
+      "Bash(npm run lint)",
+      "WebFetch(domain:mui.com)",
+      "Bash(npm run build:*)",
+      "Bash(timeout 10s npm run dev)"
     ],
     "deny": []
   }

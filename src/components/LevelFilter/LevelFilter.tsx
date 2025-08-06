@@ -41,7 +41,9 @@ export const LevelFilter: React.FC<LevelFilterProps> = ({
   };
 
   // State로 슬라이더 범위 관리
-  const [sliderRange, setSliderRange] = useState<[number, number]>(() => getSliderRange());
+  const [sliderRange, setSliderRange] = useState<[number, number]>(() =>
+    getSliderRange()
+  );
   const [minValue, maxValue] = sliderRange;
 
   // selectedLevels가 변경될 때 슬라이더 범위 업데이트

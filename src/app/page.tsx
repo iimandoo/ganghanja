@@ -10,6 +10,9 @@ import { SkeletonCard } from "@/components/SkeletonCard";
 import { Snackbar } from "@/components/Snackbar/Snackbar";
 import { LevelFilter } from "@/components/LevelFilter";
 import { VocabularyRangeFilter } from "@/components/VocabularyRangeFilter";
+import { Popover } from "@/components/Popover";
+import { SettingButton } from "@/components/SettingButton";
+import { LevelIcon, VocabularyIcon } from "@/components/Icons";
 import { CardActions } from "@/components/CardActions";
 import { ProgressBar } from "@/components/ProgressBar";
 import { TypeSelect } from "@/components/TypeSelect";
@@ -26,6 +29,7 @@ import { useHiddenCards } from "@/hooks/useHiddenCards";
 import { useSnackbar } from "@/hooks/useSnackbar";
 import { updateDocumentMetadata } from "@/utils/metadata";
 import { theme } from "@/styles/theme";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const Container = styled.main`
   height: 100dvh;
@@ -101,15 +105,19 @@ const HeaderBox = styled.div`
 `;
 
 const SliderBox = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  padding: 0px 0px 20px 0px;
+  display: flex;
+  gap: 20px;
+  padding: 10px 0px;
+  justify-content: center;
+  align-items: center;
 
   /* landscape 모드에서만 표시 */
   @media (min-width: 481px) and (max-width: 1180px) and (orientation: landscape) {
-    grid-template-columns: 1fr;
-    gap: 40px;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
   }
 `;
 
@@ -207,6 +215,31 @@ const PortraitCardActions = styled(CardActions)`
     }
   }
 `;
+
+// MUI 테마 생성
+const muiTheme = createTheme({
+  palette: {
+    primary: {
+      main: theme.colors.primary.main,
+    },
+    secondary: {
+      main: theme.colors.secondary.main,
+    },
+  },
+  typography: {
+    fontFamily: '"Noto Sans KR", sans-serif',
+  },
+  components: {
+    MuiPopover: {
+      styleOverrides: {
+        paper: {
+          borderRadius: "12px",
+          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
+        },
+      },
+    },
+  },
+});
 
 export default function Home() {
   const gameHook = useHanjaGameDB();
@@ -310,214 +343,256 @@ export default function Home() {
   // 선택된 급수가 없어도 카드는 보여주되, 내용은 숨김
 
   return (
-    <Container>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            name: "대한검정회 & 어문회 한자능력검정시험 학습카드",
-            alternateName: ["한자카드", "한자능력검정시험", "한자학습게임"],
-            description:
-              "대한검정회와 어문회 한자능력검정시험 대비 학습 카드게임입니다. 8급부터 준4급까지 급수별 한자를 체계적으로 학습하고 시험에 완벽 대비하세요.",
-            url: "https://www.coolhanja.site",
-            applicationCategory: "EducationalApplication",
-            operatingSystem: "Any",
-            browserRequirements: "Requires JavaScript. Requires HTML5.",
-            softwareVersion: "2.0",
-            author: {
-              "@type": "Organization",
-              name: "한자능력검정시험 학습카드",
-            },
-            about: [
-              {
-                "@type": "Thing",
-                name: "대한검정회 한자능력검정시험",
-                description:
-                  "대한검정회에서 주관하는 한자능력검정시험 대비 학습",
-                sameAs: "https://www.coolhanja.site",
+    <ThemeProvider theme={muiTheme}>
+      <Container>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebApplication",
+              name: "대한검정회 & 어문회 한자능력검정시험 학습카드",
+              alternateName: ["한자카드", "한자능력검정시험", "한자학습게임"],
+              description:
+                "대한검정회와 어문회 한자능력검정시험 대비 학습 카드게임입니다. 8급부터 준4급까지 급수별 한자를 체계적으로 학습하고 시험에 완벽 대비하세요.",
+              url: "https://www.coolhanja.site",
+              applicationCategory: "EducationalApplication",
+              operatingSystem: "Any",
+              browserRequirements: "Requires JavaScript. Requires HTML5.",
+              softwareVersion: "2.0",
+              author: {
+                "@type": "Organization",
+                name: "한자능력검정시험 학습카드",
               },
-              {
-                "@type": "Thing",
-                name: "어문회 한자시험",
-                description: "어문회에서 주관하는 한자시험 대비 학습",
+              about: [
+                {
+                  "@type": "Thing",
+                  name: "대한검정회 한자능력검정시험",
+                  description:
+                    "대한검정회에서 주관하는 한자능력검정시험 대비 학습",
+                  sameAs: "https://www.coolhanja.site",
+                },
+                {
+                  "@type": "Thing",
+                  name: "어문회 한자시험",
+                  description: "어문회에서 주관하는 한자시험 대비 학습",
+                },
+              ],
+              educationalUse:
+                "한자능력검정시험 대비, 한자 학습, 급수 시험 준비",
+              audience: [
+                {
+                  "@type": "EducationalAudience",
+                  educationalRole: "student",
+                  audienceType: "한자능력검정시험 응시자",
+                },
+                {
+                  "@type": "EducationalAudience",
+                  educationalRole: "learner",
+                  audienceType: "한자 학습자",
+                },
+              ],
+              educationalLevel: ["8급", "7급", "6급", "준5급", "5급", "준4급"],
+              teaches: [
+                "한자 읽기",
+                "한자 뜻",
+                "한자 예문",
+                "사자성어",
+                "한자능력검정시험",
+              ],
+              offers: {
+                "@type": "Offer",
+                price: "0",
+                priceCurrency: "KRW",
+                availability: "https://schema.org/InStock",
               },
-            ],
-            educationalUse: "한자능력검정시험 대비, 한자 학습, 급수 시험 준비",
-            audience: [
-              {
-                "@type": "EducationalAudience",
-                educationalRole: "student",
-                audienceType: "한자능력검정시험 응시자",
-              },
-              {
-                "@type": "EducationalAudience",
-                educationalRole: "learner",
-                audienceType: "한자 학습자",
-              },
-            ],
-            educationalLevel: ["8급", "7급", "6급", "준5급", "5급", "준4급"],
-            teaches: [
-              "한자 읽기",
-              "한자 뜻",
-              "한자 예문",
-              "사자성어",
-              "한자능력검정시험",
-            ],
-            offers: {
-              "@type": "Offer",
-              price: "0",
-              priceCurrency: "KRW",
-              availability: "https://schema.org/InStock",
-            },
-            featureList: [
-              "대한검정회 TypeA 한자 학습",
-              "어문회 TypeB 한자 학습",
-              "급수별 한자 필터링",
-              "한자 카드 게임",
-              "진도율 표시",
-              "랜덤 셔플 기능",
-            ],
-          }),
-        }}
-      />
-      <Script src="https://www.googletagmanager.com/gtag/js?id=G-7M78VLX327" />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
+              featureList: [
+                "대한검정회 TypeA 한자 학습",
+                "어문회 TypeB 한자 학습",
+                "급수별 한자 필터링",
+                "한자 카드 게임",
+                "진도율 표시",
+                "랜덤 셔플 기능",
+              ],
+            }),
+          }}
+        />
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-7M78VLX327" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-7M78VLX327');
           `}
-      </Script>
-      <HeaderBox>
-        <AuthSection>
-          {!authLoading && (
-            <>
-              {user ? (
-                <UserInfo />
-              ) : (
-                <>
-                  <AuthButton onClick={() => handleAuthModalOpen("signin")}>
-                    로그인
-                  </AuthButton>
-                  <AuthButton onClick={() => handleAuthModalOpen("signup")}>
-                    회원가입
-                  </AuthButton>
-                </>
-              )}
-            </>
-          )}
-        </AuthSection>
-        <Header>
-          <TitleContainer>
-            <Logo
-              src="/logo_cool.png"
-              alt="COOL한자 로고"
-              width={170}
-              height={70}
-              priority
-            />
-            <TypeSelect
-              selectedType={selectedType}
-              onTypeChange={handleTypeChange}
-              isLoading={isDataLoading}
-            />
-          </TitleContainer>
-        </Header>
-        <SliderBox>
-          <LevelFilter
-            selectedLevels={selectedLevels}
-            availableLevels={availableLevels}
-            onLevelFilter={handleLevelFilter}
-            isLoading={isDataLoading}
+        </Script>
+        <HeaderBox>
+          <AuthSection>
+            {!authLoading && (
+              <>
+                {user ? (
+                  <UserInfo />
+                ) : (
+                  <>
+                    <AuthButton onClick={() => handleAuthModalOpen("signin")}>
+                      로그인
+                    </AuthButton>
+                    <AuthButton onClick={() => handleAuthModalOpen("signup")}>
+                      회원가입
+                    </AuthButton>
+                  </>
+                )}
+              </>
+            )}
+          </AuthSection>
+          <Header>
+            <TitleContainer>
+              <Logo
+                src="/logo_cool.png"
+                alt="COOL한자 로고"
+                width={170}
+                height={70}
+                priority
+              />
+              <TypeSelect
+                selectedType={selectedType}
+                onTypeChange={handleTypeChange}
+                isLoading={isDataLoading}
+              />
+            </TitleContainer>
+          </Header>
+          <SliderBox>
+            <Popover
+              trigger={
+                <SettingButton disabled={isDataLoading}>
+                  <LevelIcon />
+                  급수 설정
+                </SettingButton>
+              }
+              width="400px"
+              height="120px"
+            >
+              <div
+                style={{
+                  marginBottom: "25px",
+                }}
+              >
+                급수를 선택해 주세요.
+              </div>
+              <LevelFilter
+                selectedLevels={selectedLevels}
+                availableLevels={availableLevels}
+                onLevelFilter={handleLevelFilter}
+                isLoading={isDataLoading}
+              />
+            </Popover>
+            <Popover
+              trigger={
+                <SettingButton disabled={isDataLoading}>
+                  <VocabularyIcon />
+                  어휘범위 설정
+                </SettingButton>
+              }
+              width="300px"
+              height="120px"
+            >
+              <div
+                style={{
+                  marginBottom: "25px",
+                }}
+              >
+                어휘범위를 선택해 주세요.
+              </div>
+              <VocabularyRangeFilter
+                selectedRange={selectedVocabularyRange}
+                onRangeChange={handleVocabularyRangeChange}
+                isLoading={isDataLoading}
+              />
+            </Popover>
+          </SliderBox>
+          <ChatModal
+            isOpen={isChatOpen}
+            message={chatMessage}
+            contactInfo={chatContactInfo}
+            rating={rating}
+            showSuccessMessage={showSuccessMessage}
+            onMessageChange={setChatMessage}
+            onContactInfoChange={setChatContactInfo}
+            onRatingClick={handleRatingClick}
+            onOpen={handleChatOpen}
+            onClose={handleChatClose}
+            onSubmit={handleChatSubmit}
           />
-          <VocabularyRangeFilter
-            selectedRange={selectedVocabularyRange}
-            onRangeChange={handleVocabularyRangeChange}
-            isLoading={isDataLoading}
+          <ProgressBar progress={adjustedProgress} />
+          {/* landscape 모드에서 ProgressBar 아래에 CardActions 표시 */}
+          <LandscapeCardActions
+            onShuffle={handleShuffle}
+            onUnhideAll={hiddenCardsHook.clearHiddenCards}
+            hiddenCardsCount={hiddenCardsHook.hiddenCardsCount}
+            disabled={selectedLevels.length === 0}
           />
-        </SliderBox>
-        <ChatModal
-          isOpen={isChatOpen}
-          message={chatMessage}
-          contactInfo={chatContactInfo}
-          rating={rating}
-          showSuccessMessage={showSuccessMessage}
-          onMessageChange={setChatMessage}
-          onContactInfoChange={setChatContactInfo}
-          onRatingClick={handleRatingClick}
-          onOpen={handleChatOpen}
-          onClose={handleChatClose}
-          onSubmit={handleChatSubmit}
-        />
-        <ProgressBar progress={adjustedProgress} />
-        {/* landscape 모드에서 ProgressBar 아래에 CardActions 표시 */}
-        <LandscapeCardActions
+        </HeaderBox>
+        <GameArea>
+          <CardSection>
+            <GameControls
+              onPrevious={handlePrevious}
+              onNext={handleNext}
+              canGoPrevious={
+                adjustedCurrentIndex > 0 && visibleCards.length > 0
+              }
+              canGoNext={
+                adjustedCurrentIndex < visibleCards.length - 1 &&
+                visibleCards.length > 0
+              }
+            />
+            {isDataLoading ? (
+              <SkeletonCard />
+            ) : selectedLevels.length === 0 ? (
+              <EmptyCard reason="no-level-selected" />
+            ) : visibleCards.length === 0 && filteredData.length > 0 ? (
+              <EmptyCard reason="no-visible-cards" />
+            ) : visibleCards.length === 0 ? (
+              <EmptyCard reason="all-hidden" />
+            ) : currentIndex >= visibleCards.length &&
+              visibleCards.length > 0 ? (
+              <EmptyCard reason="completed" />
+            ) : (
+              <HanjaCard
+                hanja={currentCard}
+                vocabularyRange={selectedVocabularyRange}
+                resetFlip={resetCardFlip}
+                disabled={false}
+                onHide={handleHideCard}
+              />
+            )}
+          </CardSection>
+        </GameArea>
+        <PortraitCardActions
           onShuffle={handleShuffle}
           onUnhideAll={hiddenCardsHook.clearHiddenCards}
           hiddenCardsCount={hiddenCardsHook.hiddenCardsCount}
           disabled={selectedLevels.length === 0}
         />
-      </HeaderBox>
-      <GameArea>
-        <CardSection>
-          <GameControls
-            onPrevious={handlePrevious}
-            onNext={handleNext}
-            canGoPrevious={adjustedCurrentIndex > 0 && visibleCards.length > 0}
-            canGoNext={
-              adjustedCurrentIndex < visibleCards.length - 1 &&
-              visibleCards.length > 0
-            }
-          />
-          {isDataLoading ? (
-            <SkeletonCard />
-          ) : selectedLevels.length === 0 ? (
-            <EmptyCard reason="no-level-selected" />
-          ) : visibleCards.length === 0 && filteredData.length > 0 ? (
-            <EmptyCard reason="no-visible-cards" />
-          ) : visibleCards.length === 0 ? (
-            <EmptyCard reason="all-hidden" />
-          ) : currentIndex >= visibleCards.length && visibleCards.length > 0 ? (
-            <EmptyCard reason="completed" />
-          ) : (
-            <HanjaCard
-              hanja={currentCard}
-              vocabularyRange={selectedVocabularyRange}
-              resetFlip={resetCardFlip}
-              disabled={false}
-              onHide={handleHideCard}
-            />
-          )}
-        </CardSection>
-      </GameArea>
-      <PortraitCardActions
-        onShuffle={handleShuffle}
-        onUnhideAll={hiddenCardsHook.clearHiddenCards}
-        hiddenCardsCount={hiddenCardsHook.hiddenCardsCount}
-        disabled={selectedLevels.length === 0}
-      />
-      <ContactModal
-        isOpen={isModalOpen}
-        requestText={requestText}
-        contactInfo={contactInfo}
-        onRequestTextChange={setRequestText}
-        onContactInfoChange={setContactInfo}
-        onClose={handleModalClose}
-        onSubmit={handleSubmitRequest}
-      />
-      <AuthModal
-        isOpen={isAuthModalOpen}
-        onClose={handleAuthModalClose}
-        initialMode={authModalMode}
-      />
-      <Snackbar
-        message={snackbarHook.snackbar.message}
-        isVisible={snackbarHook.snackbar.isVisible}
-        onClose={snackbarHook.hideSnackbar}
-      />
-    </Container>
+        <ContactModal
+          isOpen={isModalOpen}
+          requestText={requestText}
+          contactInfo={contactInfo}
+          onRequestTextChange={setRequestText}
+          onContactInfoChange={setContactInfo}
+          onClose={handleModalClose}
+          onSubmit={handleSubmitRequest}
+        />
+        <AuthModal
+          isOpen={isAuthModalOpen}
+          onClose={handleAuthModalClose}
+          initialMode={authModalMode}
+        />
+        <Snackbar
+          message={snackbarHook.snackbar.message}
+          isVisible={snackbarHook.snackbar.isVisible}
+          onClose={snackbarHook.hideSnackbar}
+        />
+      </Container>
+    </ThemeProvider>
   );
 }

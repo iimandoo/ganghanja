@@ -10,6 +10,8 @@ export interface HanjaData {
   level: string;
   type: string;
   created_at: string;
+  m1?: string[];
+  m2?: string[];
 }
 
 export interface HanjaApiResponse {

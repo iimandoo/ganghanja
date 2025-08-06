@@ -14,7 +14,7 @@ declare module "react-loading-skeleton" {
     className?: string;
     containerClassName?: string;
     containerStyle?: CSSProperties;
-    wrapper?: ComponentType<any>;
+    wrapper?: ComponentType<{ children: React.ReactNode }>;
     enableAnimation?: boolean;
   }
 

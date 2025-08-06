@@ -35,9 +35,9 @@ export const VocabularySliderTrack = styled.div`
   z-index: 1;
 `;
 
-export const VocabularySliderThumb = styled.div<{ 
-  $position: number; 
-  disabled?: boolean; 
+export const VocabularySliderThumb = styled.div<{
+  $position: number;
+  disabled?: boolean;
 }>`
   position: absolute;
   top: 50%;
@@ -45,7 +45,7 @@ export const VocabularySliderThumb = styled.div<{
   transform: translate(-50%, -50%);
   width: 20px;
   height: 20px;
-  background: ${theme.colors.secondary.main};
+  background: ${theme.colors.primary.dark};
   border: 3px solid ${theme.colors.white};
   border-radius: 50%;
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
@@ -94,28 +94,35 @@ export const VocabularyMark = styled.div<{
   align-items: center;
   pointer-events: none;
   width: 40px;
+  &::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    width: 2px;
+    height: 8px;
+    background: ${theme.colors.primary.dark};
+    border-radius: 1px;
+  }
 `;
 
 export const VocabularyMarkLabel = styled.span<{
   $isSelected: boolean;
 }>`
-  font-size: 0.75rem;
-  font-weight: ${(props) => 
-    props.$isSelected 
-      ? theme.fontWeight.bold 
-      : theme.fontWeight.semibold};
-  color: #000000;
+  font-size: 0.9rem;
+  font-weight: ${(props) =>
+    props.$isSelected ? theme.fontWeight.bold : theme.fontWeight.semibold};
+  color: ${theme.colors.gray.medium};
   font-family: "Noto Sans KR", sans-serif;
   transition: all ${theme.transitions.fast};
   user-select: none;
   text-align: center;
-  margin-top: 5px;
+  margin-top: 7px;
 
   @media (max-width: ${theme.breakpoints.tablet}) {
-    font-size: 0.75rem;
+    font-size: 0.9rem;
   }
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    font-size: 0.75rem;
+    font-size: 0.9rem;
   }
 `;

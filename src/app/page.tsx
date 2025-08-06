@@ -9,6 +9,7 @@ import EmptyCard from "@/components/EmptyCard";
 import { SkeletonCard } from "@/components/SkeletonCard";
 import { Snackbar } from "@/components/Snackbar/Snackbar";
 import { LevelFilter } from "@/components/LevelFilter";
+import { VocabularyRangeFilter } from "@/components/VocabularyRangeFilter";
 import { CardActions } from "@/components/CardActions";
 import { ProgressBar } from "@/components/ProgressBar";
 import { TypeSelect } from "@/components/TypeSelect";
@@ -58,7 +59,7 @@ const Header = styled.header`
   text-align: center;
   padding: 30px 0px 40px 0px;
   @media (max-width: ${theme.breakpoints.tablet}) {
-    padding: 30px 0px 20px 0px;
+    padding: 30px 0px 10px 0px;
   }
 
   /* landscape 모드에서만 표시 */
@@ -97,6 +98,19 @@ const HeaderBox = styled.div`
   margin: 0 auto;
   overflow: hidden;
   position: relative;
+`;
+
+const SliderBox = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 0px 0px 20px 0px;
+
+  /* landscape 모드에서만 표시 */
+  @media (min-width: 481px) and (max-width: 1180px) and (orientation: landscape) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
 `;
 
 const AuthSection = styled.div`
@@ -211,6 +225,7 @@ export default function Home() {
     filteredData,
     selectedLevels,
     selectedType,
+    selectedVocabularyRange,
     availableLevels,
     resetCardFlip,
     isDataLoading,
@@ -219,6 +234,7 @@ export default function Home() {
     handleShuffle,
     handleLevelFilter,
     handleTypeChange,
+    handleVocabularyRangeChange,
   } = gameHook;
 
   const {
@@ -410,14 +426,19 @@ export default function Home() {
             />
           </TitleContainer>
         </Header>
-        <div>
+        <SliderBox>
           <LevelFilter
             selectedLevels={selectedLevels}
             availableLevels={availableLevels}
             onLevelFilter={handleLevelFilter}
             isLoading={isDataLoading}
           />
-        </div>
+          <VocabularyRangeFilter
+            selectedRange={selectedVocabularyRange}
+            onRangeChange={handleVocabularyRangeChange}
+            isLoading={isDataLoading}
+          />
+        </SliderBox>
         <ChatModal
           isOpen={isChatOpen}
           message={chatMessage}
@@ -464,6 +485,7 @@ export default function Home() {
           ) : (
             <HanjaCard
               hanja={currentCard}
+              vocabularyRange={selectedVocabularyRange}
               resetFlip={resetCardFlip}
               disabled={false}
               onHide={handleHideCard}

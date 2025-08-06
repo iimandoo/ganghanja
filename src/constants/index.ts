@@ -5,6 +5,8 @@ export const HANJA_TYPES = [
   "어문회 검정시험",
 ] as const;
 
+export const VOCABULARY_RANGES = ["기본", "중1", "중2"] as const;
+
 export const MESSAGES = {
   CHAT: {
     WELCOME:
@@ -55,3 +57,4 @@ export const ANIMATION_DELAYS = {
 
 export type Level = (typeof LEVELS)[number];
 export type HanjaType = (typeof HANJA_TYPES)[number];
+export type VocabularyRange = (typeof VOCABULARY_RANGES)[number];

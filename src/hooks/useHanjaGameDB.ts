@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Level, HanjaType, ANIMATION_DELAYS } from "@/constants";
+import { Level, HanjaType, VocabularyRange, ANIMATION_DELAYS } from "@/constants";
 import { fetchHanjaData, fetchAvailableLevels, HanjaData } from "@/lib/api";
 
 export interface UseHanjaGameReturn {
@@ -8,6 +8,7 @@ export interface UseHanjaGameReturn {
   filteredData: HanjaData[];
   selectedLevels: Level[];
   selectedType: HanjaType;
+  selectedVocabularyRange: VocabularyRange;
   availableLevels: Level[];
   resetCardFlip: boolean;
   canGoPrevious: boolean;
@@ -21,6 +22,7 @@ export interface UseHanjaGameReturn {
   handleShuffle: () => void;
   handleLevelFilter: (level: Level) => void;
   handleTypeChange: (type: HanjaType) => void;
+  handleVocabularyRangeChange: (range: VocabularyRange) => void;
 }
 
 export const useHanjaGameDB = (): UseHanjaGameReturn => {
@@ -28,6 +30,8 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
   const [selectedLevels, setSelectedLevels] = useState<Level[]>([]);
   const [selectedType, setSelectedType] =
     useState<HanjaType>("대한검정회 급수자격검정");
+  const [selectedVocabularyRange, setSelectedVocabularyRange] = 
+    useState<VocabularyRange>("기본");
   const [resetCardFlip, setResetCardFlip] = useState(false);
 
   // 사용 가능한 급수 목록 조회
@@ -126,6 +130,12 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
     setSelectedLevels([]); // 새로운 타입의 급수로 리셋될 예정
   };
 
+  const handleVocabularyRangeChange = (range: VocabularyRange) => {
+    setSelectedVocabularyRange(range);
+    // 어휘범위가 변경되면 카드 플립 리셋
+    resetCardFlipState();
+  };
+
   const canGoPrevious = filteredData.length > 0 && currentIndex > 0;
   const canGoNext =
     filteredData.length > 0 && currentIndex < filteredData.length - 1;
@@ -139,6 +149,7 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
     filteredData,
     selectedLevels,
     selectedType,
+    selectedVocabularyRange,
     availableLevels,
     resetCardFlip,
     canGoPrevious,
@@ -152,5 +163,6 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
     handleShuffle,
     handleLevelFilter,
     handleTypeChange,
+    handleVocabularyRangeChange,
   };
 };

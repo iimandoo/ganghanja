@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { HanjaData } from "@/lib/api";
+import { VocabularyRange } from "@/constants";
 import {
   getConsistentCardColor,
   getCardColorInfo,
@@ -11,6 +12,7 @@ import {
 
 interface HanjaCardProps {
   hanja: HanjaData | null;
+  vocabularyRange?: VocabularyRange;
   onFlip?: () => void;
   resetFlip?: boolean;
   disabled?: boolean;
@@ -246,6 +248,7 @@ const HideButton = styled.button`
 
 const HanjaCard: React.FC<HanjaCardProps> = ({
   hanja,
+  vocabularyRange = "기본",
   onFlip,
   resetFlip,
   disabled = false,
@@ -286,6 +289,21 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
     }
   };
 
+  // 어휘범위에 따라 표시할 예시 텍스트 선택
+  const getVocabularyExample = () => {
+    if (!hanja) return "";
+
+    switch (vocabularyRange) {
+      case "중1":
+        return hanja.m1 ? hanja.m1.join(", ") : hanja.example;
+      case "중2":
+        return hanja.m2 ? hanja.m2.join(", ") : hanja.example;
+      case "기본":
+      default:
+        return hanja.example;
+    }
+  };
+
   return (
     <CardContainer onClick={handleCardClick} $disabled={disabled}>
       <CardInner $isFlipped={isFlipped} $noAnimation={noAnimation}>
@@ -314,13 +332,8 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
                 </InfoSection>
 
                 <InfoSection>
-                  <InfoTitle>단어예시</InfoTitle>
-                  <InfoText>{hanja.example}</InfoText>
-                </InfoSection>
-
-                <InfoSection>
-                  <InfoTitle>사자성어/예문</InfoTitle>
-                  <InfoText>{hanja.idiom}</InfoText>
+                  <InfoTitle>{vocabularyRange} 활용단어</InfoTitle>
+                  <InfoText>{getVocabularyExample()}</InfoText>
                 </InfoSection>
               </>
             ) : (

@@ -23,8 +23,10 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useHiddenCards } from "@/hooks/useHiddenCards";
 import { useSnackbar } from "@/hooks/useSnackbar";
 import { updateDocumentMetadata } from "@/utils/metadata";
+import { VocabularyRange, Level, HanjaType } from "@/constants";
 import { theme } from "@/styles/theme";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { ShareIcon } from "@/components/Icons";
 
 const Container = styled.main`
   height: 100dvh;
@@ -135,6 +137,28 @@ const AuthButton = styled.button`
 
   @media (max-width: ${theme.breakpoints.tablet}) {
     font-size: ${theme.fontSize.xs};
+  }
+`;
+
+const ShareButton = styled.button`
+  background: none;
+  border: none;
+  color: ${theme.colors.secondary.main};
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: ${theme.transitions.fast};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: ${theme.colors.secondary.dark};
+    background-color: rgba(193, 255, 114, 0.1);
+  }
+
+  @media (max-width: ${theme.breakpoints.tablet}) {
+    padding: 2px;
   }
 `;
 
@@ -285,6 +309,36 @@ export default function Home() {
     setIsAuthModalOpen(false);
   };
 
+  // 공유하기 핸들러
+  const handleShare = async () => {
+    const shareData = {
+      title: "쿨한자 - 급수시험 같이 합격해요! 대한검정회도 어문회도!",
+      text: "대한검정회와 어문회 한자능력검정시험 대비 학습 카드게임입니다. 8급부터 준4급까지 급수별 한자를 체계적으로 학습하고 시험에 완벽 대비하세요.",
+      url: "https://www.coolhanja.site",
+    };
+
+    try {
+      // Web Share API 지원 여부 확인
+      if (navigator.share && navigator.canShare(shareData)) {
+        await navigator.share(shareData);
+      } else {
+        // Web Share API를 지원하지 않는 경우 클립보드에 복사
+        await navigator.clipboard.writeText(shareData.url);
+        snackbarHook.showSnackbar("링크가 클립보드에 복사되었어요!");
+      }
+    } catch (error) {
+      console.error("공유하기 실패:", error);
+      // 폴백: 클립보드 복사
+      try {
+        await navigator.clipboard.writeText(shareData.url);
+        snackbarHook.showSnackbar("링크가 클립보드에 복사되었어요!");
+      } catch (clipboardError) {
+        console.error("클립보드 복사 실패:", clipboardError);
+        snackbarHook.showSnackbar("공유하기에 실패했어요.");
+      }
+    }
+  };
+
   // 동적 메타데이터 업데이트
   useEffect(() => {
     updateDocumentMetadata();
@@ -337,6 +391,41 @@ export default function Home() {
     if (cardToHide) {
       hiddenCardsHook.hideCard(cardId);
       snackbarHook.showSnackbar(`${cardToHide.character}한자를 숨겼어요!`);
+    }
+  };
+
+  // 학년설정 변경 핸들러 (스낵바 표시 포함)
+  const handleVocabularyRangeChangeWithNotification = (
+    range: VocabularyRange
+  ) => {
+    handleVocabularyRangeChange(range, () => {
+      // 로그인된 사용자의 경우 저장 완료 메시지 표시
+      if (user) {
+        snackbarHook.showSnackbar(`학년설정이 저장되었어요! (${range})`);
+      }
+    });
+  };
+
+  // 급수설정 변경 핸들러 (스낵바 표시 포함)
+  const handleLevelFilterWithNotification = (level: Level) => {
+    handleLevelFilter(level);
+
+    // 로그인된 사용자의 경우 저장 완료 메시지 표시
+    if (user) {
+      const isSelected = selectedLevels.includes(level);
+      if (isSelected) {
+        snackbarHook.showSnackbar(`급수가 저장되었어요!`);
+      }
+    }
+  };
+
+  // 타입 변경 핸들러 (스낵바 표시 포함)
+  const handleTypeChangeWithNotification = (type: HanjaType) => {
+    handleTypeChange(type);
+
+    // 로그인된 사용자의 경우 저장 완료 메시지 표시
+    if (user) {
+      snackbarHook.showSnackbar(`타입이 ${type}로 변경되었어요!`);
     }
   };
 
@@ -442,6 +531,9 @@ export default function Home() {
                     </AuthButton>
                   </>
                 )}
+                <ShareButton onClick={handleShare} title="공유하기">
+                  <ShareIcon size={20} />
+                </ShareButton>
               </>
             )}
           </AuthSection>
@@ -456,7 +548,7 @@ export default function Home() {
               />
               <TypeSelect
                 selectedType={selectedType}
-                onTypeChange={handleTypeChange}
+                onTypeChange={handleTypeChangeWithNotification}
                 isLoading={isDataLoading}
               />
             </TitleContainer>
@@ -485,8 +577,10 @@ export default function Home() {
             selectedLevels={selectedLevels}
             availableLevels={availableLevels}
             selectedVocabularyRange={selectedVocabularyRange}
-            onLevelFilter={handleLevelFilter}
-            onVocabularyRangeChange={handleVocabularyRangeChange}
+            onLevelFilter={handleLevelFilterWithNotification}
+            onVocabularyRangeChange={
+              handleVocabularyRangeChangeWithNotification
+            }
             isDataLoading={isDataLoading}
           />
         </HeaderBox>
@@ -533,8 +627,8 @@ export default function Home() {
           selectedLevels={selectedLevels}
           availableLevels={availableLevels}
           selectedVocabularyRange={selectedVocabularyRange}
-          onLevelFilter={handleLevelFilter}
-          onVocabularyRangeChange={handleVocabularyRangeChange}
+          onLevelFilter={handleLevelFilterWithNotification}
+          onVocabularyRangeChange={handleVocabularyRangeChangeWithNotification}
           isDataLoading={isDataLoading}
         />
         <ContactModal

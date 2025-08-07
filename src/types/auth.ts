@@ -55,13 +55,4 @@ export type AuthModalMode = "signin" | "signup";
  */
 export type AuthAction = "signup" | "signin" | "signout";
 
-/**
- * 로컬 스토리지 키 타입
- */
-export const LOCAL_STORAGE_KEYS = {
-  REMEMBER_ME: "rememberMe",
-  USERNAME: "username",
-} as const;
-
-export type LocalStorageKey =
-  (typeof LOCAL_STORAGE_KEYS)[keyof typeof LOCAL_STORAGE_KEYS];
+export type LocalStorageKey = "rememberMe" | "username";

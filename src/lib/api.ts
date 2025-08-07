@@ -1,4 +1,5 @@
 import { HanjaType, Level } from "@/constants";
+import { getSupabaseClient } from "@/lib/supabase";
 
 export interface HanjaData {
   id: number;
@@ -109,3 +110,89 @@ export async function submitCustomerInquiry(
 
   return result;
 }
+
+export interface UserSettings {
+  id?: number;
+  user_id: string;
+  selected_levels: string[];
+  selected_type: string;
+  selected_vocabulary_range: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
+/**
+ * 사용자 설정을 저장
+ */
+export const saveUserSettings = async (
+  settings: Omit<UserSettings, "id" | "created_at" | "updated_at">
+): Promise<UserSettings> => {
+  const supabase = getSupabaseClient();
+
+  const { data, error } = await supabase
+    .from("user_settings")
+    .upsert(
+      {
+        user_id: settings.user_id,
+        selected_levels: settings.selected_levels,
+        selected_type: settings.selected_type,
+        selected_vocabulary_range: settings.selected_vocabulary_range,
+        updated_at: new Date().toISOString(),
+      },
+      {
+        onConflict: "user_id",
+      }
+    )
+    .select()
+    .single();
+
+  if (error) {
+    console.error("Failed to save user settings:", error);
+    throw new Error("사용자 설정 저장에 실패했습니다.");
+  }
+
+  return data;
+};
+
+/**
+ * 사용자 설정을 불러오기
+ */
+export const loadUserSettings = async (
+  userId: string
+): Promise<UserSettings | null> => {
+  const supabase = getSupabaseClient();
+
+  const { data, error } = await supabase
+    .from("user_settings")
+    .select("*")
+    .eq("user_id", userId)
+    .single();
+
+  if (error) {
+    if (error.code === "PGRST116") {
+      // 데이터가 없는 경우
+      return null;
+    }
+    console.error("Failed to load user settings:", error);
+    throw new Error("사용자 설정 불러오기에 실패했습니다.");
+  }
+
+  return data;
+};
+
+/**
+ * 사용자 설정을 삭제
+ */
+export const deleteUserSettings = async (userId: string): Promise<void> => {
+  const supabase = getSupabaseClient();
+
+  const { error } = await supabase
+    .from("user_settings")
+    .delete()
+    .eq("user_id", userId);
+
+  if (error) {
+    console.error("Failed to delete user settings:", error);
+    throw new Error("사용자 설정 삭제에 실패했습니다.");
+  }
+};

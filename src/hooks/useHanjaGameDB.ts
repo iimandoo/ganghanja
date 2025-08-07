@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
   Level,
@@ -6,7 +6,15 @@ import {
   VocabularyRange,
   ANIMATION_DELAYS,
 } from "@/constants";
-import { fetchHanjaData, fetchAvailableLevels, HanjaData } from "@/lib/api";
+import {
+  fetchHanjaData,
+  fetchAvailableLevels,
+  HanjaData,
+  saveUserSettings,
+  loadUserSettings,
+  deleteUserSettings,
+} from "@/lib/api";
+import { useAuth } from "@/contexts/AuthContext";
 
 export interface UseHanjaGameReturn {
   currentIndex: number;
@@ -27,7 +35,10 @@ export interface UseHanjaGameReturn {
   handleShuffle: () => void;
   handleLevelFilter: (level: Level) => void;
   handleTypeChange: (type: HanjaType) => void;
-  handleVocabularyRangeChange: (range: VocabularyRange) => void;
+  handleVocabularyRangeChange: (
+    range: VocabularyRange,
+    onSave?: () => void
+  ) => void;
 }
 
 export const useHanjaGameDB = (): UseHanjaGameReturn => {
@@ -38,6 +49,30 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
   const [selectedVocabularyRange, setSelectedVocabularyRange] =
     useState<VocabularyRange>("기본");
   const [resetCardFlip, setResetCardFlip] = useState(false);
+
+  const { user } = useAuth();
+
+  // 사용자 설정 불러오기
+  const {
+    data: userSettings,
+    isLoading: settingsLoading,
+    error: settingsError,
+  } = useQuery({
+    queryKey: ["userSettings", user?.id],
+    queryFn: () => (user?.id ? loadUserSettings(user.id) : null),
+    enabled: !!user?.id,
+  });
+
+  // 사용자 설정이 로드되면 상태 업데이트
+  useEffect(() => {
+    if (userSettings) {
+      setSelectedType(userSettings.selected_type as HanjaType);
+      setSelectedVocabularyRange(
+        userSettings.selected_vocabulary_range as VocabularyRange
+      );
+      setSelectedLevels(userSettings.selected_levels as Level[]);
+    }
+  }, [userSettings]);
 
   // 사용 가능한 급수 목록 조회
   const {
@@ -69,9 +104,13 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
     () => hanjaResponse?.data || [],
     [hanjaResponse?.data]
   );
-  const isLoading = levelsLoading || hanjaLoading;
+  const isLoading = levelsLoading || hanjaLoading || settingsLoading;
   const isDataLoading = hanjaLoading;
-  const error = levelsError?.message || hanjaError?.message || null;
+  const error =
+    levelsError?.message ||
+    hanjaError?.message ||
+    settingsError?.message ||
+    null;
 
   // 타입이 변경되면 해당 타입의 모든 급수를 선택
   useEffect(() => {
@@ -93,6 +132,39 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
     setResetCardFlip(true);
     setTimeout(() => setResetCardFlip(false), ANIMATION_DELAYS.CARD_RESET);
   };
+
+  // 사용자 설정 저장 함수 (디바운싱 적용)
+  const saveSettings = useCallback(async () => {
+    if (!user?.id || selectedLevels.length === 0) return;
+
+    try {
+      await saveUserSettings({
+        user_id: user.id,
+        selected_levels: selectedLevels,
+        selected_type: selectedType,
+        selected_vocabulary_range: selectedVocabularyRange,
+      });
+    } catch (error) {
+      console.error("Failed to save user settings:", error);
+    }
+  }, [user?.id, selectedLevels, selectedType, selectedVocabularyRange]);
+
+  // 설정이 변경될 때마다 디바운싱하여 DB에 저장
+  useEffect(() => {
+    if (user?.id && selectedLevels.length > 0) {
+      const timeoutId = setTimeout(() => {
+        saveSettings();
+      }, 1000); // 1초 디바운싱
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [
+    user?.id,
+    selectedLevels,
+    selectedType,
+    selectedVocabularyRange,
+    saveSettings,
+  ]);
 
   const handleNext = () => {
     if (filteredData.length === 0) return;
@@ -152,10 +224,15 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
     setSelectedLevels([]); // 새로운 타입의 급수로 리셋될 예정
   };
 
-  const handleVocabularyRangeChange = (range: VocabularyRange) => {
+  const handleVocabularyRangeChange = (
+    range: VocabularyRange,
+    onSave?: () => void
+  ) => {
     setSelectedVocabularyRange(range);
+
     // 어휘범위가 변경되면 카드 플립 리셋
     resetCardFlipState();
+    onSave?.(); // 저장 완료 시 콜백 호출
   };
 
   const canGoPrevious = filteredData.length > 0 && currentIndex > 0;

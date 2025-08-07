@@ -4,7 +4,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { SignUpData, SignInData, AuthModalMode } from "@/types/auth";
 import { theme } from "@/styles/theme";
 import { AUTH_MESSAGES } from "@/constants/authMessages";
-import { getRememberMeData } from "@/utils/localStorage";
+import { loadRememberMe } from "@/utils/localStorage";
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -46,12 +46,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   // 자동 로그인 정보 불러오기
   useEffect(() => {
     if (mode === "signin") {
-      const { username, rememberMe } = getRememberMeData();
-      setSignInData({
-        username,
-        password: "",
-        rememberMe,
-      });
+      const rememberedUsername = loadRememberMe();
+      if (rememberedUsername) {
+        setSignInData({
+          username: rememberedUsername,
+          password: "",
+          rememberMe: true,
+        });
+      }
     }
   }, [mode]);
 

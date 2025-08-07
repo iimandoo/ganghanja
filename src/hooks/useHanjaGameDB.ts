@@ -1,6 +1,11 @@
 import { useState, useEffect, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Level, HanjaType, VocabularyRange, ANIMATION_DELAYS } from "@/constants";
+import {
+  Level,
+  HanjaType,
+  VocabularyRange,
+  ANIMATION_DELAYS,
+} from "@/constants";
 import { fetchHanjaData, fetchAvailableLevels, HanjaData } from "@/lib/api";
 
 export interface UseHanjaGameReturn {
@@ -30,7 +35,7 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
   const [selectedLevels, setSelectedLevels] = useState<Level[]>([]);
   const [selectedType, setSelectedType] =
     useState<HanjaType>("대한검정회 급수자격검정");
-  const [selectedVocabularyRange, setSelectedVocabularyRange] = 
+  const [selectedVocabularyRange, setSelectedVocabularyRange] =
     useState<VocabularyRange>("기본");
   const [resetCardFlip, setResetCardFlip] = useState(false);
 
@@ -118,11 +123,28 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
   };
 
   const handleLevelFilter = (level: Level) => {
-    const newSelectedLevels = selectedLevels.includes(level)
-      ? selectedLevels.filter((l) => l !== level)
-      : [...selectedLevels, level];
+    // 사용 가능한 레벨인지 확인
+    if (!availableLevels.includes(level)) {
+      return;
+    }
 
-    setSelectedLevels(newSelectedLevels);
+    setSelectedLevels((prevSelectedLevels) => {
+      // 이미 선택된 레벨인 경우 제거 (토글)
+      if (prevSelectedLevels.includes(level)) {
+        const newSelectedLevels = prevSelectedLevels.filter((l) => l !== level);
+
+        // 최소 하나의 레벨은 선택되어야 함
+        if (newSelectedLevels.length === 0) {
+          // 모든 레벨을 선택된 상태로 유지
+          return prevSelectedLevels;
+        }
+
+        return newSelectedLevels;
+      } else {
+        // 선택되지 않은 레벨인 경우 추가
+        return [...prevSelectedLevels, level];
+      }
+    });
   };
 
   const handleTypeChange = (type: HanjaType) => {

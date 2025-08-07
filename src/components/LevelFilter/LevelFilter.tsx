@@ -23,6 +23,16 @@ export const LevelFilter: React.FC<LevelFilterProps> = ({
   onLevelFilter,
   isLoading = false,
 }) => {
+  const handleLevelClick = (level: Level) => {
+    if (isLoading) return;
+
+    const isAvailable = availableLevels.includes(level);
+    if (!isAvailable) return;
+
+    // 다중선택 토글
+    onLevelFilter(level);
+  };
+
   return (
     <LevelContainer>
       <LevelCheckboxGroup>
@@ -35,8 +45,13 @@ export const LevelFilter: React.FC<LevelFilterProps> = ({
               key={level}
               $isSelected={isSelected}
               $isAvailable={isAvailable}
-              onClick={() => !isLoading && isAvailable && onLevelFilter(level)}
+              onClick={() => handleLevelClick(level)}
               disabled={isLoading || !isAvailable}
+              title={
+                isAvailable
+                  ? `${level} ${isSelected ? "해제" : "선택"}`
+                  : "사용 불가능한 급수"
+              }
             >
               <CheckboxIcon $isSelected={isSelected} $isAvailable={isAvailable}>
                 <CheckIcon size={12} />

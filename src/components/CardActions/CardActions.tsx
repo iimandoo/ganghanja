@@ -56,6 +56,7 @@ export const CardActions: React.FC<CardActionsProps> = ({
           <div
             style={{
               marginBottom: "15px",
+              fontSize: "14px",
             }}
           >
             급수를 선택해 주세요.
@@ -79,6 +80,7 @@ export const CardActions: React.FC<CardActionsProps> = ({
           <div
             style={{
               marginBottom: "15px",
+              fontSize: "14px",
             }}
           >
             활용단어 학년을 선택하세요.

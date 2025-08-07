@@ -50,6 +50,7 @@ const Container = styled.main`
 `;
 
 const Header = styled.header`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -64,6 +65,9 @@ const Header = styled.header`
   /* landscape 모드에서만 표시 */
   @media (min-width: 481px) and (max-width: 1180px) and (orientation: landscape) {
     padding: 40px 0px 80px 0px;
+  }
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    padding-bottom: 50px;
   }
 `;
 
@@ -85,11 +89,11 @@ const Logo = styled(Image)`
   width: auto;
 
   @media (max-width: ${theme.breakpoints.tablet}) {
-    max-height: 70px;
+    max-height: 60px;
   }
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    max-height: 60px;
+    max-height: 50px;
   }
 `;
 

@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { HanjaData } from "@/lib/api";
 import { VocabularyRange } from "@/constants";
+import { useAuth } from "@/contexts/AuthContext";
+import { LoginRequiredModal } from "@/components/LoginRequiredModal";
 import {
   getConsistentCardColor,
   getCardColorInfo,
@@ -260,6 +262,8 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
 }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [noAnimation, setNoAnimation] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const { user } = useAuth();
 
   // 한자 문자를 기반으로 일관된 색상 선택
   const cardColorKey = hanja
@@ -288,9 +292,28 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
 
   const handleHideClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // 카드 클릭 이벤트 방지
+
+    // 로그인 상태 확인
+    if (!user) {
+      setShowLoginModal(true);
+      return;
+    }
+
     if (hanja && onHide) {
       onHide(hanja.id);
     }
+  };
+
+  const handleLoginModalClose = () => {
+    setShowLoginModal(false);
+  };
+
+  const handleLoginClick = () => {
+    // 로그인 모달을 열기 위해 이벤트를 상위로 전달
+    const loginEvent = new CustomEvent("openLoginModal", {
+      detail: { mode: "signin" },
+    });
+    window.dispatchEvent(loginEvent);
   };
 
   // 어휘범위에 따라 표시할 예시 텍스트 선택
@@ -309,49 +332,57 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
   };
 
   return (
-    <CardContainer onClick={handleCardClick} $disabled={disabled}>
-      <CardInner $isFlipped={isFlipped} $noAnimation={noAnimation}>
-        <CardFront $colorKey={cardColorKey}>
-          {hanja && <LevelBadgeFront>{hanja.level}급</LevelBadgeFront>}
-          {hanja && !disabled && (
-            <HideButton onClick={handleHideClick} title="이 카드 숨기기">
-              숨기기
-            </HideButton>
-          )}
-          <HanjaCharacter>{hanja ? hanja.character : ""}</HanjaCharacter>
-          {!disabled && <FlipHint>카드를 클릭해서 뒤집어보세요!</FlipHint>}
-          {disabled && <FlipHint>급수를 선택해주세요!</FlipHint>}
-        </CardFront>
+    <>
+      <CardContainer onClick={handleCardClick} $disabled={disabled}>
+        <CardInner $isFlipped={isFlipped} $noAnimation={noAnimation}>
+          <CardFront $colorKey={cardColorKey}>
+            {hanja && <LevelBadgeFront>{hanja.level}급</LevelBadgeFront>}
+            {hanja && !disabled && (
+              <HideButton onClick={handleHideClick} title="이 카드 숨기기">
+                숨기기
+              </HideButton>
+            )}
+            <HanjaCharacter>{hanja ? hanja.character : ""}</HanjaCharacter>
+            {!disabled && <FlipHint>카드를 클릭해서 뒤집어보세요!</FlipHint>}
+            {disabled && <FlipHint>급수를 선택해주세요!</FlipHint>}
+          </CardFront>
 
-        <CardBack $colorKey={cardColorKey}>
-          {hanja && <LevelBadgeBack>{hanja.level}급</LevelBadgeBack>}
-          <BackContent>
-            {hanja ? (
-              <>
+          <CardBack $colorKey={cardColorKey}>
+            {hanja && <LevelBadgeBack>{hanja.level}급</LevelBadgeBack>}
+            <BackContent>
+              {hanja ? (
+                <>
+                  <InfoSection>
+                    <InfoTitle>뜻(음)</InfoTitle>
+                    <InfoText>
+                      {hanja.meaning} {hanja.meaning_key}
+                    </InfoText>
+                  </InfoSection>
+
+                  <InfoSection>
+                    <InfoTitle>{vocabularyRange} 활용단어</InfoTitle>
+                    <InfoText>{getVocabularyExample()}</InfoText>
+                  </InfoSection>
+                </>
+              ) : (
                 <InfoSection>
-                  <InfoTitle>뜻(음)</InfoTitle>
+                  <InfoTitle>급수를 선택해주세요</InfoTitle>
                   <InfoText>
-                    {hanja.meaning} {hanja.meaning_key}
+                    학습할 급수를 선택하면 한자 카드가 표시됩니다.
                   </InfoText>
                 </InfoSection>
+              )}
+            </BackContent>
+          </CardBack>
+        </CardInner>
+      </CardContainer>
 
-                <InfoSection>
-                  <InfoTitle>{vocabularyRange} 활용단어</InfoTitle>
-                  <InfoText>{getVocabularyExample()}</InfoText>
-                </InfoSection>
-              </>
-            ) : (
-              <InfoSection>
-                <InfoTitle>급수를 선택해주세요</InfoTitle>
-                <InfoText>
-                  학습할 급수를 선택하면 한자 카드가 표시됩니다.
-                </InfoText>
-              </InfoSection>
-            )}
-          </BackContent>
-        </CardBack>
-      </CardInner>
-    </CardContainer>
+      <LoginRequiredModal
+        isOpen={showLoginModal}
+        onClose={handleLoginModalClose}
+        onLogin={handleLoginClick}
+      />
+    </>
   );
 };
 

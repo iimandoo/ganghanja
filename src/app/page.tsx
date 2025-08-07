@@ -290,6 +290,26 @@ export default function Home() {
     updateDocumentMetadata();
   }, []);
 
+  // 로그인 모달 이벤트 리스너
+  useEffect(() => {
+    const handleOpenLoginModal = (event: CustomEvent) => {
+      const mode = event.detail?.mode || "signin";
+      handleAuthModalOpen(mode as "signin" | "signup");
+    };
+
+    window.addEventListener(
+      "openLoginModal",
+      handleOpenLoginModal as EventListener
+    );
+
+    return () => {
+      window.removeEventListener(
+        "openLoginModal",
+        handleOpenLoginModal as EventListener
+      );
+    };
+  }, []);
+
   // 숨겨지지 않은 카드만 필터링
   const visibleCards = filteredData.filter(
     (card) => !hiddenCardsHook.isCardHidden(card.id)

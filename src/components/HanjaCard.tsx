@@ -6,6 +6,7 @@ import { HanjaData } from "@/lib/api";
 import { VocabularyRange } from "@/constants";
 import { useAuth } from "@/contexts/AuthContext";
 import { LoginRequiredModal } from "@/components/LoginRequiredModal";
+import { ParticleEffect } from "@/components/ParticleEffect";
 import {
   getConsistentCardColor,
   getCardColorInfo,
@@ -32,6 +33,10 @@ const CardContainer = styled.div<{ $disabled?: boolean }>`
   margin: 0 auto;
   touch-action: manipulation;
   cursor: ${(props) => (props.$disabled ? "default" : "pointer")};
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   @media (max-width: 768px) {
     width: 360px;
     height: 470px;
@@ -224,7 +229,6 @@ const HideButton = styled.button`
   background: rgba(255, 255, 255, 0.9);
   border: none;
   padding: 8px 16px;
-
   border-radius: 20%;
   display: flex;
   align-items: center;
@@ -237,6 +241,10 @@ const HideButton = styled.button`
   transition: all 0.2s ease;
   z-index: 20;
   backface-visibility: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 
   &:hover {
     background: rgba(255, 255, 255, 1);
@@ -263,6 +271,7 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
   const [isFlipped, setIsFlipped] = useState(false);
   const [noAnimation, setNoAnimation] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showParticles, setShowParticles] = useState(false);
   const { user } = useAuth();
 
   // 한자 문자를 기반으로 일관된 색상 선택
@@ -300,7 +309,14 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
     }
 
     if (hanja && onHide) {
-      onHide(hanja.id);
+      // 파티클 효과 시작
+      setShowParticles(true);
+
+      // 1.5초 후에 카드 숨기기 실행
+      setTimeout(() => {
+        onHide(hanja.id);
+        setShowParticles(false);
+      }, 1500);
     }
   };
 
@@ -314,6 +330,10 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
       detail: { mode: "signin" },
     });
     window.dispatchEvent(loginEvent);
+  };
+
+  const handleParticleComplete = () => {
+    setShowParticles(false);
   };
 
   // 어휘범위에 따라 표시할 예시 텍스트 선택
@@ -334,6 +354,10 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
   return (
     <>
       <CardContainer onClick={handleCardClick} $disabled={disabled}>
+        <ParticleEffect
+          isVisible={showParticles}
+          onComplete={handleParticleComplete}
+        />
         <CardInner $isFlipped={isFlipped} $noAnimation={noAnimation}>
           <CardFront $colorKey={cardColorKey}>
             {hanja && <LevelBadgeFront>{hanja.level}급</LevelBadgeFront>}

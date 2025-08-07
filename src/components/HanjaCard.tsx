@@ -271,7 +271,7 @@ const FlipHint = styled.div`
   backdrop-filter: blur(10px);
   font-family: "Noto Sans KR", sans-serif;
   pointer-events: none;
-  
+
   @media (max-width: 768px) {
     bottom: 16px;
     font-size: 0.9rem;
@@ -397,23 +397,23 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
       setTimeout(() => {
         // 카드 숨기기 실행
         onHide(currentHanja.id);
-        
+
         // 다음 한자가 있으면 파티클 없이 fadeIn
         if (nextHanja) {
           // 파티클 효과 즉시 정리 (다음 한자 fadeIn 시 안보이게)
           setShowParticles(false);
-          
+
           // 다음 한자로 전환
           setCurrentHanja(nextHanja);
           setIsFadingIn(true);
           setNextHanja(null);
-          
+
           // fadeIn 완료
           setTimeout(() => {
             setIsFadingIn(false);
           }, 800);
         }
-        
+
         setIsFadingOut(false);
       }, 800);
 
@@ -481,16 +481,8 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
             <HanjaCharacter $isFadingOut={isFadingOut} $isFadingIn={isFadingIn}>
               {currentHanja ? currentHanja.character : ""}
             </HanjaCharacter>
-            {!disabled && (
-              <FlipHint>
-                카드를 클릭해서 뒤집어보세요!
-              </FlipHint>
-            )}
-            {disabled && (
-              <FlipHint>
-                급수를 선택해주세요!
-              </FlipHint>
-            )}
+            {!disabled && <FlipHint>카드를 클릭해서 뒤집어보세요!</FlipHint>}
+            {disabled && <FlipHint>급수를 선택해주세요!</FlipHint>}
           </CardFront>
 
           <CardBack $colorKey={cardColorKey}>

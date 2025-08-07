@@ -124,9 +124,12 @@ export interface UserSettings {
 /**
  * 사용자 설정을 저장
  */
-export const saveUserSettings = async (
-  settings: Omit<UserSettings, "id" | "created_at" | "updated_at">
-): Promise<UserSettings> => {
+export const saveUserSettings = async (settings: {
+  user_id: string;
+  selected_levels: string[];
+  selected_type: string;
+  selected_vocabulary_range: string;
+}): Promise<UserSettings> => {
   const supabase = getSupabaseClient();
 
   const { data, error } = await supabase
@@ -151,7 +154,7 @@ export const saveUserSettings = async (
     throw new Error("사용자 설정 저장에 실패했습니다.");
   }
 
-  return data;
+  return data as unknown as UserSettings;
 };
 
 /**
@@ -177,7 +180,7 @@ export const loadUserSettings = async (
     throw new Error("사용자 설정 불러오기에 실패했습니다.");
   }
 
-  return data;
+  return data as unknown as UserSettings;
 };
 
 /**

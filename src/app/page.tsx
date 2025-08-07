@@ -258,6 +258,7 @@ export default function Home() {
   const [authModalMode, setAuthModalMode] = useState<"signin" | "signup">(
     "signin"
   );
+  const [showProgressTooltip, setShowProgressTooltip] = useState(false);
 
   const {
     currentIndex,
@@ -377,6 +378,12 @@ export default function Home() {
   const currentCard =
     visibleCards.length > 0 && adjustedCurrentIndex >= 0
       ? visibleCards[adjustedCurrentIndex]
+      : null;
+  
+  // 다음 카드 (숨기기 시 fadeIn용)
+  const nextCard = 
+    visibleCards.length > 0 && adjustedCurrentIndex + 1 < visibleCards.length
+      ? visibleCards[adjustedCurrentIndex + 1]
       : null;
 
   // 숨겨진 카드를 제외한 진행률 계산
@@ -567,7 +574,13 @@ export default function Home() {
             onClose={handleChatClose}
             onSubmit={handleChatSubmit}
           />
-          <ProgressBar progress={adjustedProgress} />
+          <ProgressBar 
+            progress={adjustedProgress} 
+            currentIndex={adjustedCurrentIndex}
+            totalCount={visibleCards.length}
+            showTooltip={showProgressTooltip}
+            onTooltipHide={() => setShowProgressTooltip(false)}
+          />
           {/* landscape 모드에서 ProgressBar 아래에 CardActions 표시 */}
           <LandscapeCardActions
             onShuffle={handleShuffle}
@@ -588,7 +601,10 @@ export default function Home() {
           <CardSection>
             <GameControls
               onPrevious={handlePrevious}
-              onNext={handleNext}
+              onNext={() => {
+                handleNext();
+                setShowProgressTooltip(true);
+              }}
               canGoPrevious={
                 adjustedCurrentIndex > 0 && visibleCards.length > 0
               }
@@ -611,6 +627,7 @@ export default function Home() {
             ) : (
               <HanjaCard
                 hanja={currentCard}
+                nextHanja={nextCard}
                 vocabularyRange={selectedVocabularyRange}
                 resetFlip={resetCardFlip}
                 disabled={false}

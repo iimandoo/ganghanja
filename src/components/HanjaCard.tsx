@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 import { HanjaData } from "@/lib/api";
 import { VocabularyRange } from "@/constants";
 import { useAuth } from "@/contexts/AuthContext";
@@ -15,12 +15,35 @@ import {
 
 interface HanjaCardProps {
   hanja: HanjaData | null;
+  nextHanja?: HanjaData | null;
   vocabularyRange?: VocabularyRange;
   onFlip?: () => void;
   resetFlip?: boolean;
   disabled?: boolean;
   onHide?: (cardId: number) => void;
 }
+
+const fadeOut = keyframes`
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+`;
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+`;
 
 const CardContainer = styled.div<{ $disabled?: boolean }>`
   width: 480px; /* 기존 410px에서 30px 증가 */
@@ -131,12 +154,28 @@ const LevelBadgeBack = styled(LevelBadgeBase)`
   transform: rotateY(180deg) translateZ(1px);
 `;
 
-const HanjaCharacter = styled.div`
+const HanjaCharacter = styled.div<{
+  $isFadingOut?: boolean;
+  $isFadingIn?: boolean;
+}>`
   font-size: 15rem;
   font-weight: 700;
   margin-bottom: 24px;
   text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   font-family: "Noto Sans KR", "Noto Sans CJK KR", sans-serif;
+  ${(props) => {
+    if (props.$isFadingOut) {
+      return css`
+        animation: ${fadeOut} 0.8s ease-out forwards;
+      `;
+    }
+    if (props.$isFadingIn) {
+      return css`
+        animation: ${fadeIn} 0.8s ease-out forwards;
+      `;
+    }
+    return css``;
+  }}
 
   @media (max-width: 768px) {
     font-size: 12rem;
@@ -160,12 +199,28 @@ const BackContent = styled.div`
   }
 `;
 
-const InfoSection = styled.div`
+const InfoSection = styled.div<{
+  $isFadingOut?: boolean;
+  $isFadingIn?: boolean;
+}>`
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border-radius: 16px;
   padding: 20px;
   text-align: left;
+  ${(props) => {
+    if (props.$isFadingOut) {
+      return css`
+        animation: ${fadeOut} 0.8s ease-out forwards;
+      `;
+    }
+    if (props.$isFadingIn) {
+      return css`
+        animation: ${fadeIn} 0.8s ease-out forwards;
+      `;
+    }
+    return css``;
+  }}
 
   @media (max-width: 768px) {
     padding: 10px;
@@ -215,6 +270,8 @@ const FlipHint = styled.div`
   border-radius: 20px;
   backdrop-filter: blur(10px);
   font-family: "Noto Sans KR", sans-serif;
+  pointer-events: none;
+  
   @media (max-width: 768px) {
     bottom: 16px;
     font-size: 0.9rem;
@@ -262,6 +319,7 @@ const HideButton = styled.button`
 
 const HanjaCard: React.FC<HanjaCardProps> = ({
   hanja,
+  nextHanja: nextHanjaProp,
   vocabularyRange = "기본",
   onFlip,
   resetFlip,
@@ -272,11 +330,26 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
   const [noAnimation, setNoAnimation] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showParticles, setShowParticles] = useState(false);
+  const [isFadingOut, setIsFadingOut] = useState(false);
+  const [isFadingIn, setIsFadingIn] = useState(false);
+  const [currentHanja, setCurrentHanja] = useState<HanjaData | null>(hanja);
+  const [nextHanja, setNextHanja] = useState<HanjaData | null>(null);
   const { user } = useAuth();
 
+  // 한자 데이터가 변경될 때 fadeIn 효과 적용
+  useEffect(() => {
+    if (hanja && hanja !== currentHanja && !isFadingOut) {
+      setIsFadingIn(true);
+      setCurrentHanja(hanja);
+      setTimeout(() => {
+        setIsFadingIn(false);
+      }, 800);
+    }
+  }, [hanja, currentHanja, isFadingOut]);
+
   // 한자 문자를 기반으로 일관된 색상 선택
-  const cardColorKey = hanja
-    ? getConsistentCardColor(hanja.character)
+  const cardColorKey = currentHanja
+    ? getConsistentCardColor(currentHanja.character)
     : "green";
 
   // 외부에서 resetFlip이 변경되면 카드를 애니메이션 없이 앞면으로 리셋
@@ -293,7 +366,7 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
   }, [resetFlip]);
 
   const handleCardClick = () => {
-    if (disabled || !hanja) return;
+    if (disabled || !currentHanja) return;
     setNoAnimation(false);
     setIsFlipped(!isFlipped);
     onFlip?.();
@@ -308,15 +381,48 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
       return;
     }
 
-    if (hanja && onHide) {
-      // 파티클 효과 시작
+    if (currentHanja && onHide) {
+      // 텍스트 fadeOut 시작
+      setIsFadingOut(true);
+
+      // 파티클 효과 시작 (현재 한자 fadeOut 시 항상 표시)
       setShowParticles(true);
 
-      // 1.5초 후에 카드 숨기기 실행
+      // 다음 한자 설정
+      if (nextHanjaProp) {
+        setNextHanja(nextHanjaProp);
+      }
+
+      // 0.8초 후에 fadeOut 완료 및 다음 한자로 전환
       setTimeout(() => {
-        onHide(hanja.id);
-        setShowParticles(false);
-      }, 1500);
+        // 카드 숨기기 실행
+        onHide(currentHanja.id);
+        
+        // 다음 한자가 있으면 파티클 없이 fadeIn
+        if (nextHanja) {
+          // 파티클 효과 즉시 정리 (다음 한자 fadeIn 시 안보이게)
+          setShowParticles(false);
+          
+          // 다음 한자로 전환
+          setCurrentHanja(nextHanja);
+          setIsFadingIn(true);
+          setNextHanja(null);
+          
+          // fadeIn 완료
+          setTimeout(() => {
+            setIsFadingIn(false);
+          }, 800);
+        }
+        
+        setIsFadingOut(false);
+      }, 800);
+
+      // 다음 한자가 없는 경우에만 1.5초 후 파티클 정리
+      if (!nextHanjaProp) {
+        setTimeout(() => {
+          setShowParticles(false);
+        }, 1500);
+      }
     }
   };
 
@@ -338,16 +444,20 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
 
   // 어휘범위에 따라 표시할 예시 텍스트 선택
   const getVocabularyExample = () => {
-    if (!hanja) return "";
+    if (!currentHanja) return "";
 
     switch (vocabularyRange) {
       case "중1":
-        return hanja.m1 ? hanja.m1.join(", ") : hanja.example;
+        return currentHanja.m1
+          ? currentHanja.m1.join(", ")
+          : currentHanja.example;
       case "중2":
-        return hanja.m2 ? hanja.m2.join(", ") : hanja.example;
+        return currentHanja.m2
+          ? currentHanja.m2.join(", ")
+          : currentHanja.example;
       case "기본":
       default:
-        return hanja.example;
+        return currentHanja.example;
     }
   };
 
@@ -360,36 +470,59 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
         />
         <CardInner $isFlipped={isFlipped} $noAnimation={noAnimation}>
           <CardFront $colorKey={cardColorKey}>
-            {hanja && <LevelBadgeFront>{hanja.level}급</LevelBadgeFront>}
-            {hanja && !disabled && (
+            {currentHanja && (
+              <LevelBadgeFront>{currentHanja.level}급</LevelBadgeFront>
+            )}
+            {currentHanja && !disabled && (
               <HideButton onClick={handleHideClick} title="이 카드 숨기기">
                 숨기기
               </HideButton>
             )}
-            <HanjaCharacter>{hanja ? hanja.character : ""}</HanjaCharacter>
-            {!disabled && <FlipHint>카드를 클릭해서 뒤집어보세요!</FlipHint>}
-            {disabled && <FlipHint>급수를 선택해주세요!</FlipHint>}
+            <HanjaCharacter $isFadingOut={isFadingOut} $isFadingIn={isFadingIn}>
+              {currentHanja ? currentHanja.character : ""}
+            </HanjaCharacter>
+            {!disabled && (
+              <FlipHint>
+                카드를 클릭해서 뒤집어보세요!
+              </FlipHint>
+            )}
+            {disabled && (
+              <FlipHint>
+                급수를 선택해주세요!
+              </FlipHint>
+            )}
           </CardFront>
 
           <CardBack $colorKey={cardColorKey}>
-            {hanja && <LevelBadgeBack>{hanja.level}급</LevelBadgeBack>}
+            {currentHanja && (
+              <LevelBadgeBack>{currentHanja.level}급</LevelBadgeBack>
+            )}
             <BackContent>
-              {hanja ? (
+              {currentHanja ? (
                 <>
-                  <InfoSection>
+                  <InfoSection
+                    $isFadingOut={isFadingOut}
+                    $isFadingIn={isFadingIn}
+                  >
                     <InfoTitle>뜻(음)</InfoTitle>
                     <InfoText>
-                      {hanja.meaning} {hanja.meaning_key}
+                      {currentHanja.meaning} {currentHanja.meaning_key}
                     </InfoText>
                   </InfoSection>
 
-                  <InfoSection>
+                  <InfoSection
+                    $isFadingOut={isFadingOut}
+                    $isFadingIn={isFadingIn}
+                  >
                     <InfoTitle>{vocabularyRange} 활용단어</InfoTitle>
                     <InfoText>{getVocabularyExample()}</InfoText>
                   </InfoSection>
                 </>
               ) : (
-                <InfoSection>
+                <InfoSection
+                  $isFadingOut={isFadingOut}
+                  $isFadingIn={isFadingIn}
+                >
                   <InfoTitle>급수를 선택해주세요</InfoTitle>
                   <InfoText>
                     학습할 급수를 선택하면 한자 카드가 표시됩니다.

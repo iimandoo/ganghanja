@@ -51,13 +51,11 @@ export const CardActions: React.FC<CardActionsProps> = ({
               급수설정
             </SettingButton>
           }
-          width="350px"
-          height="120px"
           placement="top"
         >
           <div
             style={{
-              marginBottom: "25px",
+              marginBottom: "15px",
             }}
           >
             급수를 선택해 주세요.
@@ -76,13 +74,11 @@ export const CardActions: React.FC<CardActionsProps> = ({
               학년설정
             </SettingButton>
           }
-          width="300px"
-          height="120px"
           placement="top"
         >
           <div
             style={{
-              marginBottom: "25px",
+              marginBottom: "15px",
             }}
           >
             활용단어 학년을 선택하세요.

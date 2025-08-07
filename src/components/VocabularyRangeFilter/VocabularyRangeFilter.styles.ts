@@ -15,114 +15,123 @@ export const VocabularyContainer = styled.div`
   }
 `;
 
-export const VocabularySliderContainer = styled.div`
-  position: relative;
-  width: 100%;
-  max-width: 80%;
-  padding: 3px 0px;
-  margin: 0 10px;
-  user-select: none;
+export const VocabularyRadioGroup = styled.div`
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  width: 230px;
 `;
 
-export const VocabularySliderTrack = styled.div`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 100%;
-  height: 2px;
-  background: #000000;
-  border-radius: 1px;
-  z-index: 1;
-`;
-
-export const VocabularySliderThumb = styled.div<{
-  $position: number;
+export const VocabularyRadioButton = styled.button<{
+  $isSelected: boolean;
   disabled?: boolean;
 }>`
-  position: absolute;
-  top: 50%;
-  left: ${(props) => props.$position}%;
-  transform: translate(-50%, -50%);
-  width: 20px;
-  height: 20px;
-  background: ${theme.colors.primary.dark};
-  border: 3px solid ${theme.colors.white};
-  border-radius: 50%;
+  padding: 3px 8px;
+  border: 1px solid
+    ${(props) => {
+      return props.$isSelected
+        ? theme.colors.secondary.dark
+        : theme.colors.gray.border;
+    }};
+  border-radius: 12px;
+  background: ${(props) => {
+    return props.$isSelected
+      ? `linear-gradient(135deg, ${theme.colors.secondary.main} 0%, ${theme.colors.secondary.dark} 100%)`
+      : theme.colors.white;
+  }};
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
-  box-shadow: ${theme.shadows.md};
   transition: all ${theme.transitions.smooth};
-  z-index: 3;
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+  font-family: "Noto Sans KR", sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: fit-content;
+  box-shadow: ${(props) =>
+    props.$isSelected
+      ? `0 4px 12px ${theme.colors.secondary.dark}40`
+      : `0 2px 8px ${theme.colors.gray.border}20`};
 
   &:hover {
-    transform: translate(-50%, -50%) scale(1.1);
-    box-shadow: ${theme.shadows.lg};
+    border-color: ${(props) => {
+      if (props.disabled) return theme.colors.gray.light;
+      return props.$isSelected
+        ? theme.colors.secondary.dark
+        : theme.colors.secondary.main;
+    }};
+    background: ${(props) => {
+      if (props.disabled) {
+        return props.$isSelected
+          ? `linear-gradient(135deg, ${theme.colors.secondary.main} 0%, ${theme.colors.secondary.dark} 100%)`
+          : theme.colors.white;
+      }
+      return props.$isSelected
+        ? `linear-gradient(135deg, ${theme.colors.secondary.dark} 0%, ${theme.colors.secondary.main} 100%)`
+        : `linear-gradient(135deg, ${theme.colors.secondary.light}20 0%, ${theme.colors.secondary.main}10 100%)`;
+    }};
+    transform: ${(props) =>
+      props.$isSelected ? "translateY(-1px)" : "translateY(-1px)"};
+    box-shadow: ${(props) =>
+      props.$isSelected
+        ? `0 6px 16px ${theme.colors.secondary.dark}50`
+        : `0 4px 12px ${theme.colors.secondary.main}30`};
   }
 
-  &:active {
-    transform: translate(-50%, -50%) scale(1.2);
-    box-shadow: ${theme.shadows.xl};
-  }
-
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    width: 22px;
-    height: 22px;
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px ${theme.colors.secondary.light}40;
   }
 `;
 
-export const VocabularyMarks = styled.div`
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  height: 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  pointer-events: none;
-`;
-
-export const VocabularyMark = styled.div<{
-  $position: number;
+export const CheckboxIcon = styled.div<{
   $isSelected: boolean;
 }>`
-  position: absolute;
-  left: ${(props) => props.$position}%;
-  transform: translateX(-50%);
   display: flex;
-  flex-direction: column;
   align-items: center;
-  pointer-events: none;
-  width: 40px;
-  &::before {
-    content: "";
-    position: absolute;
-    top: -10px;
-    width: 2px;
-    height: 8px;
-    background: ${theme.colors.primary.dark};
-    border-radius: 1px;
-  }
-`;
-
-export const VocabularyMarkLabel = styled.span<{
-  $isSelected: boolean;
-}>`
-  font-size: 0.9rem;
-  font-weight: ${(props) =>
-    props.$isSelected ? theme.fontWeight.bold : theme.fontWeight.semibold};
-  color: ${theme.colors.gray.medium};
-  font-family: "Noto Sans KR", sans-serif;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border: 1px solid
+    ${(props) => {
+      return props.$isSelected ? theme.colors.white : theme.colors.gray.border;
+    }};
+  border-radius: 4px;
+  background: ${(props) => {
+    return props.$isSelected ? theme.colors.white : theme.colors.white;
+  }};
   transition: all ${theme.transitions.fast};
-  user-select: none;
-  text-align: center;
-  margin-top: 7px;
+  flex-shrink: 0;
+  box-shadow: ${(props) =>
+    props.$isSelected ? `0 2px 4px ${theme.colors.secondary.dark}40` : "none"};
 
-  @media (max-width: ${theme.breakpoints.tablet}) {
-    font-size: 0.9rem;
+  svg {
+    color: ${(props) => {
+      return props.$isSelected
+        ? theme.colors.secondary.dark
+        : theme.colors.gray.light;
+    }};
+    opacity: ${(props) => (props.$isSelected ? 1 : 0)};
+    transition: all ${theme.transitions.fast};
+    filter: ${(props) =>
+      props.$isSelected ? "drop-shadow(0 1px 2px rgba(0,0,0,0.2))" : "none"};
   }
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    font-size: 0.9rem;
+    width: 12px;
+    height: 12px;
+  }
+`;
+
+export const VocabularyRadioLabel = styled.span<{ $isSelected: boolean }>`
+  font-size: 0.8rem;
+  color: ${(props) => {
+    return props.$isSelected ? theme.colors.white : theme.colors.gray.medium;
+  }};
+  transition: color ${theme.transitions.fast};
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    font-size: 0.75rem;
   }
 `;

@@ -1,1 +1,1 @@
-export { LevelIcon, VocabularyIcon } from "./Icons";
+export { LevelIcon, VocabularyIcon, CheckIcon } from "./Icons";

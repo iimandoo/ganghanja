@@ -16,7 +16,7 @@ export const Popover: React.FC<PopoverProps> = ({
   trigger,
   children,
   placement = "bottom",
-  width = "300px",
+  width,
   height,
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);

@@ -332,7 +332,7 @@ const DictionaryButton = styled(HideButton)`
   font-weight: 500;
   color: #03c75a;
   @media (max-width: 768px) {
-    right: 56px;
+    right: 100px;
     height: 32px;
   }
 `;

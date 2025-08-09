@@ -12,13 +12,13 @@ import {
   HanjaData,
   saveUserSettings,
   loadUserSettings,
-  deleteUserSettings,
 } from "@/lib/api";
 import { useAuth } from "@/contexts/AuthContext";
 
 export interface UseHanjaGameReturn {
   currentIndex: number;
   filteredData: HanjaData[];
+  allHanjaData: HanjaData[];
   selectedLevels: Level[];
   selectedType: HanjaType;
   selectedVocabularyRange: VocabularyRange;
@@ -81,9 +81,25 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
     error: levelsError,
   } = useQuery({
     queryKey: ["levels", selectedType],
-    queryFn: () => fetchAvailableLevels(selectedType),
+    queryFn: () => {
+      console.log("Levels query executing for type:", selectedType);
+      return fetchAvailableLevels(selectedType);
+    },
     enabled: !!selectedType,
   });
+
+  console.log("Levels Query Status:", {
+    selectedType,
+    isLoading: levelsLoading,
+    hasData: !!levelsData,
+    levelsData,
+    error: levelsError,
+  });
+
+  const availableLevels = useMemo(
+    () => levelsData?.levels || [],
+    [levelsData?.levels]
+  );
 
   // 한자 데이터 조회
   const {
@@ -96,19 +112,47 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
     enabled: !!selectedType && selectedLevels.length > 0,
   });
 
-  const availableLevels = useMemo(
-    () => levelsData?.levels || [],
-    [levelsData?.levels]
-  );
+  // 숨기기 취소를 위한 전체 급수 데이터 조회 (하드코딩된 급수 사용)
+  const allLevels: Level[] = ["8", "7", "6", "준5", "5", "준4"];
+  const {
+    data: allHanjaResponse,
+    isLoading: allHanjaLoading,
+    error: allHanjaError,
+  } = useQuery({
+    queryKey: ["allHanja", selectedType, "all-levels"],
+    queryFn: () => {
+      console.log("AllHanja query executing with hardcoded levels:", {
+        selectedType,
+        allLevels,
+      });
+      return fetchHanjaData(selectedType, allLevels);
+    },
+    enabled: !!selectedType,
+  });
+
+  console.log("AllHanja Query Status:", {
+    selectedType,
+    availableLevels,
+    availableLevelsLength: availableLevels.length,
+    enabled: !!selectedType && availableLevels.length > 0,
+    isLoading: allHanjaLoading,
+    hasData: !!allHanjaResponse,
+    dataLength: allHanjaResponse?.data?.length || 0,
+  });
   const filteredData = useMemo(
     () => hanjaResponse?.data || [],
     [hanjaResponse?.data]
+  );
+  const allHanjaData = useMemo(
+    () => allHanjaResponse?.data || [],
+    [allHanjaResponse?.data]
   );
   const isLoading = levelsLoading || hanjaLoading || settingsLoading;
   const isDataLoading = hanjaLoading;
   const error =
     levelsError?.message ||
     hanjaError?.message ||
+    allHanjaError?.message ||
     settingsError?.message ||
     null;
 
@@ -246,6 +290,7 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
   return {
     currentIndex,
     filteredData,
+    allHanjaData,
     selectedLevels,
     selectedType,
     selectedVocabularyRange,

@@ -11,6 +11,7 @@ export interface HanjaData {
   level: string;
   type: string;
   created_at: string;
+  naver_url?: string;
   m1?: string[];
   m2?: string[];
 }

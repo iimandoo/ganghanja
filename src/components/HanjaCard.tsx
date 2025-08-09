@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { SiNaver } from "react-icons/si";
 import styled, { keyframes, css } from "styled-components";
 import { HanjaData } from "@/lib/api";
 import { VocabularyRange } from "@/constants";
@@ -322,6 +323,18 @@ const HideButton = styled.button`
   }
 `;
 
+const DictionaryButton = styled(HideButton)`
+  right: 110px;
+  padding: 10px;
+  border-radius: 10px;
+  font-weight: 500;
+  color: #03c75a;
+  @media (max-width: 768px) {
+    right: 56px;
+    height: 32px;
+  }
+`;
+
 const HanjaCard: React.FC<HanjaCardProps> = ({
   hanja,
   nextHanja: nextHanjaProp,
@@ -421,6 +434,18 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
     }
   };
 
+  const handleDictionaryClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!currentHanja) return;
+    const url =
+      (currentHanja as unknown as { naverUrl?: string }).naverUrl ||
+      currentHanja.naver_url ||
+      `https://hanja.dict.naver.com/#/search?query=${currentHanja.character}`;
+    try {
+      window.open(url, "naver");
+    } catch {}
+  };
+
   // 숨기기 버튼 비활성화 조건 (파티클 효과 제거됨)
   const isHideDisabled = isFadingOut || isFadingIn;
 
@@ -464,6 +489,15 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
           <CardFront $colorKey={cardColorKey}>
             {currentHanja && (
               <LevelBadgeFront>{currentHanja.level}급</LevelBadgeFront>
+            )}
+            {currentHanja && !disabled && (
+              <DictionaryButton
+                onClick={handleDictionaryClick}
+                title="네이버 한자사전"
+                aria-label="사전"
+              >
+                <SiNaver size={18} aria-hidden="true" />
+              </DictionaryButton>
             )}
             {currentHanja && !disabled && (
               <HideButton

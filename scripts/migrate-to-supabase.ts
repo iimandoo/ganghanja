@@ -83,6 +83,7 @@ async function migrateData() {
       idiom: item.idiom,
       level: item.level,
       type: "TypeA",
+      naver_url: `https://hanja.dict.naver.com/#/search?query=${item.character}`,
     }));
 
     // TypeB 데이터 준비
@@ -94,6 +95,7 @@ async function migrateData() {
       idiom: item.idiom,
       level: item.level,
       type: "TypeB",
+      naver_url: `https://hanja.dict.naver.com/#/search?query=${item.character}`,
     }));
 
     const allData = [...typeAData, ...typeBData];

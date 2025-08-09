@@ -263,6 +263,7 @@ export default function Home() {
   const {
     currentIndex,
     filteredData,
+    allHanjaData,
     selectedLevels,
     selectedType,
     selectedVocabularyRange,
@@ -586,8 +587,10 @@ export default function Home() {
           {/* landscape 모드에서 ProgressBar 아래에 CardActions 표시 */}
           <LandscapeCardActions
             onShuffle={handleShuffle}
-            onUnhideAll={hiddenCardsHook.clearHiddenCards}
+            onUnhideByLevels={(levels) => hiddenCardsHook.unhideCardsByLevels(levels, allHanjaData)}
             hiddenCardsCount={hiddenCardsHook.hiddenCardsCount}
+            hiddenCards={hiddenCardsHook.hiddenCards}
+            allHanjaData={allHanjaData}
             disabled={selectedLevels.length === 0}
             selectedLevels={selectedLevels}
             availableLevels={availableLevels}
@@ -640,8 +643,10 @@ export default function Home() {
         </GameArea>
         <PortraitCardActions
           onShuffle={handleShuffle}
-          onUnhideAll={hiddenCardsHook.clearHiddenCards}
+          onUnhideByLevels={(levels) => hiddenCardsHook.unhideCardsByLevels(levels, allHanjaData)}
           hiddenCardsCount={hiddenCardsHook.hiddenCardsCount}
+          hiddenCards={hiddenCardsHook.hiddenCards}
+          allHanjaData={allHanjaData}
           disabled={selectedLevels.length === 0}
           selectedLevels={selectedLevels}
           availableLevels={availableLevels}

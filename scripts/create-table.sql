@@ -13,6 +13,7 @@ CREATE TABLE hanja_data (
   idiom TEXT NOT NULL,
   level VARCHAR(10) NOT NULL,
   type VARCHAR(10) NOT NULL,
+  naver_url TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 

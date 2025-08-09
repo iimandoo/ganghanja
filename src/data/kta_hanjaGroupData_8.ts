@@ -7,6 +7,7 @@ export interface HanjaData {
   level: string;
   m1?: string[];
   m2?: string[];
+  naverUrl?: string;
 }
 export interface HanjaGroupDto {
   TypeA?: HanjaData[];
@@ -34,6 +35,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "구구암기",
         "구구연습",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=九",
     },
     {
       character: "金",
@@ -53,6 +55,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "금융서비스",
         "금융산업",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=金",
     },
     {
       character: "南",
@@ -72,6 +75,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "남극조약",
         "남극과학",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=南",
     },
     {
       character: "男",
@@ -91,6 +95,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "남성의식",
         "남성평등",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=男",
     },
     {
       character: "女",
@@ -110,6 +115,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "여성협력",
         "여성의식",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=女",
     },
     {
       character: "東",
@@ -129,6 +135,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "동아리경연",
         "동아리축제",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=東",
     },
     {
       character: "六",
@@ -148,6 +155,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "육상대회",
         "육상시설",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=六",
     },
     {
       character: "母",
@@ -167,6 +175,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "모성의식",
         "모성복지",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=母",
     },
     {
       character: "木",
@@ -186,6 +195,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "목표추진",
         "목표실현",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=木",
     },
     {
       character: "門",
@@ -205,6 +215,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "문학운동",
         "문학사조",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=門",
     },
     {
       character: "父",
@@ -224,6 +235,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "부모협력",
         "부모의식",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=父",
     },
     {
       character: "北",
@@ -243,6 +255,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "북극조약",
         "북극과학",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=北",
     },
     {
       character: "四",
@@ -262,6 +275,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "사방탐구",
         "사방학습",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=四",
     },
     {
       character: "三",
@@ -281,6 +295,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "삼각형정리",
         "삼각형학습",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=三",
     },
     {
       character: "西",
@@ -300,6 +315,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "서양음악",
         "서양건축",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=西",
     },
     {
       character: "水",
@@ -319,6 +335,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "수학성적",
         "수학능력",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=水",
     },
     {
       character: "十",
@@ -338,6 +355,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "십자탐구",
         "십자학습",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=十",
     },
     {
       character: "五",
@@ -357,6 +375,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "오감탐구",
         "오감교육",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=五",
     },
     {
       character: "月",
@@ -376,6 +395,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "월드레코드",
         "월드스타",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=月",
     },
     {
       character: "二",
@@ -395,6 +415,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "이론분석",
         "이론적용",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=二",
     },
     {
       character: "人",
@@ -414,6 +435,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "인권발전",
         "인권협력",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=人",
     },
     {
       character: "日",
@@ -433,6 +455,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "일본음악",
         "일본건축",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=日",
     },
     {
       character: "一",
@@ -452,6 +475,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "일반학습",
         "일반교육",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=一",
     },
     {
       character: "子",
@@ -471,6 +495,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "자유주의",
         "자유권",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=子",
     },
     {
       character: "弟",
@@ -490,6 +515,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "제자문화",
         "제자정신",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=弟",
     },
     {
       character: "七",
@@ -509,6 +535,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "칠각형정리",
         "칠각형학습",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=七",
     },
     {
       character: "土",
@@ -528,6 +555,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "토론학습",
         "토론평가",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=土",
     },
     {
       character: "八",
@@ -547,6 +575,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "팔각형학습",
         "팔방미인",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=八",
     },
     {
       character: "兄",
@@ -566,6 +595,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "형제애",
         "형제간",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=兄",
     },
     {
       character: "火",
@@ -585,6 +615,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "화학학습",
         "화학시험",
       ],
+      naverUrl: "https://hanja.dict.naver.com/#/search?query=火",
     },
   ],
 };

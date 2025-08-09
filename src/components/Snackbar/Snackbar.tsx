@@ -29,7 +29,7 @@ export const Snackbar: React.FC<SnackbarProps> = ({
       // 애니메이션이 끝난 후 렌더링 제거
       const timer = setTimeout(() => {
         setShouldRender(false);
-      }, 300);
+      }, 330);
 
       return () => clearTimeout(timer);
     }
@@ -53,7 +53,7 @@ const SnackbarContainer = styled.div<{ $isVisible: boolean }>`
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
-  transition: all 0.3s ease;
+  transition: all 0.33s ease;
   opacity: ${(props) => (props.$isVisible ? 1 : 0)};
   transform: translateX(-50%)
     translateY(${(props) => (props.$isVisible ? "0" : "20px")});
@@ -87,13 +87,13 @@ const SnackbarContent = styled.div`
 
 const Message = styled.span`
   font-family: "Noto Sans KR", sans-serif;
-  font-size: ${theme.fontSize.base};
+  font-size: calc(${theme.fontSize.lg});
   font-weight: ${theme.fontWeight.medium};
   flex: 1;
   line-height: 1.4;
 
   @media (max-width: ${theme.breakpoints.tablet}) {
-    font-size: ${theme.fontSize.sm};
+    font-size: calc(${theme.fontSize.md});
   }
 `;
 

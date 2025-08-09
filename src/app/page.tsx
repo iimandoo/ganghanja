@@ -379,9 +379,9 @@ export default function Home() {
     visibleCards.length > 0 && adjustedCurrentIndex >= 0
       ? visibleCards[adjustedCurrentIndex]
       : null;
-  
+
   // 다음 카드 (숨기기 시 fadeIn용)
-  const nextCard = 
+  const nextCard =
     visibleCards.length > 0 && adjustedCurrentIndex + 1 < visibleCards.length
       ? visibleCards[adjustedCurrentIndex + 1]
       : null;
@@ -397,7 +397,9 @@ export default function Home() {
     const cardToHide = filteredData.find((card) => card.id === cardId);
     if (cardToHide) {
       hiddenCardsHook.hideCard(cardId);
-      snackbarHook.showSnackbar(`${cardToHide.character}한자를 숨겼어요!`);
+      snackbarHook.showSnackbar(
+        `${cardToHide.character} [${cardToHide.meaning} ${cardToHide.meaning_key}] 숨기기!`
+      );
     }
   };
 
@@ -574,8 +576,8 @@ export default function Home() {
             onClose={handleChatClose}
             onSubmit={handleChatSubmit}
           />
-          <ProgressBar 
-            progress={adjustedProgress} 
+          <ProgressBar
+            progress={adjustedProgress}
             currentIndex={adjustedCurrentIndex}
             totalCount={visibleCards.length}
             showTooltip={showProgressTooltip}

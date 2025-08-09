@@ -166,12 +166,12 @@ const HanjaCharacter = styled.div<{
   ${(props) => {
     if (props.$isFadingOut) {
       return css`
-        animation: ${fadeOut} 0.8s ease-out forwards;
+        animation: ${fadeOut} 0.3s ease-out forwards;
       `;
     }
     if (props.$isFadingIn) {
       return css`
-        animation: ${fadeIn} 0.8s ease-out forwards;
+        animation: ${fadeIn} 0.3s ease-out forwards;
       `;
     }
     return css``;
@@ -411,11 +411,11 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
           // fadeIn 완료
           setTimeout(() => {
             setIsFadingIn(false);
-          }, 800);
+          }, 300);
         }
 
         setIsFadingOut(false);
-      }, 800);
+      }, 400);
 
       // 다음 한자가 없는 경우에만 1.5초 후 파티클 정리
       if (!nextHanjaProp) {

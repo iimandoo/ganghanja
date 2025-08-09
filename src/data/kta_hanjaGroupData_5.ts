@@ -3883,6 +3883,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "번호체계",
         "번호관리",
       ],
+      e6: ["번호", "번갈아"],
     },
     {
       character: "別",
@@ -3917,6 +3918,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "특별구",
         "특별시",
       ],
+      e6: ["특별", "특별활동"],
     },
     {
       character: "步",
@@ -3951,6 +3953,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "보행자전용도로",
         "보행자우선",
       ],
+      e6: ["보행", "보행자"],
     },
     {
       character: "部",
@@ -3985,6 +3988,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "부서간",
         "부서이동",
       ],
+      e6: ["부서", "일부"],
     },
     {
       character: "分",
@@ -4019,6 +4023,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "분수시험",
         "분수문제",
       ],
+      e6: ["부분", "분수"],
     },
     {
       character: "社",
@@ -4053,6 +4058,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "사회학자",
         "사회학회",
       ],
+      e6: ["회사", "사회"],
     },
     {
       character: "事",
@@ -4087,6 +4093,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "사업주",
         "사업체",
       ],
+      e6: ["사업", "사건"],
     },
     {
       character: "死",
@@ -4121,6 +4128,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "사망자명단",
         "사망자보고",
       ],
+      e6: ["사망"],
     },
     {
       character: "色",
@@ -4155,6 +4163,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "색상차트",
         "색상팔레트",
       ],
+      e6: ["색깔", "색상"],
     },
     {
       character: "書",
@@ -4189,6 +4198,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "서적검색",
         "서적대출",
       ],
+      e6: ["서신", "서적"],
     },
     {
       character: "線",
@@ -4223,6 +4233,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "직선측정",
         "직선계산",
       ],
+      e6: ["직선"],
     },
     {
       character: "性",
@@ -4257,6 +4268,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "성격심리학",
         "성격연구",
       ],
+      e6: ["성격"],
     },
     {
       character: "成",
@@ -4291,6 +4303,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "성장발달",
         "성장학",
       ],
+      e6: ["성공", "성장"],
     },
     {
       character: "所",
@@ -4325,6 +4338,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "소유주",
         "소유체",
       ],
+      e6: ["장소", "소유"],
     },
     {
       character: "首",
@@ -4359,6 +4373,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "수도권분산",
         "수도권인구",
       ],
+      e6: ["수도"],
     },
     {
       character: "詩",
@@ -4385,6 +4400,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "시회",
         "시모임",
       ],
+      e6: ["시가", "시인"],
     },
     {
       character: "時",
@@ -4419,6 +4435,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "시간제",
         "시간표",
       ],
+      e6: ["시간", "시기"],
     },
     {
       character: "示",
@@ -4453,6 +4470,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "표시내용",
         "표시자",
       ],
+      e6: ["표시", "지시"],
     },
     {
       character: "市",
@@ -4487,6 +4505,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "도시발전",
         "도시학",
       ],
+      e6: ["시장", "도시"],
     },
     {
       character: "植",
@@ -4521,6 +4540,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "식물박물관",
         "식물원",
       ],
+      e6: ["식물"],
     },
     {
       character: "神",
@@ -4555,6 +4575,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "정신의사",
         "정신과",
       ],
+      e6: ["정신"],
     },
     {
       character: "身",
@@ -4589,6 +4610,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "신체발달",
         "신체학",
       ],
+      e6: ["신체"],
     },
     {
       character: "信",
@@ -4623,6 +4645,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "신뢰형성",
         "신뢰학",
       ],
+      e6: ["신뢰"],
     },
     {
       character: "新",
@@ -4649,6 +4672,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "신제품개발",
         "신기술개발",
       ],
+      e6: ["신규"],
     },
     {
       character: "室",
@@ -4683,6 +4707,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "교실활동",
         "교실학습",
       ],
+      e6: ["교실", "실내"],
     },
     {
       character: "安",
@@ -4717,6 +4742,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "안전발전",
         "안전학",
       ],
+      e6: ["안전"],
     },
     {
       character: "夜",
@@ -4751,6 +4777,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "야간약국",
         "야간학교",
       ],
+      e6: ["야간"],
     },
     {
       character: "弱",
@@ -4785,6 +4812,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "약점발전",
         "약점학",
       ],
+      e6: ["약점"],
     },
     {
       character: "語",
@@ -4819,6 +4847,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "언어발전",
         "언어학",
       ],
+      e6: ["언어", "국어"],
     },
     {
       character: "言",
@@ -4853,6 +4882,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "언행발전",
         "언행학",
       ],
+      e6: ["언어", "언행"],
     },
     {
       character: "永",
@@ -4887,6 +4917,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "영구발전",
         "영구학",
       ],
+      e6: ["영원"],
     },
     {
       character: "英",
@@ -4921,6 +4952,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "영어발전",
         "영어학",
       ],
+      e6: ["영어"],
     },
     {
       character: "午",
@@ -4955,6 +4987,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "오후일과",
         "오전수업",
       ],
+      e6: ["오후", "오전"],
     },
     {
       character: "用",
@@ -4989,6 +5022,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "사용발전",
         "사용학",
       ],
+      e6: ["용도", "사용"],
     },
     {
       character: "友",
@@ -5023,6 +5057,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "친구발전",
         "친구학",
       ],
+      e6: ["친구", "우정"],
     },
     {
       character: "遠",
@@ -5057,6 +5092,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "원거리발전",
         "원거리학",
       ],
+      e6: ["원거리"],
     },
     {
       character: "原",
@@ -5091,6 +5127,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "원인발전",
         "원인학",
       ],
+      e6: ["원인"],
     },
     {
       character: "元",
@@ -5125,6 +5162,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "원기발전",
         "원기학",
       ],
+      e6: ["원기"],
     },
     {
       character: "有",
@@ -5159,6 +5197,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "유용발전",
         "유용학",
       ],
+      e6: ["유용"],
     },
     {
       character: "肉",
@@ -5193,6 +5232,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "육체발전",
         "육체학",
       ],
+      e6: ["육류"],
     },
     {
       character: "育",
@@ -5227,6 +5267,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "교육발전",
         "교육학",
       ],
+      e6: ["교육"],
     },
     {
       character: "銀",
@@ -5261,6 +5302,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "은하발전",
         "은하학",
       ],
+      e6: ["은행"],
     },
     {
       character: "音",
@@ -5295,6 +5337,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "음악발전",
         "음악학",
       ],
+      e6: ["음악"],
     },
     {
       character: "邑",
@@ -5321,6 +5364,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "읍계획",
         "읍행정",
       ],
+      e6: ["읍락"],
     },
     {
       character: "意",
@@ -5355,6 +5399,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "의미발전",
         "의미학",
       ],
+      e6: ["의사", "의미"],
     },
     {
       character: "作",
@@ -5391,6 +5436,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "작품학",
         "작품연구",
       ],
+      e6: ["작품", "작문"],
     },
     {
       character: "長",
@@ -5427,6 +5473,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "장기학",
         "장기연구",
       ],
+      e6: ["장기", "장점"],
     },
     {
       character: "場",
@@ -5463,6 +5510,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "시장발전",
         "시장학",
       ],
+      e6: ["시장", "장소"],
     },
     {
       character: "才",
@@ -5499,6 +5547,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "재능학",
         "재능연구",
       ],
+      e6: ["재능"],
     },
     {
       character: "田",
@@ -5535,6 +5584,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "농업발전",
         "농업학",
       ],
+      e6: ["전원", "농업"],
     },
     {
       character: "電",
@@ -5571,6 +5621,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "전기발전",
         "전기학",
       ],
+      e6: ["전기", "전화"],
     },
     {
       character: "前",
@@ -5607,6 +5658,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "전문발전",
         "전문학",
       ],
+      e6: ["전진", "전체"],
     },
     {
       character: "全",
@@ -5643,6 +5695,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "전체발전",
         "전체학",
       ],
+      e6: ["완전", "전체"],
     },
     {
       character: "朝",
@@ -5679,6 +5732,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "조직발전",
         "조직학",
       ],
+      e6: ["조간", "조직"],
     },
     {
       character: "祖",
@@ -5715,6 +5769,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "조상발전",
         "조상학",
       ],
+      e6: ["조상"],
     },
     {
       character: "晝",
@@ -5751,6 +5806,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "주식발전",
         "주식학",
       ],
+      e6: ["주간"],
     },
     {
       character: "住",
@@ -5787,6 +5843,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "주거발전",
         "주거학",
       ],
+      e6: ["주민", "주소"],
     },
     {
       character: "竹",
@@ -5823,6 +5880,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "죽림발전",
         "죽림학",
       ],
+      e6: ["죽순"],
     },
     {
       character: "重",
@@ -5859,6 +5917,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "중요발전",
         "중요학",
       ],
+      e6: ["중요", "중학교"],
     },
     {
       character: "直",
@@ -5895,6 +5954,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "직업발전",
         "직업학",
       ],
+      e6: ["직접", "직업"],
     },
     {
       character: "草",
@@ -5931,6 +5991,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "초등발전",
         "초등학",
       ],
+      e6: ["초원", "초등학교"],
     },
     {
       character: "村",
@@ -5967,6 +6028,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "촌락발전",
         "촌락학",
       ],
+      e6: ["촌락", "농촌"],
     },
     {
       character: "秋",
@@ -6003,6 +6065,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "추론발전",
         "추론학",
       ],
+      e6: ["추수", "추석"],
     },
     {
       character: "春",
@@ -6039,6 +6102,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "춘분발전",
         "춘분학",
       ],
+      e6: ["춘곤증"],
     },
     {
       character: "親",
@@ -6075,6 +6139,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "친교발전",
         "친교학",
       ],
+      e6: ["부모", "친척"],
     },
     {
       character: "太",
@@ -6111,6 +6176,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "태양발전",
         "태양학",
       ],
+      e6: ["태양"],
     },
     {
       character: "通",
@@ -6147,6 +6213,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "통계발전",
         "통계학",
       ],
+      e6: ["통행", "통계"],
     },
     {
       character: "貝",
@@ -6183,6 +6250,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "패류발전",
         "패류학",
       ],
+      e6: ["조개"],
     },
     {
       character: "便",
@@ -6219,6 +6287,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "편의발전",
         "편의학",
       ],
+      e6: ["편리", "편지"],
     },
     {
       character: "平",
@@ -6255,6 +6324,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "평화발전",
         "평화학",
       ],
+      e6: ["평화", "평균"],
     },
     {
       character: "夏",
@@ -6291,6 +6361,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "하계발전",
         "하계학",
       ],
+      e6: ["하계"],
     },
     {
       character: "學",
@@ -6327,6 +6398,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "학습발전",
         "학습학",
       ],
+      e6: ["학교", "학습"],
     },
     {
       character: "韓",
@@ -6363,6 +6435,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "한국발전",
         "한국학",
       ],
+      e6: ["한국", "한글"],
     },
     {
       character: "漢",
@@ -6399,6 +6472,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "한자발전",
         "한자학",
       ],
+      e6: ["한문", "한자"],
     },
     {
       character: "合",
@@ -6435,6 +6509,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "합리발전",
         "합리학",
       ],
+      e6: ["합의", "합계"],
     },
     {
       character: "海",
@@ -6471,6 +6546,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "해양발전",
         "해양학",
       ],
+      e6: ["해양", "해변", "해수욕장", "해양생물", "해양환경"],
     },
     {
       character: "行",
@@ -6507,6 +6583,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "행정발전",
         "행정학",
       ],
+      e6: ["행동", "행사", "행복"],
     },
     {
       character: "血",
@@ -6543,6 +6620,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "혈액발전",
         "혈액학",
       ],
+      e6: ["혈액", "혈관", "혈액순환"],
     },
     {
       character: "形",
@@ -6579,6 +6657,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "형태발전",
         "형태학",
       ],
+      e6: ["형태", "형식", "형성", "형제"],
     },
     {
       character: "花",
@@ -6615,6 +6694,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "화초발전",
         "화초학",
       ],
+      e6: ["화초", "꽃밭", "꽃잎", "꽃다발"],
     },
     {
       character: "話",
@@ -6651,6 +6731,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "회화발전",
         "회화학",
       ],
+      e6: ["대화", "회화", "이야기", "화제"],
     },
     {
       character: "和",
@@ -6687,6 +6768,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "화학발전",
         "화학학",
       ],
+      e6: ["화합", "평화", "화목", "화학"],
     },
     {
       character: "活",
@@ -6723,6 +6805,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "활동발전",
         "활동학",
       ],
+      e6: ["생활", "활동", "활발", "활용"],
     },
     {
       character: "黃",
@@ -6759,6 +6842,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "황금발전",
         "황금학",
       ],
+      e6: ["황색", "황금", "황금시대"],
     },
     {
       character: "會",
@@ -6795,6 +6879,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "회계발전",
         "회계학",
       ],
+      e6: ["회의", "회합", "회사", "회원", "회장"],
     },
   ],
 };

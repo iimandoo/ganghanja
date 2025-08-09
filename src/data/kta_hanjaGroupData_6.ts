@@ -7,6 +7,7 @@ export interface HanjaData {
   level: string;
   m1?: string[];
   m2?: string[];
+  e6?: string[];
 }
 export interface HanjaGroupDto {
   TypeA?: HanjaData[];
@@ -33,6 +34,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "애견보험",
         "애견문화",
       ],
+      e6: ["애견", "견공"],
     },
     {
       character: "己",
@@ -52,6 +54,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "자기성찰",
         "자기개선",
       ],
+      e6: ["자기", "자신"],
     },
     {
       character: "林",
@@ -71,6 +74,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "삼림환경",
         "삼림관리",
       ],
+      e6: ["산림", "삼림"],
     },
     {
       character: "馬",
@@ -90,6 +94,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "경마관람",
         "경마도박",
       ],
+      e6: ["마차", "경마"],
     },
     {
       character: "名",
@@ -118,6 +123,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "명예구제",
         "명예법",
       ],
+      e6: ["성명", "명성"],
     },
     {
       character: "百",
@@ -138,6 +144,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "백분율표시",
         "백분율변환",
       ],
+      e6: ["백화점", "백만"],
     },
     {
       character: "生",
@@ -166,6 +173,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "생물다양성",
         "생물진화",
       ],
+      e6: ["생일", "생명", "생물"],
     },
     {
       character: "石",
@@ -193,6 +201,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "화석발굴",
         "화석박물관",
       ],
+      e6: ["암석", "석유", "화석"],
     },
     {
       character: "先",
@@ -219,6 +228,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "선후배정신",
         "선후배교육",
       ],
+      e6: ["선생님", "선배"],
     },
     {
       character: "姓",
@@ -246,6 +256,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "성씨문화",
         "성씨연구",
       ],
+      e6: ["성명", "성씨"],
     },
     {
       character: "心",
@@ -273,6 +284,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "심리발달",
         "심리건강",
       ],
+      e6: ["중심", "심장", "심리"],
     },
     {
       character: "羊",
@@ -292,6 +304,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "양털가공",
         "양털품질",
       ],
+      e6: ["양고기", "양모"],
     },
     {
       character: "魚",
@@ -319,6 +332,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "어류관찰",
         "어류학습",
       ],
+      e6: ["어항", "어류"],
     },
     {
       character: "牛",
@@ -346,6 +360,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "우유산업",
         "우유문화",
       ],
+      e6: ["우유"],
     },
     {
       character: "耳",
@@ -372,6 +387,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "이비인후진료",
         "이비인후병원",
       ],
+      e6: ["이비인후과"],
     },
     {
       character: "地",
@@ -399,6 +415,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "지리분석",
         "지리학습",
       ],
+      e6: ["지구", "지역", "지리"],
     },
     {
       character: "川",
@@ -426,6 +443,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "하천관리",
         "하천환경",
       ],
+      e6: ["하천"],
     },
     {
       character: "千",
@@ -445,6 +463,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "천단위표시",
         "천단위변환",
       ],
+      e6: ["천원"],
     },
     {
       character: "天",
@@ -464,6 +483,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "천문학습",
         "천문교육",
       ],
+      e6: ["천재", "천문"],
     },
   ],
 };

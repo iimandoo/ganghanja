@@ -6,7 +6,6 @@ import { HanjaData } from "@/lib/api";
 import { VocabularyRange } from "@/constants";
 import { useAuth } from "@/contexts/AuthContext";
 import { LoginRequiredModal } from "@/components/LoginRequiredModal";
-import { ParticleEffect } from "@/components/ParticleEffect";
 import {
   getConsistentCardColor,
   getCardColorInfo,
@@ -303,10 +302,16 @@ const HideButton = styled.button`
   -moz-user-select: none;
   -ms-user-select: none;
 
-  &:hover {
+  &:not(:disabled):hover {
     background: rgba(255, 255, 255, 1);
     color: #333;
     transform: scale(1.1);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
   }
 
   @media (max-width: 768px) {
@@ -329,7 +334,6 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
   const [isFlipped, setIsFlipped] = useState(false);
   const [noAnimation, setNoAnimation] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showParticles, setShowParticles] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [isFadingIn, setIsFadingIn] = useState(false);
   const [currentHanja, setCurrentHanja] = useState<HanjaData | null>(hanja);
@@ -385,8 +389,7 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
       // 텍스트 fadeOut 시작
       setIsFadingOut(true);
 
-      // 파티클 효과 시작 (현재 한자 fadeOut 시 항상 표시)
-      setShowParticles(true);
+      // 파티클 효과 제거됨
 
       // 다음 한자 설정
       if (nextHanjaProp) {
@@ -398,11 +401,8 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
         // 카드 숨기기 실행
         onHide(currentHanja.id);
 
-        // 다음 한자가 있으면 파티클 없이 fadeIn
+        // 다음 한자가 있으면 fadeIn
         if (nextHanja) {
-          // 파티클 효과 즉시 정리 (다음 한자 fadeIn 시 안보이게)
-          setShowParticles(false);
-
           // 다음 한자로 전환
           setCurrentHanja(nextHanja);
           setIsFadingIn(true);
@@ -417,14 +417,12 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
         setIsFadingOut(false);
       }, 400);
 
-      // 다음 한자가 없는 경우에만 1.5초 후 파티클 정리
-      if (!nextHanjaProp) {
-        setTimeout(() => {
-          setShowParticles(false);
-        }, 1500);
-      }
+      // 파티클 효과 제거됨
     }
   };
+
+  // 숨기기 버튼 비활성화 조건 (파티클 효과 제거됨)
+  const isHideDisabled = isFadingOut || isFadingIn;
 
   const handleLoginModalClose = () => {
     setShowLoginModal(false);
@@ -438,9 +436,7 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
     window.dispatchEvent(loginEvent);
   };
 
-  const handleParticleComplete = () => {
-    setShowParticles(false);
-  };
+  // Particle effect 제거됨
 
   // 어휘범위에 따라 표시할 예시 텍스트 선택
   const getVocabularyExample = () => {
@@ -464,17 +460,17 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
   return (
     <>
       <CardContainer onClick={handleCardClick} $disabled={disabled}>
-        <ParticleEffect
-          isVisible={showParticles}
-          onComplete={handleParticleComplete}
-        />
         <CardInner $isFlipped={isFlipped} $noAnimation={noAnimation}>
           <CardFront $colorKey={cardColorKey}>
             {currentHanja && (
               <LevelBadgeFront>{currentHanja.level}급</LevelBadgeFront>
             )}
             {currentHanja && !disabled && (
-              <HideButton onClick={handleHideClick} title="이 카드 숨기기">
+              <HideButton
+                onClick={handleHideClick}
+                title="이 카드 숨기기"
+                disabled={isHideDisabled}
+              >
                 숨기기
               </HideButton>
             )}

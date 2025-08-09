@@ -189,9 +189,8 @@ const HanjaCharacter = styled.div<{
 const BackContent = styled.div`
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: grid;
+  grid-template-rows: auto 1fr;
   gap: 24px;
 
   @media (max-width: 768px) {
@@ -203,11 +202,11 @@ const InfoSection = styled.div<{
   $isFadingOut?: boolean;
   $isFadingIn?: boolean;
 }>`
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  padding: 20px;
   text-align: left;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
   ${(props) => {
     if (props.$isFadingOut) {
       return css`
@@ -221,11 +220,6 @@ const InfoSection = styled.div<{
     }
     return css``;
   }}
-
-  @media (max-width: 768px) {
-    padding: 10px;
-    border-radius: 12px;
-  }
 `;
 
 const InfoTitle = styled.h3`
@@ -242,6 +236,9 @@ const InfoTitle = styled.h3`
 `;
 
 const InfoText = styled.p`
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
   font-size: 1.4rem;
   line-height: 1.7;
   margin: 0;
@@ -250,9 +247,14 @@ const InfoText = styled.p`
   font-family: "Noto Sans KR", sans-serif;
   color: rgba(45, 55, 72, 0.9);
   word-break: keep-all;
+  padding: 10px 20px;
+  height: 100%;
+  overflow: auto;
 
   @media (max-width: 768px) {
     font-size: 1.1rem;
+    padding: 10px;
+
     line-height: 1.4;
   }
 `;
@@ -463,24 +465,30 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
 
   // Particle effect 제거됨
 
-  // 어휘범위에 따라 표시할 예시 텍스트 선택
-  const getVocabularyExample = () => {
-    if (!currentHanja) return "";
+  // 어휘범위에 따라 표시할 예시 텍스트 선택 (useMemo 내부로 이동하여 사용)
 
-    switch (vocabularyRange) {
-      case "중1":
-        return currentHanja.m1
-          ? currentHanja.m1.join(", ")
-          : currentHanja.example;
-      case "중2":
-        return currentHanja.m2
-          ? currentHanja.m2.join(", ")
-          : currentHanja.example;
-      case "기본":
-      default:
-        return currentHanja.example;
-    }
-  };
+  const vocabularyLines = React.useMemo(() => {
+    const text = (() => {
+      if (!currentHanja) return "";
+      switch (vocabularyRange) {
+        case "중1":
+          return currentHanja.m1
+            ? currentHanja.m1.join(", ")
+            : currentHanja.example;
+        case "중2":
+          return currentHanja.m2
+            ? currentHanja.m2.join(", ")
+            : currentHanja.example;
+        case "기본":
+        default:
+          return currentHanja.example;
+      }
+    })();
+    return text
+      .split(",")
+      .map((part) => part.trim())
+      .filter((part) => part.length > 0);
+  }, [currentHanja, vocabularyRange]);
 
   return (
     <>
@@ -537,7 +545,14 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
                     $isFadingIn={isFadingIn}
                   >
                     <InfoTitle>{vocabularyRange} 활용단어</InfoTitle>
-                    <InfoText>{getVocabularyExample()}</InfoText>
+                    <InfoText>
+                      {vocabularyLines.map((line, index) => (
+                        <span key={`${line}-${index}`}>
+                          {line}
+                          {index < vocabularyLines.length - 1 && <br />}
+                        </span>
+                      ))}
+                    </InfoText>
                   </InfoSection>
                 </>
               ) : (

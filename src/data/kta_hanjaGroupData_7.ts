@@ -7,6 +7,8 @@ export interface HanjaData {
   level: string;
   m1?: string[];
   m2?: string[];
+  example_exp?: Array<{ kor: string; hanja: string; naverUrl: string }>;
+  m_exp?: Array<{ kor: string; hanja: string; naverUrl: string }>;
 }
 export interface HanjaGroupDto {
   TypeA?: HanjaData[];
@@ -43,6 +45,50 @@ export const hanjaGroupData: HanjaGroupDto = {
         "강화과정",
         "강화역사",
       ],
+      example_exp: [
+        {
+          kor: "강물",
+          hanja: "江水",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=江水",
+        },
+        {
+          kor: "강변",
+          hanja: "江邊",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=江邊",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "강물",
+          hanja: "江水",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=江水",
+        },
+        {
+          kor: "강변",
+          hanja: "江邊",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=江邊",
+        },
+        {
+          kor: "강남",
+          hanja: "江南",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=江南",
+        },
+        {
+          kor: "강북",
+          hanja: "江北",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=江北",
+        },
+        {
+          kor: "강수량",
+          hanja: "江水量",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=江水量",
+        },
+        {
+          kor: "강가",
+          hanja: "江가",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=江가",
+        },
+      ],
     },
     {
       character: "口",
@@ -71,6 +117,45 @@ export const hanjaGroupData: HanjaGroupDto = {
         "인구감소",
         "인구정책",
         "인구문제",
+      ],
+      example_exp: [
+        {
+          kor: "인구",
+          hanja: "人口",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=人口",
+        },
+        {
+          kor: "입구",
+          hanja: "入口",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=入口",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "인구",
+          hanja: "人口",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=人口",
+        },
+        {
+          kor: "입구",
+          hanja: "入口",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=入口",
+        },
+        {
+          kor: "구강",
+          hanja: "口腔",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=口腔",
+        },
+        {
+          kor: "구두",
+          hanja: "口頭",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=口頭",
+        },
+        {
+          kor: "구두점",
+          hanja: "口頭點",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=口頭點",
+        },
       ],
     },
     {
@@ -102,6 +187,60 @@ export const hanjaGroupData: HanjaGroupDto = {
         "내각정책",
         "내각역할",
       ],
+      example_exp: [
+        {
+          kor: "내부",
+          hanja: "內部",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=內部",
+        },
+        {
+          kor: "국내",
+          hanja: "國內",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=國內",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "내부",
+          hanja: "內部",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=內部",
+        },
+        {
+          kor: "국내",
+          hanja: "國內",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=國內",
+        },
+        {
+          kor: "내용",
+          hanja: "內容",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=內容",
+        },
+        {
+          kor: "내일",
+          hanja: "內日",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=內日",
+        },
+        {
+          kor: "내년",
+          hanja: "內年",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=內年",
+        },
+        {
+          kor: "내용물",
+          hanja: "內容物",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=內容物",
+        },
+        {
+          kor: "내정",
+          hanja: "內政",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=內政",
+        },
+        {
+          kor: "내각",
+          hanja: "內閣",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=內閣",
+        },
+      ],
     },
     {
       character: "年",
@@ -130,6 +269,50 @@ export const hanjaGroupData: HanjaGroupDto = {
         "연령정책",
         "연령문제",
         "연령교육",
+      ],
+      example_exp: [
+        {
+          kor: "연세",
+          hanja: "年歲",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=年歲",
+        },
+        {
+          kor: "금년",
+          hanja: "今年",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=今年",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "연세",
+          hanja: "年歲",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=年歲",
+        },
+        {
+          kor: "금년",
+          hanja: "今年",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=今年",
+        },
+        {
+          kor: "년도",
+          hanja: "年度",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=年度",
+        },
+        {
+          kor: "년간",
+          hanja: "年間",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=年間",
+        },
+        {
+          kor: "년말",
+          hanja: "年末",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=年末",
+        },
+        {
+          kor: "연령대",
+          hanja: "年齡帶",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=年齡帶",
+        },
       ],
     },
     {
@@ -161,6 +344,60 @@ export const hanjaGroupData: HanjaGroupDto = {
         "대통령역할",
         "대통령역사",
       ],
+      example_exp: [
+        {
+          kor: "대문",
+          hanja: "大門",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=大門",
+        },
+        {
+          kor: "대학",
+          hanja: "大學",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=大學",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "대문",
+          hanja: "大門",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=大門",
+        },
+        {
+          kor: "대학",
+          hanja: "大學",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=大學",
+        },
+        {
+          kor: "대한민국",
+          hanja: "大韓民國",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=大韓民國",
+        },
+        {
+          kor: "대통령",
+          hanja: "大統領",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=大統領",
+        },
+        {
+          kor: "대표",
+          hanja: "代表",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=代表",
+        },
+        {
+          kor: "대학교",
+          hanja: "大學校",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=大學校",
+        },
+        {
+          kor: "대학생",
+          hanja: "大學生",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=大學生",
+        },
+        {
+          kor: "대수",
+          hanja: "大數",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=大數",
+        },
+      ],
     },
     {
       character: "目",
@@ -188,6 +425,45 @@ export const hanjaGroupData: HanjaGroupDto = {
         "목격사실",
         "목격경험",
         "목격보고",
+      ],
+      example_exp: [
+        {
+          kor: "목적",
+          hanja: "目的",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=目的",
+        },
+        {
+          kor: "눈목",
+          hanja: "目目",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=目目",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "목적",
+          hanja: "目的",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=目的",
+        },
+        {
+          kor: "목록",
+          hanja: "目錄",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=目錄",
+        },
+        {
+          kor: "목표",
+          hanja: "目標",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=目標",
+        },
+        {
+          kor: "목차",
+          hanja: "目次",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=目次",
+        },
+        {
+          kor: "목격",
+          hanja: "目擊",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=目擊",
+        },
       ],
     },
     {
@@ -220,6 +496,55 @@ export const hanjaGroupData: HanjaGroupDto = {
         "백지동의",
         "백지결정",
       ],
+      example_exp: [
+        {
+          kor: "백색",
+          hanja: "白色",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=白色",
+        },
+        {
+          kor: "백지",
+          hanja: "白紙",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=白紙",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "백색",
+          hanja: "白色",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=白色",
+        },
+        {
+          kor: "백지",
+          hanja: "白紙",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=白紙",
+        },
+        {
+          kor: "백인",
+          hanja: "白人",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=白人",
+        },
+        {
+          kor: "백화점",
+          hanja: "白貨店",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=白貨店",
+        },
+        {
+          kor: "백과사전",
+          hanja: "百科辭典",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=百科辭典",
+        },
+        {
+          kor: "백혈구",
+          hanja: "白血球",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=白血球",
+        },
+        {
+          kor: "백색광",
+          hanja: "白色光",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=白色光",
+        },
+      ],
     },
     {
       character: "山",
@@ -247,6 +572,35 @@ export const hanjaGroupData: HanjaGroupDto = {
         "산맥지형",
         "산맥기후",
         "산맥생태",
+      ],
+      example_exp: [
+        {
+          kor: "산책",
+          hanja: "山책",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=山책",
+        },
+        {
+          kor: "등산",
+          hanja: "登山",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=登山",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "등산",
+          hanja: "登山",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=登山",
+        },
+        {
+          kor: "산악",
+          hanja: "山岳",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=山岳",
+        },
+        {
+          kor: "산맥",
+          hanja: "山脈",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=山脈",
+        },
       ],
     },
     {
@@ -278,6 +632,45 @@ export const hanjaGroupData: HanjaGroupDto = {
         "상승기회",
         "상승가능성",
       ],
+      example_exp: [
+        {
+          kor: "상승",
+          hanja: "上昇",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=上昇",
+        },
+        {
+          kor: "상위",
+          hanja: "上位",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=上位",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "상승",
+          hanja: "上昇",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=上昇",
+        },
+        {
+          kor: "상위",
+          hanja: "上位",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=上位",
+        },
+        {
+          kor: "상급생",
+          hanja: "上級生",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=上級生",
+        },
+        {
+          kor: "상급학교",
+          hanja: "上級學校",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=上級學校",
+        },
+        {
+          kor: "상승률",
+          hanja: "上昇率",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=上昇率",
+        },
+      ],
     },
     {
       character: "小",
@@ -306,6 +699,40 @@ export const hanjaGroupData: HanjaGroupDto = {
         "소수점올림",
         "소수점이동",
       ],
+      example_exp: [
+        {
+          kor: "소문",
+          hanja: "小文",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=小文",
+        },
+        {
+          kor: "소수",
+          hanja: "小數",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=小數",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "소문",
+          hanja: "小文",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=小文",
+        },
+        {
+          kor: "소수",
+          hanja: "小數",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=小數",
+        },
+        {
+          kor: "소수점",
+          hanja: "小數點",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=小數點",
+        },
+        {
+          kor: "소규모",
+          hanja: "小規模",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=小規模",
+        },
+      ],
     },
     {
       character: "手",
@@ -324,6 +751,35 @@ export const hanjaGroupData: HanjaGroupDto = {
         "수공가",
         "수공전시",
         "수공문화",
+      ],
+      example_exp: [
+        {
+          kor: "수공",
+          hanja: "手工",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=手工",
+        },
+        {
+          kor: "손수건",
+          hanja: "手手巾",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=手手巾",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "수공",
+          hanja: "手工",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=手工",
+        },
+        {
+          kor: "손수건",
+          hanja: "手手巾",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=手手巾",
+        },
+        {
+          kor: "수공업",
+          hanja: "手工業",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=手工業",
+        },
       ],
     },
     {
@@ -344,6 +800,50 @@ export const hanjaGroupData: HanjaGroupDto = {
         "외교회담",
         "외교역사",
       ],
+      example_exp: [
+        {
+          kor: "외출",
+          hanja: "外出",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=外出",
+        },
+        {
+          kor: "외부",
+          hanja: "外部",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=外部",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "외출",
+          hanja: "外出",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=外出",
+        },
+        {
+          kor: "외부",
+          hanja: "外部",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=外部",
+        },
+        {
+          kor: "외국",
+          hanja: "外國",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=外國",
+        },
+        {
+          kor: "외국어",
+          hanja: "外國語",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=外國語",
+        },
+        {
+          kor: "외교",
+          hanja: "外交",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=外交",
+        },
+        {
+          kor: "외부환경",
+          hanja: "外部環境",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=外部環境",
+        },
+      ],
     },
     {
       character: "右",
@@ -362,6 +862,50 @@ export const hanjaGroupData: HanjaGroupDto = {
         "우변정리",
         "우변변환",
         "우변증명",
+      ],
+      example_exp: [
+        {
+          kor: "우회전",
+          hanja: "右回轉",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=右回轉",
+        },
+        {
+          kor: "우측",
+          hanja: "右側",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=右側",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "우회전",
+          hanja: "右回轉",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=右回轉",
+        },
+        {
+          kor: "우측",
+          hanja: "右側",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=右側",
+        },
+        {
+          kor: "우향우",
+          hanja: "右向右",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=右向右",
+        },
+        {
+          kor: "우변",
+          hanja: "右邊",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=右邊",
+        },
+        {
+          kor: "우파",
+          hanja: "右派",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=右派",
+        },
+        {
+          kor: "우익",
+          hanja: "右翼",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=右翼",
+        },
       ],
     },
     {
@@ -391,6 +935,45 @@ export const hanjaGroupData: HanjaGroupDto = {
         "입학가능성",
         "입학요건",
       ],
+      example_exp: [
+        {
+          kor: "입장",
+          hanja: "入場",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=入場",
+        },
+        {
+          kor: "입구",
+          hanja: "入口",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=入口",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "입장",
+          hanja: "入場",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=入場",
+        },
+        {
+          kor: "입구",
+          hanja: "入口",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=入口",
+        },
+        {
+          kor: "입학",
+          hanja: "入學",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=入學",
+        },
+        {
+          kor: "입학식",
+          hanja: "入學式",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=入學式",
+        },
+        {
+          kor: "입사",
+          hanja: "入社",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=入社",
+        },
+      ],
     },
     {
       character: "足",
@@ -410,6 +993,20 @@ export const hanjaGroupData: HanjaGroupDto = {
         "축구기술",
         "축구문화",
       ],
+      example_exp: [
+        {
+          kor: "족구",
+          hanja: "足球",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=足球",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "족구",
+          hanja: "足球",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=足球",
+        },
+      ],
     },
     {
       character: "左",
@@ -428,6 +1025,40 @@ export const hanjaGroupData: HanjaGroupDto = {
         "좌변정리",
         "좌변변환",
         "좌변증명",
+      ],
+      example_exp: [
+        {
+          kor: "좌회전",
+          hanja: "左回轉",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=左回轉",
+        },
+        {
+          kor: "좌측",
+          hanja: "左側",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=左側",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "좌회전",
+          hanja: "左回轉",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=左回轉",
+        },
+        {
+          kor: "좌측",
+          hanja: "左側",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=左側",
+        },
+        {
+          kor: "좌향좌",
+          hanja: "左向左",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=左向左",
+        },
+        {
+          kor: "좌변",
+          hanja: "左邊",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=左邊",
+        },
       ],
     },
     {
@@ -457,6 +1088,50 @@ export const hanjaGroupData: HanjaGroupDto = {
         "중학교성적",
         "중학교진학",
       ],
+      example_exp: [
+        {
+          kor: "중심",
+          hanja: "中心",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=中心",
+        },
+        {
+          kor: "중앙",
+          hanja: "中央",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=中央",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "중심",
+          hanja: "中心",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=中心",
+        },
+        {
+          kor: "중앙",
+          hanja: "中央",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=中央",
+        },
+        {
+          kor: "중학교",
+          hanja: "中學校",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=中學校",
+        },
+        {
+          kor: "중학생",
+          hanja: "中學生",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=中學生",
+        },
+        {
+          kor: "중점",
+          hanja: "中點",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=中點",
+        },
+        {
+          kor: "중간",
+          hanja: "中間",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=中間",
+        },
+      ],
     },
     {
       character: "靑",
@@ -465,6 +1140,18 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "청춘, 청색",
       idiom: "靑出於藍 (청출어람 - 제자가 스승보다 뛰어남)",
       level: "7급",
+      example_exp: [
+        {
+          kor: "청춘",
+          hanja: "靑春",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=靑春",
+        },
+        {
+          kor: "청색",
+          hanja: "靑色",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=靑色",
+        },
+      ],
       m1: [
         "청춘",
         "청색",
@@ -474,15 +1161,32 @@ export const hanjaGroupData: HanjaGroupDto = {
         "청색파",
         "청소년보호법",
       ],
-      m2: [
-        "청소년",
-        "청소년기",
-        "청소년보호법",
-        "청소년복지",
-        "청소년교육",
-        "청소년문화",
-        "청소년활동",
-        "청소년문제",
+      m_exp: [
+        {
+          kor: "청춘",
+          hanja: "靑春",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=靑春",
+        },
+        {
+          kor: "청색",
+          hanja: "靑色",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=靑色",
+        },
+        {
+          kor: "청소년",
+          hanja: "靑少年",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=靑少年",
+        },
+        {
+          kor: "청색광",
+          hanja: "靑色光",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=靑色光",
+        },
+        {
+          kor: "청색파",
+          hanja: "靑色波",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=靑色波",
+        },
       ],
     },
     {
@@ -492,6 +1196,18 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "출발, 출구",
       idiom: "出衆之才 (출중지재 - 뛰어난 재능)",
       level: "7급",
+      example_exp: [
+        {
+          kor: "출발",
+          hanja: "出發",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=出發",
+        },
+        {
+          kor: "출구",
+          hanja: "出口",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=出口",
+        },
+      ],
       m1: [
         "출발",
         "출구",
@@ -503,15 +1219,27 @@ export const hanjaGroupData: HanjaGroupDto = {
         "출력값",
         "출력장치",
       ],
-      m2: [
-        "출석",
-        "출석부",
-        "출석률",
-        "출석관리",
-        "출석체크",
-        "출석확인",
-        "출석평가",
-        "출석기록",
+      m_exp: [
+        {
+          kor: "출발",
+          hanja: "出發",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=出發",
+        },
+        {
+          kor: "출구",
+          hanja: "出口",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=出口",
+        },
+        {
+          kor: "출입",
+          hanja: "出入",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=出入",
+        },
+        {
+          kor: "출석",
+          hanja: "出席",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=出席",
+        },
       ],
     },
     {
@@ -521,6 +1249,18 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "하락, 지하",
       idiom: "下天穿地 (하늘천따지 - 하늘을 찌르고 땅을 꿰뚫음 (과장 표현))",
       level: "7급",
+      example_exp: [
+        {
+          kor: "하락",
+          hanja: "下落",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=下落",
+        },
+        {
+          kor: "지하",
+          hanja: "地下",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=地下",
+        },
+      ],
       m1: [
         "하락",
         "지하",
@@ -532,15 +1272,42 @@ export const hanjaGroupData: HanjaGroupDto = {
         "하수구",
         "하천",
       ],
-      m2: [
-        "하락",
-        "하락세",
-        "하락추세",
-        "하락압력",
-        "하락요인",
-        "하락위험",
-        "하락가능성",
-        "하락전망",
+      m_exp: [
+        {
+          kor: "하락",
+          hanja: "下落",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=下落",
+        },
+        {
+          kor: "지하",
+          hanja: "地下",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=地下",
+        },
+        {
+          kor: "하위",
+          hanja: "下位",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=下位",
+        },
+        {
+          kor: "하급생",
+          hanja: "下級生",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=下級生",
+        },
+        {
+          kor: "하수구",
+          hanja: "下水溝",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=下水溝",
+        },
+        {
+          kor: "하천",
+          hanja: "河川",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=河川",
+        },
+        {
+          kor: "하락요인",
+          hanja: "下落要因",
+          naverUrl: "https://hanja.dic.naver.com/#/search?query=下落要因",
+        },
       ],
     },
   ],

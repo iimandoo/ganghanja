@@ -26,12 +26,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "강물, 강변",
       idiom: "江口煙月 (강구연월 - 강가의 아름다운 풍경)",
       level: "7급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "강물",
         "강변",
         "강남",
@@ -42,20 +37,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "강수량",
         "강가",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "강화",
         "강화도",
         "강화조약",
@@ -65,11 +47,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "강화과정",
         "강화역사",
       ],
-
-
-        },
-
-      },
       example_exp: [
         {
           kor: "강물",
@@ -179,12 +156,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "인구, 입구",
       idiom: "異口同聲 (이구동성 - 여러 사람의 말이 같음)",
       level: "7급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "인구",
         "입구",
         "구강",
@@ -195,20 +167,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "인구밀도",
         "구강위생",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "인구통계",
         "인구밀도",
         "인구조사",
@@ -218,11 +177,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "인구정책",
         "인구문제",
       ],
-
-
-        },
-
-      },
       example_exp: [
         {
           kor: "인구",
@@ -292,12 +246,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "내부, 국내",
       idiom: "內憂外患 (내우외환 - 안팎의 어려움)",
       level: "7급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "내부",
         "국내",
         "내용",
@@ -309,20 +258,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "내각",
         "내심",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "내각",
         "내각제",
         "내각총리",
@@ -332,11 +268,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "내각정책",
         "내각역할",
       ],
-
-
-        },
-
-      },
       example_exp: [
         {
           kor: "내부",

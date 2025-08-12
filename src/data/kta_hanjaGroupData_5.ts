@@ -5,12 +5,10 @@ export interface HanjaData {
   example: string;
   idiom: string;
   level: string;
-  m1?: string[];
-  m2?: string[];
+  m?: string[];
   e6?: string[];
   example_exp?: Array<{ kor: string; hanja: string; naverUrl: string }>;
-  m1_exp?: Array<{ kor: string; hanja: string; naverUrl: string }>;
-  m2_exp?: Array<{ kor: string; hanja: string; naverUrl: string }>;
+  m_exp?: Array<{ kor: string; hanja: string; naverUrl: string }>;
 }
 export interface HanjaGroupDto {
   TypeA?: HanjaData[];
@@ -27,37 +25,8 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "가요, 작사",
       idiom: "歌舞昇平 (가무승평 - 노래와 춤으로 평화롭다)",
       level: "5급",
-      m1: [
-        "가요",
-        "작사",
-        "가사",
-        "가사해석",
-        "가사분석",
-        "가사학습",
-        "가사암기",
-      ],
-      m2: [
-        "가사해석",
-        "가사분석",
-        "가사학습",
-        "가사암기",
-        "가사창작",
-        "가사감상",
-        "가사교육",
-        "가사문화",
-      ],
-      e6: [
-        "가요",
-        "가사",
-        "노래",
-        "가수",
-        "가락",
-        "가르치다",
-        "가르침",
-        "가르키다",
-        "가르키다",
-        "가르키다",
-      ],
+      m: ["가요", "작사", "가사"],
+      e6: ["가요", "가사", "노래", "가수", "가락"],
       example_exp: [
         {
           kor: "가요",
@@ -65,134 +34,26 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dic.naver.com/#/search?query=歌謠",
         },
         {
-          kor: "작사",
-          hanja: "作詞",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
           kor: "가사",
           hanja: "歌詞",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=歌詞",
         },
         {
           kor: "가사해석",
           hanja: "歌詞解釋",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가사분석",
-          hanja: "歌詞分析",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가사학습",
-          hanja: "歌詞學習",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가사암기",
-          hanja: "歌詞暗記",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=歌詞解釋",
         },
       ],
-      m1_exp: [
+      m_exp: [
         {
           kor: "가요",
           hanja: "歌謠",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "작사",
-          hanja: "作詞",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=歌謠",
         },
         {
           kor: "가사",
           hanja: "歌詞",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가사해석",
-          hanja: "歌詞解釋",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가사분석",
-          hanja: "歌詞分析",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가사학습",
-          hanja: "歌詞學習",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가사암기",
-          hanja: "歌詞暗記",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-      ],
-      m2_exp: [
-        {
-          kor: "가사해석",
-          hanja: "歌詞解釋",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가사분석",
-          hanja: "歌詞分析",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가사학습",
-          hanja: "歌詞學習",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가사암기",
-          hanja: "歌詞暗記",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가사창작",
-          hanja: "歌詞創作",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가사감상",
-          hanja: "歌詞感想",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가사교육",
-          hanja: "歌詞教育",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가사문화",
-          hanja: "歌詞文化",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=歌詞",
         },
       ],
     },
@@ -203,163 +64,40 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "가정, 가구",
       idiom: "家和萬事成 (가화만사성 - 집안이 화목하면 모든 일이 잘됨)",
       level: "5급",
-      m1: ["가정", "가구", "가정교육", "가정생활"],
-      m2: ["가정교육", "가정경제"],
+      m: ["가정", "가구", "가정교육", "가정생활"],
       e6: ["가정", "가구", "가족"],
       example_exp: [
         {
           kor: "가정",
           hanja: "家庭",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=家庭",
         },
         {
           kor: "가구",
           hanja: "家具",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "집",
-          hanja: "家",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=家具",
         },
         {
           kor: "가족",
           hanja: "家族",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가족",
-          hanja: "家族",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가족",
-          hanja: "家族",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가족",
-          hanja: "家族",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가족",
-          hanja: "家族",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가족",
-          hanja: "家族",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가족",
-          hanja: "家族",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=家族",
         },
       ],
-      m1_exp: [
+      m_exp: [
         {
           kor: "가정",
           hanja: "家庭",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=家庭",
         },
         {
           kor: "가구",
           hanja: "家具",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=家具",
         },
         {
           kor: "가정교육",
           hanja: "家庭教育",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가정생활",
-          hanja: "家庭生活",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가정환경",
-          hanja: "家庭環境",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가정관리",
-          hanja: "家庭管理",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가정경제",
-          hanja: "家庭經濟",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-      ],
-      m2_exp: [
-        {
-          kor: "가정교육",
-          hanja: "家庭教育",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가정생활",
-          hanja: "家庭生活",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가정환경",
-          hanja: "家庭環境",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가정관리",
-          hanja: "家庭管理",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가정경제",
-          hanja: "家庭經濟",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가정문화",
-          hanja: "家庭文化",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가정의례",
-          hanja: "家庭儀式",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가정복지",
-          hanja: "家庭福利",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=家庭教育",
         },
       ],
     },
@@ -370,174 +108,45 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "각자, 각기",
       idiom: "各自努力 (각자노력 - 각자 노력)",
       level: "5급",
-      m1: ["각자", "각기"],
-      m2: ["각자역할"],
-      e6: [
-        "각자",
-        "각기",
-        "각각",
-        "각도",
-        "각도",
-        "각도",
-        "각도",
-        "각도",
-        "각도",
-        "각도",
-      ],
+      m: ["각자", "각기"],
+      e6: ["각자", "각기", "각각", "각도"],
       example_exp: [
         {
           kor: "각자",
           hanja: "各自",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=各自",
         },
         {
           kor: "각기",
           hanja: "各棄",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=各棄",
         },
         {
           kor: "각각",
           hanja: "各個",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=各個",
         },
         {
           kor: "각도",
           hanja: "角度",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "각도",
-          hanja: "角度",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "각도",
-          hanja: "角度",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "각도",
-          hanja: "角度",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "각도",
-          hanja: "角度",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "각도",
-          hanja: "角度",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "각도",
-          hanja: "角度",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=角度",
         },
       ],
-      m1_exp: [
+      m_exp: [
         {
           kor: "각자",
           hanja: "各自",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=各自",
         },
         {
           kor: "각기",
           hanja: "各棄",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=各棄",
         },
         {
           kor: "각자학습",
           hanja: "各自學習",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "각자준비",
-          hanja: "各自準備",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "각자발표",
-          hanja: "各自發表",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "각자탐구",
-          hanja: "各自探究",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "각자평가",
-          hanja: "各自評估",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-      ],
-      m2_exp: [
-        {
-          kor: "각자학습",
-          hanja: "各自學習",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "각자준비",
-          hanja: "各自準備",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "각자발표",
-          hanja: "各自發表",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "각자탐구",
-          hanja: "各自探究",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "각자평가",
-          hanja: "各自評估",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "각자책임",
-          hanja: "各自責任",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "각자역할",
-          hanja: "各自角色",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "각자발전",
-          hanja: "各自發展",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=各自學習",
         },
       ],
     },
@@ -548,163 +157,40 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "시간, 공간",
       idiom: "間接經驗 (간접경험 - 간접 경험)",
       level: "5급",
-      m1: ["시간", "공간", "시간관리"],
-      m2: ["시간관리", "시간계획"],
+      m: ["시간", "공간", "시간관리"],
       e6: ["시간", "공간", "사이", "간격"],
       example_exp: [
         {
           kor: "시간",
           hanja: "時間",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=時間",
         },
         {
           kor: "공간",
           hanja: "空間",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "사이",
-          hanja: "催",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=空間",
         },
         {
           kor: "간격",
           hanja: "間隔",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "간격",
-          hanja: "間隔",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "간격",
-          hanja: "間隔",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "간격",
-          hanja: "間隔",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "간격",
-          hanja: "間隔",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "간격",
-          hanja: "間隔",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "간격",
-          hanja: "間隔",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=間隔",
         },
       ],
-      m1_exp: [
+      m_exp: [
         {
           kor: "시간",
           hanja: "時間",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=時間",
         },
         {
           kor: "공간",
           hanja: "空間",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=空間",
         },
         {
           kor: "시간관리",
           hanja: "時間管理",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "시간계획",
-          hanja: "時間計劃",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "시간분배",
-          hanja: "時間分配",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "시간효율",
-          hanja: "時間效率",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "시간절약",
-          hanja: "時間節約",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-      ],
-      m2_exp: [
-        {
-          kor: "시간관리",
-          hanja: "時間管理",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "시간계획",
-          hanja: "時間計劃",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "시간분배",
-          hanja: "時間分配",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "시간효율",
-          hanja: "時間效率",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "시간절약",
-          hanja: "時間節約",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "시간분석",
-          hanja: "時間分析",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "시간계산",
-          hanja: "時間計算",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "시간측정",
-          hanja: "時間測定",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=時間管理",
         },
       ],
     },
@@ -715,163 +201,35 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "강력, 강자",
       idiom: "強者恆強 (강자항강 - 강한 자는 계속 강하다)",
       level: "5급",
-      m1: ["강력", "강자", "강력범죄"],
-      m2: ["강력범죄", "강력수사"],
+      m: ["강력", "강자", "강력범죄"],
       e6: ["강력", "강자", "강하다"],
       example_exp: [
         {
           kor: "강력",
           hanja: "強力",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=強力",
         },
         {
           kor: "강자",
           hanja: "強者",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "강하다",
-          hanja: "強",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "강아지",
-          hanja: "犬",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "강아지",
-          hanja: "犬",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "강아지",
-          hanja: "犬",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "강아지",
-          hanja: "犬",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "강아지",
-          hanja: "犬",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "강아지",
-          hanja: "犬",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "강아지",
-          hanja: "犬",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=強者",
         },
       ],
-      m1_exp: [
+      m_exp: [
         {
           kor: "강력",
           hanja: "強力",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=強力",
         },
         {
           kor: "강자",
           hanja: "強者",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=強者",
         },
         {
           kor: "강력범죄",
           hanja: "強力犯罪",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "강력수사",
-          hanja: "強力調查",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "강력반",
-          hanja: "強力班",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "강력부",
-          hanja: "強力部",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "강력팀",
-          hanja: "強力團",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-      ],
-      m2_exp: [
-        {
-          kor: "강력범죄",
-          hanja: "強力犯罪",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "강력수사",
-          hanja: "強力調查",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "강력반",
-          hanja: "強力班",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "강력부",
-          hanja: "強力部",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "강력팀",
-          hanja: "強力團",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "강력정책",
-          hanja: "強力政策",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "강력대응",
-          hanja: "強力對應",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "강력처벌",
-          hanja: "強力處罰",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=強力犯罪",
         },
       ],
     },
@@ -882,163 +240,35 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "개방, 개문",
       idiom: "開門見山 (개문견산 - 직설적으로 말함)",
       level: "5급",
-      m1: ["개방", "개문", "개방경제"],
-      m2: ["개방성", "개방정책", "개방무역"],
+      m: ["개방", "개문", "개방경제"],
       e6: ["개방", "개문"],
       example_exp: [
         {
           kor: "개방",
           hanja: "開放",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=開放",
         },
         {
           kor: "개문",
           hanja: "開門",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "열다",
-          hanja: "開",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "개다",
-          hanja: "開",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "개다",
-          hanja: "開",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "개다",
-          hanja: "開",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "개다",
-          hanja: "開",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "개다",
-          hanja: "開",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "개다",
-          hanja: "開",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "개다",
-          hanja: "開",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=開門",
         },
       ],
-      m1_exp: [
+      m_exp: [
         {
           kor: "개방",
           hanja: "開放",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=開放",
         },
         {
           kor: "개문",
           hanja: "開門",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=開門",
         },
         {
           kor: "개방성",
           hanja: "開放性",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "개방정책",
-          hanja: "開放政策",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "개방경제",
-          hanja: "開放經濟",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "개방사회",
-          hanja: "開放社會",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "개방문화",
-          hanja: "開放文化",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-      ],
-      m2_exp: [
-        {
-          kor: "개방성",
-          hanja: "開放性",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "개방정책",
-          hanja: "開放政策",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "개방경제",
-          hanja: "開放經濟",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "개방사회",
-          hanja: "開放社會",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "개방문화",
-          hanja: "開放文化",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "개방무역",
-          hanja: "開放貿易",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "개방시장",
-          hanja: "開放市場",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "개방협력",
-          hanja: "開放協力",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=開放性",
         },
       ],
     },
@@ -1049,163 +279,40 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "과거, 제거",
       idiom: "去者如斯 (거자여사 - 지나간 일은 이와 같다)",
       level: "5급",
-      m1: ["과거", "제거"],
-      m2: ["과거형"],
+      m: ["과거", "제거"],
       e6: ["과거", "제거"],
       example_exp: [
         {
           kor: "과거",
           hanja: "過去",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=過去",
         },
         {
           kor: "제거",
           hanja: "除去",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가다",
-          hanja: "去",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가다",
-          hanja: "去",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가다",
-          hanja: "去",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가다",
-          hanja: "去",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가다",
-          hanja: "去",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가다",
-          hanja: "去",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가다",
-          hanja: "去",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "가다",
-          hanja: "去",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=除去",
         },
       ],
-      m1_exp: [
+      m_exp: [
         {
           kor: "과거",
           hanja: "過去",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=過去",
         },
         {
           kor: "제거",
           hanja: "除去",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=除去",
         },
         {
           kor: "과거시제",
           hanja: "過去時制",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=過去時制",
         },
         {
           kor: "과거분사",
           hanja: "過去分詞",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "과거완료",
-          hanja: "過去完了",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "과거진행",
-          hanja: "過去進行",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "과거형",
-          hanja: "過去形",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-      ],
-      m2_exp: [
-        {
-          kor: "과거시제",
-          hanja: "過去時制",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "과거분사",
-          hanja: "過去分詞",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "과거완료",
-          hanja: "過去完了",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "과거진행",
-          hanja: "過去進行",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "과거형",
-          hanja: "過去形",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "과거시점",
-          hanja: "過去時點",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "과거사용",
-          hanja: "過去使用",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "과거학습",
-          hanja: "過去學習",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=過去分詞",
         },
       ],
     },
@@ -1216,163 +323,20 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "견학, 시각",
       idiom: "見微知著 (견미지저 - 작은 점에서 전체를 앎)",
       level: "5급",
-      m1: ["견학"],
-      m2: ["견학학습"],
+      m: ["견학"],
       e6: ["견학"],
       example_exp: [
         {
           kor: "견학",
           hanja: "見學",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "시각",
-          hanja: "視覺",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "보다",
-          hanja: "見",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "보기",
-          hanja: "見",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "보기",
-          hanja: "見",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "보기",
-          hanja: "見",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "보기",
-          hanja: "見",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "보기",
-          hanja: "見",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "보기",
-          hanja: "見",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "보기",
-          hanja: "見",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=見學",
         },
       ],
-      m1_exp: [
+      m_exp: [
         {
           kor: "견학",
           hanja: "見學",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "시각",
-          hanja: "視覺",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "견학계획",
-          hanja: "見學計劃",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "견학보고",
-          hanja: "見學報告",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "견학일지",
-          hanja: "見學日誌",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "견학학습",
-          hanja: "見學學習",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "견학효과",
-          hanja: "見學效果",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-      ],
-      m2_exp: [
-        {
-          kor: "견학계획",
-          hanja: "見學計劃",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "견학보고",
-          hanja: "見學報告",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "견학일지",
-          hanja: "見學日誌",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "견학학습",
-          hanja: "見學學習",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "견학효과",
-          hanja: "見學效果",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "견학장소",
-          hanja: "見學場所",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "견학준비",
-          hanja: "見學準備",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "견학평가",
-          hanja: "見學評估",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=見學",
         },
       ],
     },
@@ -1383,163 +347,20 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "서울, 경성",
       idiom: "京城 (경성 - 수도)",
       level: "5급",
-      m1: ["경성"],
-      m2: [],
+      m: ["경성"],
       e6: ["경성"],
       example_exp: [
         {
-          kor: "서울",
-          hanja: "首爾",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          kor: "경성",
+          hanja: "京城",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=京城",
         },
+      ],
+      m_exp: [
         {
           kor: "경성",
           hanja: "京城",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "서울",
-          hanja: "首爾",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "서울",
-          hanja: "首爾",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "서울",
-          hanja: "首爾",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "서울",
-          hanja: "首爾",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "서울",
-          hanja: "首爾",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "서울",
-          hanja: "首爾",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "서울",
-          hanja: "首爾",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "서울",
-          hanja: "首爾",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-      ],
-      m1_exp: [
-        {
-          kor: "서울",
-          hanja: "首爾",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "경성",
-          hanja: "京城",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "서울시",
-          hanja: "首爾市",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "서울특별시",
-          hanja: "首爾特別市",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "서울도시",
-          hanja: "首爾都市",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "서울문화",
-          hanja: "首爾文化",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "서울역사",
-          hanja: "首爾歷史",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-      ],
-      m2_exp: [
-        {
-          kor: "서울시",
-          hanja: "首爾市",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "서울특별시",
-          hanja: "首爾特別市",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "서울도시",
-          hanja: "首爾都市",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "서울문화",
-          hanja: "首爾文化",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "서울역사",
-          hanja: "首爾歷史",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "서울발전",
-          hanja: "首爾發展",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "서울계획",
-          hanja: "首爾計劃",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "서울정책",
-          hanja: "首爾政策",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=京城",
         },
       ],
     },
@@ -1550,33 +371,30 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "계획, 계산",
       idiom: "計畫周詳 (계획주상 - 치밀한 계획)",
       level: "5급",
-      m1: ["계획", "계산", "계산기"],
-      m2: ["계산기", "계산문제"],
+      m: ["계획", "계산", "계산기"],
       e6: ["계획", "계산"],
       example_exp: [
         {
           kor: "계획",
           hanja: "計劃",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=計劃",
         },
         {
           kor: "계산",
           hanja: "計算",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=計算",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "계획",
+          hanja: "計劃",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=計劃",
         },
         {
-          kor: "세다",
-          hanja: "計",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
-        },
-        {
-          kor: "세다",
-          hanja: "計",
-          naverUrl:
-            "https://hanja.dict.naver.com/#/entry/ko/00000000000000000000000000000000",
+          kor: "계산",
+          hanja: "計算",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=計算",
         },
       ],
     },
@@ -1587,9 +405,37 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "성공, 공로",
       idiom: "功成名遂 (공성명수 - 공을 세워 이름을 남김)",
       level: "5급",
-      m1: ["성공", "공로", "성공률"],
-      m2: ["성공률", "성공요인"],
+      m: ["성공", "공로", "성공률"],
       e6: ["성공", "공로", "공"],
+      example_exp: [
+        {
+          kor: "성공",
+          hanja: "成功",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=成功",
+        },
+        {
+          kor: "공로",
+          hanja: "功勞",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=功勞",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "성공",
+          hanja: "成功",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=成功",
+        },
+        {
+          kor: "공로",
+          hanja: "功勞",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=功勞",
+        },
+        {
+          kor: "성공률",
+          hanja: "成功率",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=成功率",
+        },
+      ],
     },
     {
       character: "空",
@@ -1598,9 +444,42 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "공기, 공간",
       idiom: "空中樓閣 (공중누각 - 실체 없는 일)",
       level: "5급",
-      m1: ["공기", "공간"],
-      m2: ["공기오염", "공기정화"],
+      m: ["공기", "공간"],
       e6: ["공기", "공간"],
+      example_exp: [
+        {
+          kor: "공기",
+          hanja: "空氣",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=空氣",
+        },
+        {
+          kor: "공간",
+          hanja: "空間",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=空間",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "공기",
+          hanja: "空氣",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=空氣",
+        },
+        {
+          kor: "공간",
+          hanja: "空間",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=空間",
+        },
+        {
+          kor: "공기오염",
+          hanja: "空氣汚染",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=空氣汚染",
+        },
+        {
+          kor: "공기정화",
+          hanja: "空氣淨化",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=空氣淨化",
+        },
+      ],
     },
     {
       character: "共",
@@ -1609,9 +488,37 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "공동, 공통",
       idiom: "共和合作 (공화협력 - 함께 협력함)",
       level: "5급",
-      m1: ["공동", "공통", "공동체"],
-      m2: [],
+      m: ["공동", "공통", "공동체"],
       e6: ["공동", "공통"],
+      example_exp: [
+        {
+          kor: "공동",
+          hanja: "共同",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=共同",
+        },
+        {
+          kor: "공통",
+          hanja: "共通",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=共通",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "공동",
+          hanja: "共同",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=共同",
+        },
+        {
+          kor: "공통",
+          hanja: "共通",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=共通",
+        },
+        {
+          kor: "공동체",
+          hanja: "共同體",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=共同體",
+        },
+      ],
     },
     {
       character: "科",
@@ -1620,9 +527,42 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "과학, 교과서",
       idiom: "科學技術 (과학기술 - 과학 기술)",
       level: "5급",
-      m1: ["과학", "교과서"],
-      m2: ["과학실험", "과학탐구"],
+      m: ["과학", "교과서"],
       e6: ["과학", "교과서", "과목"],
+      example_exp: [
+        {
+          kor: "과학",
+          hanja: "科學",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=科學",
+        },
+        {
+          kor: "교과서",
+          hanja: "敎科書",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=敎科書",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "과학",
+          hanja: "科學",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=科學",
+        },
+        {
+          kor: "교과서",
+          hanja: "敎科書",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=敎科書",
+        },
+        {
+          kor: "과학실험",
+          hanja: "科學實驗",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=科學實驗",
+        },
+        {
+          kor: "과학탐구",
+          hanja: "科學探究",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=科學探究",
+        },
+      ],
     },
     {
       character: "光",
@@ -1631,9 +571,42 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "광선, 발광",
       idiom: "光明正大 (광명정대 - 밝고 당당함)",
       level: "5급",
-      m1: ["광선", "발광", "광합성", "광전효과", "광학현미경"],
-      m2: ["광합성", "광전효과", "광학", "광학현미경", "광학기기"],
+      m: ["광선", "발광", "광합성", "광전효과", "광학현미경"],
       e6: ["광선", "발광"],
+      example_exp: [
+        {
+          kor: "광선",
+          hanja: "光線",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=光線",
+        },
+        {
+          kor: "발광",
+          hanja: "發光",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=發光",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "광선",
+          hanja: "光線",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=光線",
+        },
+        {
+          kor: "발광",
+          hanja: "發光",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=發光",
+        },
+        {
+          kor: "광합성",
+          hanja: "光合成",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=光合成",
+        },
+        {
+          kor: "광학",
+          hanja: "光學",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=光學",
+        },
+      ],
     },
     {
       character: "敎",
@@ -1642,9 +615,42 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "교육, 교수",
       idiom: "敎學相長 (교학상장 - 가르치고 배우면서 성장함)",
       level: "5급",
-      m1: ["교육", "교수", "교육과정"],
-      m2: ["교육과정", "교육방법"],
+      m: ["교육", "교수", "교육과정"],
       e6: ["교육", "교수"],
+      example_exp: [
+        {
+          kor: "교육",
+          hanja: "敎育",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=敎育",
+        },
+        {
+          kor: "교수",
+          hanja: "敎授",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=敎授",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "교육",
+          hanja: "敎育",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=敎育",
+        },
+        {
+          kor: "교수",
+          hanja: "敎授",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=敎授",
+        },
+        {
+          kor: "교육과정",
+          hanja: "敎育課程",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=敎育課程",
+        },
+        {
+          kor: "교육방법",
+          hanja: "敎育方法",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=敎育方法",
+        },
+      ],
     },
     {
       character: "交",
@@ -1653,9 +659,42 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "교류, 교제",
       idiom: "交流合作 (교류협력 - 교류 협력)",
       level: "5급",
-      m1: ["교류", "교제"],
-      m2: ["교류활동", "교류프로그램"],
+      m: ["교류", "교제"],
       e6: ["교류", "교제"],
+      example_exp: [
+        {
+          kor: "교류",
+          hanja: "交流",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=交流",
+        },
+        {
+          kor: "교제",
+          hanja: "交際",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=交際",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "교류",
+          hanja: "交流",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=交流",
+        },
+        {
+          kor: "교제",
+          hanja: "交際",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=交際",
+        },
+        {
+          kor: "교류활동",
+          hanja: "交流活動",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=交流活動",
+        },
+        {
+          kor: "교류프로그램",
+          hanja: "交流프로그램",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=交流프로그램",
+        },
+      ],
     },
     {
       character: "校",
@@ -1664,9 +703,37 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "학교, 교정",
       idiom: "校友會 (교우회 - 학교 동창회)",
       level: "5급",
-      m1: ["학교", "교정"],
-      m2: ["학교생활"],
+      m: ["학교", "교정"],
       e6: ["학교", "교정"],
+      example_exp: [
+        {
+          kor: "학교",
+          hanja: "學校",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=學校",
+        },
+        {
+          kor: "교정",
+          hanja: "校庭",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=校庭",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "학교",
+          hanja: "學校",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=學校",
+        },
+        {
+          kor: "교정",
+          hanja: "校庭",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=校庭",
+        },
+        {
+          kor: "학교생활",
+          hanja: "學校生活",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=學校生活",
+        },
+      ],
     },
     {
       character: "區",
@@ -1675,9 +742,37 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "구분, 구역",
       idiom: "區別明確 (구별명확 - 분명히 구별함)",
       level: "5급",
-      m1: ["구분", "구역", "구분선"],
-      m2: ["구분선"],
+      m: ["구분", "구역", "구분선"],
       e6: ["구분", "구역"],
+      example_exp: [
+        {
+          kor: "구분",
+          hanja: "區分",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=區分",
+        },
+        {
+          kor: "구역",
+          hanja: "區域",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=區域",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "구분",
+          hanja: "區分",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=區分",
+        },
+        {
+          kor: "구역",
+          hanja: "區域",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=區域",
+        },
+        {
+          kor: "구분선",
+          hanja: "區分線",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=區分線",
+        },
+      ],
     },
     {
       character: "國",
@@ -1686,9 +781,32 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "국가, 국민",
       idiom: "國富民強 (국부민강 - 나라가 부유하고 국민이 강함)",
       level: "5급",
-      m1: ["국가", "국민"],
-      m2: ["국가", "국민"],
+      m: ["국가", "국민"],
       e6: ["국가", "국민"],
+      example_exp: [
+        {
+          kor: "국가",
+          hanja: "國家",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=國家",
+        },
+        {
+          kor: "국민",
+          hanja: "國民",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=國民",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "국가",
+          hanja: "國家",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=國家",
+        },
+        {
+          kor: "국민",
+          hanja: "國民",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=國民",
+        },
+      ],
     },
     {
       character: "軍",
@@ -1697,9 +815,42 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "군대, 군인",
       idiom: "軍事演習 (군사연습 - 군사 연습)",
       level: "5급",
-      m1: ["군대", "군인", "군사훈련"],
-      m2: ["군대", "군인", "군사훈련", "군사"],
+      m: ["군대", "군인", "군사훈련"],
       e6: ["군대", "군인", "군사"],
+      example_exp: [
+        {
+          kor: "군대",
+          hanja: "軍隊",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=軍隊",
+        },
+        {
+          kor: "군인",
+          hanja: "軍人",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=軍人",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "군대",
+          hanja: "軍隊",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=軍隊",
+        },
+        {
+          kor: "군인",
+          hanja: "軍人",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=軍人",
+        },
+        {
+          kor: "군사훈련",
+          hanja: "軍事訓練",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=軍事訓練",
+        },
+        {
+          kor: "군사",
+          hanja: "軍事",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=軍事",
+        },
+      ],
     },
     {
       character: "近",
@@ -1708,9 +859,42 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "근처, 최근",
       idiom: "近朱者赤 (근주자적 - 붉은색 가까이 있으면 붉어짐)",
       level: "5급",
-      m1: ["근처", "최근", "근시", "근시안경"],
-      m2: ["근처", "최근", "근시", "근시안경"],
+      m: ["근처", "최근", "근시", "근시안경"],
       e6: ["근처", "최근"],
+      example_exp: [
+        {
+          kor: "근처",
+          hanja: "近處",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=近處",
+        },
+        {
+          kor: "최근",
+          hanja: "最近",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=最近",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "근처",
+          hanja: "近處",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=近處",
+        },
+        {
+          kor: "최근",
+          hanja: "最近",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=最近",
+        },
+        {
+          kor: "근시",
+          hanja: "近視",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=近視",
+        },
+        {
+          kor: "근시안경",
+          hanja: "近視眼鏡",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=近視眼鏡",
+        },
+      ],
     },
     {
       character: "急",
@@ -1719,9 +903,32 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "긴급, 급행",
       idiom: "急轉直下 (급전직하 - 급하게 나빠짐)",
       level: "5급",
-      m1: ["긴급", "급행"],
-      m2: ["급행", "긴급"],
+      m: ["긴급", "급행"],
       e6: ["긴급", "급행"],
+      example_exp: [
+        {
+          kor: "긴급",
+          hanja: "緊急",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=緊急",
+        },
+        {
+          kor: "급행",
+          hanja: "急行",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=急行",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "긴급",
+          hanja: "緊急",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=緊急",
+        },
+        {
+          kor: "급행",
+          hanja: "急行",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=急行",
+        },
+      ],
     },
     {
       character: "旗",
@@ -1730,9 +937,47 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "국기, 깃발",
       idiom: "旌旗指揮 (정기지휘 - 깃발로 명령함)",
       level: "5급",
-      m1: ["국기"],
-      m2: ["기치", "기수", "기장", "기념"],
+      m: ["국기"],
       e6: ["국기", "깃발"],
+      example_exp: [
+        {
+          kor: "국기",
+          hanja: "國旗",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=國旗",
+        },
+        {
+          kor: "깃발",
+          hanja: "旗발",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=旗발",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "국기",
+          hanja: "國旗",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=國旗",
+        },
+        {
+          kor: "기치",
+          hanja: "旗幟",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=旗幟",
+        },
+        {
+          kor: "기수",
+          hanja: "旗手",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=旗手",
+        },
+        {
+          kor: "기장",
+          hanja: "旗長",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=旗長",
+        },
+        {
+          kor: "기념",
+          hanja: "記念",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=記念",
+        },
+      ],
     },
     {
       character: "記",
@@ -1741,9 +986,52 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "기록, 일기",
       idiom: "記憶力 (기억력 - 기억력)",
       level: "5급",
-      m1: ["기록", "일기", "기록물"],
-      m2: ["기사", "기자", "기자회견"],
+      m: ["기록", "일기", "기록물"],
       e6: ["기록", "일기"],
+      example_exp: [
+        {
+          kor: "기록",
+          hanja: "記錄",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=記錄",
+        },
+        {
+          kor: "일기",
+          hanja: "日記",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=日記",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "기록",
+          hanja: "記錄",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=記錄",
+        },
+        {
+          kor: "일기",
+          hanja: "日記",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=日記",
+        },
+        {
+          kor: "기록물",
+          hanja: "記錄物",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=記錄物",
+        },
+        {
+          kor: "기사",
+          hanja: "記事",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=記事",
+        },
+        {
+          kor: "기자",
+          hanja: "記者",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=記者",
+        },
+        {
+          kor: "기자회견",
+          hanja: "記者會見",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=記者會見",
+        },
+      ],
     },
     {
       character: "氣",
@@ -1752,9 +1040,62 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "기운, 공기",
       idiom: "氣勢壯大 (기세장대 - 기세가 힘차고 큼)",
       level: "5급",
-      m1: ["기운", "공기", "기상"],
-      m2: ["기후", "기온", "기압", "기류", "기단"],
+      m: ["기운", "공기", "기상"],
       e6: ["기운", "공기"],
+      example_exp: [
+        {
+          kor: "기운",
+          hanja: "氣運",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=氣運",
+        },
+        {
+          kor: "공기",
+          hanja: "空氣",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=空氣",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "기운",
+          hanja: "氣運",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=氣運",
+        },
+        {
+          kor: "공기",
+          hanja: "空氣",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=空氣",
+        },
+        {
+          kor: "기상",
+          hanja: "氣象",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=氣象",
+        },
+        {
+          kor: "기후",
+          hanja: "氣候",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=氣候",
+        },
+        {
+          kor: "기온",
+          hanja: "氣溫",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=氣溫",
+        },
+        {
+          kor: "기압",
+          hanja: "氣壓",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=氣壓",
+        },
+        {
+          kor: "기류",
+          hanja: "氣流",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=氣流",
+        },
+        {
+          kor: "기단",
+          hanja: "氣團",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=氣團",
+        },
+      ],
     },
     {
       character: "農",
@@ -1763,19 +1104,67 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "농업, 농부",
       idiom: "農家生活 (농가생활 - 농가 생활)",
       level: "5급",
-      m1: ["농업", "농부"],
-      m2: [
-        "농업",
-        "농부",
-        "농촌",
-        "농민",
-        "농사",
-        "농작물",
-        "농기구",
-        "농약",
-        "농협",
-      ],
+      m: ["농업", "농부"],
       e6: ["농업", "농부", "농사"],
+      example_exp: [
+        {
+          kor: "농업",
+          hanja: "農業",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=農業",
+        },
+        {
+          kor: "농부",
+          hanja: "農夫",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=農夫",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "농업",
+          hanja: "農業",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=農業",
+        },
+        {
+          kor: "농부",
+          hanja: "農夫",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=農夫",
+        },
+        {
+          kor: "농촌",
+          hanja: "農村",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=農村",
+        },
+        {
+          kor: "농민",
+          hanja: "農民",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=農民",
+        },
+        {
+          kor: "농사",
+          hanja: "農事",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=農事",
+        },
+        {
+          kor: "농작물",
+          hanja: "農作物",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=農作物",
+        },
+        {
+          kor: "농기구",
+          hanja: "農器具",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=農器具",
+        },
+        {
+          kor: "농약",
+          hanja: "農藥",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=農藥",
+        },
+        {
+          kor: "농협",
+          hanja: "農協",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=農協",
+        },
+      ],
     },
     {
       character: "多",
@@ -1784,9 +1173,52 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "다수, 다량",
       idiom: "多種多様 (다종다양 - 다양한 종류)",
       level: "5급",
-      m1: ["다수", "다량", "다양성", "다양화"],
-      m2: ["다수", "다량", "다양", "다양성", "다문화가정"],
+      m: ["다수", "다량", "다양성", "다양화"],
       e6: ["다수", "다량"],
+      example_exp: [
+        {
+          kor: "다수",
+          hanja: "多數",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=多數",
+        },
+        {
+          kor: "다량",
+          hanja: "多量",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=多量",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "다수",
+          hanja: "多數",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=多數",
+        },
+        {
+          kor: "다량",
+          hanja: "多量",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=多量",
+        },
+        {
+          kor: "다양성",
+          hanja: "多樣性",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=多樣性",
+        },
+        {
+          kor: "다양화",
+          hanja: "多樣化",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=多樣化",
+        },
+        {
+          kor: "다양",
+          hanja: "多樣",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=多樣",
+        },
+        {
+          kor: "다문화가정",
+          hanja: "多文化家庭",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=多文化家庭",
+        },
+      ],
     },
     {
       character: "短",
@@ -1795,9 +1227,47 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "단점, 단거리",
       idiom: "短期決戰 (단기결전 - 짧은 기간에 싸움)",
       level: "5급",
-      m1: ["단점", "단거리", "단기간", "단기목표"],
-      m2: ["단점", "단거리", "단기간", "단기계획"],
+      m: ["단점", "단거리", "단기간", "단기목표"],
       e6: ["단점", "단거리"],
+      example_exp: [
+        {
+          kor: "단점",
+          hanja: "短點",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=短點",
+        },
+        {
+          kor: "단거리",
+          hanja: "短距離",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=短距離",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "단점",
+          hanja: "短點",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=短點",
+        },
+        {
+          kor: "단거리",
+          hanja: "短距離",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=短距離",
+        },
+        {
+          kor: "단기간",
+          hanja: "短期間",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=短期間",
+        },
+        {
+          kor: "단기목표",
+          hanja: "短期目標",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=短期目標",
+        },
+        {
+          kor: "단기계획",
+          hanja: "短期計劃",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=短期計劃",
+        },
+      ],
     },
     {
       character: "答",
@@ -1806,9 +1276,37 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "대답, 정답",
       idiom: "答問如流 (답문여류 - 질문에 술술 대답함)",
       level: "5급",
-      m1: ["대답", "정답", "답안"],
-      m2: [],
+      m: ["대답", "정답", "답안"],
       e6: ["대답", "정답"],
+      example_exp: [
+        {
+          kor: "대답",
+          hanja: "對答",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=對答",
+        },
+        {
+          kor: "정답",
+          hanja: "正答",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=正答",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "대답",
+          hanja: "對答",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=對答",
+        },
+        {
+          kor: "정답",
+          hanja: "正答",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=正答",
+        },
+        {
+          kor: "답안",
+          hanja: "答案",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=答案",
+        },
+      ],
     },
     {
       character: "當",
@@ -1817,9 +1315,32 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "당연, 당연지사",
       idiom: "當機立斷 (당기입단 - 적절한 시기에 신속히 결정)",
       level: "5급",
-      m1: ["당연", "당연지사"],
-      m2: [],
+      m: ["당연", "당연지사"],
       e6: ["당연"],
+      example_exp: [
+        {
+          kor: "당연",
+          hanja: "當然",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=當然",
+        },
+        {
+          kor: "당연지사",
+          hanja: "當然之事",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=當然之事",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "당연",
+          hanja: "當然",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=當然",
+        },
+        {
+          kor: "당연지사",
+          hanja: "當然之事",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=當然之事",
+        },
+      ],
     },
     {
       character: "對",
@@ -1828,9 +1349,37 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "대답, 상대",
       idiom: "對牛彈琴 (대우탄금 - 소 귀에 경 읽기)",
       level: "5급",
-      m1: ["대답", "상대", "대화"],
-      m2: [],
+      m: ["대답", "상대", "대화"],
       e6: ["대답", "상대"],
+      example_exp: [
+        {
+          kor: "대답",
+          hanja: "對答",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=對答",
+        },
+        {
+          kor: "상대",
+          hanja: "相對",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=相對",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "대답",
+          hanja: "對答",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=對答",
+        },
+        {
+          kor: "상대",
+          hanja: "相對",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=相對",
+        },
+        {
+          kor: "대화",
+          hanja: "對話",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=對話",
+        },
+      ],
     },
     {
       character: "代",
@@ -1839,9 +1388,32 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "대리, 대표",
       idiom: "代人受過 (대인수과 - 남의 잘못을 대신 받음)",
       level: "5급",
-      m1: ["대리", "대표"],
-      m2: ["대리", "대표"],
+      m: ["대리", "대표"],
       e6: ["대리", "대표", "대신"],
+      example_exp: [
+        {
+          kor: "대리",
+          hanja: "代理",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=代理",
+        },
+        {
+          kor: "대표",
+          hanja: "代表",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=代表",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "대리",
+          hanja: "代理",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=代理",
+        },
+        {
+          kor: "대표",
+          hanja: "代表",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=代表",
+        },
+      ],
     },
     {
       character: "道",
@@ -1850,9 +1422,37 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "도로, 도리",
       idiom: "道聽塗說 (도청도설 - 길거리에서 듣고 떠드는 말)",
       level: "5급",
-      m1: ["도로", "도리", "도로교통"],
-      m2: [],
+      m: ["도로", "도리", "도로교통"],
       e6: ["도로", "도리"],
+      example_exp: [
+        {
+          kor: "도로",
+          hanja: "道路",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=道路",
+        },
+        {
+          kor: "도리",
+          hanja: "道理",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=道理",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "도로",
+          hanja: "道路",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=道路",
+        },
+        {
+          kor: "도리",
+          hanja: "道理",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=道理",
+        },
+        {
+          kor: "도로교통",
+          hanja: "道路交通",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=道路交通",
+        },
+      ],
     },
     {
       character: "刀",
@@ -1861,9 +1461,27 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "단도, 칼날",
       idiom: "刀山火海 (도산화해 - 매우 위험한 곳)",
       level: "5급",
-      m1: ["단도"],
-      m2: [],
+      m: ["단도"],
       e6: ["단도"],
+      example_exp: [
+        {
+          kor: "단도",
+          hanja: "短刀",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=短刀",
+        },
+        {
+          kor: "칼날",
+          hanja: "刀날",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=刀날",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "단도",
+          hanja: "短刀",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=短刀",
+        },
+      ],
     },
     {
       character: "讀",
@@ -1872,9 +1490,32 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "독서, 독해",
       idiom: "讀書百遍 (독서백편 - 책을 백 번 읽음)",
       level: "5급",
-      m1: ["독서", "독해"],
-      m2: [],
+      m: ["독서", "독해"],
       e6: ["독서", "독해"],
+      example_exp: [
+        {
+          kor: "독서",
+          hanja: "讀書",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=讀書",
+        },
+        {
+          kor: "독해",
+          hanja: "讀解",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=讀解",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "독서",
+          hanja: "讀書",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=讀書",
+        },
+        {
+          kor: "독해",
+          hanja: "讀解",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=讀解",
+        },
+      ],
     },
     {
       character: "冬",
@@ -1883,9 +1524,37 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "동지, 동계",
       idiom: "冬暖夏涼 (동난하량 - 겨울은 따뜻하고 여름은 시원함)",
       level: "5급",
-      m1: ["동지", "동계", "동계올림픽"],
-      m2: [],
+      m: ["동지", "동계", "동계올림픽"],
       e6: ["동지", "동계"],
+      example_exp: [
+        {
+          kor: "동지",
+          hanja: "冬至",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=冬至",
+        },
+        {
+          kor: "동계",
+          hanja: "冬季",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=冬季",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "동지",
+          hanja: "冬至",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=冬至",
+        },
+        {
+          kor: "동계",
+          hanja: "冬季",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=冬季",
+        },
+        {
+          kor: "동계올림픽",
+          hanja: "冬季올림픽",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=冬季올림픽",
+        },
+      ],
     },
     {
       character: "洞",
@@ -1894,9 +1563,32 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "동네, 동굴",
       idiom: "洞察秋毫 (통찰추호 - 아주 작은 것까지 꿰뚫어봄)",
       level: "5급",
-      m1: ["동네", "동굴"],
-      m2: [],
+      m: ["동네", "동굴"],
       e6: ["동네", "동굴"],
+      example_exp: [
+        {
+          kor: "동네",
+          hanja: "洞네",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=洞네",
+        },
+        {
+          kor: "동굴",
+          hanja: "洞窟",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=洞窟",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "동네",
+          hanja: "洞네",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=洞네",
+        },
+        {
+          kor: "동굴",
+          hanja: "洞窟",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=洞窟",
+        },
+      ],
     },
     {
       character: "頭",
@@ -1905,9 +1597,27 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "두뇌, 머리숱",
       idiom: "頭角峥嵘 (두각쟁영 - 두드러진 재능과 기개)",
       level: "5급",
-      m1: ["두뇌"],
-      m2: [],
+      m: ["두뇌"],
       e6: ["두뇌"],
+      example_exp: [
+        {
+          kor: "두뇌",
+          hanja: "頭腦",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=頭腦",
+        },
+        {
+          kor: "머리숱",
+          hanja: "頭숱",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=頭숱",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "두뇌",
+          hanja: "頭腦",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=頭腦",
+        },
+      ],
     },
     {
       character: "等",
@@ -1916,9 +1626,32 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "등급, 평등",
       idiom: "同等對待 (동등대우 - 같은 수준으로 대함)",
       level: "5급",
-      m1: ["등급", "평등"],
-      m2: [],
+      m: ["등급", "평등"],
       e6: ["등급", "평등"],
+      example_exp: [
+        {
+          kor: "등급",
+          hanja: "等級",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=等級",
+        },
+        {
+          kor: "평등",
+          hanja: "平等",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=平等",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "등급",
+          hanja: "等級",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=等級",
+        },
+        {
+          kor: "평등",
+          hanja: "平等",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=平等",
+        },
+      ],
     },
     {
       character: "登",
@@ -1927,9 +1660,32 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "등반, 등교",
       idiom: "登高望遠 (등고망원 - 높은데 올라 멀리 봄)",
       level: "5급",
-      m1: ["등반", "등교"],
-      m2: ["등반", "등교"],
+      m: ["등반", "등교"],
       e6: ["등반", "등교"],
+      example_exp: [
+        {
+          kor: "등반",
+          hanja: "登攀",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=登攀",
+        },
+        {
+          kor: "등교",
+          hanja: "登校",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=登校",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "등반",
+          hanja: "登攀",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=登攀",
+        },
+        {
+          kor: "등교",
+          hanja: "登校",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=登校",
+        },
+      ],
     },
     {
       character: "樂",
@@ -1938,9 +1694,32 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "음악, 오락",
       idiom: "樂善好施 (낙선호시 - 착한 일을 즐겨 행함)",
       level: "5급",
-      m1: ["음악", "오락"],
-      m2: [],
+      m: ["음악", "오락"],
       e6: ["음악", "오락"],
+      example_exp: [
+        {
+          kor: "음악",
+          hanja: "音樂",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=音樂",
+        },
+        {
+          kor: "오락",
+          hanja: "娛樂",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=娛樂",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "음악",
+          hanja: "音樂",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=音樂",
+        },
+        {
+          kor: "오락",
+          hanja: "娛樂",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=娛樂",
+        },
+      ],
     },
     {
       character: "來",
@@ -1949,9 +1728,32 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "미래, 내일",
       idiom: "未來可期 (미래가기 - 미래가 기대됨)",
       level: "5급",
-      m1: ["미래", "내일"],
-      m2: [],
+      m: ["미래", "내일"],
       e6: ["미래", "내일"],
+      example_exp: [
+        {
+          kor: "미래",
+          hanja: "未來",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=未來",
+        },
+        {
+          kor: "내일",
+          hanja: "來日",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=來日",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "미래",
+          hanja: "未來",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=未來",
+        },
+        {
+          kor: "내일",
+          hanja: "來日",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=來日",
+        },
+      ],
     },
     {
       character: "老",
@@ -1960,9 +1762,32 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "노인, 노화",
       idiom: "老馬識途 (노마식도 - 경험 많은 사람이 길을 앎)",
       level: "5급",
-      m1: ["노인", "노화"],
-      m2: [],
+      m: ["노인", "노화"],
       e6: ["노인", "노화"],
+      example_exp: [
+        {
+          kor: "노인",
+          hanja: "老人",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=老人",
+        },
+        {
+          kor: "노화",
+          hanja: "老化",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=老化",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "노인",
+          hanja: "老人",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=老人",
+        },
+        {
+          kor: "노화",
+          hanja: "老化",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=老化",
+        },
+      ],
     },
     {
       character: "理",
@@ -1971,9 +1796,32 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "이론, 원리",
       idiom: "理直氣壯 (이직기장 - 이치가 바르고 기세가 당당함)",
       level: "5급",
-      m1: ["이론", "원리"],
-      m2: [],
+      m: ["이론", "원리"],
       e6: ["이론", "원리"],
+      example_exp: [
+        {
+          kor: "이론",
+          hanja: "理論",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=理論",
+        },
+        {
+          kor: "원리",
+          hanja: "原理",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=原理",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "이론",
+          hanja: "理論",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=理論",
+        },
+        {
+          kor: "원리",
+          hanja: "原理",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=原理",
+        },
+      ],
     },
     {
       character: "里",
@@ -1982,9 +1830,21 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "마을, 동네",
       idiom: "里仁爲美 (인위미 - 인의를 행하는 것이 아름다움)",
       level: "5급",
-      m1: [],
-      m2: [],
+      m: [],
       e6: [],
+      example_exp: [
+        {
+          kor: "마을",
+          hanja: "里",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=里",
+        },
+        {
+          kor: "동네",
+          hanja: "洞네",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=洞네",
+        },
+      ],
+      m_exp: [],
     },
     {
       character: "利",
@@ -1993,9 +1853,37 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "이익, 이용",
       idiom: "利害得失 (이해득실 - 이득과 손해)",
       level: "5급",
-      m1: ["이익", "이용", "이용안내"],
-      m2: [],
+      m: ["이익", "이용", "이용안내"],
       e6: ["이익", "이용"],
+      example_exp: [
+        {
+          kor: "이익",
+          hanja: "利益",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=利益",
+        },
+        {
+          kor: "이용",
+          hanja: "利用",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=利用",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "이익",
+          hanja: "利益",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=利益",
+        },
+        {
+          kor: "이용",
+          hanja: "利用",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=利用",
+        },
+        {
+          kor: "이용안내",
+          hanja: "利用案內",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=利用案內",
+        },
+      ],
     },
     {
       character: "萬",
@@ -2004,9 +1892,42 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "만세, 만약",
       idiom: "萬事如意 (만사여의 - 모든 일이 뜻대로 됨)",
       level: "5급",
-      m1: ["만세", "만약", "만분율"],
-      m2: ["만원"],
+      m: ["만세", "만약", "만분율"],
       e6: ["만세", "만약", "일만원"],
+      example_exp: [
+        {
+          kor: "만세",
+          hanja: "萬歲",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=萬歲",
+        },
+        {
+          kor: "만약",
+          hanja: "萬若",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=萬若",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "만세",
+          hanja: "萬歲",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=萬歲",
+        },
+        {
+          kor: "만약",
+          hanja: "萬若",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=萬若",
+        },
+        {
+          kor: "만분율",
+          hanja: "萬分率",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=萬分率",
+        },
+        {
+          kor: "만원",
+          hanja: "滿員",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=滿員",
+        },
+      ],
     },
     {
       character: "每",
@@ -2015,9 +1936,57 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "매일, 매시",
       idiom: "每況愈下 (매황유하 - 상태가 점점 나빠짐)",
       level: "5급",
-      m1: ["매일", "매시", "매주", "매월", "매년", "매번", "매번마다"],
-      m2: [],
+      m: ["매일", "매시", "매주", "매월", "매년", "매번", "매번마다"],
       e6: ["매일", "매시"],
+      example_exp: [
+        {
+          kor: "매일",
+          hanja: "每日",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=每日",
+        },
+        {
+          kor: "매시",
+          hanja: "每時",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=每時",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "매일",
+          hanja: "每日",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=每日",
+        },
+        {
+          kor: "매시",
+          hanja: "每時",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=每時",
+        },
+        {
+          kor: "매주",
+          hanja: "每週",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=每週",
+        },
+        {
+          kor: "매월",
+          hanja: "每月",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=每月",
+        },
+        {
+          kor: "매년",
+          hanja: "每年",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=每年",
+        },
+        {
+          kor: "매번",
+          hanja: "每番",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=每番",
+        },
+        {
+          kor: "매번마다",
+          hanja: "每番마다",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=每番마다",
+        },
+      ],
     },
     {
       character: "面",
@@ -2026,9 +1995,47 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "면접, 표면",
       idiom: "面面相覷 (면면상휼 - 서로 얼굴을 쳐다봄)",
       level: "5급",
-      m1: ["면접", "표면", "면적"],
-      m2: ["대면", "비대면"],
+      m: ["면접", "표면", "면적"],
       e6: ["면접", "표면"],
+      example_exp: [
+        {
+          kor: "면접",
+          hanja: "面接",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=面接",
+        },
+        {
+          kor: "표면",
+          hanja: "表面",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=表面",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "면접",
+          hanja: "面接",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=面接",
+        },
+        {
+          kor: "표면",
+          hanja: "表面",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=表面",
+        },
+        {
+          kor: "면적",
+          hanja: "面積",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=面積",
+        },
+        {
+          kor: "대면",
+          hanja: "對面",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=對面",
+        },
+        {
+          kor: "비대면",
+          hanja: "非對面",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=非對面",
+        },
+      ],
     },
     {
       character: "命",
@@ -2037,9 +2044,32 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "명령, 운명",
       idiom: "生死有命 (생사유명 - 죽고 사는 것은 하늘의 뜻)",
       level: "5급",
-      m1: ["명령", "운명"],
-      m2: [],
+      m: ["명령", "운명"],
       e6: ["명령", "운명"],
+      example_exp: [
+        {
+          kor: "명령",
+          hanja: "命令",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=命令",
+        },
+        {
+          kor: "운명",
+          hanja: "運命",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=運命",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "명령",
+          hanja: "命令",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=命令",
+        },
+        {
+          kor: "운명",
+          hanja: "運命",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=運命",
+        },
+      ],
     },
     {
       character: "明",
@@ -2048,9 +2078,37 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "명확, 분명",
       idiom: "明察秋毫 (명찰추호 - 작은 일까지 밝게 살핌)",
       level: "5급",
-      m1: ["명확", "분명", "명확성"],
-      m2: [],
+      m: ["명확", "분명", "명확성"],
       e6: ["명확", "분명"],
+      example_exp: [
+        {
+          kor: "명확",
+          hanja: "明確",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=明確",
+        },
+        {
+          kor: "분명",
+          hanja: "分明",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=分明",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "명확",
+          hanja: "明確",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=明確",
+        },
+        {
+          kor: "분명",
+          hanja: "分明",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=分明",
+        },
+        {
+          kor: "명확성",
+          hanja: "明確性",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=明確性",
+        },
+      ],
     },
     {
       character: "毛",
@@ -2059,9 +2117,27 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "털실, 모피",
       idiom: "禿頭露毛 (독두노모 - 머리가 벗겨지고 털이 드러남)",
       level: "5급",
-      m1: ["모피"],
-      m2: [],
+      m: ["모피"],
       e6: ["모피"],
+      example_exp: [
+        {
+          kor: "털실",
+          hanja: "毛실",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=毛실",
+        },
+        {
+          kor: "모피",
+          hanja: "毛皮",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=毛皮",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "모피",
+          hanja: "毛皮",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=毛皮",
+        },
+      ],
     },
     {
       character: "無",
@@ -2070,9 +2146,32 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "무한, 무기",
       idiom: "無限大 (무한대 - 한계가 없음)",
       level: "5급",
-      m1: ["무한", "무기"],
-      m2: [],
+      m: ["무한", "무기"],
       e6: ["무한", "무기"],
+      example_exp: [
+        {
+          kor: "무한",
+          hanja: "無限",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=無限",
+        },
+        {
+          kor: "무기",
+          hanja: "武器",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=武器",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "무한",
+          hanja: "無限",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=無限",
+        },
+        {
+          kor: "무기",
+          hanja: "武器",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=武器",
+        },
+      ],
     },
     {
       character: "聞",
@@ -2081,9 +2180,32 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "신문, 소문",
       idiom: "聞一知十 (문일지십 - 한 가지를 듣고 열 가지를 앎)",
       level: "5급",
-      m1: ["신문", "소문"],
-      m2: [],
+      m: ["신문", "소문"],
       e6: ["신문", "소문"],
+      example_exp: [
+        {
+          kor: "신문",
+          hanja: "新聞",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=新聞",
+        },
+        {
+          kor: "소문",
+          hanja: "所聞",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=所聞",
+        },
+      ],
+      m_exp: [
+        {
+          kor: "신문",
+          hanja: "新聞",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=新聞",
+        },
+        {
+          kor: "소문",
+          hanja: "所聞",
+          naverUrl: "https://hanja.dict.naver.com/#/search?query=所聞",
+        },
+      ],
     },
     {
       character: "問",
@@ -2092,8 +2214,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "질문, 문제",
       idiom: "問答如流 (문답여류 - 대화가 술술 이어짐)",
       level: "5급",
-      m1: ["질문", "문제"],
-      m2: [],
+      m: ["질문", "문제"],
       e6: ["질문", "문제"],
     },
     {
@@ -2103,8 +2224,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "물체, 동물",
       idiom: "物極必反 (물극필반 - 극에 달하면 반대로 돌아감)",
       level: "5급",
-      m1: ["물체", "동물", "물리학"],
-      m2: ["물체", "동물", "물리학"],
+      m: ["물체", "동물", "물리학"],
       e6: ["물체", "동물", "물건"],
     },
     {
@@ -2114,8 +2234,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "국민, 민족",
       idiom: "民主主義 (민주주의 - 국민이 주인이 되는 정치)",
       level: "5급",
-      m1: ["국민", "민족", "민주주의"],
-      m2: [],
+      m: ["국민", "민족", "민주주의"],
       e6: ["국민", "민족"],
     },
     {
@@ -2125,8 +2244,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "반장, 분반",
       idiom: "班門弄斧 (반문농부 - 대가 앞에서 솜씨를 부림)",
       level: "5급",
-      m1: ["반장", "분반", "반장선거"],
-      m2: [],
+      m: ["반장", "분반", "반장선거"],
       e6: ["반장", "분반"],
     },
     {
@@ -2136,8 +2254,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "반쪽, 절반",
       idiom: "半信半疑 (반신반의 - 절반 믿고 절반 의심함)",
       level: "5급",
-      m1: ["반쪽", "절반", "반원"],
-      m2: [],
+      m: ["반쪽", "절반", "반원"],
       e6: ["반쪽", "절반"],
     },
     {
@@ -2147,8 +2264,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "방출, 해방",
       idiom: "放心自在 (방심자재 - 마음을 놓고 자유로움)",
       level: "5급",
-      m1: ["방출", "해방", "방송", "방송국"],
-      m2: [],
+      m: ["방출", "해방", "방송", "방송국"],
       e6: ["방출", "해방"],
     },
     {
@@ -2158,8 +2274,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "번갈아, 차례",
       idiom: "一番星 (일번성 - 가장 먼저 뜨는 별)",
       level: "5급",
-      m1: ["번호"],
-      m2: [],
+      m: ["번호"],
       e6: ["번호"],
     },
     {
@@ -2169,8 +2284,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "별거, 특별",
       idiom: "別離苦 (별리고 - 이별의 아픔)",
       level: "5급",
-      m1: ["별거", "특별", "특별활동"],
-      m2: [],
+      m: ["별거", "특별", "특별활동"],
       e6: ["특별", "특별활동"],
     },
     {
@@ -2180,8 +2294,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "보행, 걸음",
       idiom: "步步高升 (보보고승 - 한 걸음 한 걸음 올라감)",
       level: "5급",
-      m1: ["보행", "보행안전"],
-      m2: [],
+      m: ["보행", "보행안전"],
       e6: ["보행", "보행자"],
     },
     {
@@ -2191,8 +2304,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "부서, 일부",
       idiom: "部下服從 (부하복종 - 상사의 명령에 따름)",
       level: "5급",
-      m1: ["부서", "일부", "부서회의"],
-      m2: [],
+      m: ["부서", "일부", "부서회의"],
       e6: ["부서", "일부"],
     },
     {
@@ -2202,8 +2314,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "부분, 분할",
       idiom: "分別有智 (분별유지 - 분별하는 지혜가 있음)",
       level: "5급",
-      m1: ["부분", "분할", "분수", "분수계산"],
-      m2: [],
+      m: ["부분", "분할", "분수", "분수계산"],
       e6: ["부분", "분수"],
     },
     {
@@ -2213,8 +2324,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "회사, 사회",
       idiom: "社會主義 (사회주의 - 국민이 주인이 되는 정치)",
       level: "5급",
-      m1: ["회사", "사회"],
-      m2: [],
+      m: ["회사", "사회"],
       e6: ["회사", "사회"],
     },
     {
@@ -2224,8 +2334,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "사업, 사건",
       idiom: "事情通 (사정통 - 일의 사정을 잘 아는 사람)",
       level: "5급",
-      m1: ["사업", "사업계획"],
-      m2: [],
+      m: ["사업", "사업계획"],
       e6: ["사업", "사건"],
     },
     {
@@ -2235,8 +2344,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "사망, 죽음",
       idiom: "死生決斷 (사생결단 - 죽고 사는 것을 결정함)",
       level: "5급",
-      m1: ["사망", "사망률"],
-      m2: [],
+      m: ["사망", "사망률"],
       e6: ["사망"],
     },
     {
@@ -2246,8 +2354,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "색깔, 색상",
       idiom: "色即是空 (색즉시공 - 모든 색은 본래 공(空)임)",
       level: "5급",
-      m1: ["색깔", "색상"],
-      m2: [],
+      m: ["색깔", "색상"],
       e6: ["색깔", "색상"],
     },
     {
@@ -2257,8 +2364,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "서신, 책",
       idiom: "書中自有顏如玉 (서중자유안여옥 - 책 속에 옥 같은 얼굴이 있다)",
       level: "5급",
-      m1: ["서신", "서적"],
-      m2: [],
+      m: ["서신", "서적"],
       e6: ["서신", "서적"],
     },
     {
@@ -2268,8 +2374,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "선로, 직선",
       idiom: "線上作業 (선상작업 - 줄을 따라 작업함)",
       level: "5급",
-      m1: ["선로", "직선"],
-      m2: [],
+      m: ["선로", "직선"],
       e6: ["직선"],
     },
     {
@@ -2279,8 +2384,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "성격, 본성",
       idiom: "性善說 (성선설 - 사람의 본성은 선함)",
       level: "5급",
-      m1: ["성격", "본성", "성격검사"],
-      m2: [],
+      m: ["성격", "본성", "성격검사"],
       e6: ["성격"],
     },
     {
@@ -2290,8 +2394,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "성공, 완성",
       idiom: "成功不居 (성공불거 - 성공을 자랑하지 않음)",
       level: "5급",
-      m1: ["성공", "완성", "성장"],
-      m2: [],
+      m: ["성공", "완성", "성장"],
       e6: ["성공", "성장"],
     },
     {
@@ -2301,8 +2404,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "장소, 소유",
       idiom: "所謂 (소위 - 이른바)",
       level: "5급",
-      m1: ["장소", "소유", "소유권"],
-      m2: [],
+      m: ["장소", "소유", "소유권"],
       e6: ["장소", "소유"],
     },
     {
@@ -2312,8 +2414,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "수도, 수장",
       idiom: "首屈一指 (수굴일지 - 가장 뛰어남)",
       level: "5급",
-      m1: ["수도", "수장", "수도권"],
-      m2: [],
+      m: ["수도", "수장", "수도권"],
       e6: ["수도"],
     },
     {
@@ -2323,8 +2424,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "시가, 시인",
       idiom: "詩情畫意 (시정화의 - 시 같은 정서와 그림 같은 뜻)",
       level: "5급",
-      m1: ["시가", "시인", "시학습", "시해석", "시분석", "시감상", "시교육"],
-      m2: ["시", "시가", "시인", "시집"],
+      m: ["시가", "시인", "시학습", "시해석", "시분석", "시감상", "시교육"],
       e6: ["시가", "시인"],
     },
     {
@@ -2334,8 +2434,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "시간, 시기",
       idiom: "時機到來 (시기 도래 - 적절한 때가 옴)",
       level: "5급",
-      m1: ["시간", "시기"],
-      m2: [],
+      m: ["시간", "시기"],
       e6: ["시간", "시기"],
     },
     {
@@ -2345,8 +2444,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "표시, 지시",
       idiom: "示威遊行 (시위유행 - 권리 주장을 위한 행진)",
       level: "5급",
-      m1: ["표시", "지시", "표시등", "표시안내"],
-      m2: [],
+      m: ["표시", "지시", "표시등", "표시안내"],
       e6: ["표시", "지시"],
     },
     {
@@ -2356,8 +2454,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "시장, 도시",
       idiom: "市井之徒 (시정지도 - 평범한 사람들)",
       level: "5급",
-      m1: ["시장", "도시"],
-      m2: ["도시계획"],
+      m: ["시장", "도시"],
       e6: ["시장", "도시"],
     },
     {
@@ -2367,8 +2464,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "식물, 파종",
       idiom: "植樹節 (식수절 - 나무 심는 날)",
       level: "5급",
-      m1: ["식물", "식물학"],
-      m2: ["식물", "식물학"],
+      m: ["식물", "식물학"],
       e6: ["식물"],
     },
     {
@@ -2378,8 +2474,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "신앙, 정신",
       idiom: "神出鬼沒 (신출귀몰 - 갑자기 나타나고 사라짐)",
       level: "5급",
-      m1: ["신앙", "정신"],
-      m2: [],
+      m: ["신앙", "정신"],
       e6: ["정신"],
     },
     {
@@ -2389,8 +2484,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "신체, 신장",
       idiom: "身體健康 (신체건강 - 몸이 건강함)",
       level: "5급",
-      m1: ["신체", "신장"],
-      m2: [],
+      m: ["신체", "신장"],
       e6: ["신체"],
     },
     {
@@ -2400,8 +2494,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "신뢰, 믿음",
       idiom: "信賞必罰 (신상필벌 - 상을 주고 벌을 줌)",
       level: "5급",
-      m1: ["신뢰"],
-      m2: [],
+      m: ["신뢰"],
       e6: ["신뢰"],
     },
     {
@@ -2411,8 +2504,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "신규, 신속",
       idiom: "新陳代謝 (신진대사 - 새로운 것이 옛것을 대체함)",
       level: "5급",
-      m1: ["신규", "신속", "신기술", "신제품", "신개발", "신발전", "신혁신"],
-      m2: [],
+      m: ["신규", "신속", "신기술", "신제품", "신개발", "신발전", "신혁신"],
       e6: ["신규"],
     },
     {
@@ -2422,8 +2514,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "교실, 실내",
       idiom: "室內運動 (실내운동 - 실내에서 하는 운동)",
       level: "5급",
-      m1: ["실내"],
-      m2: ["교실"],
+      m: ["실내"],
       e6: ["교실", "실내"],
     },
     {
@@ -2433,8 +2524,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "안전, 안심",
       idiom: "安居樂業 (안거락업 - 편안히 살며 즐겁게 일함)",
       level: "5급",
-      m1: ["안전", "안심"],
-      m2: [],
+      m: ["안전", "안심"],
       e6: ["안전"],
     },
     {
@@ -2444,8 +2534,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "야간, 심야",
       idiom: "夜半歌聲 (야반가성 - 밤중에 들려오는 노래 소리)",
       level: "5급",
-      m1: ["야간", "심야"],
-      m2: [],
+      m: ["야간", "심야"],
       e6: ["야간"],
     },
     {
@@ -2455,8 +2544,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "약점, 약골",
       idiom: "弱肉強食 (약육강식 - 약한 자가 강한 자에게 먹힘)",
       level: "5급",
-      m1: ["약점", "약골"],
-      m2: [],
+      m: ["약점", "약골"],
       e6: ["약점"],
     },
     {
@@ -2466,8 +2554,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "언어, 국어",
       idiom: "語重心長 (어중심장 - 말이 무겁고 마음이 깊음)",
       level: "5급",
-      m1: ["언어", "국어"],
-      m2: [],
+      m: ["언어", "국어"],
       e6: ["언어", "국어"],
     },
     {
@@ -2477,8 +2564,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "언어, 언행",
       idiom: "言行一致 (언행일치 - 말과 행동이 일치함)",
       level: "5급",
-      m1: ["언어", "언행"],
-      m2: [],
+      m: ["언어", "언행"],
       e6: ["언어", "언행"],
     },
     {
@@ -2488,8 +2574,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "영원, 영구",
       idiom: "永遠不變 (영원불변 - 영원히 변하지 않음)",
       level: "5급",
-      m1: ["영원", "영구"],
-      m2: [],
+      m: ["영원", "영구"],
       e6: ["영원"],
     },
     {
@@ -2499,8 +2584,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "영웅, 영국",
       idiom: "英姿颯爽 (영자삽상 - 씩씩하고 용감한 모습)",
       level: "5급",
-      m1: ["영웅", "영국", "영어"],
-      m2: [],
+      m: ["영웅", "영국", "영어"],
       e6: ["영어"],
     },
     {
@@ -2510,8 +2594,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "오후, 오전",
       idiom: "午睡 (오수 - 낮잠)",
       level: "5급",
-      m1: ["오후", "오전"],
-      m2: [],
+      m: ["오후", "오전"],
       e6: ["오후", "오전"],
     },
     {
@@ -2521,8 +2604,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "용도, 사용",
       idiom: "用意周到 (용의주도 - 준비가 철저함)",
       level: "5급",
-      m1: ["용도", "사용", "사용법"],
-      m2: [],
+      m: ["용도", "사용", "사용법"],
       e6: ["용도", "사용"],
     },
     {
@@ -2532,8 +2614,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "친구, 우정",
       idiom: "友情永固 (우정영고 - 우정이 오래도록 굳음)",
       level: "5급",
-      m1: ["우정"],
-      m2: [],
+      m: ["우정"],
       e6: ["우정"],
     },
     {
@@ -2543,8 +2624,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "원거리, 원시",
       idiom: "遠交近攻 (원교근공 - 먼 나라와 친하고 가까운 나라를 공격함)",
       level: "5급",
-      m1: ["원거리", "원시"],
-      m2: [],
+      m: ["원거리", "원시"],
       e6: ["원거리"],
     },
     {
@@ -2554,8 +2634,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "원인, 원본",
       idiom: "原因結果 (원인결과 - 원인과 결과)",
       level: "5급",
-      m1: ["원인", "원본"],
-      m2: [],
+      m: ["원인", "원본"],
       e6: ["원인"],
     },
     {
@@ -2565,7 +2644,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "원기, 원년",
       idiom: "元氣充沛 (원기충패 - 원기가 넘침)",
       level: "5급",
-      m1: [
+      m: [
         "원기",
         "원년",
         "원기회복",
@@ -2574,7 +2653,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "원기육성",
         "원기관리",
       ],
-      m2: [],
       e6: ["원기"],
     },
     {
@@ -2584,8 +2662,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "유용, 유무",
       idiom: "有利無弊 (유리무폐 - 이롭고 해가 없음)",
       level: "5급",
-      m1: ["유용", "유무"],
-      m2: [],
+      m: ["유용", "유무"],
       e6: ["유용"],
     },
     {
@@ -2595,8 +2672,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "육류, 육체",
       idiom: "肉中刺 (육중자 - 고기 속의 가시, 작은 문제)",
       level: "5급",
-      m1: ["육류", "육체"],
-      m2: [],
+      m: ["육류", "육체"],
       e6: ["육류"],
     },
     {
@@ -2606,8 +2682,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "교육, 육성",
       idiom: "教育育才 (교육육재 - 교육으로 인재를 기름)",
       level: "5급",
-      m1: ["교육", "육성"],
-      m2: [],
+      m: ["교육", "육성"],
       e6: ["교육"],
     },
     {
@@ -2617,8 +2692,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "은행, 은화",
       idiom: "銀河 (은하 - 밤하늘의 은빛 강)",
       level: "5급",
-      m1: ["은하수"],
-      m2: [],
+      m: ["은하수"],
       e6: ["은행"],
     },
     {
@@ -2628,8 +2702,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "음악, 소리",
       idiom: "音信不通 (음신불통 - 소식이 끊김)",
       level: "5급",
-      m1: ["음악"],
-      m2: [],
+      m: ["음악"],
       e6: ["음악"],
     },
     {
@@ -2639,8 +2712,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "읍락, 군읍",
       idiom: "郡邑 (군읍 - 작은 행정 구역)",
       level: "5급",
-      m1: ["읍락", "군읍", "읍사무소"],
-      m2: [],
+      m: ["읍락", "군읍", "읍사무소"],
       e6: ["읍락"],
     },
     {
@@ -2650,8 +2722,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "의사, 의미",
       idiom: "意氣用事 (의기용사 - 감정에 치우쳐 행동함)",
       level: "5급",
-      m1: ["의사", "의미"],
-      m2: [],
+      m: ["의사", "의미"],
       e6: ["의사", "의미"],
     },
     {
@@ -2661,8 +2732,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "작품, 동작",
       idiom: "作戰計劃 (작전계획 - 전투 계획)",
       level: "5급",
-      m1: ["작품", "동작", "작문", "작가", "작사", "작곡"],
-      m2: [],
+      m: ["작품", "동작", "작문", "작가", "작사", "작곡"],
       e6: ["작품", "작문"],
     },
     {
@@ -2672,7 +2742,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "장기, 장점",
       idiom: "長命富貴 (장명부귀 - 오래 살고 부귀를 누림)",
       level: "5급",
-      m1: [
+      m: [
         "장기",
         "장점",
         "장관",
@@ -2683,7 +2753,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "장마",
         "장학금",
       ],
-      m2: [],
       e6: ["장기", "장점"],
     },
     {
@@ -2693,8 +2762,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "시장, 장소",
       idiom: "場外交易 (장외거래 - 공식 장 이외의 거래)",
       level: "5급",
-      m1: ["시장", "장소", "운동장"],
-      m2: [],
+      m: ["시장", "장소", "운동장"],
       e6: ["시장", "장소"],
     },
     {
@@ -2704,8 +2772,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "재능, 천재",
       idiom: "才高八斗 (재고팔두 - 매우 뛰어난 재능)",
       level: "5급",
-      m1: ["재능", "천재", "재주", "재질", "재료", "재산", "재생"],
-      m2: [],
+      m: ["재능", "천재", "재주", "재질", "재료", "재산", "재생"],
       e6: ["재능"],
     },
     {
@@ -2715,8 +2782,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "전원, 논밭",
       idiom: "田園故鄕 (전원고향 - 전원의 고향)",
       level: "5급",
-      m1: ["전원"],
-      m2: [],
+      m: ["전원"],
       e6: ["전원"],
     },
     {
@@ -2726,7 +2792,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "전기, 전화",
       idiom: "電光石火 (전광석화 - 매우 빠른 움직임)",
       level: "5급",
-      m1: [
+      m: [
         "전기",
         "전화",
         "전자",
@@ -2737,7 +2803,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "전구",
         "전기요금",
       ],
-      m2: [],
       e6: ["전기", "전화"],
     },
     {
@@ -2747,7 +2812,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "전진, 전방",
       idiom: "前途有望 (전도유망 - 앞길이 밝음)",
       level: "5급",
-      m1: [
+      m: [
         "전진",
         "전방",
         "전면",
@@ -2758,7 +2823,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "전쟁",
         "전통",
       ],
-      m2: [],
       e6: ["전진", "전체"],
     },
     {
@@ -2768,7 +2832,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "완전, 전체",
       idiom: "全力投球 (전력투구 - 전력을 다함)",
       level: "5급",
-      m1: [
+      m: [
         "완전",
         "전체",
         "전국",
@@ -2779,7 +2843,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "전력",
         "전면",
       ],
-      m2: [],
       e6: ["완전", "전체"],
     },
     {
@@ -2789,8 +2852,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "조간, 아침",
       idiom: "朝令暮改 (조령모개 - 명령이 자주 바뀜)",
       level: "5급",
-      m1: ["조간", "아침", "조기"],
-      m2: [],
+      m: ["조간", "아침", "조기"],
       e6: ["조간"],
     },
     {
@@ -2800,8 +2862,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "조상, 선조",
       idiom: "祖宗之法 (조종지법 - 조상의 법)",
       level: "5급",
-      m1: ["조상", "선조", "조부", "조부모", "조상님"],
-      m2: [],
+      m: ["조상", "선조", "조부", "조부모", "조상님"],
       e6: ["조상"],
     },
     {
@@ -2811,8 +2872,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "주간, 낮",
       idiom: "日間晝夜 (일간주야 - 낮과 밤)",
       level: "5급",
-      m1: ["주간", "낮", "주말"],
-      m2: [],
+      m: ["주간", "낮", "주말"],
       e6: ["주간"],
     },
     {
@@ -2822,7 +2882,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "주민, 주소",
       idiom: "住處安穩 (주처안온 - 사는 곳이 편안함)",
       level: "5급",
-      m1: [
+      m: [
         "주민",
         "주소",
         "주택",
@@ -2833,7 +2893,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "주인",
         "주장",
       ],
-      m2: [],
       e6: ["주민", "주소"],
     },
     {
@@ -2843,8 +2902,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "죽순, 대나무",
       idiom: "竹報平安 (죽보평안 - 대나무가 평안함을 알림)",
       level: "5급",
-      m1: ["죽순", "죽림", "죽사", "죽마"],
-      m2: [],
+      m: ["죽순", "죽림", "죽사", "죽마"],
       e6: ["죽순"],
     },
     {
@@ -2854,8 +2912,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "중량, 중요",
       idiom: "重言復語 (중언부어 - 같은 말을 되풀이함)",
       level: "5급",
-      m1: ["중량", "중요", "중심", "중요성"],
-      m2: [],
+      m: ["중량", "중요", "중심", "중요성"],
       e6: ["중요"],
     },
     {
@@ -2865,8 +2922,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "직접, 직진",
       idiom: "直言不諱 (직언불회 - 솔직하게 말함)",
       level: "5급",
-      m1: ["직접", "직진", "직선", "직업", "직원"],
-      m2: [],
+      m: ["직접", "직진", "직선", "직업", "직원"],
       e6: ["직접", "직업"],
     },
     {
@@ -2876,7 +2932,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "초원, 잔디",
       idiom: "草木皆兵 (초목개병 - 모든 풀과 나무가 적으로 보임)",
       level: "5급",
-      m1: [
+      m: [
         "초원",
         "초록",
         "초등학교",
@@ -2886,7 +2942,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "초등",
         "초등교육",
       ],
-      m2: [],
       e6: ["초원", "초등학교"],
     },
     {
@@ -2896,8 +2951,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "촌락, 농촌",
       idiom: "田園故鄕 (전원고향 - 전원의 고향)",
       level: "5급",
-      m1: ["촌락", "농촌", "촌장"],
-      m2: [],
+      m: ["촌락", "농촌", "촌장"],
       e6: ["촌락", "농촌"],
     },
     {
@@ -2907,8 +2961,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "추수, 가을",
       idiom: "秋高氣爽 (추고기상 - 가을 하늘이 맑고 상쾌함)",
       level: "5급",
-      m1: ["추수", "추석", "추론", "추상"],
-      m2: [],
+      m: ["추수", "추석", "추론", "추상"],
       e6: ["추수", "추석"],
     },
     {
@@ -2918,8 +2971,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "춘곤증, 봄",
       idiom: "春暖花開 (춘난화개 - 봄날에 꽃이 핌)",
       level: "5급",
-      m1: ["춘곤증", "춘분", "춘절", "춘기", "춘색"],
-      m2: [],
+      m: ["춘곤증", "춘분", "춘절", "춘기", "춘색"],
       e6: ["춘곤증"],
     },
     {
@@ -2929,8 +2981,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "부모, 친척",
       idiom: "親仁善鄰 (친인선린 - 어진 사람은 이웃과 잘 지냄)",
       level: "5급",
-      m1: ["친척", "친구", "친밀", "친근", "친환경", "친자", "친목", "친교"],
-      m2: [],
+      m: ["친척", "친구", "친밀", "친근", "친환경", "친자", "친목", "친교"],
       e6: ["부모", "친척"],
     },
     {
@@ -2940,7 +2991,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "태양, 태평",
       idiom: "太平盛世 (태평성세 - 평화롭고 번성하는 시대)",
       level: "5급",
-      m1: [
+      m: [
         "태양",
         "태평",
         "태도",
@@ -2951,7 +3002,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "태극권",
         "태양광",
       ],
-      m2: [],
       e6: ["태양"],
     },
     {
@@ -2961,7 +3011,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "통행, 소통",
       idiom: "通情達理 (통정달리 - 마음이 통하고 이치를 이해함)",
       level: "5급",
-      m1: [
+      m: [
         "통행",
         "소통",
         "통신",
@@ -2972,7 +3022,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "통합",
         "통화",
       ],
-      m2: [],
       e6: ["통행", "통계"],
     },
     {
@@ -2982,8 +3031,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "조개, 패각",
       idiom: "貝多不售 (패다불수 - 조개가 많으면 팔리지 않음)",
       level: "5급",
-      m1: ["패각", "어패류", "패물"],
-      m2: [],
+      m: ["패각", "어패류", "패물"],
       e6: ["어패류"],
     },
     {
@@ -2993,8 +3041,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "편리, 편안",
       idiom: "便宜施行 (편의시행 - 편리하게 시행함)",
       level: "5급",
-      m1: ["편리", "편안", "편지", "편의점", "편의시설", "편의성"],
-      m2: [],
+      m: ["편리", "편안", "편지", "편의점", "편의시설", "편의성"],
       e6: ["편리", "편지"],
     },
     {
@@ -3004,7 +3051,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "평화, 평등",
       idiom: "平和外交 (평화외교 - 평화로운 외교)",
       level: "5급",
-      m1: [
+      m: [
         "평화",
         "평등",
         "평면",
@@ -3015,7 +3062,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "평일",
         "평가서",
       ],
-      m2: [],
       e6: ["평화", "평균"],
     },
     {
@@ -3025,8 +3071,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "하계, 여름",
       idiom: "夏日炎炎 (하일염염 - 여름날이 매우 더움)",
       level: "5급",
-      m1: ["하계", "하계올림픽"],
-      m2: [],
+      m: ["하계", "하계올림픽"],
       e6: ["하계"],
     },
     {
@@ -3036,7 +3081,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "학교, 학습",
       idiom: "學而不厭 (학이불염 - 배우기를 싫어하지 않음)",
       level: "5급",
-      m1: [
+      m: [
         "학교",
         "학습",
         "학생",
@@ -3047,7 +3092,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "학력",
         "학업",
       ],
-      m2: [],
       e6: ["학교", "학습"],
     },
     {
@@ -3057,8 +3101,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "한국, 한글",
       idiom: "韓國史 (한국사 - 한국의 역사)",
       level: "5급",
-      m1: ["한국", "한글", "한국어", "한국사", "한국문화"],
-      m2: [],
+      m: ["한국", "한글", "한국어", "한국사", "한국문화"],
       e6: ["한국", "한글"],
     },
     {
@@ -3068,8 +3111,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "한문, 한자",
       idiom: "漢字文化 (한자문화 - 한자를 사용하는 문화)",
       level: "5급",
-      m1: ["한문", "한자", "한자어", "한자학습"],
-      m2: [],
+      m: ["한문", "한자", "한자어", "한자학습"],
       e6: ["한문", "한자"],
     },
     {
@@ -3079,7 +3121,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "합의, 합계",
       idiom: "合理的 (합리적 - 이치에 맞음)",
       level: "5급",
-      m1: [
+      m: [
         "합의",
         "합계",
         "합리",
@@ -3090,7 +3132,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "합류",
         "합작",
       ],
-      m2: [],
       e6: ["합의", "합계"],
     },
     {
@@ -3100,8 +3141,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "해양, 해변",
       idiom: "海闊天空 (해활천공 - 바다처럼 넓고 하늘처럼 높음)",
       level: "5급",
-      m1: ["해양", "해변", "해수욕장", "해양생물", "해양환경"],
-      m2: [],
+      m: ["해양", "해변", "해수욕장", "해양생물", "해양환경"],
       e6: ["해양", "해변", "해수욕장", "해양생물", "해양환경"],
     },
     {
@@ -3111,8 +3151,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "행위, 실행",
       idiom: "行雲流水 (행운유수 - 구속받지 않는 자유로운 행동)",
       level: "5급",
-      m1: ["행위", "실행", "행동", "행사", "행정", "행복", "행정부"],
-      m2: [],
+      m: ["행위", "실행", "행동", "행사", "행정", "행복", "행정부"],
       e6: ["행동", "행사", "행복"],
     },
     {
@@ -3122,8 +3161,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "혈액, 혈관",
       idiom: "血氣方剛 (혈기방강 - 혈기가 왕성함)",
       level: "5급",
-      m1: ["혈액", "혈관", "혈압", "혈당", "혈액검사", "혈액형", "혈액순환"],
-      m2: [],
+      m: ["혈액", "혈관", "혈압", "혈당", "혈액검사", "혈액형", "혈액순환"],
       e6: ["혈액", "혈관", "혈액순환"],
     },
     {
@@ -3133,8 +3171,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "형태, 형식",
       idiom: "形影不離 (형영불리 - 몸과 그림자가 떨어질 수 없음)",
       level: "5급",
-      m1: ["형태", "형식", "형성", "형상", "형용사"],
-      m2: [],
+      m: ["형태", "형식", "형성", "형상", "형용사"],
       e6: ["형태", "형식", "형성"],
     },
     {
@@ -3144,8 +3181,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "화초, 꽃밭",
       idiom: "花鳥風月 (화조풍월 - 자연의 아름다움)",
       level: "5급",
-      m1: ["화초", "화병"],
-      m2: [],
+      m: ["화초", "화병"],
       e6: ["화초"],
     },
     {
@@ -3155,8 +3191,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "대화, 회화",
       idiom: "談笑風生 (담소풍생 - 즐겁게 이야기함)",
       level: "5급",
-      m1: ["대화", "회화", "화제", "화법"],
-      m2: [],
+      m: ["대화", "회화", "화제", "화법"],
       e6: ["대화", "회화", "이야기", "화제"],
     },
     {
@@ -3166,8 +3201,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "화합, 평화",
       idiom: "和而不同 (화이부동 - 조화롭지만 같지는 않음)",
       level: "5급",
-      m1: ["화합", "평화", "화목", "화해", "화제", "화학"],
-      m2: [],
+      m: ["화합", "평화", "화목", "화해", "화제", "화학"],
       e6: ["화합", "평화", "화목", "화학"],
     },
     {
@@ -3177,7 +3211,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "생활, 활동",
       idiom: "活潑生動 (활발생동 - 생기 있고 활기참)",
       level: "5급",
-      m1: [
+      m: [
         "생활",
         "활동",
         "활발",
@@ -3188,7 +3222,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "활동시간",
         "활동장소",
       ],
-      m2: [],
       e6: ["생활", "활동", "활발", "활용"],
     },
     {
@@ -3198,7 +3231,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "황색, 황금",
       idiom: "黃金時代 (황금시대 - 가장 좋은 시기)",
       level: "5급",
-      m1: [
+      m: [
         "황색",
         "황금",
         "황제",
@@ -3209,7 +3242,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "황금비율",
         "황금률",
       ],
-      m2: [],
       e6: ["황색", "황금", "황금시대"],
     },
     {
@@ -3219,8 +3251,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "회의, 회합",
       idiom: "會者定離 (회자정리 - 만나는 자는 반드시 헤어짐)",
       level: "5급",
-      m1: ["회의", "회합", "회사", "회원", "회장", "회계", "회전", "회수"],
-      m2: [],
+      m: ["회의", "회합", "회사", "회원", "회장", "회계", "회전", "회수"],
       e6: ["회의", "회합", "회사", "회원", "회장"],
     },
   ],

@@ -23,12 +23,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "가감, 증가",
       idiom: "加減乘除 (가감승제 - 더하기 빼기 곱하기 나누기)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "가감",
         "증가",
         "가입",
@@ -39,20 +34,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "가입신청",
         "가입증명",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "가",
         "가감",
         "증가",
@@ -69,11 +51,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "가입발전",
         "가입학",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "可",
@@ -82,12 +59,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "가능, 허가",
       idiom: "可否同異 (가부동이 - 옳고 그름과 같고 다름)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "가능",
         "허가",
         "가능성",
@@ -98,20 +70,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "가능한지",
         "가능한가",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "가",
         "가능",
         "허가",
@@ -128,11 +87,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "가능발전",
         "가능학",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "角",
@@ -141,12 +95,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "삼각형, 각도",
       idiom: "描頭繪角 (묘두회각 - 머리와 뿔을 그림; 일을 자세히 묘사함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "삼각형",
         "각도",
         "각도기",
@@ -157,20 +106,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "각도이론",
         "각도학습",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "각",
         "삼각형",
         "각도",
@@ -187,11 +123,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "각도발전",
         "각도학",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "感",
@@ -200,12 +131,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "감각, 감동",
       idiom: "感恩報德 (감은보덕 - 은혜에 감사하고 덕에 보답함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "감각",
         "감동",
         "감정",
@@ -216,20 +142,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "감시",
         "감독",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "감",
         "감각",
         "감동",
@@ -246,11 +159,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "감정발전",
         "감정학",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "客",
@@ -259,12 +167,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "승객, 고객",
       idiom: "客死他鄉 (객사타향 - 타향에서 죽음)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "승객",
         "고객",
         "손님",
@@ -275,20 +178,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "객사",
         "객관적",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "객",
         "승객",
         "고객",
@@ -305,11 +195,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "고객발전",
         "고객학",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "格",
@@ -318,12 +203,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "가격, 자격",
       idiom: "格物致知 (격물치지 - 사물의 이치를 연구하여 지식을 깊게 함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "가격",
         "자격",
         "격식",
@@ -334,20 +214,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "격차",
         "격정",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "격",
         "가격",
         "자격",
@@ -364,11 +231,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "가격발전",
         "가격학",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "決",
@@ -377,12 +239,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "결정, 해결",
       idiom: "決死抗戰 (결사항전 - 죽기를 각오하고 싸움)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "결정",
         "해결",
         "결단",
@@ -393,20 +250,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "결정과정",
         "결정요인",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "결",
         "결정",
         "해결",
@@ -423,11 +267,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "결정발전",
         "결정학",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "結",
@@ -436,12 +275,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "결혼, 결과",
       idiom: "結者解之 (결자해지 - 묶은 자가 풀어야 함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "결혼",
         "결과",
         "결정",
@@ -452,20 +286,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "결정권",
         "결정사항",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "결",
         "결혼",
         "결과",
@@ -482,11 +303,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "결혼발전",
         "결혼학",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "輕",
@@ -495,12 +311,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "경시, 경량",
       idiom: "輕擧妄動 (경거망동 - 경솔하고 망령되게 행동함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "경시",
         "경량",
         "경기",
@@ -511,20 +322,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "경영",
         "경로",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "경",
         "경시",
         "경량",
@@ -541,11 +339,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "경제발전",
         "경제학",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "敬",
@@ -554,12 +347,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "경의, 존경",
       idiom: "敬而遠之 (경이원지 - 공경하되 멀리 함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "경의",
         "존경",
         "경의심",
@@ -570,20 +358,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "경의를",
         "경의를",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "경",
         "경의",
         "존경",
@@ -600,11 +375,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "경의발전",
         "경의학",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "界",
@@ -613,12 +383,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "경계, 세계",
       idiom: "無邊無界 (무변무계 - 끝없이 넓고 한계가 없음)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "경계",
         "세계",
         "계절",
@@ -629,20 +394,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "계약",
         "계정",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "계",
         "경계",
         "세계",
@@ -659,11 +411,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "세계발전",
         "세계학",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "苦",
@@ -672,12 +419,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "고통, 고생",
       idiom: "苦盡甘來 (고진감래 - 고생 끝에 낙이 옴)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "고통",
         "고생",
         "고민",
@@ -688,20 +430,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "고려중",
         "고려해보기",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "고통",
         "고생",
         "고민",
@@ -713,11 +442,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "고뇌",
         "고독",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "考",
@@ -726,12 +450,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "고찰, 고려",
       idiom: "深思熟考 (심사숙고 - 깊이 생각하고 신중히 고려함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "고찰",
         "고려",
         "고사",
@@ -742,20 +461,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "고증학",
         "고사성어",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "고찰",
         "고려",
         "고사",
@@ -767,11 +473,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "고심",
         "고민",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "告",
@@ -780,12 +481,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "보고, 광고",
       idiom: "自告奮勇 (자고분용 - 스스로 나서서 용기를 냄)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "광고",
         "보고",
         "신고",
@@ -796,20 +492,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "고백",
         "고소",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "광고",
         "보고",
         "신고",
@@ -821,11 +504,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "고소",
         "자고분용",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "曲",
@@ -834,12 +512,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "곡선, 만곡",
       idiom: "曲學阿世 (곡학아세 - 학문을 굽혀 세속에 아첨함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "곡선",
         "곡식",
         "곡예",
@@ -850,20 +523,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "곡류",
         "곡목",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "곡선",
         "곡식",
         "곡물",
@@ -875,11 +535,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "곡예",
         "곡목",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "公",
@@ -888,12 +543,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "공공, 공개",
       idiom: "公正無私 (공정무사 - 공정하고 사심이 없음)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "공공",
         "공개",
         "공원",
@@ -904,20 +554,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "공익",
         "공사장",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "공공",
         "공개",
         "공원",
@@ -929,11 +566,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "공정무사",
         "공사장",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "果",
@@ -942,12 +574,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "과일, 결과",
       idiom: "因果應報 (인과응보 - 원인에 따라 결과가 나타남)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "결과",
         "과일",
         "성과",
@@ -958,20 +585,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "과원",
         "과육",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "결과",
         "과일",
         "성과",
@@ -983,11 +597,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "과원",
         "과육",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "過",
@@ -996,12 +605,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "과거, 과실",
       idiom: "過猶不及 (과유불급 - 지나침은 미치지 못함과 같음)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "과거",
         "과정",
         "과실",
@@ -1012,20 +616,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "과오",
         "과잉",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "과거",
         "과정",
         "과실",
@@ -1037,11 +628,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "과잉",
         "과유불급",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "球",
@@ -1050,12 +636,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "야구, 지구",
       idiom: "寸土寸球 (촌토촌구 - 아주 작고 귀한 것)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "지구",
         "야구",
         "구기",
@@ -1066,20 +647,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "구기종목",
         "구기경기",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "지구",
         "야구",
         "구기",
@@ -1091,11 +659,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "구기종목",
         "구기경기",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "郡",
@@ -1104,12 +667,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "군수, 군청",
       idiom: "郡縣制 (군현제 - 고대 중국의 행정 구역 제도)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "군수",
         "군청",
         "군민",
@@ -1120,20 +678,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "군내",
         "군정청",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "군수",
         "군청",
         "군민",
@@ -1145,11 +690,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "군내",
         "군정청",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "貴",
@@ -1158,12 +698,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "귀족, 귀중",
       idiom: "富貴榮華 (부귀영화 - 부유하고 귀하며 영예로운 삶)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "귀중",
         "귀족",
         "귀하",
@@ -1174,20 +709,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "귀빈",
         "귀중품",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "귀중",
         "귀족",
         "귀하",
@@ -1199,11 +721,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "귀중품",
         "부귀영화",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "根",
@@ -1212,12 +729,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "근본, 뿌리",
       idiom: "根深柢固 (근심지고 - 뿌리가 깊이 박혀 굳건함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "근본",
         "근거",
         "근원",
@@ -1228,20 +740,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "근력",
         "근황",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "근본",
         "근거",
         "근원",
@@ -1253,11 +752,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "근심지고",
         "근황",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "級",
@@ -1266,12 +760,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "학년, 계급",
       idiom: "等級分類 (등급분류 - 등급으로 나눔)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "등급",
         "학년",
         "계급",
@@ -1282,20 +771,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "급증",
         "급격",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "등급",
         "학년",
         "계급",
@@ -1307,11 +783,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "급격",
         "등급분류",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "吉",
@@ -1320,12 +791,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "길몽, 길일",
       idiom: "吉祥如意 (길상여의 - 길하고 상서로운 일이 뜻대로 이루어짐)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "길상",
         "길일",
         "길몽",
@@ -1336,20 +802,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "길하다",
         "길하다",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "길상",
         "길일",
         "길몽",
@@ -1361,11 +814,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "길하다",
         "길하다",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "能",
@@ -1374,12 +822,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "재능, 기능",
       idiom: "能書不擇筆 (능서불택필 - 글을 잘 쓰는 사람은 붓을 가리지 않음)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "재능",
         "기능",
         "능력",
@@ -1390,20 +833,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "능력자",
         "능력시험",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "재능",
         "기능",
         "능력",
@@ -1415,11 +845,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "능력자",
         "능력시험",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "堂",
@@ -1428,12 +853,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "강당, 식당",
       idiom: "堂堂正正 (당당정정 - 당당하고 떳떳함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "강당",
         "식당",
         "당당",
@@ -1444,20 +864,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "당연",
         "당초",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "강당",
         "식당",
         "당당",
@@ -1469,11 +876,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "당당정정",
         "당초",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "待",
@@ -1482,12 +884,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "대기, 기대",
       idiom: "待人處世 (대인처세 - 사람을 대하고 세상을 살아감)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "대기",
         "기대",
         "대기실",
@@ -1498,20 +895,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "대기중",
         "대기하다",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "대기",
         "기대",
         "대기실",
@@ -1523,11 +907,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "대인처세",
         "대기하다",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "德",
@@ -1536,12 +915,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "도덕, 은덕",
       idiom: "德高望重 (덕고망중 - 덕망이 높고 존경을 받음)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "도덕",
         "은덕",
         "덕망",
@@ -1552,20 +926,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "덕화",
         "덕업",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "도덕",
         "은덕",
         "덕망",
@@ -1577,11 +938,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "덕고망중",
         "덕업",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "圖",
@@ -1590,12 +946,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "지도, 도면",
       idiom: "圖難於其易 (도난어기이 - 어려운 일을 쉬운 일로 만듦)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "지도",
         "도면",
         "도표",
@@ -1606,20 +957,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "도화",
         "도설",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "지도",
         "도면",
         "도표",
@@ -1631,11 +969,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "도설",
         "도난어기이",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "度",
@@ -1644,12 +977,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "정도, 태도",
       idiom: "度量衡 (도량형 - 길이 부피 무게의 단위)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "정도",
         "태도",
         "온도",
@@ -1660,20 +988,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "밀도",
         "압력",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "정도",
         "태도",
         "온도",
@@ -1685,11 +1000,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "압력",
         "도량형",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "童",
@@ -1698,12 +1008,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "동화, 아동",
       idiom: "童顏白髮 (동안백발 - 얼굴은 젊으나 머리는 흰)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "동화",
         "아동",
         "동심",
@@ -1714,20 +1019,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "동료",
         "동기",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "동화",
         "아동",
         "동심",
@@ -1739,11 +1031,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "동기",
         "동안백발",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "動",
@@ -1752,12 +1039,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "운동, 감동",
       idiom: "風雲變動 (풍운변동 - 세상이 급변함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "운동",
         "감동",
         "동작",
@@ -1768,20 +1050,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "동의",
         "동의서",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "운동",
         "감동",
         "동작",
@@ -1793,11 +1062,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "동의서",
         "풍운변동",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "落",
@@ -1806,12 +1070,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "낙엽, 추락",
       idiom: "落花流水 (낙화유수 - 떨어지는 꽃과 흐르는 물)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "낙엽",
         "추락",
         "낙하",
@@ -1822,20 +1081,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "낙원",
         "낙지",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "낙엽",
         "추락",
         "낙하",
@@ -1847,11 +1093,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "낙지",
         "낙화유수",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "良",
@@ -1860,12 +1101,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "양심, 불량",
       idiom: "良藥苦口 (양약고구 - 좋은 약은 입에 쓰다)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "양심",
         "불량",
         "양호",
@@ -1876,20 +1112,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "양해",
         "양가",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "양심",
         "불량",
         "양호",
@@ -1901,11 +1124,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "양약고구",
         "양가",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "歷",
@@ -1914,12 +1132,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "역사, 경력",
       idiom: "歷戰老將 (역전노장 - 여러 전쟁을 겪은 노련한 장수)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "역사",
         "경력",
         "역대",
@@ -1930,20 +1143,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "역사책",
         "역사교육",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "역사",
         "경력",
         "역대",
@@ -1955,11 +1155,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "역사교육",
         "역전노장",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "例",
@@ -1968,12 +1163,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "사례, 규칙",
       idiom: "例行公事 (예행공사 - 일상적으로 하는 일)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "사례",
         "규칙",
         "예시",
@@ -1984,20 +1174,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "예습",
         "예습하다",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "사례",
         "규칙",
         "예시",
@@ -2009,11 +1186,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "예습하다",
         "예행공사",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "禮",
@@ -2022,12 +1194,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "예절, 예의",
       idiom: "禮儀廉恥 (예의염치 - 예의와 염치)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "예절",
         "예의",
         "예식",
@@ -2038,20 +1205,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "예술관",
         "예술교육",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "예절",
         "예의",
         "예식",
@@ -2063,11 +1217,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "예술교육",
         "예의염치",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "路",
@@ -2076,12 +1225,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "도로, 통로",
       idiom: "一路順風 (일로순풍 - 가는 길이 순풍처럼 순조로움)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "도로",
         "통로",
         "길",
@@ -2092,20 +1236,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "길찾기",
         "길안내서",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "도로교통",
         "도로안전",
         "도로법",
@@ -2122,11 +1253,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "도로교통안전",
         "도로교통정책",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "勞",
@@ -2135,12 +1261,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "노동, 노력",
       idiom: "勞心焦思 (노심초사 - 마음을 쓰고 애를 태움)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "노동",
         "노력",
         "노동자",
@@ -2151,20 +1272,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "노동조건",
         "노동교육",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "노동시장",
         "노동경제",
         "노동생산성",
@@ -2181,11 +1289,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "노동생산성증대책",
         "노동생산성제고책",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "綠",
@@ -2194,12 +1297,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "녹색, 초록",
       idiom: "綠陰芳草 (녹음방초 - 푸른 숲과 향기로운 풀)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "녹색",
         "초록",
         "녹지",
@@ -2210,20 +1308,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "녹색식품",
         "녹색환경",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "녹색성장",
         "녹색경제",
         "녹색기술",
@@ -2240,11 +1325,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "녹색생활",
         "녹색소비",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "流",
@@ -2253,12 +1333,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "유출, 유행",
       idiom: "流言蜚語 (유언비어 - 근거 없는 소문)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "유출",
         "유행",
         "유동",
@@ -2269,20 +1344,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "유지관리",
         "유지보수",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "유동성",
         "유동자산",
         "유동부채",
@@ -2299,11 +1361,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "유동성지원",
         "유동성확보",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "李",
@@ -2312,12 +1369,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "이씨, 오얏나무",
       idiom: "李下不整冠 (이하부정관 - 오얏나무 아래서 갓을 고쳐 쓰지 마라)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "이씨",
         "오얏나무",
         "이름",
@@ -2328,20 +1380,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "이론가",
         "이론연구",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "이론체계",
         "이론적배경",
         "이론적근거",
@@ -2358,11 +1397,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "이론적해석",
         "이론적의미",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "亡",
@@ -2371,12 +1405,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "멸망, 사망",
       idiom: "亡羊補牢 (망양보뢰 - 양 잃고 외양간 고침)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "멸망",
         "사망",
         "망국",
@@ -2387,20 +1416,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "망년회",
         "망년회장",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "멸망사",
         "멸망원인",
         "멸망과정",
@@ -2417,11 +1433,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "멸망이론",
         "멸망모델",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "買",
@@ -2430,12 +1441,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "구매, 매수",
       idiom: "買櫝還珠 (매독환주 - 상자를 사고 구슬을 돌려줌)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "구매",
         "매수",
         "매입",
@@ -2446,20 +1452,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "매장관리",
         "매장운영",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "구매력",
         "구매의향",
         "구매행동",
@@ -2476,11 +1469,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "구매가이드",
         "구매조언",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "賣",
@@ -2489,12 +1477,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "판매, 매각",
       idiom: "賣官賣職 (매관매직 - 관직을 사고 팖)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "판매",
         "매각",
         "매도",
@@ -2505,20 +1488,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "매장관리",
         "매장운영",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "판매량",
         "판매액",
         "판매실적",
@@ -2535,11 +1505,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "판매담당자",
         "판매대리점",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "美",
@@ -2548,12 +1513,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "미술, 미인",
       idiom: "美辭麗句 (미사여구 - 아름다운 말과 글귀)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "미술",
         "미인",
         "미국",
@@ -2564,20 +1524,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "미래직업",
         "미래전망",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "미술사",
         "미술관",
         "미술작품",
@@ -2594,11 +1541,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "미술치료이론",
         "미술치료사례",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "朴",
@@ -2607,12 +1549,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "소박, 박달나무",
       idiom: "朴實無華 (박실무화 - 꾸밈없이 소박하고 진실함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "소박",
         "박달나무",
         "박사",
@@ -2623,20 +1560,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "박사논문",
         "박사후연구",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "박물관학",
         "박물관교육",
         "박물관전시",
@@ -2653,11 +1577,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "박물관전시관리",
         "박물관전시효과",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "反",
@@ -2667,12 +1586,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       idiom:
         "反哺之孝 (반포지효 - 까마귀 새끼가 어미에게 먹이를 물어다 주는 효도)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "반대",
         "반성",
         "반발",
@@ -2683,20 +1597,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "반대입장",
         "반대세력",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "반대시위",
         "반대집회",
         "반대서명",
@@ -2713,11 +1614,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "반대서명운동지지참여",
         "반대서명운동지지지지",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "發",
@@ -2726,12 +1622,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "발표, 발생",
       idiom: "發憤忘食 (발분망식 - 분발하여 식음을 전폐함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "발표",
         "발생",
         "발견",
@@ -2742,20 +1633,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "발명품",
         "발명특허",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "발전도상국",
         "발전국가",
         "발전정책",
@@ -2772,11 +1650,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "발전과제해결계획",
         "발전과제해결목표",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "法",
@@ -2785,12 +1658,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "법률, 방법",
       idiom: "法古創新 (법고창신 - 옛것을 본받아 새것을 창조함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "법률",
         "방법",
         "법정",
@@ -2801,20 +1669,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "법무부",
         "법무부장관",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "법률가",
         "법률서비스",
         "법률상담",
@@ -2831,11 +1686,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "법률구조자문",
         "법률구조지원",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "病",
@@ -2844,12 +1694,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "질병, 병원",
       idiom: "病入膏肓 (병입고황 - 병이 깊어 고치기 어려움)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "질병",
         "병원",
         "병실",
@@ -2860,20 +1705,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "병원퇴원",
         "병원예약",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "질병관리",
         "질병예방",
         "질병치료",
@@ -2890,11 +1722,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "질병조기관리체계",
         "질병조기발견시스템",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "福",
@@ -2903,12 +1730,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "행복, 축복",
       idiom: "福祿壽 (복록수 - 복과 재물과 장수)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "행복",
         "축복",
         "복지",
@@ -2919,20 +1741,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "복지사회",
         "복지제도",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "복지서비스",
         "복지프로그램",
         "복지사업",
@@ -2949,11 +1758,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "복지기여",
         "복지기여도",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "服",
@@ -2962,12 +1766,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "의복, 복장",
       idiom: "心服口服 (심복구복 - 마음으로나 말로나 복종함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "의복",
         "복장",
         "복식",
@@ -2978,20 +1777,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "복장가이드",
         "복장코드",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "복식사",
         "복식학",
         "복식문화",
@@ -3008,11 +1794,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "복식연구단체",
         "복식연구조직",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "奉",
@@ -3021,12 +1802,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "봉사, 받들다",
       idiom: "奉公守法 (봉공수법 - 공무에 힘쓰고 법을 지킴)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "봉사",
         "받들다",
         "봉사활동",
@@ -3037,20 +1813,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "봉사프로그램",
         "봉사기관",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "봉사정책",
         "봉사제도",
         "봉사법",
@@ -3067,11 +1830,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "봉사법성과",
         "봉사법결과",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "冰",
@@ -3080,12 +1838,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "빙산, 빙하",
       idiom: "冰炭不相容 (빙탄불상용 - 얼음과 숯이 서로 용납하지 못함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "빙산",
         "빙하",
         "빙점",
@@ -3096,20 +1849,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "빙하지형",
         "빙하지질",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "빙하학",
         "빙하연구",
         "빙하관측",
@@ -3126,11 +1866,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "빙하후퇴원인분석",
         "빙하후퇴영향평가",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "仕",
@@ -3139,12 +1874,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "관리, 봉사",
       idiom: "仕途多難 (사도다난 - 벼슬길이 험난함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "관리",
         "봉사",
         "사무",
@@ -3155,20 +1885,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "사무용품",
         "사무환경",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "사무직공무원",
         "사무직직원",
         "사무직근로자",
@@ -3185,11 +1902,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "사무직업무강도",
         "사무직업무복잡도",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "思",
@@ -3198,12 +1910,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "사고, 사색",
       idiom: "思慮分別 (사려분별 - 깊이 생각하고 분별함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "사고",
         "사색",
         "사상",
@@ -3214,20 +1921,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "사상교육",
         "사상사학",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "사고력",
         "사고능력",
         "사고발달",
@@ -3244,11 +1938,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "사고발달패턴",
         "사고발달과정",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "史",
@@ -3257,12 +1946,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "역사, 사료",
       idiom: "史無前例 (사무전례 - 역사상 전례가 없음)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "역사",
         "사료",
         "사관",
@@ -3274,20 +1958,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "사료관",
         "사학자",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "역사교육",
         "역사연구",
         "역사학",
@@ -3304,11 +1975,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "역사체험학습",
         "역사체험프로그램",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "使",
@@ -3318,12 +1984,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       idiom:
         "使不爲也非不能也 (사불위야비불능야 - 하지 않는 것이지 못하는 것이 아니다)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "사용",
         "사명",
         "사자",
@@ -3335,20 +1996,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "사용료",
         "사용설명서",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "사용자경험",
         "사용자인터페이스",
         "사용자만족도",
@@ -3365,11 +2013,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "사용자기대",
         "사용자만족",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "算",
@@ -3378,12 +2021,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "계산, 예산",
       idiom: "算無遺策 (산무유책 - 계책에 빠짐이 없음)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "계산",
         "예산",
         "산수",
@@ -3395,20 +2033,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "산학",
         "산업",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "계산기",
         "계산프로그램",
         "계산소프트웨어",
@@ -3425,11 +2050,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "계산정확도",
         "계산효율성",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "相",
@@ -3438,12 +2058,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "상대, 상호",
       idiom: "相扶相助 (상부상조 - 서로 돕고 도움)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "상대",
         "상호",
         "상담",
@@ -3455,20 +2070,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "상담프로그램",
         "상담활동",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "상담심리학",
         "상담심리학자",
         "상담심리학연구",
@@ -3485,11 +2087,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "상담심리학치료사",
         "상담심리학연구원",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "席",
@@ -3498,12 +2095,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "좌석, 식탁",
       idiom: "席卷天下 (석권천하 - 천하를 휩쓸어 장악함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "좌석",
         "식탁",
         "석차",
@@ -3515,20 +2107,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "석차평가",
         "석차관리",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "석차관리시스템",
         "석차관리프로그램",
         "석차관리소프트웨어",
@@ -3545,11 +2124,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "석차관리정확도",
         "석차관리효율성",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "雪",
@@ -3558,12 +2132,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "눈, 폭설",
       idiom: "雪上加霜 (설상가상 - 눈 위에 서리가 내림)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "눈",
         "폭설",
         "설원",
@@ -3575,20 +2144,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "설날인사",
         "설날음식",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "설날문화",
         "설날전통",
         "설날풍습",
@@ -3605,11 +2161,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "설날준비",
         "설날계획",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "省",
@@ -3618,12 +2169,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "반성, 생략",
       idiom: "三省吾身 (삼성오신 - 하루에 세 번 자신을 살핌)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "반성",
         "생략",
         "성찰",
@@ -3635,20 +2181,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "성찰평가",
         "성찰기록",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "성찰능력",
         "성찰기법",
         "성찰방법",
@@ -3665,11 +2198,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "성찰교육기여",
         "성찰교육기여도",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "洗",
@@ -3678,12 +2206,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "세탁, 세수",
       idiom: "洗心革面 (세심혁면 - 마음을 깨끗이 씻고 얼굴을 바꿈)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "세탁",
         "세수",
         "세제",
@@ -3695,20 +2218,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "세탁시간",
         "세탁조건",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "세탁기술",
         "세탁과학",
         "세탁화학",
@@ -3725,11 +2235,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "세탁효과",
         "세탁만족도",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "消",
@@ -3738,12 +2243,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "소멸, 소화",
       idiom: "煙消雲散 (연소운산 - 연기처럼 사라지고 구름처럼 흩어짐)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "소멸",
         "소화",
         "소비",
@@ -3755,20 +2255,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "소비계획",
         "소비통계",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "소비자보호",
         "소비자권리",
         "소비자피해",
@@ -3785,11 +2272,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "소비자분석",
         "소비자연구",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "速",
@@ -3798,12 +2280,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "신속, 속도",
       idiom: "速戰速決 (속전속결 - 빨리 싸워 빨리 결정함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "신속",
         "속도",
         "속도계",
@@ -3815,20 +2292,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "속도계산",
         "속도단위",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "속도위반단속",
         "속도위반벌금",
         "속도위반벌점",
@@ -3845,11 +2309,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "속도위반결과",
         "속도위반영향",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "孫",
@@ -3858,12 +2317,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "손자, 후손",
       idiom: "子子孫孫 (자자손손 - 자식과 손자, 대대로)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "손자",
         "후손",
         "손녀",
@@ -3875,20 +2329,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "손자돌봄",
         "손자사랑",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "후손교육",
         "후손양성",
         "후손발전",
@@ -3905,11 +2346,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "후손현황",
         "후손전망",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "樹",
@@ -3918,12 +2354,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "나무, 식수",
       idiom: "樹大根深 (수대근심 - 나무가 크면 뿌리도 깊다)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "나무",
         "식수",
         "수목",
@@ -3935,20 +2366,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "수목학습",
         "수목관찰",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "수목학",
         "수목연구",
         "수목보존",
@@ -3965,11 +2383,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "수목생태조사",
         "수목생태분석",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "數",
@@ -3978,12 +2391,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "숫자, 수량",
       idiom: "數典忘祖 (수전망조 - 자기 조상을 잊음)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "숫자",
         "수량",
         "수학",
@@ -3995,20 +2403,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "수학성적",
         "수학능력",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "수학교육",
         "수학교육학",
         "수학교육연구",
@@ -4025,11 +2420,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "수학교육성과",
         "수학교육결과",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "宿",
@@ -4038,12 +2428,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "숙박, 숙소",
       idiom: "宿緣 (숙연 - 전생의 인연)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "숙박",
         "숙소",
         "숙박업",
@@ -4055,20 +2440,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "숙박업소",
         "숙박정보",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "숙박업법",
         "숙박업법안",
         "숙박업법제정",
@@ -4085,11 +2457,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "숙박업법영향",
         "숙박업법기여",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "順",
@@ -4098,12 +2465,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "순서, 순조",
       idiom: "順風滿帆 (순풍만범 - 순풍에 돛을 가득 달고 감)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "순서",
         "순조",
         "순서도",
@@ -4115,20 +2477,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "순서확인",
         "순서변경",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "순서도작성",
         "순서도설계",
         "순서도분석",
@@ -4145,11 +2494,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "순서도검증",
         "순서도평가",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "術",
@@ -4158,12 +2502,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "기술, 예술",
       idiom: "權謀術數 (권모술수 - 권모와 술책)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "기술",
         "예술",
         "기술자",
@@ -4175,20 +2514,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "기술평가",
         "기술관리",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "기술이전",
         "기술협력",
         "기술교류",
@@ -4205,11 +2531,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "기술연구결과",
         "기술연구성과",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "習",
@@ -4218,12 +2539,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "연습, 습관",
       idiom: "學而時習之 (학이시습지 - 배우고 때때로 익힘)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "연습",
         "습관",
         "학습",
@@ -4235,20 +2551,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "학습활동",
         "학습환경",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "학습심리학",
         "학습심리학자",
         "학습심리학연구",
@@ -4265,11 +2568,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "학습심리학치료사",
         "학습심리학연구원",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "勝",
@@ -4278,12 +2576,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "승리, 우승",
       idiom: "優勝劣敗 (우승열패 - 우수한 자가 이기고 열등한 자가 패배함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "승리",
         "우승",
         "승부",
@@ -4295,20 +2588,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "승리자",
         "승리조건",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "승리전략",
         "승리기법",
         "승리방법",
@@ -4325,11 +2605,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "승리정신",
         "승리의지",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "始",
@@ -4338,12 +2613,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "시작, 개시",
       idiom: "始終一貫 (시종일관 - 처음부터 끝까지 한결같음)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "시작",
         "개시",
         "시작점",
@@ -4355,20 +2625,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "시작버튼",
         "시작방법",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "시작프로그램",
         "시작메뉴",
         "시작화면",
@@ -4385,11 +2642,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "시작도구패널",
         "시작도구메뉴",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "式",
@@ -4398,12 +2650,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "형식, 의식",
       idiom: "式微 (식미 - 쇠퇴함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "형식",
         "의식",
         "공식",
@@ -4415,20 +2662,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "공식선언",
         "공식기록",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "공식화",
         "공식화과정",
         "공식화절차",
@@ -4445,11 +2679,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "공식화만족도",
         "공식화평가",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "臣",
@@ -4458,12 +2687,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "신하, 대신",
       idiom: "忠臣不二 (충신불이 - 충신은 두 마음을 품지 않음)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "신하",
         "대신",
         "충신",
@@ -4475,20 +2699,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "신하교육",
         "신하문화",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "충신정신",
         "충신사상",
         "충신철학",
@@ -4505,11 +2716,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "충신발전",
         "충신연구",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "實",
@@ -4518,12 +2724,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "현실, 사실",
       idiom: "實事求是 (실사구시 - 사실에 입각하여 진리를 탐구함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "현실",
         "사실",
         "실제",
@@ -4535,20 +2736,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "실제분석",
         "실제적용",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "실제적용사례",
         "실제적용결과",
         "실제적용효과",
@@ -4565,11 +2753,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "실제적용방안",
         "실제적용전략",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "失",
@@ -4578,12 +2761,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "실수, 상실",
       idiom: "失魂落魄 (실혼락백 - 혼비백산하여 정신을 잃음)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "실수",
         "상실",
         "실패",
@@ -4595,20 +2773,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "실패예방",
         "실패관리",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "실패학습",
         "실패학습이론",
         "실패학습방법",
@@ -4625,11 +2790,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "실패학습조사",
         "실패학습통계",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "兒",
@@ -4638,12 +2798,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "아이, 남아",
       idiom: "赤子之心 (적자지심 - 갓난아이의 순수한 마음)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "아이",
         "남아",
         "아동",
@@ -4655,20 +2810,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "아동권리",
         "아동문화",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "아동심리학",
         "아동심리학자",
         "아동심리학연구",
@@ -4685,11 +2827,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "아동심리학치료사",
         "아동심리학연구원",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "愛",
@@ -4698,12 +2835,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "사랑, 애정",
       idiom: "愛之重之 (애지중지 - 매우 사랑하고 아낌)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "사랑",
         "애정",
         "애국",
@@ -4715,20 +2847,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "애국운동",
         "애국열사",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "애국정신교육",
         "애국정신함양",
         "애국정신계승",
@@ -4745,11 +2864,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "애국정신가치",
         "애국정신의미",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "野",
@@ -4758,12 +2872,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "야외, 들판",
       idiom: "野心勃勃 (야심발발 - 야심이 왕성함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "야외",
         "들판",
         "야외활동",
@@ -4775,20 +2884,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "야외실습",
         "야외수업",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "야외체험학습",
         "야외체험교육",
         "야외체험프로그램",
@@ -4805,11 +2901,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "야외체험기여",
         "야외체험가치",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "藥",
@@ -4818,12 +2909,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "약품, 의약",
       idiom: "對症下藥 (대증하약 - 증상에 맞춰 약을 씀)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "약품",
         "의약",
         "약국",
@@ -4835,20 +2921,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "약물정보",
         "약물관리",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "약물오남용예방",
         "약물오남용교육",
         "약물오남용프로그램",
@@ -4865,11 +2938,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "약물오남용기여",
         "약물오남용가치",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "陽",
@@ -4878,12 +2946,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "태양, 양지",
       idiom: "陽春白雪 (양춘백설 - 고상하여 아는 사람이 적음)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "태양",
         "양지",
         "양성",
@@ -4895,20 +2958,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "양성발전",
         "양성협력",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "양성평등교육",
         "양성평등정책",
         "양성평등법",
@@ -4925,11 +2975,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "양성평등법성과",
         "양성평등법결과",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "洋",
@@ -4938,12 +2983,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "서양, 대양",
       idiom: "洋洋自得 (양양자득 - 매우 만족하여 득의양양함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "서양",
         "대양",
         "양식",
@@ -4955,20 +2995,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "양식역사",
         "양식교육",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "양식문화교육",
         "양식문화정책",
         "양식문화법",
@@ -4985,11 +3012,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "양식문화법성과",
         "양식문화법결과",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "漁",
@@ -4999,12 +3021,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       idiom:
         "漁夫之利 (어부지리 - 어부의 이익; 둘이 다투다 제3자가 이익을 얻음)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "어부",
         "어선",
         "어업",
@@ -5016,20 +3033,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "어업정보",
         "어업정책",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "어업정책법",
         "어업정책법안",
         "어업정책법제정",
@@ -5046,11 +3050,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "어업정책법영향",
         "어업정책법기여",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "億",
@@ -5059,12 +3058,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "억, 수억",
       idiom: "億萬長者 (억만장자 - 억만금을 가진 부자)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "억",
         "수억",
         "억만장자",
@@ -5076,20 +3070,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "억단위통계",
         "억단위분석",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "억단위경제",
         "억단위경제학",
         "억단위경제연구",
@@ -5106,11 +3087,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "억단위경제분석",
         "억단위경제조사",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "業",
@@ -5119,12 +3095,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "직업, 산업",
       idiom: "敬業樂群 (경업낙군 - 일에 정진하고 동료와 즐겁게 지냄)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "직업",
         "산업",
         "업무",
@@ -5136,20 +3107,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "업무환경",
         "업무효율",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "업무효율성",
         "업무효율성향상",
         "업무효율성증대",
@@ -5166,11 +3124,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "업무효율성향상전략",
         "업무효율성증대전략",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "如",
@@ -5179,12 +3132,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "여하, 만약",
       idiom: "如願以償 (여원이상 - 소원대로 이루어짐)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "여하",
         "만약",
         "여하간",
@@ -5196,20 +3144,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "여하한지도",
         "여하한지요",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "여하한지도모르겠다",
         "여하한지도모르겠어요",
         "여하한지도모르겠습니다",
@@ -5226,11 +3161,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "여하한지도모르겠으니깐요",
         "여하한지도모르겠으니깐요",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "然",
@@ -5239,12 +3169,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "자연, 당연",
       idiom: "泰然自若 (태연자약 - 태연하고 자연스러움)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "자연",
         "당연",
         "자연현상",
@@ -5256,20 +3181,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "자연탐구",
         "자연체험",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "자연과학연구",
         "자연과학연구소",
         "자연과학연구원",
@@ -5286,11 +3198,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "자연과학연구조사",
         "자연과학연구통계",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "溫",
@@ -5299,12 +3206,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "온도, 온실",
       idiom: "溫故知新 (온고지신 - 옛것을 익혀 새것을 앎)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "온도",
         "온실",
         "온도계",
@@ -5316,20 +3218,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "온도학습",
         "온도단위",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "온도측정기",
         "온도측정장치",
         "온도측정센서",
@@ -5346,11 +3235,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "온도측정분석",
         "온도측정조사",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "要",
@@ -5359,12 +3243,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "요구, 주요",
       idiom: "要言不煩 (요언불번 - 중요한 말은 번거롭지 않음)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "요구",
         "주요",
         "요점",
@@ -5376,20 +3255,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "요점기록",
         "요점평가",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "요점평가기준",
         "요점평가방법",
         "요점평가기법",
@@ -5406,11 +3272,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "요점평가추이",
         "요점평가전망",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "勇",
@@ -5419,12 +3280,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "용기, 용감",
       idiom: "勇往邁進 (용왕매진 - 용감하게 앞으로 나아감)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "용기",
         "용감",
         "용감한",
@@ -5436,20 +3292,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "용감도전",
         "용감정신",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "용기",
         "용감",
         "용감한",
@@ -5461,11 +3304,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "용감도전",
         "용왕매진",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "雲",
@@ -5474,12 +3312,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "구름, 적운",
       idiom: "雲泥之差 (운니지차 - 구름과 흙의 차이)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "구름",
         "적운",
         "운량",
@@ -5491,20 +3324,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "운량예보",
         "운량기록",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "구름",
         "적운",
         "운량",
@@ -5516,11 +3336,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "운량예보",
         "운니지차",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "運",
@@ -5529,12 +3344,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "운동, 운수",
       idiom: "運籌帷幄 (운주유악 - 천막 안에서 계획을 세움)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "운동",
         "운수",
         "운동회",
@@ -5546,20 +3356,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "운동법",
         "운동효과",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "운동",
         "운수",
         "운동회",
@@ -5571,11 +3368,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "운동법",
         "운주유악",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "園",
@@ -5584,12 +3376,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "정원, 유치원",
       idiom: "桃源鄕 (도원향 - 무릉도원; 이상향)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "정원",
         "유치원",
         "원장",
@@ -5601,20 +3388,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "원시설",
         "원환경",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "정원",
         "유치원",
         "원장",
@@ -5626,11 +3400,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "원시설",
         "도원향",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "院",
@@ -5639,12 +3408,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "병원, 학원",
       idiom: "學問之院 (학문지원 - 학문의 전당)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "병원",
         "학원",
         "원장",
@@ -5656,20 +3420,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "원시설",
         "원환경",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "병원",
         "학원",
         "원장",
@@ -5681,11 +3432,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "원시설",
         "학문지원",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "油",
@@ -5694,12 +3440,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "기름, 석유",
       idiom: "燈盡油枯 (등진유고 - 등불이 꺼지고 기름이 마름)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "기름",
         "석유",
         "유류",
@@ -5711,20 +3452,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "유류정책",
         "유류환경",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "기름",
         "석유",
         "유류",
@@ -5736,11 +3464,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "유류정책",
         "등진유고",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "由",
@@ -5749,12 +3472,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "이유, 유래",
       idiom: "言由心生 (언유심생 - 말은 마음에서 생겨남)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "이유",
         "유래",
         "유발",
@@ -5766,20 +3484,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "유발분석",
         "유발연구",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "이유",
         "유래",
         "유발",
@@ -5791,11 +3496,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "유발분석",
         "언유심생",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "飮",
@@ -5804,12 +3504,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "음료, 음주",
       idiom: "飮酒歌舞 (음주가무 - 술 마시고 노래하고 춤춤)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "음료",
         "음주",
         "음료수",
@@ -5821,20 +3516,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "음료선택",
         "음료소비",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "음료",
         "음주",
         "음료수",
@@ -5846,11 +3528,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "음료선택",
         "음주가무",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "醫",
@@ -5859,12 +3536,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "의료, 의사",
       idiom: "醫食同源 (의식동원 - 의학과 음식은 근원이 같다)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "의료",
         "의사",
         "의료진",
@@ -5876,20 +3548,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "의료관리",
         "의료교육",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "의료",
         "의사",
         "의료진",
@@ -5901,11 +3560,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "의료관리",
         "의식동원",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "以",
@@ -5914,12 +3568,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "이하, 이상",
       idiom: "以心傳心 (이심전심 - 마음에서 마음으로 전함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "이하",
         "이상",
         "이상적",
@@ -5931,20 +3580,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "이상관념",
         "이상실현",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "이하",
         "이상",
         "이상적",
@@ -5956,11 +3592,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "이상관념",
         "이심전심",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "因",
@@ -5969,12 +3600,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "원인, 요인",
       idiom: "因循守舊 (인순수구 - 옛것을 따르고 낡은 것을 지킴)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "원인",
         "요인",
         "인과관계",
@@ -5986,20 +3612,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "인과관찰",
         "인과학습",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "원인",
         "요인",
         "인과관계",
@@ -6011,11 +3624,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "인과관찰",
         "인순수구",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "任",
@@ -6024,12 +3632,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "임무, 책임",
       idiom: "任重道遠 (임중도원 - 맡은 바 책임은 무겁고 갈 길은 멈)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "임무",
         "책임",
         "임무수행",
@@ -6041,20 +3644,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "임무환경",
         "임무효율",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "임무",
         "책임",
         "임무수행",
@@ -6066,11 +3656,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "임무환경",
         "임중도원",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "者",
@@ -6079,12 +3664,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "학자, 병자",
       idiom: "仁者無敵 (인자무적 - 어진 사람은 적이 없음)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "학자",
         "병자",
         "연구자",
@@ -6096,20 +3676,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "연구기관",
         "연구환경",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "학자",
         "병자",
         "연구자",
@@ -6121,11 +3688,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "연구기관",
         "인자무적",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "昨",
@@ -6134,12 +3696,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "어제, 작년",
       idiom: "昨日之事不可追 (작일지사불가추 - 어제 일은 되돌릴 수 없다)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "어제",
         "작년",
         "작일",
@@ -6151,20 +3708,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "작일평가",
         "작일반성",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "어제",
         "작년",
         "작일",
@@ -6176,11 +3720,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "작일평가",
         "작일지사불가추",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "章",
@@ -6189,12 +3728,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "규칙, 휘장",
       idiom: "斷章取義 (단장취의 - 문맥을 무시하고 일부만 인용)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "규칙",
         "휘장",
         "장학금",
@@ -6206,20 +3740,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "장학관리",
         "장학활동",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "규칙",
         "휘장",
         "장학금",
@@ -6231,11 +3752,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "장학관리",
         "단장취의",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "再",
@@ -6244,12 +3760,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "재회, 재활",
       idiom: "再三再四 (재삼재사 - 여러 번 거듭하여)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "재회",
         "재활",
         "재활용",
@@ -6261,20 +3772,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "재활용환경",
         "재활용문화",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "재회",
         "재활",
         "재활용",
@@ -6286,11 +3784,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "재활용환경",
         "재삼재사",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "在",
@@ -6300,12 +3793,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       idiom:
         "不在其位不謀其政 (부재기위불모기정 - 그 자리에 없으면 그 정사를 꾀하지 않음)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "현재",
         "존재",
         "재학",
@@ -6317,20 +3805,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "재학정보",
         "재학활동",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "현재",
         "존재",
         "재학",
@@ -6342,11 +3817,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "재학정보",
         "부재기위불모기정",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "材",
@@ -6355,12 +3825,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "재료, 인재",
       idiom: "因材施教 (인재시교 - 재능에 따라 가르침)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "재료",
         "인재",
         "재료학습",
@@ -6372,20 +3837,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "재료관리",
         "재료교육",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "재료",
         "인재",
         "재료학습",
@@ -6397,11 +3849,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "재료관리",
         "인재시교",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "的",
@@ -6410,12 +3857,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "목적, 목표",
       idiom: "衆矢之的 (중시지적 - 여러 화살의 과녁)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "목적",
         "목표",
         "목적지",
@@ -6427,20 +3869,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "목적교육",
         "목적실현",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "목적",
         "목표",
         "목적지",
@@ -6452,11 +3881,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "목적교육",
         "중시지적",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "赤",
@@ -6465,12 +3889,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "적색, 적도",
       idiom: "赤手空拳 (적수공권 - 맨손과 맨주먹)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "적색",
         "적도",
         "적도선",
@@ -6482,20 +3901,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "적도실험",
         "적도탐구",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "적색",
         "적도",
         "적도선",
@@ -6507,11 +3913,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "적도실험",
         "적수공권",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "典",
@@ -6520,12 +3921,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "전통, 사전",
       idiom: "引經據典 (인경거전 - 경전과 고사를 인용함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "전통",
         "사전",
         "전통문화",
@@ -6537,20 +3933,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "전통관습",
         "전통가치",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "전통",
         "사전",
         "전통문화",
@@ -6562,11 +3945,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "전통관습",
         "인경거전",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "戰",
@@ -6575,12 +3953,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "전쟁, 전투",
       idiom: "戰戰兢兢 (전전긍긍 - 매우 두려워하며 조심함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "전쟁",
         "전투",
         "전쟁사",
@@ -6592,20 +3965,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "전쟁문학",
         "전쟁기념",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "전쟁",
         "전투",
         "전쟁사",
@@ -6617,11 +3977,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "전쟁문학",
         "전전긍긍",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "展",
@@ -6630,12 +3985,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "전시, 발전",
       idiom: "展翅高飛 (전시고비 - 날개를 펼치고 높이 날아감)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "전시",
         "발전",
         "전시회",
@@ -6647,20 +3997,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "전시기획",
         "전시평가",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "전시",
         "발전",
         "전시회",
@@ -6672,11 +4009,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "전시기획",
         "전시고비",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "庭",
@@ -6685,12 +4017,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "정원, 가정",
       idiom: "門庭若市 (문정약시 - 문 앞이 시장 같음)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "정원",
         "가정",
         "정원관리",
@@ -6702,20 +4029,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "정원관찰",
         "정원학습",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "정원",
         "가정",
         "정원관리",
@@ -6727,11 +4041,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "정원관찰",
         "문정약시",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "定",
@@ -6740,12 +4049,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "결정, 안정",
       idiom: "心神安定 (심신안정 - 마음과 정신이 안정됨)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "결정",
         "안정",
         "결정권",
@@ -6757,20 +4061,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "결정평가",
         "결정실행",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "결정",
         "안정",
         "결정권",
@@ -6782,11 +4073,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "결정평가",
         "심신안정",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "題",
@@ -6795,12 +4081,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "제목, 문제",
       idiom: "小題大作 (소제대작 - 사소한 일을 과장함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "제목",
         "문제",
         "문제해결",
@@ -6812,20 +4093,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "문제학습",
         "문제평가",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "제목",
         "문제",
         "문제해결",
@@ -6837,11 +4105,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "문제학습",
         "소제대작",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "第",
@@ -6850,12 +4113,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "제일, 순서",
       idiom: "次第不亂 (차례불란 - 순서가 흐트러지지 않음)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "제일",
         "순서",
         "제일학년",
@@ -6867,20 +4125,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "제일학기활동",
         "제일학기평가",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "제일",
         "순서",
         "제일학년",
@@ -6892,11 +4137,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "제일학기활동",
         "차례불란",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "族",
@@ -6905,12 +4145,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "민족, 가족",
       idiom: "同族相殘 (동족상잔 - 같은 겨레끼리 서로 싸움)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "민족",
         "가족",
         "민족문화",
@@ -6922,20 +4157,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "민족발전",
         "민족통합",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "민족",
         "가족",
         "민족문화",
@@ -6947,11 +4169,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "민족발전",
         "동족상잔",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "卒",
@@ -6960,12 +4177,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "병졸, 졸업",
       idiom: "草卒了事 (초졸료사 - 일을 대충 마침)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "병졸",
         "졸업",
         "졸업식",
@@ -6977,20 +4189,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "졸업준비",
         "졸업평가",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "병졸",
         "졸업",
         "졸업식",
@@ -7002,11 +4201,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "졸업준비",
         "초졸료사",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "州",
@@ -7015,12 +4209,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "주민, 주청",
       idiom: "九州 (구주 - 천하)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "주민",
         "주민참여",
         "주민자치",
@@ -7032,20 +4221,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "주민조사",
         "주민의견",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "주민",
         "주민참여",
         "주민자치",
@@ -7057,11 +4233,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "주민조사",
         "구주",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "注",
@@ -7070,12 +4241,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "주의, 주사",
       idiom: "全神貫注 (전신관주 - 온 정신을 집중함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "주의",
         "주사",
         "주의사항",
@@ -7087,20 +4253,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "주의평가",
         "주의관리",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "주의",
         "주사",
         "주의사항",
@@ -7112,11 +4265,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "주의평가",
         "전신관주",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "止",
@@ -7125,12 +4273,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "중지, 금지",
       idiom: "知足常樂 (지족상락 - 만족할 줄 알면 항상 즐겁다)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "중지",
         "금지",
         "금지구역",
@@ -7142,20 +4285,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "금지활동",
         "금지정책",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "중지",
         "금지",
         "금지구역",
@@ -7167,11 +4297,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "금지활동",
         "지족상락",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "知",
@@ -7180,12 +4305,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "지식, 인지",
       idiom: "知己之友 (지기지우 - 자기를 알아주는 친구)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "지식",
         "인지",
         "지식학습",
@@ -7197,20 +4317,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "지식평가",
         "지식공유",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "지식",
         "인지",
         "지식학습",
@@ -7222,11 +4329,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "지식평가",
         "지기지우",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "紙",
@@ -7235,12 +4337,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "종이, 신문지",
       idiom: "紙上談兵 (지상담병 - 책상 위에서만 전쟁을 논함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "종이",
         "신문지",
         "종이학습",
@@ -7252,20 +4349,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "종이재활용",
         "종이절약",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "종이",
         "신문지",
         "종이학습",
@@ -7277,11 +4361,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "종이재활용",
         "지상담병",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "集",
@@ -7290,12 +4369,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "집중, 모집",
       idiom: "集大成 (집대성 - 크게 모아 완성함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "집중",
         "모집",
         "집중력",
@@ -7307,20 +4381,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "집중평가",
         "집중효과",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "집중",
         "모집",
         "집중력",
@@ -7332,11 +4393,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "집중평가",
         "집대성",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "參",
@@ -7345,12 +4401,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "참석, 참가",
       idiom: "參差不齊 (참차불제 - 들쑥날쑥하여 고르지 못함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "참석",
         "참가",
         "참여",
@@ -7362,20 +4413,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "참여문화",
         "참여정책",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "참석",
         "참가",
         "참여",
@@ -7387,11 +4425,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "참여문화",
         "참차불제",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "窓",
@@ -7400,12 +4433,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "창문, 창가",
       idiom: "窓明几淨 (창명궤정 - 창문이 밝고 책상이 깨끗함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "창문",
         "창가",
         "창문관리",
@@ -7417,20 +4445,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "창문활용",
         "창문교육",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "창문",
         "창가",
         "창문관리",
@@ -7442,11 +4457,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "창문활용",
         "창명궤정",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "責",
@@ -7455,12 +4465,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "책임, 비난",
       idiom: "責無旁貸 (책무방대 - 책임을 남에게 미룰 수 없음)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "책임",
         "비난",
         "책임감",
@@ -7472,20 +4477,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "책임환경",
         "책임문화",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "책임",
         "비난",
         "책임감",
@@ -7497,11 +4489,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "책임환경",
         "책무방대",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "淸",
@@ -7510,12 +4497,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "청결, 청춘",
       idiom: "淸風明月 (청풍명월 - 맑은 바람과 밝은 달)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "청결",
         "청춘",
         "청결관리",
@@ -7527,20 +4509,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "청결정책",
         "청결관찰",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "청결",
         "청춘",
         "청결관리",
@@ -7552,11 +4521,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "청결정책",
         "청풍명월",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "體",
@@ -7565,12 +4529,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "신체, 체육",
       idiom: "身體髮膚 (신체발부 - 몸과 머리카락과 피부)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "신체",
         "체육",
         "체육관",
@@ -7582,20 +4541,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "체육문화",
         "체육정책",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "신체",
         "체육",
         "체육관",
@@ -7607,11 +4553,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "체육문화",
         "신체발부",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "初",
@@ -7620,12 +4561,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "초등, 처음",
       idiom: "初志一貫 (초지일관 - 처음 세운 뜻을 한결같이 밀고 나감)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "초등",
         "처음",
         "초등학교",
@@ -7637,20 +4573,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "초등환경",
         "초등문화",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "초기",
         "초보",
         "초급",
@@ -7669,11 +4592,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "초등환경",
         "초등문화",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "充",
@@ -7682,12 +4600,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "충전, 충분",
       idiom: "充耳不聞 (충이불문 - 귀에 가득 차 들어도 듣지 않음)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "충실",
         "충실한",
         "충실하게",
@@ -7699,20 +4612,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "충실평가",
         "충실환경",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "충전",
         "충분",
         "충실",
@@ -7732,11 +4632,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "충고",
         "충의",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "特",
@@ -7745,12 +4640,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "특징, 특별",
       idiom: "特立獨行 (특립독행 - 홀로 서서 독자적으로 행동함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "특징",
         "특별",
         "특별활동",
@@ -7762,20 +4652,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "특별정책",
         "특별관찰",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "특징",
         "특별",
         "특별활동",
@@ -7796,11 +4673,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "특수학급",
         "특수아동",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "表",
@@ -7809,12 +4681,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "표정, 표현",
       idiom: "表裏不同 (표리부동 - 겉과 속이 다름)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "표정",
         "표현",
         "표현력",
@@ -7826,20 +4693,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "표현문화",
         "표현정책",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "표정",
         "표현",
         "표현력",
@@ -7861,11 +4715,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "표어선거",
         "표어운동",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "品",
@@ -7874,12 +4723,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "상품, 작품",
       idiom: "品行方正 (품행방정 - 품행이 바르고 단정함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "상품",
         "작품",
         "품질",
@@ -7891,20 +4735,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "품질문화",
         "품질정책",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "상품",
         "작품",
         "품질",
@@ -7926,11 +4757,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "품질보증",
         "품질인증",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "風",
@@ -7939,12 +4765,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "태풍, 바람",
       idiom: "風前燈火 (풍전등화 - 바람 앞의 등불)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "태풍",
         "바람",
         "풍력",
@@ -7956,20 +4777,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "풍력관리",
         "풍력환경",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "태풍",
         "바람",
         "풍력",
@@ -7991,11 +4799,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "풍자",
         "풍자문학",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "必",
@@ -8004,12 +4807,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "필수, 반드시",
       idiom: "必死則生 (필사즉생 - 죽기를 각오하면 산다)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "필수",
         "반드시",
         "필수과목",
@@ -8021,20 +4819,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "필수환경",
         "필수정책",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "필수",
         "반드시",
         "필수과목",
@@ -8056,11 +4841,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "필수도구",
         "필수자료",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "河",
@@ -8069,12 +4849,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "강하, 운하",
       idiom: "河淸海晏 (하청해안 - 세상이 평화로움)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "강하",
         "운하",
         "하천",
@@ -8086,20 +4861,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "하천환경",
         "하천정책",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "강하",
         "운하",
         "하천",
@@ -8121,11 +4883,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "하천정비",
         "하천복원",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "幸",
@@ -8134,12 +4891,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "행복, 불행",
       idiom: "幸災樂禍 (행재낙화 - 남의 불행을 다행으로 여기고 즐거워함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "행복",
         "불행",
         "행복감",
@@ -8151,20 +4903,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "행복문화",
         "행복정책",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "행복",
         "불행",
         "행복감",
@@ -8186,11 +4925,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "행정투명",
         "행정민주",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "現",
@@ -8199,12 +4933,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "현재, 표현",
       idiom: "現身說法 (현신설법 - 직접 나타나 법을 설함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "현재",
         "표현",
         "현재상황",
@@ -8216,20 +4945,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "현재환경",
         "현재정책",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "현재",
         "표현",
         "현재상황",
@@ -8251,11 +4967,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "현대예술",
         "현대철학",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "號",
@@ -8264,12 +4975,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "번호, 호칭",
       idiom: "發號施令 (발호시령 - 명령을 내림)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "번호",
         "호칭",
         "번호관리",
@@ -8281,20 +4987,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "번호평가",
         "번호환경",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "번호",
         "호칭",
         "번호관리",
@@ -8316,11 +5009,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "호적정리",
         "호적관리",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "畫",
@@ -8329,12 +5017,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "그림, 삽화",
       idiom: "畫龍點睛 (화룡점정 - 용을 그리고 눈을 찍음)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "그림",
         "삽화",
         "화가",
@@ -8346,20 +5029,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "화가문화",
         "화가정책",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "그림",
         "삽화",
         "화가",
@@ -8381,11 +5051,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "화재보험",
         "화재예방",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "化",
@@ -8394,12 +5059,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "변화, 화학",
       idiom: "變化無常 (변화무상 - 변화가 무궁무진함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "변화",
         "화학",
         "화학실험",
@@ -8411,20 +5071,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "화학평가",
         "화학환경",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "변화",
         "화학",
         "화학실험",
@@ -8446,11 +5093,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "문화재교육",
         "문화재활용",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "訓",
@@ -8459,12 +5101,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "훈장, 훈련",
       idiom: "訓誨如流 (훈회여류 - 가르침이 물 흐르듯 유창함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "훈련",
         "훈련활동",
         "훈련교육",
@@ -8476,20 +5113,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "훈련관찰",
         "훈련학습",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "훈련",
         "훈련활동",
         "훈련교육",
@@ -8511,11 +5135,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "훈도교육",
         "훈도활동",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "凶",
@@ -8524,12 +5143,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "흉년, 흉악",
       idiom: "吉凶禍福 (길흉화복 - 길하고 흉한 일, 화와 복)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "흉년",
         "흉악",
         "흉년관리",
@@ -8541,20 +5155,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "흉년평가",
         "흉년환경",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "흉년",
         "흉악",
         "흉년관리",
@@ -8576,11 +5177,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "흉기검사",
         "흉기정책",
       ],
-
-
-        },
-
-      },
     },
     {
       character: "黑",
@@ -8589,12 +5185,7 @@ export const hanjaGroupData: HanjaGroupDto = {
       example: "흑색, 암흑",
       idiom: "黑白分明 (흑백분명 - 흑과 백이 분명함)",
       level: "준4급",
-      wordLevel_mid: {
-
-        wordLevel_mid: {
-
-
-          m1: [
+      m1: [
         "흑색",
         "암흑",
         "흑백",
@@ -8606,20 +5197,7 @@ export const hanjaGroupData: HanjaGroupDto = {
         "흑백관리",
         "흑백환경",
       ],
-
-
-          m2: [],
-
-
-        },
-
-        wordLevel_mid: {
-
-
-          m1: [],
-
-
-          m2: [
+      m2: [
         "흑색",
         "암흑",
         "흑백",
@@ -8641,11 +5219,6 @@ export const hanjaGroupData: HanjaGroupDto = {
         "흑인예술",
         "흑인음악",
       ],
-
-
-        },
-
-      },
     },
   ],
 };

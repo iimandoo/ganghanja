@@ -107,8 +107,8 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
     isLoading: hanjaLoading,
     error: hanjaError,
   } = useQuery({
-    queryKey: ["hanja", selectedType, selectedLevels],
-    queryFn: () => fetchHanjaData(selectedType, selectedLevels),
+    queryKey: ["hanja", selectedType, selectedLevels, selectedVocabularyRange],
+    queryFn: () => fetchHanjaData(selectedType, selectedLevels, selectedVocabularyRange),
     enabled: !!selectedType && selectedLevels.length > 0,
   });
 

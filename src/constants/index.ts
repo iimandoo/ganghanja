@@ -5,7 +5,7 @@ export const HANJA_TYPES = [
   "어문회 검정시험",
 ] as const;
 
-export const VOCABULARY_RANGES = ["기본", "중1", "중2"] as const;
+export const VOCABULARY_RANGES = ["기본", "중급"] as const;
 
 export const MESSAGES = {
   CHAT: {

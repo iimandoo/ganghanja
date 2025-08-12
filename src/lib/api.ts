@@ -12,8 +12,7 @@ export interface HanjaData {
   type: string;
   created_at: string;
   naver_url?: string;
-  m1?: string[];
-  m2?: string[];
+  wordLevel_mid?: string[];
 }
 
 export interface HanjaApiResponse {
@@ -32,13 +31,22 @@ export interface LevelsApiResponse {
 // 한자 데이터 조회
 export async function fetchHanjaData(
   type: HanjaType,
-  levels: Level[]
+  levels: Level[],
+  vocabularyRange?: string
 ): Promise<HanjaApiResponse> {
   const typeParam = type === "대한검정회 급수자격검정" ? "TypeA" : "TypeB";
   const levelsParam = levels.join(",");
+  
+  const params = new URLSearchParams({
+    levels: levelsParam
+  });
+  
+  if (vocabularyRange) {
+    params.append('vocabularyRange', vocabularyRange);
+  }
 
   const response = await fetch(
-    `/api/hanja/${typeParam}?levels=${encodeURIComponent(levelsParam)}`
+    `/api/hanja/${typeParam}?${params.toString()}`
   );
 
   if (!response.ok) {

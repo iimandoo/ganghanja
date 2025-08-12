@@ -8,6 +8,7 @@ export async function GET(
   try {
     const { searchParams } = new URL(request.url);
     const levels = searchParams.get("levels");
+    const vocabularyRange = searchParams.get("vocabularyRange");
     const resolvedParams = await params;
 
     // 타입 검증
@@ -33,6 +34,12 @@ export async function GET(
       if (levelArray.length > 0) {
         query = query.in("level", levelArray);
       }
+    }
+
+    // 어휘 범위 필터링
+    if (vocabularyRange === "중급") {
+      query = query.not("wordLevel_mid", "is", null)
+                   .not("wordLevel_mid", "eq", "[]");
     }
 
     // 정렬 (의미 키 기준)

@@ -471,14 +471,11 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
     const text = (() => {
       if (!currentHanja) return "";
       switch (vocabularyRange) {
-        case "중1":
-          return currentHanja.m1
-            ? currentHanja.m1.join(", ")
-            : currentHanja.example;
-        case "중2":
-          return currentHanja.m2
-            ? currentHanja.m2.join(", ")
-            : currentHanja.example;
+        case "중급":
+          if (currentHanja.wordLevel_mid && Array.isArray(currentHanja.wordLevel_mid)) {
+            return currentHanja.wordLevel_mid.length > 0 ? currentHanja.wordLevel_mid.join(", ") : currentHanja.example;
+          }
+          return currentHanja.example;
         case "기본":
         default:
           return currentHanja.example;

@@ -3,11 +3,19 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { theme } from "@/styles/theme";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface AddWordModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (data: { kor: string; hanja: string }) => void;
+  vocabularyRange: "기본" | "중급";
+  currentHanja?: {
+    id: number;
+    character: string;
+    meaning: string;
+    meaning_key: string;
+  };
+  onSuccess?: () => void; // 성공 후 콜백 추가
 }
 
 const Overlay = styled.div<{ $isOpen: boolean }>`
@@ -175,22 +183,48 @@ const Button = styled.button<{ $variant?: "primary" | "secondary" }>`
 export const AddWordModal: React.FC<AddWordModalProps> = ({
   isOpen,
   onClose,
-  onSubmit,
+  vocabularyRange,
+  currentHanja,
+  onSuccess,
 }) => {
+  const { user } = useAuth();
   const [hanja, setHanja] = useState("");
   const [kor, setKor] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (hanja.trim() && kor.trim()) {
-      onSubmit({
-        kor: kor.trim(),
-        hanja: hanja.trim(),
-      });
-      // 폼 초기화
-      setHanja("");
-      setKor("");
-      onClose();
+    if (hanja.trim() && kor.trim() && currentHanja) {
+      try {
+        const { addWordToHanja } = await import("@/lib/api");
+        if (!user?.id) {
+          throw new Error("사용자 정보를 찾을 수 없습니다.");
+        }
+
+        await addWordToHanja(
+          currentHanja.id,
+          {
+            kor: kor.trim(),
+            hanja: hanja.trim(),
+          },
+          vocabularyRange,
+          user.id
+        );
+
+        // 폼 초기화
+        setHanja("");
+        setKor("");
+        onClose();
+
+        // 성공 콜백 호출 (화면 갱신용)
+        if (onSuccess) {
+          onSuccess();
+        }
+
+        // 성공 메시지 (선택사항)
+        console.log(`${hanja.trim()} (${kor.trim()}) 단어가 추가되었습니다!`);
+      } catch (error) {
+        console.error("단어 추가 실패:", error);
+      }
     }
   };
 
@@ -209,10 +243,51 @@ export const AddWordModal: React.FC<AddWordModalProps> = ({
         <Header>
           <Title>단어 추가하기</Title>
           <Description>
-            중급 활용단어에 새로운 한자와 음을 추가합니다.
+            {vocabularyRange === "기본"
+              ? "기본 활용단어에 새로운 한자와 음을 추가합니다."
+              : "중급 활용단어에 새로운 한자와 음을 추가합니다."}
           </Description>
         </Header>
         <Content>
+          {currentHanja && (
+            <div
+              style={{
+                marginBottom: "24px",
+                padding: "16px",
+                backgroundColor: "#f8f9fa",
+                borderRadius: "8px",
+                border: "1px solid #e9ecef",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "1.2rem",
+                  fontWeight: "600",
+                  marginBottom: "8px",
+                  color: theme.colors.text.primary,
+                }}
+              >
+                {currentHanja.character}
+              </div>
+              <div
+                style={{
+                  fontSize: "0.9rem",
+                  color: theme.colors.text.secondary,
+                  marginBottom: "4px",
+                }}
+              >
+                뜻: {currentHanja.meaning}
+              </div>
+              <div
+                style={{
+                  fontSize: "0.9rem",
+                  color: theme.colors.text.secondary,
+                }}
+              >
+                음: {currentHanja.meaning_key}
+              </div>
+            </div>
+          )}
           <form onSubmit={handleSubmit}>
             <FormGroup>
               <Label htmlFor="hanja">한자</Label>

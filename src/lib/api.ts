@@ -218,7 +218,9 @@ export interface WordLevelData {
 
 export const addWordToHanja = async (
   hanjaId: number,
-  wordData: WordLevelData
+  wordData: WordLevelData,
+  vocabularyRange: "기본" | "중급",
+  userId: string
 ): Promise<{
   success: boolean;
   message: string;
@@ -232,6 +234,8 @@ export const addWordToHanja = async (
     body: JSON.stringify({
       hanjaId,
       wordData,
+      vocabularyRange,
+      userId,
     }),
   });
 
@@ -241,4 +245,107 @@ export const addWordToHanja = async (
   }
 
   return await response.json();
+};
+
+/**
+ * 단어 추가 히스토리 조회
+ */
+export interface WordHistoryItem {
+  id: number;
+  user_id: string;
+  hanja_id: number;
+  wordlevel: "기본" | "중급";
+  type: "add" | "modify" | "delete";
+  hanja: string; // 추가된 한자
+  kor: string; // 추가된 한글 음
+  before_wordlevel_es: Array<{
+    kor: string;
+    hanja: string;
+    url: string;
+  }> | null;
+  before_wordlevel_mid: Array<{
+    kor: string;
+    hanja: string;
+    url: string;
+  }> | null;
+  after_wordlevel_es: Array<{ kor: string; hanja: string; url: string }> | null;
+  after_wordlevel_mid: Array<{
+    kor: string;
+    hanja: string;
+    url: string;
+  }> | null;
+  created_at: string;
+  updated_at: string;
+  hanja_data?: {
+    id: number;
+    character: string;
+    meaning: string;
+    meaning_key: string;
+  };
+}
+
+export const getUserWordHistory = async (
+  userId: string,
+  limit: number = 50
+): Promise<WordHistoryItem[]> => {
+  const supabase = getSupabaseClient();
+
+  const { data, error } = await supabase
+    .from("word_history")
+    .select("*")
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false })
+    .limit(limit);
+
+  if (error) {
+    console.error("Failed to load word history:", error);
+    throw new Error("단어 히스토리 불러오기에 실패했습니다.");
+  }
+
+  return (data as unknown as WordHistoryItem[]) || [];
+};
+
+/**
+ * 사용자의 단어 추가 히스토리를 날짜별로 그룹화하여 조회
+ */
+export const getUserWordHistoryGroupedByDate = async (
+  userId: string,
+  limit: number = 50
+): Promise<{
+  [date: string]: WordHistoryItem[];
+}> => {
+  const history = await getUserWordHistory(userId, limit);
+
+  return history.reduce((grouped, item) => {
+    const date = new Date(item.created_at).toLocaleDateString("ko-KR");
+    if (!grouped[date]) {
+      grouped[date] = [];
+    }
+    grouped[date].push(item);
+    return grouped;
+  }, {} as { [date: string]: WordHistoryItem[] });
+};
+
+/**
+ * 특정 한자에 대한 사용자의 단어 추가 히스토리 조회
+ */
+export const getHanjaWordHistory = async (
+  userId: string,
+  hanjaId: number
+): Promise<WordHistoryItem[]> => {
+  const supabase = getSupabaseClient();
+
+  const { data, error } = await supabase
+    .from("word_history")
+    .select("*")
+    .eq("user_id", userId)
+    .eq("hanja_id", hanjaId)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Failed to load hanja word history:", error);
+    throw new Error("한자별 단어 히스토리 불러오기에 실패했습니다.");
+  }
+
+  return (data as unknown as WordHistoryItem[]) || [];
 };

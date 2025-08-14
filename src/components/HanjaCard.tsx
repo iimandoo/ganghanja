@@ -7,6 +7,8 @@ import { HanjaData } from "@/lib/api";
 import { VocabularyRange } from "@/constants";
 import { useAuth } from "@/contexts/AuthContext";
 import { LoginRequiredModal } from "@/components/LoginRequiredModal";
+import { AddWordModal } from "@/components/AddWordModal";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   getConsistentCardColor,
   getCardColorInfo,
@@ -21,7 +23,7 @@ interface HanjaCardProps {
   resetFlip?: boolean;
   disabled?: boolean;
   onHide?: (cardId: number) => void;
-  onAddWord?: () => void;
+  onSuccess?: () => void; // 성공 후 콜백 추가
 }
 
 interface WordLevelItem {
@@ -267,7 +269,7 @@ const SmallAddButton = styled.button`
   background: #1f2937;
   color: white;
   border: 3px solid #1f2937;
-  padding: 5px 10px;
+  padding: 5px 20px;
   border-radius: 12px;
   font-size: 1rem;
   font-weight: 700;
@@ -409,16 +411,18 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
   resetFlip,
   disabled = false,
   onHide,
-  onAddWord,
+  onSuccess,
 }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [noAnimation, setNoAnimation] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [isAddWordModalOpen, setIsAddWordModalOpen] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [isFadingIn, setIsFadingIn] = useState(false);
   const [currentHanja, setCurrentHanja] = useState<HanjaData | null>(hanja);
   const [nextHanja, setNextHanja] = useState<HanjaData | null>(null);
   const { user } = useAuth();
+  const queryClient = useQueryClient();
 
   // 한자 데이터가 변경될 때 fadeIn 효과 적용
   useEffect(() => {
@@ -527,6 +531,48 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
     setShowLoginModal(false);
   };
 
+  const handleAddWordModalClose = () => {
+    setIsAddWordModalOpen(false);
+  };
+
+  const handleAddWordSuccess = async () => {
+    // React Query 캐시 무효화로 데이터 새로고침
+    try {
+      await queryClient.invalidateQueries({
+        queryKey: ["hanja"],
+      });
+      console.log("React Query 캐시가 무효화되었습니다.");
+
+      // 부모 컴포넌트의 onSuccess 콜백 호출
+      if (onSuccess) {
+        onSuccess();
+      }
+    } catch (error) {
+      console.error("React Query 캐시 무효화 실패:", error);
+    }
+  };
+
+  const handleAddWordSubmit = async (data: { kor: string; hanja: string }) => {
+    if (!currentHanja) return;
+
+    try {
+      if (!user?.id) {
+        throw new Error("사용자 정보를 찾을 수 없습니다.");
+      }
+
+      const { addWordToHanja } = await import("@/lib/api");
+      await addWordToHanja(currentHanja.id, data, vocabularyRange, user.id);
+
+      // 모달 닫기
+      setIsAddWordModalOpen(false);
+
+      // 성공 메시지 (선택사항)
+      console.log(`${data.hanja} (${data.kor}) 단어가 추가되었습니다!`);
+    } catch (error) {
+      console.error("단어 추가 실패:", error);
+    }
+  };
+
   const handleLoginClick = () => {
     // 로그인 모달을 열기 위해 이벤트를 상위로 전달
     const loginEvent = new CustomEvent("openLoginModal", {
@@ -539,9 +585,13 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
     e.preventDefault();
     e.stopPropagation();
 
-    if (onAddWord) {
-      onAddWord();
+    // 로그인 상태 확인
+    if (!user) {
+      setShowLoginModal(true);
+      return;
     }
+
+    setIsAddWordModalOpen(true);
   };
 
   // Particle effect 제거됨
@@ -645,14 +695,12 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
                   <InfoSection>
                     <InfoTitleContainer>
                       <InfoTitle>{vocabularyRange} 활용단어</InfoTitle>
-                      {onAddWord && (
-                        <SmallAddButton
-                          onClick={handleAddClick}
-                          title="활용단어 추가하기"
-                        >
-                          추가
-                        </SmallAddButton>
-                      )}
+                      <SmallAddButton
+                        onClick={handleAddClick}
+                        title="활용단어 추가하기"
+                      >
+                        추가
+                      </SmallAddButton>
                     </InfoTitleContainer>
                     <InfoText>
                       {vocabularyLines.length > 0 ? (
@@ -671,7 +719,7 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
                               return (
                                 <span key={`word-${index}`}>
                                   <a
-                                    href={item.url}
+                                    href={`https://hanja.dict.naver.com/#/search?range=word&query=${item.hanja}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     style={{
@@ -729,6 +777,23 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
         isOpen={showLoginModal}
         onClose={handleLoginModalClose}
         onLogin={handleLoginClick}
+      />
+
+      <AddWordModal
+        isOpen={isAddWordModalOpen}
+        onClose={handleAddWordModalClose}
+        vocabularyRange={vocabularyRange}
+        currentHanja={
+          currentHanja
+            ? {
+                id: currentHanja.id,
+                character: currentHanja.character,
+                meaning: currentHanja.meaning,
+                meaning_key: currentHanja.meaning_key,
+              }
+            : undefined
+        }
+        onSuccess={handleAddWordSuccess}
       />
     </>
   );

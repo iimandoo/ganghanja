@@ -18,7 +18,7 @@ import { ContactModal } from "@/components/ContactModal";
 import { ChatModal } from "@/components/ChatModal";
 import { AuthModal } from "@/components/AuthModal";
 import { UserInfo } from "@/components/UserInfo";
-import { AddWordModal } from "@/components/AddWordModal";
+
 import { useHanjaGameDB } from "@/hooks/useHanjaGameDB";
 import { useModal } from "@/hooks/useModal";
 import { useChat } from "@/hooks/useChat";
@@ -275,7 +275,23 @@ export default function Home() {
     "signin"
   );
   const [showProgressTooltip, setShowProgressTooltip] = useState(false);
-  const [isAddWordModalOpen, setIsAddWordModalOpen] = useState(false);
+
+  // React Query 캐시 무효화 함수
+  const handleRefreshData = async () => {
+    try {
+      await queryClient.invalidateQueries({
+        queryKey: [
+          "hanja",
+          selectedType,
+          selectedLevels,
+          selectedVocabularyRange,
+        ],
+      });
+      console.log("한자 데이터가 새로고침되었습니다.");
+    } catch (error) {
+      console.error("데이터 새로고침 실패:", error);
+    }
+  };
 
   const {
     currentIndex,
@@ -326,46 +342,6 @@ export default function Home() {
 
   const handleAuthModalClose = () => {
     setIsAuthModalOpen(false);
-  };
-
-  // AddWordModal 핸들러들
-  const handleAddWordModalOpen = () => {
-    setIsAddWordModalOpen(true);
-  };
-
-  const handleAddWordModalClose = () => {
-    setIsAddWordModalOpen(false);
-  };
-
-  const handleAddWordSubmit = async (data: { kor: string; hanja: string }) => {
-    if (!currentCard) {
-      snackbarHook.showSnackbar("현재 카드 정보를 찾을 수 없습니다.");
-      return;
-    }
-
-    try {
-      const { addWordToHanja } = await import("@/lib/api");
-      await addWordToHanja(currentCard.id, data);
-
-      snackbarHook.showSnackbar(
-        `${data.hanja} (${data.kor}) 단어가 추가되었습니다!`
-      );
-
-      // React Query 캐시 무효화로 데이터 새로고침
-      await queryClient.invalidateQueries({
-        queryKey: [
-          "hanja",
-          selectedType,
-          selectedLevels,
-          selectedVocabularyRange,
-        ],
-      });
-    } catch (error) {
-      console.error("단어 추가 실패:", error);
-      snackbarHook.showSnackbar(
-        error instanceof Error ? error.message : "단어 추가에 실패했습니다."
-      );
-    }
   };
 
   // URL 업데이트 함수
@@ -778,7 +754,7 @@ export default function Home() {
                 resetFlip={resetCardFlip}
                 disabled={false}
                 onHide={handleHideCard}
-                onAddWord={handleAddWordModalOpen}
+                onSuccess={handleRefreshData}
               />
             )}
           </CardSection>
@@ -817,11 +793,6 @@ export default function Home() {
           message={snackbarHook.snackbar.message}
           isVisible={snackbarHook.snackbar.isVisible}
           onClose={snackbarHook.hideSnackbar}
-        />
-        <AddWordModal
-          isOpen={isAddWordModalOpen}
-          onClose={handleAddWordModalClose}
-          onSubmit={handleAddWordSubmit}
         />
       </Container>
     </ThemeProvider>

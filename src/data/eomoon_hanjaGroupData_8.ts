@@ -2,12 +2,10 @@ export interface HanjaData {
   character: string;
   meaning: string;
   meaningKey: string;
-  example: string;
   idiom: string;
   level: string;
-  m1?: string[];
-  m2?: string[];
-  e6?: string[];
+  wordlevel_es?: Array<{ kor: string; hanja: string; url: string }>;
+  wordlevel_mid?: Array<{ kor: string; hanja: string; url: string }>;
 }
 export interface HanjaGroupDto {
   TypeA?: HanjaData[];
@@ -20,43 +18,76 @@ export const hanjaGroupData: HanjaGroupDto = {
       character: "九",
       meaning: "아홉",
       meaningKey: "구",
-      example: "구월(九月)",
       idiom: "구사일생(九死一生): 아홉 번 죽을 뻔하다 살아남",
       level: "8급",
-      m1: ["구월", "구만리", "구구단", "구구표", "구미호", "구단"],
-      m2: [
-        "구월",
-        "구만리",
-        "구구단",
-        "구구표",
-        "구미호",
-        "구단",
-        "구구법",
-        "구구공식",
-        "구구계산",
-        "구구학습",
-        "구구암기",
-        "구구연습",
-        "구구표",
-        "구구법",
-        "구구공식",
-        "구구계산",
-        "구구학습",
-        "구구암기",
-        "구구연습",
-        "구구표",
+      wordlevel_es: [
+        {
+          kor: "구월",
+          hanja: "九月",
+          url: "https://hanja.dict.naver.com/#/search?query=九月",
+        },
       ],
-      e6: [
-        "구월",
-        "구구단",
-        "구구표",
-        "구단",
-        "구구법",
-        "구구공식",
-        "구구계산",
-        "구구학습",
-        "구구암기",
-        "구구연습",
+      wordlevel_mid: [
+        {
+          kor: "구월",
+          hanja: "九月",
+          url: "https://hanja.dict.naver.com/#/search?query=九月",
+        },
+        {
+          kor: "구만리",
+          hanja: "구만리",
+          url: "https://hanja.dict.naver.com/#/search?query=구만리",
+        },
+        {
+          kor: "구구단",
+          hanja: "구구단",
+          url: "https://hanja.dict.naver.com/#/search?query=구구단",
+        },
+        {
+          kor: "구구표",
+          hanja: "구구표",
+          url: "https://hanja.dict.naver.com/#/search?query=구구표",
+        },
+        {
+          kor: "구미호",
+          hanja: "구미호",
+          url: "https://hanja.dict.naver.com/#/search?query=구미호",
+        },
+        {
+          kor: "구단",
+          hanja: "구단",
+          url: "https://hanja.dict.naver.com/#/search?query=구단",
+        },
+        {
+          kor: "구구법",
+          hanja: "구구법",
+          url: "https://hanja.dict.naver.com/#/search?query=구구법",
+        },
+        {
+          kor: "구구공식",
+          hanja: "구구공식",
+          url: "https://hanja.dict.naver.com/#/search?query=구구공식",
+        },
+        {
+          kor: "구구계산",
+          hanja: "구구계산",
+          url: "https://hanja.dict.naver.com/#/search?query=구구계산",
+        },
+        {
+          kor: "구구학습",
+          hanja: "구구학습",
+          url: "https://hanja.dict.naver.com/#/search?query=구구학습",
+        },
+        {
+          kor: "구구암기",
+          hanja: "구구암기",
+          url: "https://hanja.dict.naver.com/#/search?query=구구암기",
+        },
+        {
+          kor: "구구연습",
+          hanja: "구구연습",
+          url: "https://hanja.dict.naver.com/#/search?query=구구연습",
+        },
       ],
     },
     {

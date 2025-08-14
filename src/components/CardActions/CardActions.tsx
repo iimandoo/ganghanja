@@ -54,10 +54,6 @@ export const CardActions: React.FC<CardActionsProps> = ({
   // 급수별 숨겨진 한자 개수 계산
   const getHiddenCountByLevel = (level: Level): number => {
     if (!allHanjaData.length || !hiddenCards.size) {
-      console.log(`Level ${level}: no data or hidden cards`, {
-        dataLength: allHanjaData.length,
-        hiddenSize: hiddenCards.size,
-      });
       return 0;
     }
 
@@ -66,52 +62,21 @@ export const CardActions: React.FC<CardActionsProps> = ({
       const hanja = allHanjaData.find((h) => h.id === cardId);
 
       if (hanja) {
-        console.log(`Found hanja for cardId ${cardId}:`, {
-          character: hanja.character,
-          level: hanja.level,
-          targetLevel: `${level}급`,
-        });
-
         // DB에는 '급'이 제거된 형식("8", "7" 등)이 저장되어 있으므로 두 케이스 모두 처리
         const normalizedHanjaLevel = String(hanja.level).replace(/급$/g, "");
         if (normalizedHanjaLevel === String(level)) {
           return count + 1;
         }
       } else {
-        console.log(`No hanja found for cardId ${cardId}`);
       }
       return count;
     }, 0);
 
-    console.log(`Level ${level} final count: ${count}`);
     return count;
   };
 
-  // 전체 디버깅 정보 출력
-  console.log("=== CardActions Debug Info ===");
-  console.log("Hidden Cards Set:", hiddenCards);
-  console.log("Hidden Cards Array:", Array.from(hiddenCards));
-  console.log("All Hanja Data length:", allHanjaData.length);
-  console.log("Sample Hanja Data:", allHanjaData.slice(0, 3));
-  console.log("LEVELS:", LEVELS);
-
-  // 숨겨진 카드와 한자 데이터 매칭 테스트
-  if (hiddenCards.size > 0 && allHanjaData.length > 0) {
-    console.log("=== Matching Test ===");
-    Array.from(hiddenCards).forEach((cardId) => {
-      const hanja = allHanjaData.find((h) => h.id === cardId);
-      console.log(
-        `CardId ${cardId}:`,
-        hanja ? `Found - ${hanja.character} (${hanja.level})` : "NOT FOUND"
-      );
-    });
-  }
-
   // 숨긴 카드 취소 UI: 모든 급수를 노출하고, 각 급수에 숨긴 개수를 괄호로 표시
   const levelsWithHiddenCards = LEVELS;
-
-  console.log("Levels with hidden cards:", levelsWithHiddenCards);
-  console.log("===============================");
 
   const handleLevelToggle = (level: Level) => {
     setSelectedUnhideLevels((prev) =>

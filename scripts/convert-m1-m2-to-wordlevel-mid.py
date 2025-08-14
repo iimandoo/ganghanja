@@ -18,10 +18,10 @@ def convert_m1_m2_to_wordlevel_mid(data):
                 # m1, m2를 건너뛰고 wordLevel_mid로 통합
                 continue
             elif key == 'character':
-                # character가 있는 경우 wordLevel_mid 생성
+                # character가 있는 경우 wordlevel_mid 생성
                 result[key] = value
                 if 'm1' in data or 'm2' in data:
-                    result['wordLevel_mid'] = {
+                    result['wordlevel_mid'] = {
                         'm1': data.get('m1', []),
                         'm2': data.get('m2', [])
                     }
@@ -90,7 +90,7 @@ def main():
     print("\n변환 작업이 완료되었습니다.")
     print("\n다음 단계:")
     print("1. 각 TypeScript 파일에서 m1, m2를 wordLevel_mid로 수동 변환")
-    print("2. 데이터베이스에 wordLevel_mid 컬럼 추가")
+    print("2. 데이터베이스에 wordlevel_mid 컬럼 추가")
     print("3. 프론트엔드 코드에서 새로운 구조 사용")
 
 if __name__ == "__main__":

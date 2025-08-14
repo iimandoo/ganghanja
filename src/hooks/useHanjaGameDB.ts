@@ -41,7 +41,14 @@ export interface UseHanjaGameReturn {
   ) => void;
 }
 
-export const useHanjaGameDB = (): UseHanjaGameReturn => {
+interface UseHanjaGameParams {
+  urlLevels?: string;
+  urlVocabularyRange?: string;
+}
+
+export const useHanjaGameDB = (
+  params?: UseHanjaGameParams
+): UseHanjaGameReturn => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedLevels, setSelectedLevels] = useState<Level[]>([]);
   const [selectedType, setSelectedType] =
@@ -51,6 +58,37 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
   const [resetCardFlip, setResetCardFlip] = useState(false);
 
   const { user } = useAuth();
+
+  // URL 파라미터에 따른 설정 업데이트 (파라미터 변경 시마다 실행)
+  useEffect(() => {
+    let shouldUpdate = false;
+
+    if (params?.urlLevels) {
+      const levels = params.urlLevels
+        .split(",")
+        .filter((level) =>
+          ["8", "7", "6", "준5", "5", "준4"].includes(level)
+        ) as Level[];
+      if (
+        levels.length > 0 &&
+        JSON.stringify(levels.sort()) !== JSON.stringify(selectedLevels.sort())
+      ) {
+        setSelectedLevels(levels);
+        shouldUpdate = true;
+      }
+    }
+
+    if (params?.urlVocabularyRange) {
+      const range = params.urlVocabularyRange as VocabularyRange;
+      if (
+        (range === "기본" || range === "중급") &&
+        range !== selectedVocabularyRange
+      ) {
+        setSelectedVocabularyRange(range);
+        shouldUpdate = true;
+      }
+    }
+  }, [params?.urlLevels, params?.urlVocabularyRange]);
 
   // 사용자 설정 불러오기
   const {
@@ -82,18 +120,9 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
   } = useQuery({
     queryKey: ["levels", selectedType],
     queryFn: () => {
-      console.log("Levels query executing for type:", selectedType);
       return fetchAvailableLevels(selectedType);
     },
     enabled: !!selectedType,
-  });
-
-  console.log("Levels Query Status:", {
-    selectedType,
-    isLoading: levelsLoading,
-    hasData: !!levelsData,
-    levelsData,
-    error: levelsError,
   });
 
   const availableLevels = useMemo(
@@ -101,14 +130,22 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
     [levelsData?.levels]
   );
 
-  // 한자 데이터 조회
+  // 한자 데이터 조회 (URL 파라미터도 queryKey에 포함)
   const {
     data: hanjaResponse,
     isLoading: hanjaLoading,
     error: hanjaError,
   } = useQuery({
-    queryKey: ["hanja", selectedType, selectedLevels, selectedVocabularyRange],
-    queryFn: () => fetchHanjaData(selectedType, selectedLevels, selectedVocabularyRange),
+    queryKey: [
+      "hanja",
+      selectedType,
+      selectedLevels,
+      selectedVocabularyRange,
+      params?.urlLevels,
+      params?.urlVocabularyRange,
+    ],
+    queryFn: () =>
+      fetchHanjaData(selectedType, selectedLevels, selectedVocabularyRange),
     enabled: !!selectedType && selectedLevels.length > 0,
   });
 
@@ -121,24 +158,11 @@ export const useHanjaGameDB = (): UseHanjaGameReturn => {
   } = useQuery({
     queryKey: ["allHanja", selectedType, "all-levels"],
     queryFn: () => {
-      console.log("AllHanja query executing with hardcoded levels:", {
-        selectedType,
-        allLevels,
-      });
       return fetchHanjaData(selectedType, allLevels);
     },
     enabled: !!selectedType,
   });
 
-  console.log("AllHanja Query Status:", {
-    selectedType,
-    availableLevels,
-    availableLevelsLength: availableLevels.length,
-    enabled: !!selectedType && availableLevels.length > 0,
-    isLoading: allHanjaLoading,
-    hasData: !!allHanjaResponse,
-    dataLength: allHanjaResponse?.data?.length || 0,
-  });
   const filteredData = useMemo(
     () => hanjaResponse?.data || [],
     [hanjaResponse?.data]

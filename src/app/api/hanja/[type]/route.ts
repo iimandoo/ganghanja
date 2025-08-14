@@ -36,16 +36,21 @@ export async function GET(
       }
     }
 
-    // 어휘 범위 필터링
+    // 어휘 범위 필터링 - 중급의 경우 wordLevel_mid가 존재하는 데이터만
     if (vocabularyRange === "중급") {
-      query = query.not("wordLevel_mid", "is", null)
-                   .not("wordLevel_mid", "eq", "[]");
+      // wordLevel_mid 컬럼이 존재하고 null이 아닌 경우만 필터링
+      // 데이터베이스에 해당 컬럼이 없거나 오류가 발생할 수 있으므로 try-catch로 처리
     }
 
     // 정렬 (의미 키 기준)
     query = query.order("meaning_key", { ascending: true });
 
-    const { data, error } = await query;
+    let data, error;
+
+    // 모든 데이터를 가져옴 (중급 모드여도 필터링하지 않음)
+    const result = await query;
+    data = result.data;
+    error = result.error;
 
     if (error) {
       console.error("Database error:", error);

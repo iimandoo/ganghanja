@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import Script from "next/script";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import HanjaCard from "@/components/HanjaCard";
 import EmptyCard from "@/components/EmptyCard";
 import { SkeletonCard } from "@/components/SkeletonCard";
@@ -16,6 +18,7 @@ import { ContactModal } from "@/components/ContactModal";
 import { ChatModal } from "@/components/ChatModal";
 import { AuthModal } from "@/components/AuthModal";
 import { UserInfo } from "@/components/UserInfo";
+import { AddWordModal } from "@/components/AddWordModal";
 import { useHanjaGameDB } from "@/hooks/useHanjaGameDB";
 import { useModal } from "@/hooks/useModal";
 import { useChat } from "@/hooks/useChat";
@@ -248,7 +251,20 @@ const muiTheme = createTheme({
 });
 
 export default function Home() {
-  const gameHook = useHanjaGameDB();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
+  // URL 파라미터 처리
+  const urlLevel = searchParams.get("level");
+  const urlWord = searchParams.get("word");
+  const urlId = searchParams.get("id");
+  const urlSearch = searchParams.get("search");
+
+  const gameHook = useHanjaGameDB({
+    urlLevels: urlLevel,
+    urlVocabularyRange: urlWord,
+  });
   const modalHook = useModal();
   const chatHook = useChat();
   const { user, loading: authLoading } = useAuth();
@@ -259,6 +275,7 @@ export default function Home() {
     "signin"
   );
   const [showProgressTooltip, setShowProgressTooltip] = useState(false);
+  const [isAddWordModalOpen, setIsAddWordModalOpen] = useState(false);
 
   const {
     currentIndex,
@@ -311,6 +328,84 @@ export default function Home() {
     setIsAuthModalOpen(false);
   };
 
+  // AddWordModal 핸들러들
+  const handleAddWordModalOpen = () => {
+    setIsAddWordModalOpen(true);
+  };
+
+  const handleAddWordModalClose = () => {
+    setIsAddWordModalOpen(false);
+  };
+
+  const handleAddWordSubmit = async (data: { kor: string; hanja: string }) => {
+    if (!currentCard) {
+      snackbarHook.showSnackbar("현재 카드 정보를 찾을 수 없습니다.");
+      return;
+    }
+
+    try {
+      const { addWordToHanja } = await import("@/lib/api");
+      await addWordToHanja(currentCard.id, data);
+
+      snackbarHook.showSnackbar(
+        `${data.hanja} (${data.kor}) 단어가 추가되었습니다!`
+      );
+
+      // React Query 캐시 무효화로 데이터 새로고침
+      await queryClient.invalidateQueries({
+        queryKey: [
+          "hanja",
+          selectedType,
+          selectedLevels,
+          selectedVocabularyRange,
+        ],
+      });
+    } catch (error) {
+      console.error("단어 추가 실패:", error);
+      snackbarHook.showSnackbar(
+        error instanceof Error ? error.message : "단어 추가에 실패했습니다."
+      );
+    }
+  };
+
+  // URL 업데이트 함수
+  const updateURL = (cardId?: number, cardCharacter?: string) => {
+    const params = new URLSearchParams();
+
+    if (urlLevel) params.set("level", urlLevel);
+    if (urlWord) params.set("word", urlWord);
+
+    if (cardId) {
+      params.set("id", cardId.toString());
+    } else if (cardCharacter) {
+      params.set("search", encodeURIComponent(cardCharacter));
+    }
+
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    router.push(newUrl);
+  };
+
+  // 다음 카드로 이동
+  const handleNextWithURL = () => {
+    const nextIndex = adjustedCurrentIndex + 1;
+    if (nextIndex < visibleCards.length) {
+      const nextCard = visibleCards[nextIndex];
+      updateURL(nextCard.id, nextCard.character);
+      handleNext();
+      setShowProgressTooltip(true);
+    }
+  };
+
+  // 이전 카드로 이동
+  const handlePreviousWithURL = () => {
+    const prevIndex = adjustedCurrentIndex - 1;
+    if (prevIndex >= 0) {
+      const prevCard = visibleCards[prevIndex];
+      updateURL(prevCard.id, prevCard.character);
+      handlePrevious();
+    }
+  };
+
   // 공유하기 핸들러
   const handleShare = async () => {
     const shareData = {
@@ -340,6 +435,9 @@ export default function Home() {
       }
     }
   };
+
+  // URL 파라미터가 변경될 때마다 데이터를 다시 불러오도록 useEffect 추가
+  // (useHanjaGameDB에서 이미 처리하므로 별도 로직 불필요)
 
   // 동적 메타데이터 업데이트
   useEffect(() => {
@@ -371,15 +469,40 @@ export default function Home() {
     (card) => !hiddenCardsHook.isCardHidden(card.id)
   );
 
-  // 현재 카드 인덱스가 숨겨진 카드 개수로 인해 범위를 벗어나는 경우 조정
-  const adjustedCurrentIndex = Math.min(
+  // URL 파라미터에 따른 현재 카드 결정
+  let urlBasedCurrentCard = null;
+  let adjustedCurrentIndex = Math.min(
     currentIndex,
     Math.max(0, visibleCards.length - 1)
   );
+
+  if (urlId && !isNaN(Number(urlId))) {
+    // ID로 카드 찾기
+    const cardById = visibleCards.find((card) => card.id === Number(urlId));
+    if (cardById) {
+      urlBasedCurrentCard = cardById;
+      adjustedCurrentIndex = visibleCards.findIndex(
+        (card) => card.id === Number(urlId)
+      );
+    }
+  } else if (urlSearch) {
+    // 한자 검색으로 카드 찾기
+    const cardByHanja = visibleCards.find(
+      (card) => card.character === decodeURIComponent(urlSearch)
+    );
+    if (cardByHanja) {
+      urlBasedCurrentCard = cardByHanja;
+      adjustedCurrentIndex = visibleCards.findIndex(
+        (card) => card.character === decodeURIComponent(urlSearch)
+      );
+    }
+  }
+
   const currentCard =
-    visibleCards.length > 0 && adjustedCurrentIndex >= 0
+    urlBasedCurrentCard ||
+    (visibleCards.length > 0 && adjustedCurrentIndex >= 0
       ? visibleCards[adjustedCurrentIndex]
-      : null;
+      : null);
 
   // 다음 카드 (숨기기 시 fadeIn용)
   const nextCard =
@@ -404,10 +527,16 @@ export default function Home() {
     }
   };
 
-  // 학년설정 변경 핸들러 (스낵바 표시 포함)
+  // 학년설정 변경 핸들러 (URL 업데이트 포함)
   const handleVocabularyRangeChangeWithNotification = (
     range: VocabularyRange
   ) => {
+    // URL 파라미터 업데이트
+    const params = new URLSearchParams(searchParams);
+    params.set("word", range);
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    router.push(newUrl);
+
     handleVocabularyRangeChange(range, () => {
       // 로그인된 사용자의 경우 저장 완료 메시지 표시
       if (user) {
@@ -416,8 +545,21 @@ export default function Home() {
     });
   };
 
-  // 급수설정 변경 핸들러 (스낵바 표시 포함)
+  // 급수설정 변경 핸들러 (URL 업데이트 포함)
   const handleLevelFilterWithNotification = (level: Level) => {
+    // 새로운 급수 리스트 계산
+    const newLevels = selectedLevels.includes(level)
+      ? selectedLevels.filter((l) => l !== level)
+      : [...selectedLevels, level];
+
+    // URL 파라미터 업데이트
+    if (newLevels.length > 0) {
+      const params = new URLSearchParams(searchParams);
+      params.set("level", newLevels.join(","));
+      const newUrl = `${window.location.pathname}?${params.toString()}`;
+      router.push(newUrl);
+    }
+
     handleLevelFilter(level);
 
     // 로그인된 사용자의 경우 저장 완료 메시지 표시
@@ -587,7 +729,9 @@ export default function Home() {
           {/* landscape 모드에서 ProgressBar 아래에 CardActions 표시 */}
           <LandscapeCardActions
             onShuffle={handleShuffle}
-            onUnhideByLevels={(levels) => hiddenCardsHook.unhideCardsByLevels(levels, allHanjaData)}
+            onUnhideByLevels={(levels) =>
+              hiddenCardsHook.unhideCardsByLevels(levels, allHanjaData)
+            }
             hiddenCardsCount={hiddenCardsHook.hiddenCardsCount}
             hiddenCards={hiddenCardsHook.hiddenCards}
             allHanjaData={allHanjaData}
@@ -605,11 +749,8 @@ export default function Home() {
         <GameArea>
           <CardSection>
             <GameControls
-              onPrevious={handlePrevious}
-              onNext={() => {
-                handleNext();
-                setShowProgressTooltip(true);
-              }}
+              onPrevious={handlePreviousWithURL}
+              onNext={handleNextWithURL}
               canGoPrevious={
                 adjustedCurrentIndex > 0 && visibleCards.length > 0
               }
@@ -637,13 +778,16 @@ export default function Home() {
                 resetFlip={resetCardFlip}
                 disabled={false}
                 onHide={handleHideCard}
+                onAddWord={handleAddWordModalOpen}
               />
             )}
           </CardSection>
         </GameArea>
         <PortraitCardActions
           onShuffle={handleShuffle}
-          onUnhideByLevels={(levels) => hiddenCardsHook.unhideCardsByLevels(levels, allHanjaData)}
+          onUnhideByLevels={(levels) =>
+            hiddenCardsHook.unhideCardsByLevels(levels, allHanjaData)
+          }
           hiddenCardsCount={hiddenCardsHook.hiddenCardsCount}
           hiddenCards={hiddenCardsHook.hiddenCards}
           allHanjaData={allHanjaData}
@@ -673,6 +817,11 @@ export default function Home() {
           message={snackbarHook.snackbar.message}
           isVisible={snackbarHook.snackbar.isVisible}
           onClose={snackbarHook.hideSnackbar}
+        />
+        <AddWordModal
+          isOpen={isAddWordModalOpen}
+          onClose={handleAddWordModalClose}
+          onSubmit={handleAddWordSubmit}
         />
       </Container>
     </ThemeProvider>

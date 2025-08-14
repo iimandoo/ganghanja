@@ -36,6 +36,14 @@ export const theme = {
     warning: {
       main: "#fbbf24",
     },
+    text: {
+      primary: "#1a2b15",
+      secondary: "#6b8e6b",
+      placeholder: "#9ca3af",
+    },
+    neutral: {
+      light: "#e8f5e8",
+    },
     // 한자 카드 색상 팔레트 (현재 색상 + 5개 추가)
     cardColors: {
       green: {

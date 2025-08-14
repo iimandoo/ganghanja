@@ -2,15 +2,10 @@ export interface HanjaData {
   character: string;
   meaning: string;
   meaningKey: string;
-  example: string;
-  example_exp?: Array<{ kor: string; hanja: string; naverUrl: string }>;
   idiom: string;
   level: string;
-  wordLevel_mid?: {
-    m1: string[];
-    m2: string[];
-  };
-  m_exp?: Array<{ kor: string; hanja: string; naverUrl: string }>;
+  wordlevel_es?: Array<{ kor: string; hanja: string; url: string }>;
+  wordlevel_mid?: Array<{ kor: string; hanja: string; url: string }>;
   naverUrl?: string;
 }
 export interface HanjaGroupDto {
@@ -24,73 +19,81 @@ export const hanjaGroupData: HanjaGroupDto = {
       character: "九",
       meaning: "아홉",
       meaningKey: "구",
-      example: "구월, 구만리",
-      example_exp: [
-        {
-          kor: "구월",
-          hanja: "九月",
-          naverUrl: "https://hanja.dict.naver.com/#/search?query=九月",
-        },
-        {
-          kor: "구만리",
-          hanja: "九萬里",
-          naverUrl: "https://hanja.dict.naver.com/#/search?query=九萬里",
-        },
-      ],
       idiom:
         "九死一生 (구사일생 - 아홉 번 죽을 뻔하다가 한 번 살아남; 간신히 살아남)",
       level: "8급",
-      wordLevel_mid: {
-        wordLevel_mid: {
-
-          wordLevel_mid: {
-
-
-            m1: ["구미호", "구단", "구월", "구만리", "구구단", "구구표"],
-
-
-            m2: [],
-
-
-          },
-
-          wordLevel_mid: {
-
-
-            m1: [],
-
-
-            m2: [
-          "구구단",
-          "구구표",
-          "구구법",
-          "구구공식",
-          "구구계산",
-          "구구학습",
-          "구구암기",
-          "구구연습",
-        ],
-
-
-          },
-
-        },
-      },
-      m_exp: [
+      wordlevel_es: [
         {
           kor: "구월",
           hanja: "九月",
-          naverUrl: "https://hanja.dict.naver.com/#/search?query=九月",
+          url: "https://hanja.dict.naver.com/#/search?query=九月",
         },
         {
           kor: "구만리",
           hanja: "九萬里",
-          naverUrl: "https://hanja.dict.naver.com/#/search?query=九萬里",
+          url: "https://hanja.dict.naver.com/#/search?query=九萬里",
+        },
+      ],
+      wordlevel_mid: [
+        {
+          kor: "구미호",
+          hanja: "구미호",
+          url: "https://hanja.dict.naver.com/#/search?query=구미호",
+        },
+        {
+          kor: "구단",
+          hanja: "구단",
+          url: "https://hanja.dict.naver.com/#/search?query=구단",
+        },
+        {
+          kor: "구월",
+          hanja: "九月",
+          url: "https://hanja.dict.naver.com/#/search?query=九月",
+        },
+        {
+          kor: "구만리",
+          hanja: "九萬里",
+          url: "https://hanja.dict.naver.com/#/search?query=九萬里",
         },
         {
           kor: "구구단",
           hanja: "九九段",
-          naverUrl: "https://hanja.dict.naver.com/#/search?query=九九段",
+          url: "https://hanja.dict.naver.com/#/search?query=九九段",
+        },
+        {
+          kor: "구구표",
+          hanja: "구구표",
+          url: "https://hanja.dict.naver.com/#/search?query=구구표",
+        },
+        {
+          kor: "구구법",
+          hanja: "구구법",
+          url: "https://hanja.dict.naver.com/#/search?query=구구법",
+        },
+        {
+          kor: "구구공식",
+          hanja: "구구공식",
+          url: "https://hanja.dict.naver.com/#/search?query=구구공식",
+        },
+        {
+          kor: "구구계산",
+          hanja: "구구계산",
+          url: "https://hanja.dict.naver.com/#/search?query=구구계산",
+        },
+        {
+          kor: "구구학습",
+          hanja: "구구학습",
+          url: "https://hanja.dict.naver.com/#/search?query=구구학습",
+        },
+        {
+          kor: "구구암기",
+          hanja: "구구암기",
+          url: "https://hanja.dict.naver.com/#/search?query=구구암기",
+        },
+        {
+          kor: "구구연습",
+          hanja: "구구연습",
+          url: "https://hanja.dict.naver.com/#/search?query=구구연습",
         },
       ],
       naverUrl: "https://hanja.dict.naver.com/#/search?query=九",
@@ -114,40 +117,37 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "金石之交 (금석지교 - 금과 돌처럼 굳은 우정)",
       level: "8급",
-      wordLevel_mid: {
-        wordLevel_mid: {
-
-          wordLevel_mid: {
-
-
-            m1: ["금속", "금액", "금고", "금융", "금연", "금지", "금방", "금세"],
-
+      wordlevel_mid: {
+        wordlevel_mid: {
+          wordlevel_mid: {
+            m1: [
+              "금속",
+              "금액",
+              "금고",
+              "금융",
+              "금연",
+              "금지",
+              "금방",
+              "금세",
+            ],
 
             m2: [],
-
-
           },
 
-          wordLevel_mid: {
-
-
+          wordlevel_mid: {
             m1: [],
 
-
             m2: [
-          "금융",
-          "금융기관",
-          "금융시장",
-          "금융정책",
-          "금융위기",
-          "금융감독",
-          "금융서비스",
-          "금융산업",
-        ],
-
-
+              "금융",
+              "금융기관",
+              "금융시장",
+              "금융정책",
+              "금융위기",
+              "금융감독",
+              "금융서비스",
+              "금융산업",
+            ],
           },
-
         },
       },
       m_exp: [
@@ -193,40 +193,28 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "南男北女 (남남북녀 - 남쪽은 남자가, 북쪽은 여자가 잘 생겼다)",
       level: "8급",
-      wordLevel_mid: {
-        wordLevel_mid: {
-
-          wordLevel_mid: {
-
-
+      wordlevel_mid: {
+        wordlevel_mid: {
+          wordlevel_mid: {
             m1: ["남쪽", "남대문", "남극", "남미", "남아공", "남한", "남부"],
 
-
             m2: [],
-
-
           },
 
-          wordLevel_mid: {
-
-
+          wordlevel_mid: {
             m1: [],
 
-
             m2: [
-          "남극",
-          "남극대륙",
-          "남극탐험",
-          "남극기지",
-          "남극환경",
-          "남극보호",
-          "남극조약",
-          "남극과학",
-        ],
-
-
+              "남극",
+              "남극대륙",
+              "남극탐험",
+              "남극기지",
+              "남극환경",
+              "남극보호",
+              "남극조약",
+              "남극과학",
+            ],
           },
-
         },
       },
       m_exp: [
@@ -277,40 +265,28 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "男兒大丈夫 (남아대장부 - 대장부다운 남자)",
       level: "8급",
-      wordLevel_mid: {
-        wordLevel_mid: {
-
-          wordLevel_mid: {
-
-
+      wordlevel_mid: {
+        wordlevel_mid: {
+          wordlevel_mid: {
             m1: ["남자", "남성", "남학생", "남동생", "남편", "남녀"],
 
-
             m2: [],
-
-
           },
 
-          wordLevel_mid: {
-
-
+          wordlevel_mid: {
             m1: [],
 
-
             m2: [
-          "남성",
-          "남성복지",
-          "남성교육",
-          "남성문화",
-          "남성발전",
-          "남성협력",
-          "남성의식",
-          "남성평등",
-        ],
-
-
+              "남성",
+              "남성복지",
+              "남성교육",
+              "남성문화",
+              "남성발전",
+              "남성협력",
+              "남성의식",
+              "남성평등",
+            ],
           },
-
         },
       },
       m_exp: [
@@ -366,12 +342,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "男女老少 (남녀노소 - 남자와 여자, 늙은이와 아이)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["여자", "여성", "여학생", "여동생", "여자친구", "여성운동"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -400,12 +374,10 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=女性運動",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: ["여성", "여성복지", "여성교육"],
-
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=女",
     },
@@ -428,12 +400,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "東問西答 (동문서답 - 동쪽 물음에 서쪽 대답; 엉뚱한 대답)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["동쪽", "동대문", "동극", "동아리", "동네", "동생", "동료"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -447,12 +417,10 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=東大門",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: ["동아리", "동아리활동", "동아리발표", "동아리축제"],
-
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=東",
     },
@@ -470,12 +438,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "六親和合 (육친화합 - 온 가족이 화목함)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["육학년", "육지", "육군", "육상", "육식", "육체"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -484,21 +450,19 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=六年",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: [
-        "육상",
-        "육상경기",
-        "육상선수",
-        "육상부",
-        "육상훈련",
-        "육상기록",
-        "육상대회",
-        "육상시설",
-      ],
-
+          "육상",
+          "육상경기",
+          "육상선수",
+          "육상부",
+          "육상훈련",
+          "육상기록",
+          "육상대회",
+          "육상시설",
+        ],
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=六",
     },
@@ -521,12 +485,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "慈母之心 (자모지심 - 자애로운 어머니의 마음)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["부모", "모국", "모성", "모범", "모델", "모양", "모습"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -555,21 +517,19 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=母性保護",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: [
-        "모성",
-        "모성애",
-        "모성보호",
-        "모성교육",
-        "모성문화",
-        "모성발전",
-        "모성의식",
-        "모성복지",
-      ],
-
+          "모성",
+          "모성애",
+          "모성보호",
+          "모성교육",
+          "모성문화",
+          "모성발전",
+          "모성의식",
+          "모성복지",
+        ],
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=母",
     },
@@ -592,12 +552,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "木人石心 (목인석심 - 나무 사람, 돌 마음; 매우 무정함)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["목재", "목요일", "목표", "목적", "목소리", "목구멍", "목록"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -611,21 +569,19 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=木曜日",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: [
-        "목표",
-        "목표관리",
-        "목표설정",
-        "목표달성",
-        "목표평가",
-        "목표수립",
-        "목표추진",
-        "목표실현",
-      ],
-
+          "목표",
+          "목표관리",
+          "목표설정",
+          "목표달성",
+          "목표평가",
+          "목표수립",
+          "목표추진",
+          "목표실현",
+        ],
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=木",
     },
@@ -648,12 +604,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "門前成市 (문전성시 - 문 앞이 시장이 될 정도; 인기 많음)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["교문", "전문", "문학", "문법", "문장", "문서", "문의"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -667,21 +621,19 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=專門",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: [
-        "문학",
-        "문학작품",
-        "문학사",
-        "문학비평",
-        "문학이론",
-        "문학사상",
-        "문학운동",
-        "문학사조",
-      ],
-
+          "문학",
+          "문학작품",
+          "문학사",
+          "문학비평",
+          "문학이론",
+          "문학사상",
+          "문학운동",
+          "문학사조",
+        ],
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=門",
     },
@@ -704,12 +656,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "父母恩重 (부모은중 - 부모의 은혜가 크다)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["부자", "부친", "부모", "부장", "부회장", "부담"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -728,21 +678,19 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=父母",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: [
-        "부모",
-        "부모교육",
-        "부모역할",
-        "부모참여",
-        "부모상담",
-        "부모지원",
-        "부모협력",
-        "부모의식",
-      ],
-
+          "부모",
+          "부모교육",
+          "부모역할",
+          "부모참여",
+          "부모상담",
+          "부모지원",
+          "부모협력",
+          "부모의식",
+        ],
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=父",
     },
@@ -765,12 +713,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "南征北伐 (남정북벌 - 남쪽 치고 북쪽 정벌; 여러 전쟁을 겪음)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["북극", "북한", "북쪽", "북부", "북미", "북아메리카"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -794,21 +740,19 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=北極探險",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: [
-        "북극",
-        "북극권",
-        "북극탐험",
-        "북극기지",
-        "북극환경",
-        "북극보호",
-        "북극조약",
-        "북극과학",
-      ],
-
+          "북극",
+          "북극권",
+          "북극탐험",
+          "북극기지",
+          "북극환경",
+          "북극보호",
+          "북극조약",
+          "북극과학",
+        ],
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=北",
     },
@@ -831,12 +775,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "四通八達 (사통팔달 - 사방으로 통해 있음; 교통이 매우 편리함)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["사학년", "사계", "사방", "사람", "사실", "사용", "사업"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -860,21 +802,19 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=四通八達",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: [
-        "사통팔달",
-        "사방",
-        "사방향",
-        "사방위",
-        "사방지도",
-        "사방관찰",
-        "사방탐구",
-        "사방학습",
-      ],
-
+          "사통팔달",
+          "사방",
+          "사방향",
+          "사방위",
+          "사방지도",
+          "사방관찰",
+          "사방탐구",
+          "사방학습",
+        ],
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=四",
     },
@@ -897,12 +837,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "三三五五 (삼삼오오 - 여럿이 모여 있는 모양)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["삼촌", "삼일", "삼각형", "삼국", "삼성", "삼월"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -941,12 +879,10 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=三角形公式",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: ["삼각형", "삼각형공식"],
-
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=三",
     },
@@ -969,12 +905,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "東西古今 (동서고금 - 동서양과 고금 모두)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["서양", "서쪽", "서부", "서울", "서비스", "서명"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -998,12 +932,10 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=西洋史",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: ["서양", "서양문화", "서양사", "서양철학"],
-
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=西",
     },
@@ -1026,12 +958,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "水魚之交 (수어지교 - 물과 물고기처럼 친밀한 사이)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["수질", "수량", "수면", "수로", "수원", "수분"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -1055,12 +985,10 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=水路",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: ["수질관리", "수량조절", "수면관찰", "수로건설"],
-
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=水",
     },
@@ -1083,12 +1011,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "十中八九 (십중팔구 - 열 중 여덟 아홉; 거의 대부분)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["십일", "십년", "십대", "십자", "십분", "십월"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -1117,12 +1043,10 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=十中八九",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: ["십중팔구", "십자선", "십자교차", "십자학습"],
-
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=十",
     },
@@ -1140,12 +1064,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "五花八門 (오화팔문 - 다양한 수단과 방법)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["오후", "오대양", "오월", "오전", "오늘", "오래"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -1164,12 +1086,10 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=五感",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: ["오화팔문", "오관", "오감", "오감교육"],
-
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=五",
     },
@@ -1192,12 +1112,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "月下氷人 (월하빙인 - 월하 노인; 중매쟁이)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["월급", "월요일", "월간"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -1216,12 +1134,10 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=月間",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: ["월급", "월요일"],
-
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=月",
     },
@@ -1244,12 +1160,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "二人三脚 (이인삼각 - 두 사람이 세 다리로 같이 달리는 경기)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["이학년", "이월", "이름"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -1263,12 +1177,10 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=二月",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: ["이학년", "이월"],
-
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=二",
     },
@@ -1291,12 +1203,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "人山人海 (인산인해 - 사람이 산과 바다처럼 많다)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["인간", "인기", "인사", "인정", "인상", "인생", "인류"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -1335,12 +1245,10 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=人權",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: ["인권", "인권운동", "인권협력"],
-
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=人",
     },
@@ -1363,12 +1271,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "日日是好日 (일일시호일 - 매일매일이 좋은 날)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["일기", "일요일", "일본", "일반", "일상", "일정", "일치"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -1397,12 +1303,10 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=日程",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: ["일본", "일본문화"],
-
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=日",
     },
@@ -1425,12 +1329,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "一石二鳥 (일석이조 - 돌 하나로 새 두 마리 잡음; 일거양득)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["일학년", "일생", "일반", "일상", "일정", "일치", "일본"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -1469,21 +1371,19 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=一般化",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: [
-        "일석이조",
-        "일반",
-        "일반적",
-        "일반화",
-        "일반성",
-        "일반론",
-        "일반학습",
-        "일반교육",
-      ],
-
+          "일석이조",
+          "일반",
+          "일반적",
+          "일반화",
+          "일반성",
+          "일반론",
+          "일반학습",
+          "일반교육",
+        ],
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=一",
     },
@@ -1506,12 +1406,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "孝子賢孫 (효자현손 - 효도하는 아들과 착한 손자)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["자식", "자녀", "자유", "자동", "자동차"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -1525,12 +1423,10 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=子女",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: ["자유", "자유민주주의", "자유경제"],
-
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=子",
     },
@@ -1553,12 +1449,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "兄弟之情 (형제지정 - 형제간의 정)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["형제", "제자", "제목", "제품", "제도", "제안"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -1572,12 +1466,10 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=弟子",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: ["제자", "제자양성"],
-
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=弟",
     },
@@ -1600,12 +1492,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "七轉八起 (칠전팔기 - 일곱 번 넘어져도 여덟 번 일어남; 끈기)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["칠월", "칠성", "칠판", "칠교", "칠보"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -1629,12 +1519,10 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=七角形",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: ["칠전팔기", "칠각형", "칠각형면적"],
-
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=七",
     },
@@ -1657,12 +1545,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "國土防衛 (국토방위 - 나라의 땅을 지킴)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["토양", "토요일", "국토"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -1681,12 +1567,10 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=國土",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: ["토론"],
-
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=土",
     },
@@ -1709,12 +1593,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "八方美人 (팔방미인 - 여러 방면에서 능통한 사람)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["팔각형", "팔도", "팔방", "팔방미인", "팔분의일", "팔십"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -1738,12 +1620,10 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=八方美人",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: ["팔각형", "팔각형면적", "팔방미인"],
-
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=八",
     },
@@ -1761,12 +1641,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "兄弟同心 (형제동심 - 형제가 한 마음으로 협력함)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["형제", "형님", "형제자매", "형제간", "형제애", "형제관계"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -1785,12 +1663,10 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=兄弟姉妹",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: ["형제", "형제관계"],
-
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=兄",
     },
@@ -1813,12 +1689,10 @@ export const hanjaGroupData: HanjaGroupDto = {
       ],
       idiom: "火上加油 (화상가유 - 불 위에 기름을 붓다; 상황을 악화시킴)",
       level: "8급",
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: ["화재", "화요일", "화학", "화산", "화기", "화력"],
 
         m2: [],
-
       },
       m_exp: [
         {
@@ -1847,12 +1721,10 @@ export const hanjaGroupData: HanjaGroupDto = {
           naverUrl: "https://hanja.dict.naver.com/#/search?query=火力",
         },
       ],
-      wordLevel_mid: {
-
+      wordlevel_mid: {
         m1: [],
 
         m2: ["화학", "화학실험"],
-
       },
       naverUrl: "https://hanja.dict.naver.com/#/search?query=火",
     },

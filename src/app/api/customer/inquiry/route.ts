@@ -61,10 +61,8 @@ export async function POST(request: NextRequest) {
       ip_address: ipAddress,
     };
 
-    console.log("💾 저장할 데이터:", inquiryData);
-
     // Supabase에 데이터 저장
-    console.log("🗄️ Supabase에 데이터 저장 시도...");
+
     const supabaseAdmin = getSupabaseAdmin();
     const { data, error } = await supabaseAdmin
       .from("customer_inquiries")

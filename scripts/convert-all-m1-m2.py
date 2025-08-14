@@ -19,8 +19,8 @@ def convert_m1_m2_to_wordlevel_mid(content):
         indent2 = match.group(3)
         m2_content = match.group(4)
         
-        # wordLevel_mid 구조로 변환
-        return f'{indent1}wordLevel_mid: {{\n{indent1}  m1: [{m1_content}],\n{indent1}  m2: [{m2_content}],\n{indent1}}},'
+        # wordlevel_mid 구조로 변환
+        return f'{indent1}wordlevel_mid: {{\n{indent1}  m1: [{m1_content}],\n{indent1}  m2: [{m2_content}],\n{indent1}}},'
     
     # 패턴 적용
     content = re.sub(pattern, replace_func, content, flags=re.MULTILINE)
@@ -32,8 +32,8 @@ def convert_m1_m2_to_wordlevel_mid(content):
         indent = match.group(1)
         m1_content = match.group(2)
         
-        # wordLevel_mid 구조로 변환 (m2는 빈 배열)
-        return f'{indent}wordLevel_mid: {{\n{indent}  m1: [{m1_content}],\n{indent}  m2: [],\n{indent}}},'
+        # wordlevel_mid 구조로 변환 (m2는 빈 배열)
+        return f'{indent}wordlevel_mid: {{\n{indent}  m1: [{m1_content}],\n{indent}  m2: [],\n{indent}}},'
     
     # m1만 있는 패턴 적용
     content = re.sub(pattern_m1_only, replace_m1_only, content, flags=re.MULTILINE)
@@ -45,8 +45,8 @@ def convert_m1_m2_to_wordlevel_mid(content):
         indent = match.group(1)
         m2_content = match.group(2)
         
-        # wordLevel_mid 구조로 변환 (m1은 빈 배열)
-        return f'{indent}wordLevel_mid: {{\n{indent}  m1: [],\n{indent}  m2: [{m2_content}],\n{indent}}},'
+        # wordlevel_mid 구조로 변환 (m1은 빈 배열)
+        return f'{indent}wordlevel_mid: {{\n{indent}  m1: [],\n{indent}  m2: [{m2_content}],\n{indent}}},'
     
     # m2만 있는 패턴 적용
     content = re.sub(pattern_m2_only, replace_m2_only, content, flags=re.MULTILINE)
@@ -73,8 +73,8 @@ def process_file(file_path):
         # 변환 실행
         converted_content = convert_m1_m2_to_wordlevel_mid(content)
         
-        # 변환 후 wordLevel_mid 개수 확인
-        wordlevel_count = converted_content.count('wordLevel_mid:')
+        # 변환 후 wordlevel_mid 개수 확인
+        wordlevel_count = converted_content.count('wordlevel_mid:')
         
         # 백업 파일 생성
         backup_path = file_path.with_suffix('.ts.backup')
@@ -85,7 +85,7 @@ def process_file(file_path):
         with open(file_path, 'w', encoding='utf-8') as f:
             f.write(converted_content)
         
-        print(f"  ✓ {file_path.name}: {m1_count + m2_count}개 → {wordlevel_count}개 wordLevel_mid")
+        print(f"  ✓ {file_path.name}: {m1_count + m2_count}개 → {wordlevel_count}개 wordlevel_mid")
         print(f"    백업: {backup_path.name}")
         
         return True
@@ -128,7 +128,7 @@ def main():
         print("\n다음 단계:")
         print("1. 변환된 파일들을 확인하여 올바르게 변환되었는지 검증")
         print("2. 백업 파일들을 삭제 (필요시)")
-        print("3. 데이터베이스에 wordLevel_mid 컬럼 추가")
+        print("3. 데이터베이스에 wordlevel_mid 컬럼 추가")
         print("4. 프론트엔드 코드에서 새로운 구조 사용")
 
 if __name__ == "__main__":

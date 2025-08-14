@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { theme } from "@/styles/theme";
 
 interface EmptyCardProps {
-  reason: "no-level-selected" | "no-visible-cards" | "all-hidden" | "completed";
+  reason: "no-level-selected" | "no-visible-cards" | "all-hidden" | "completed" | "no-mid-level-data";
 }
 
 const EmptyCard: React.FC<EmptyCardProps> = ({ reason }) => {
@@ -34,6 +34,12 @@ const EmptyCard: React.FC<EmptyCardProps> = ({ reason }) => {
           icon: "🎉",
           title: "모든 카드를 학습했어요!",
           description: "축하합니다! 선택한 급수의 모든 카드를 완료했습니다.",
+        };
+      case "no-mid-level-data":
+        return {
+          icon: "📚",
+          title: "중급 데이터가 없어요",
+          description: "선택한 급수에는 아직 중급 학습 데이터가 준비되지 않았습니다. 기본 학습을 이용해주세요.",
         };
       default:
         return {

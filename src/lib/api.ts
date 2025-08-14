@@ -6,13 +6,14 @@ export interface HanjaData {
   character: string;
   meaning: string;
   meaning_key: string;
-  example: string;
+  meaningKey?: string;
   idiom: string;
   level: string;
   type: string;
   created_at: string;
   naver_url?: string;
-  wordLevel_mid?: string[];
+  wordlevel_es?: Array<{ kor: string; hanja: string; url: string }>;
+  wordlevel_mid?: Array<{ kor: string; hanja: string; url: string }>;
 }
 
 export interface HanjaApiResponse {
@@ -36,18 +37,16 @@ export async function fetchHanjaData(
 ): Promise<HanjaApiResponse> {
   const typeParam = type === "대한검정회 급수자격검정" ? "TypeA" : "TypeB";
   const levelsParam = levels.join(",");
-  
+
   const params = new URLSearchParams({
-    levels: levelsParam
+    levels: levelsParam,
   });
-  
+
   if (vocabularyRange) {
-    params.append('vocabularyRange', vocabularyRange);
+    params.append("vocabularyRange", vocabularyRange);
   }
 
-  const response = await fetch(
-    `/api/hanja/${typeParam}?${params.toString()}`
-  );
+  const response = await fetch(`/api/hanja/${typeParam}?${params.toString()}`);
 
   if (!response.ok) {
     throw new Error(`API 요청 실패: ${response.status}`);
@@ -207,4 +206,39 @@ export const deleteUserSettings = async (userId: string): Promise<void> => {
     console.error("Failed to delete user settings:", error);
     throw new Error("사용자 설정 삭제에 실패했습니다.");
   }
+};
+
+/**
+ * 한자의 wordlevel_mid에 새로운 단어 추가
+ */
+export interface WordLevelData {
+  kor: string;
+  hanja: string;
+}
+
+export const addWordToHanja = async (
+  hanjaId: number,
+  wordData: WordLevelData
+): Promise<{
+  success: boolean;
+  message: string;
+  updatedWords: WordLevelData[];
+}> => {
+  const response = await fetch("/api/hanja/update-word-level", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      hanjaId,
+      wordData,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.error || "단어 추가에 실패했습니다.");
+  }
+
+  return await response.json();
 };

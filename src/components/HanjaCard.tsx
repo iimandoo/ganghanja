@@ -21,7 +21,21 @@ interface HanjaCardProps {
   resetFlip?: boolean;
   disabled?: boolean;
   onHide?: (cardId: number) => void;
+  onAddWord?: () => void;
 }
+
+interface WordLevelItem {
+  kor: string;
+  hanja: string;
+  url: string;
+}
+
+interface BasicWordItem {
+  text: string;
+  isBasic: boolean;
+}
+
+type VocabularyItem = WordLevelItem | BasicWordItem;
 
 const fadeOut = keyframes`
   0% {
@@ -46,16 +60,14 @@ const fadeIn = keyframes`
 `;
 
 const CardContainer = styled.div<{ $disabled?: boolean }>`
-  width: 480px; /* 기존 410px에서 30px 증가 */
+  width: 480px;
   height: 600px;
-  perspective: 2000px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   margin: 0 auto;
   touch-action: manipulation;
-  cursor: ${(props) => (props.$disabled ? "default" : "pointer")};
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -75,22 +87,18 @@ const CardInner = styled.div<{ $isFlipped: boolean; $noAnimation: boolean }>`
   width: 100%;
   height: 100%;
   text-align: center;
-  transition: ${(props) => (props.$noAnimation ? "none" : "transform 0.8s")};
   transform-style: preserve-3d;
-  -webkit-transform-style: preserve-3d;
-  transform: ${(props) =>
-    props.$isFlipped ? "rotateY(180deg)" : "rotateY(0deg)"};
-  will-change: transform;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
 `;
 
-const CardFace = styled.div`
+const CardFace = styled.div<{
+  $clickable?: boolean;
+  $isVisible: boolean;
+  $noAnimation?: boolean;
+}>`
   position: absolute;
   width: 100%;
   height: 100%;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
   border-radius: 24px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -99,8 +107,22 @@ const CardFace = styled.div`
   align-items: center;
   padding: 32px;
   box-sizing: border-box;
-  will-change: transform;
-  transform: translateZ(0);
+  cursor: ${(props) => (props.$clickable ? "pointer" : "default")};
+  backface-visibility: hidden;
+
+  opacity: ${(props) => (props.$isVisible ? 1 : 0)};
+  pointer-events: ${(props) => (props.$isVisible ? "auto" : "none")};
+  z-index: ${(props) => (props.$isVisible ? 2 : 1)};
+
+  transform: ${(props) => {
+    if (props.$noAnimation) return "none";
+    return props.$isVisible
+      ? "scale(1) rotateY(0deg)"
+      : "scale(0.95) rotateY(15deg)";
+  }};
+
+  transition: ${(props) =>
+    props.$noAnimation ? "none" : "all 0.6s cubic-bezier(0.23, 1, 0.32, 1)"};
 
   @media (max-width: 768px) {
     padding: 10px;
@@ -117,11 +139,10 @@ const CardFront = styled(CardFace)<{ $colorKey: CardColorKey }>`
 const CardBack = styled(CardFace)<{ $colorKey: CardColorKey }>`
   background: ${(props) => getCardColorInfo(props.$colorKey).back};
   color: #1a2b15;
-  transform: rotateY(180deg);
   border: 2px solid ${(props) => getCardColorInfo(props.$colorKey).border};
 `;
 
-const LevelBadgeBase = styled.div`
+const LevelBadge = styled.div`
   position: absolute;
   top: 20px;
   left: 20px;
@@ -131,9 +152,8 @@ const LevelBadgeBase = styled.div`
   font-weight: 700;
   font-family: "Noto Sans KR", sans-serif;
   z-index: 10;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  will-change: transform;
+  color: #2d3748;
+  background: rgba(255, 255, 255, 0.8);
 
   @media (max-width: 768px) {
     top: 10px;
@@ -141,17 +161,6 @@ const LevelBadgeBase = styled.div`
     font-size: 0.8rem;
     padding: 5px 10px;
   }
-`;
-
-const LevelBadgeFront = styled(LevelBadgeBase)`
-  color: #2d3748;
-  transform: translateZ(1px);
-`;
-
-const LevelBadgeBack = styled(LevelBadgeBase)`
-  background: rgba(255, 255, 255, 0.8);
-  color: #2d3748;
-  transform: rotateY(180deg) translateZ(1px);
 `;
 
 const HanjaCharacter = styled.div<{
@@ -191,10 +200,10 @@ const BackContent = styled.div`
   height: 100%;
   display: grid;
   grid-template-rows: auto 1fr;
-  gap: 24px;
+  gap: 36px;
+  pointer-events: auto;
 
   @media (max-width: 768px) {
-    gap: 20px;
   }
 `;
 
@@ -202,10 +211,15 @@ const InfoSection = styled.div<{
   $isFadingOut?: boolean;
   $isFadingIn?: boolean;
 }>`
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 10px;
   text-align: left;
   width: 100%;
-  height: 100%;
-  overflow: hidden;
+  pointer-events: none;
+  * {
+    pointer-events: auto;
+  }
 
   ${(props) => {
     if (props.$isFadingOut) {
@@ -222,16 +236,68 @@ const InfoSection = styled.div<{
   }}
 `;
 
+const InfoTitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 25;
+  min-height: 24px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 8px;
+    min-height: 20px;
+  }
+`;
+
 const InfoTitle = styled.h3`
   font-size: 1rem;
-  margin-bottom: 12px;
+  margin: 0;
   color: rgba(45, 55, 72, 0.9);
   font-family: "Noto Sans KR", sans-serif;
 
   @media (max-width: 768px) {
     font-weight: 400;
     font-size: 1rem;
-    margin-bottom: 8px;
+  }
+`;
+
+const SmallAddButton = styled.button`
+  background: #1f2937;
+  color: white;
+  border: 3px solid #1f2937;
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: "Noto Sans KR", sans-serif;
+  min-width: 80px;
+  min-height: 36px;
+  opacity: 1;
+  box-shadow: 0 4px 12px rgba(31, 41, 55, 0.3);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: #111827;
+    border-color: #111827;
+    box-shadow: 0 6px 16px rgba(31, 41, 55, 0.4);
+    transform: translateY(-2px) scale(1.05);
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    padding: 10px 16px;
+    min-width: 70px;
+    min-height: 44px;
   }
 `;
 
@@ -248,8 +314,6 @@ const InfoText = styled.p`
   color: rgba(45, 55, 72, 0.9);
   word-break: keep-all;
   padding: 10px 20px;
-  height: 100%;
-  overflow: auto;
 
   @media (max-width: 768px) {
     font-size: 1.1rem;
@@ -345,6 +409,7 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
   resetFlip,
   disabled = false,
   onHide,
+  onAddWord,
 }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [noAnimation, setNoAnimation] = useState(false);
@@ -384,7 +449,14 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
     }
   }, [resetFlip]);
 
-  const handleCardClick = () => {
+  const handleCardClick = (e: React.MouseEvent) => {
+    // 버튼 클릭인 경우 카드 뒤집기 방지
+    const target = e.target as HTMLElement;
+    if (target.tagName === "BUTTON" || target.closest("button")) {
+      e.stopPropagation();
+      return;
+    }
+
     if (disabled || !currentHanja) return;
     setNoAnimation(false);
     setIsFlipped(!isFlipped);
@@ -463,38 +535,68 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
     window.dispatchEvent(loginEvent);
   };
 
+  const handleAddClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (onAddWord) {
+      onAddWord();
+    }
+  };
+
   // Particle effect 제거됨
 
   // 어휘범위에 따라 표시할 예시 텍스트 선택 (useMemo 내부로 이동하여 사용)
 
-  const vocabularyLines = React.useMemo(() => {
-    const text = (() => {
-      if (!currentHanja) return "";
-      switch (vocabularyRange) {
-        case "중급":
-          if (currentHanja.wordLevel_mid && Array.isArray(currentHanja.wordLevel_mid)) {
-            return currentHanja.wordLevel_mid.length > 0 ? currentHanja.wordLevel_mid.join(", ") : currentHanja.example;
-          }
-          return currentHanja.example;
-        case "기본":
-        default:
-          return currentHanja.example;
-      }
-    })();
-    return text
-      .split(",")
-      .map((part) => part.trim())
-      .filter((part) => part.length > 0);
+  const vocabularyLines = React.useMemo((): VocabularyItem[] => {
+    if (!currentHanja) return [];
+
+    switch (vocabularyRange) {
+      case "중급":
+        if (
+          currentHanja.wordlevel_mid &&
+          Array.isArray(currentHanja.wordlevel_mid)
+        ) {
+          return currentHanja.wordlevel_mid
+            .map((word: Record<string, string>) => ({
+              kor: word.kor || "",
+              hanja: word.hanja || "",
+              url: word.url || "",
+            }))
+            .filter((word: Record<string, string>) => word.kor && word.hanja);
+        }
+        return []; // 중급 데이터가 없으면 빈 배열 반환
+      case "기본":
+      default:
+        // 기본은 wordlevel_es를 사용
+        if (
+          !currentHanja.wordlevel_es ||
+          currentHanja.wordlevel_es.length === 0
+        ) {
+          return [];
+        }
+
+        return currentHanja.wordlevel_es
+          .map((word: Record<string, string>) => ({
+            text: word.kor || "",
+            isBasic: true,
+          }))
+          .filter((word) => word.text);
+    }
   }, [currentHanja, vocabularyRange]);
 
   return (
     <>
-      <CardContainer onClick={handleCardClick} $disabled={disabled}>
+      <CardContainer $disabled={disabled}>
         <CardInner $isFlipped={isFlipped} $noAnimation={noAnimation}>
-          <CardFront $colorKey={cardColorKey}>
-            {currentHanja && (
-              <LevelBadgeFront>{currentHanja.level}급</LevelBadgeFront>
-            )}
+          <CardFront
+            onClick={handleCardClick}
+            $colorKey={cardColorKey}
+            $clickable={!disabled}
+            $isVisible={!isFlipped}
+            $noAnimation={noAnimation}
+          >
+            {currentHanja && <LevelBadge>{currentHanja.level}급</LevelBadge>}
             {currentHanja && !disabled && (
               <DictionaryButton
                 onClick={handleDictionaryClick}
@@ -520,10 +622,13 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
             {disabled && <FlipHint>급수를 선택해주세요!</FlipHint>}
           </CardFront>
 
-          <CardBack $colorKey={cardColorKey}>
-            {currentHanja && (
-              <LevelBadgeBack>{currentHanja.level}급</LevelBadgeBack>
-            )}
+          <CardBack
+            onClick={handleCardClick}
+            $colorKey={cardColorKey}
+            $clickable={!disabled}
+            $isVisible={isFlipped}
+            $noAnimation={noAnimation}
+          >
             <BackContent>
               {currentHanja ? (
                 <>
@@ -533,30 +638,82 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
                   >
                     <InfoTitle>뜻(음)</InfoTitle>
                     <InfoText>
-                      {currentHanja.meaning} {currentHanja.meaning_key}
+                      {currentHanja.meaning} {currentHanja.meaningKey}
                     </InfoText>
                   </InfoSection>
 
-                  <InfoSection
-                    $isFadingOut={isFadingOut}
-                    $isFadingIn={isFadingIn}
-                  >
-                    <InfoTitle>{vocabularyRange} 활용단어</InfoTitle>
+                  <InfoSection>
+                    <InfoTitleContainer>
+                      <InfoTitle>{vocabularyRange} 활용단어</InfoTitle>
+                      {onAddWord && (
+                        <SmallAddButton
+                          onClick={handleAddClick}
+                          title="활용단어 추가하기"
+                        >
+                          추가
+                        </SmallAddButton>
+                      )}
+                    </InfoTitleContainer>
                     <InfoText>
-                      {vocabularyLines.map((line, index) => (
-                        <span key={`${line}-${index}`}>
-                          {line}
-                          {index < vocabularyLines.length - 1 && <br />}
+                      {vocabularyLines.length > 0 ? (
+                        vocabularyLines.map(
+                          (item: VocabularyItem, index: number) => {
+                            if ("isBasic" in item) {
+                              // 기본 단어 (기존 example)
+                              return (
+                                <span key={`basic-${index}`}>
+                                  {item.text}
+                                  {index < vocabularyLines.length - 1 && <br />}
+                                </span>
+                              );
+                            } else {
+                              // 중급 단어 (kor(hanja) 형태로 표시, 클릭 시 새창으로 URL 열기)
+                              return (
+                                <span key={`word-${index}`}>
+                                  <a
+                                    href={item.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{
+                                      color: "inherit",
+                                      textDecoration: "none",
+                                      cursor: "pointer",
+                                      borderBottom:
+                                        "1px dotted rgba(45, 55, 72, 0.3)",
+                                      transition:
+                                        "border-bottom-color 0.2s ease",
+                                    }}
+                                    onMouseEnter={(e) => {
+                                      e.currentTarget.style.borderBottomColor =
+                                        "rgba(45, 55, 72, 0.8)";
+                                    }}
+                                    onMouseLeave={(e) => {
+                                      e.currentTarget.style.borderBottomColor =
+                                        "rgba(45, 55, 72, 0.3)";
+                                    }}
+                                  >
+                                    {item.kor}({item.hanja})
+                                  </a>
+                                  {index < vocabularyLines.length - 1 && <br />}
+                                </span>
+                              );
+                            }
+                          }
+                        )
+                      ) : vocabularyRange === "중급" ? (
+                        <span style={{ opacity: 0.6, fontStyle: "italic" }}>
+                          중급 활용단어 데이터가 없습니다
                         </span>
-                      ))}
+                      ) : (
+                        <span style={{ opacity: 0.6, fontStyle: "italic" }}>
+                          활용단어 데이터가 없습니다
+                        </span>
+                      )}
                     </InfoText>
                   </InfoSection>
                 </>
               ) : (
-                <InfoSection
-                  $isFadingOut={isFadingOut}
-                  $isFadingIn={isFadingIn}
-                >
+                <InfoSection>
                   <InfoTitle>급수를 선택해주세요</InfoTitle>
                   <InfoText>
                     학습할 급수를 선택하면 한자 카드가 표시됩니다.

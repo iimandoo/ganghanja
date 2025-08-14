@@ -2,12 +2,17 @@
 
 import React, { useState, useEffect } from "react";
 import { SiNaver } from "react-icons/si";
+import { BiSearch } from "react-icons/bi";
+import { BiEdit } from "react-icons/bi";
+import { BiTrash } from "react-icons/bi";
 import styled, { keyframes, css } from "styled-components";
 import { HanjaData } from "@/lib/api";
 import { VocabularyRange } from "@/constants";
 import { useAuth } from "@/contexts/AuthContext";
 import { LoginRequiredModal } from "@/components/LoginRequiredModal";
 import { AddWordModal } from "@/components/AddWordModal";
+import { EditWordModal } from "@/components/EditWordModal";
+import { DeleteConfirmModal } from "@/components/DeleteConfirmModal";
 import { useQueryClient } from "@tanstack/react-query";
 import {
   getConsistentCardColor,
@@ -32,12 +37,8 @@ interface WordLevelItem {
   url: string;
 }
 
-interface BasicWordItem {
-  text: string;
-  isBasic: boolean;
-}
-
-type VocabularyItem = WordLevelItem | BasicWordItem;
+// BasicWordItem은 더 이상 사용하지 않으므로 제거
+type VocabularyItem = WordLevelItem;
 
 const fadeOut = keyframes`
   0% {
@@ -403,6 +404,81 @@ const DictionaryButton = styled(HideButton)`
   }
 `;
 
+const DictionaryIcon = styled.button`
+  background: none;
+  border: none;
+  padding: 2px;
+  margin-left: 8px;
+  cursor: pointer;
+  color: #03c75a;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  vertical-align: middle;
+
+  &:hover {
+    background: rgba(3, 199, 90, 0.1);
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+`;
+
+const EditIcon = styled.button`
+  background: none;
+  border: none;
+  padding: 2px;
+  margin-left: 4px;
+  cursor: pointer;
+  color: #f59e0b;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  vertical-align: middle;
+
+  &:hover {
+    background: rgba(245, 158, 11, 0.1);
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+`;
+
+const DeleteIcon = styled.button`
+  background: none;
+  border: none;
+  padding: 2px;
+  margin-left: 4px;
+  cursor: pointer;
+  color: #1f2937;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  vertical-align: middle;
+
+  &:hover {
+    background: rgba(31, 41, 55, 0.1);
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+`;
+
 const HanjaCard: React.FC<HanjaCardProps> = ({
   hanja,
   nextHanja: nextHanjaProp,
@@ -417,12 +493,18 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
   const [noAnimation, setNoAnimation] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [isAddWordModalOpen, setIsAddWordModalOpen] = useState(false);
+  const [isEditWordModalOpen, setIsEditWordModalOpen] = useState(false);
+  const [isDeleteConfirmModalOpen, setIsDeleteConfirmModalOpen] =
+    useState(false);
+  const [editingWord, setEditingWord] = useState<VocabularyItem | null>(null);
+  const [deletingWord, setDeletingWord] = useState<VocabularyItem | null>(null);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [isFadingIn, setIsFadingIn] = useState(false);
   const [currentHanja, setCurrentHanja] = useState<HanjaData | null>(hanja);
   const [nextHanja, setNextHanja] = useState<HanjaData | null>(null);
   const { user } = useAuth();
   const queryClient = useQueryClient();
+  const [isAdmin, setIsAdmin] = useState(false);
 
   // 한자 데이터가 변경될 때 fadeIn 효과 적용
   useEffect(() => {
@@ -434,6 +516,26 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
       }, 800);
     }
   }, [hanja, currentHanja, isFadingOut]);
+
+  // 사용자 admin 권한 확인
+  useEffect(() => {
+    const checkAdminStatus = async () => {
+      if (user?.id) {
+        try {
+          const { isUserAdmin } = await import("@/lib/api");
+          const adminStatus = await isUserAdmin(user.id);
+          setIsAdmin(adminStatus);
+        } catch (error) {
+          console.error("Admin 권한 확인 실패:", error);
+          setIsAdmin(false);
+        }
+      } else {
+        setIsAdmin(false);
+      }
+    };
+
+    checkAdminStatus();
+  }, [user?.id]);
 
   // 한자 문자를 기반으로 일관된 색상 선택
   const cardColorKey = currentHanja
@@ -524,6 +626,13 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
     } catch {}
   };
 
+  const handleWordDictionaryClick = (hanja: string) => {
+    const url = `https://hanja.dict.naver.com/#/search?range=word&query=${hanja}`;
+    try {
+      window.open(url, "_naver");
+    } catch {}
+  };
+
   // 숨기기 버튼 비활성화 조건 (파티클 효과 제거됨)
   const isHideDisabled = isFadingOut || isFadingIn;
 
@@ -533,6 +642,57 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
 
   const handleAddWordModalClose = () => {
     setIsAddWordModalOpen(false);
+  };
+
+  const handleEditWordModalClose = () => {
+    setIsEditWordModalOpen(false);
+    setEditingWord(null);
+  };
+
+  const handleEditWordClick = (word: VocabularyItem) => {
+    setEditingWord(word);
+    setIsEditWordModalOpen(true);
+  };
+
+  const handleDeleteWordClick = (word: VocabularyItem) => {
+    setDeletingWord(word);
+    setIsDeleteConfirmModalOpen(true);
+  };
+
+  const handleDeleteConfirmModalClose = () => {
+    setIsDeleteConfirmModalOpen(false);
+    setDeletingWord(null);
+  };
+
+  const handleDeleteWordConfirm = async () => {
+    if (!currentHanja || !deletingWord || !user?.id) return;
+
+    try {
+      const { deleteWordFromHanja } = await import("@/lib/api");
+      await deleteWordFromHanja(
+        currentHanja.id,
+        deletingWord,
+        vocabularyRange,
+        user.id
+      );
+
+      // 모달 닫기
+      setIsDeleteConfirmModalOpen(false);
+      setDeletingWord(null);
+
+      // 성공 메시지
+      console.log(
+        `${deletingWord.hanja} (${deletingWord.kor}) 단어가 삭제되었습니다!`
+      );
+
+      // 화면 갱신
+      if (onSuccess) {
+        onSuccess();
+      }
+    } catch (error) {
+      console.error("단어 삭제 실패:", error);
+      alert("단어 삭제에 실패했습니다. 다시 시도해주세요.");
+    }
   };
 
   const handleAddWordSuccess = async () => {
@@ -601,38 +761,24 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
   const vocabularyLines = React.useMemo((): VocabularyItem[] => {
     if (!currentHanja) return [];
 
-    switch (vocabularyRange) {
-      case "중급":
-        if (
-          currentHanja.wordlevel_mid &&
-          Array.isArray(currentHanja.wordlevel_mid)
-        ) {
-          return currentHanja.wordlevel_mid
-            .map((word: Record<string, string>) => ({
-              kor: word.kor || "",
-              hanja: word.hanja || "",
-              url: word.url || "",
-            }))
-            .filter((word: Record<string, string>) => word.kor && word.hanja);
-        }
-        return []; // 중급 데이터가 없으면 빈 배열 반환
-      case "기본":
-      default:
-        // 기본은 wordlevel_es를 사용
-        if (
-          !currentHanja.wordlevel_es ||
-          currentHanja.wordlevel_es.length === 0
-        ) {
-          return [];
-        }
+    // 학년 선택에 따라 해당 데이터 사용
+    const data =
+      vocabularyRange === "기본"
+        ? currentHanja.wordlevel_es
+        : currentHanja.wordlevel_mid;
 
-        return currentHanja.wordlevel_es
-          .map((word: Record<string, string>) => ({
-            text: word.kor || "",
-            isBasic: true,
-          }))
-          .filter((word) => word.text);
+    if (!data || !Array.isArray(data) || data.length === 0) {
+      return [];
     }
+
+    // 모든 데이터를 중급 방식으로 통일 (kor(hanja) 형태)
+    return data
+      .map((word: Record<string, string>) => ({
+        kor: word.kor || "",
+        hanja: word.hanja || "",
+        url: word.url || "",
+      }))
+      .filter((word) => word.kor && word.hanja);
   }, [currentHanja, vocabularyRange]);
 
   return (
@@ -705,56 +851,50 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
                     <InfoText>
                       {vocabularyLines.length > 0 ? (
                         vocabularyLines.map(
-                          (item: VocabularyItem, index: number) => {
-                            if ("isBasic" in item) {
-                              // 기본 단어 (기존 example)
-                              return (
-                                <span key={`basic-${index}`}>
-                                  {item.text}
-                                  {index < vocabularyLines.length - 1 && <br />}
-                                </span>
-                              );
-                            } else {
-                              // 중급 단어 (kor(hanja) 형태로 표시, 클릭 시 새창으로 URL 열기)
-                              return (
-                                <span key={`word-${index}`}>
-                                  <a
-                                    href={`https://hanja.dict.naver.com/#/search?range=word&query=${item.hanja}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    style={{
-                                      color: "inherit",
-                                      textDecoration: "none",
-                                      cursor: "pointer",
-                                      borderBottom:
-                                        "1px dotted rgba(45, 55, 72, 0.3)",
-                                      transition:
-                                        "border-bottom-color 0.2s ease",
-                                    }}
-                                    onMouseEnter={(e) => {
-                                      e.currentTarget.style.borderBottomColor =
-                                        "rgba(45, 55, 72, 0.8)";
-                                    }}
-                                    onMouseLeave={(e) => {
-                                      e.currentTarget.style.borderBottomColor =
-                                        "rgba(45, 55, 72, 0.3)";
-                                    }}
+                          (item: VocabularyItem, index: number) => (
+                            <span key={`word-${index}`}>
+                              <span
+                                style={{
+                                  color: "inherit",
+                                  transition: "border-bottom-color 0.2s ease",
+                                }}
+                              >
+                                {item.kor}({item.hanja})
+                              </span>
+                              <DictionaryIcon
+                                onClick={() =>
+                                  handleWordDictionaryClick(item.hanja)
+                                }
+                                title="네이버 한자사전에서 검색"
+                                aria-label="사전 검색"
+                              >
+                                <BiSearch size={16} aria-hidden="true" />
+                              </DictionaryIcon>
+                              {isAdmin && (
+                                <>
+                                  <EditIcon
+                                    onClick={() => handleEditWordClick(item)}
+                                    title="단어 수정하기"
+                                    aria-label="단어 수정"
                                   >
-                                    {item.kor}({item.hanja})
-                                  </a>
-                                  {index < vocabularyLines.length - 1 && <br />}
-                                </span>
-                              );
-                            }
-                          }
+                                    <BiEdit size={16} aria-hidden="true" />
+                                  </EditIcon>
+                                  <DeleteIcon
+                                    onClick={() => handleDeleteWordClick(item)}
+                                    title="단어 삭제하기"
+                                    aria-label="단어 삭제"
+                                  >
+                                    <BiTrash size={16} aria-hidden="true" />
+                                  </DeleteIcon>
+                                </>
+                              )}
+                              {index < vocabularyLines.length - 1 && <br />}
+                            </span>
+                          )
                         )
-                      ) : vocabularyRange === "중급" ? (
-                        <span style={{ opacity: 0.6, fontStyle: "italic" }}>
-                          중급 활용단어 데이터가 없습니다
-                        </span>
                       ) : (
                         <span style={{ opacity: 0.6, fontStyle: "italic" }}>
-                          활용단어 데이터가 없습니다
+                          {vocabularyRange} 활용단어 데이터가 없습니다
                         </span>
                       )}
                     </InfoText>
@@ -794,6 +934,25 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
             : undefined
         }
         onSuccess={handleAddWordSuccess}
+      />
+
+      <EditWordModal
+        isOpen={isEditWordModalOpen}
+        onClose={handleEditWordModalClose}
+        vocabularyRange={vocabularyRange}
+        currentWord={editingWord || { kor: "", hanja: "", url: "" }}
+        hanjaId={currentHanja?.id || 0}
+        onSuccess={handleAddWordSuccess}
+      />
+
+      <DeleteConfirmModal
+        isOpen={isDeleteConfirmModalOpen}
+        onClose={handleDeleteConfirmModalClose}
+        onConfirm={handleDeleteWordConfirm}
+        title="단어 삭제하기"
+        message={`"${deletingWord?.kor} (${deletingWord?.hanja})" 단어를 삭제하시겠습니까?`}
+        confirmText="삭제하기"
+        cancelText="취소"
       />
     </>
   );

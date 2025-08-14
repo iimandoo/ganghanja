@@ -248,6 +248,76 @@ export const addWordToHanja = async (
 };
 
 /**
+ * 한자의 활용단어 수정
+ */
+export const updateWordInHanja = async (
+  hanjaId: number,
+  oldWord: WordLevelData,
+  newWord: WordLevelData,
+  vocabularyRange: "기본" | "중급",
+  userId: string
+): Promise<{
+  success: boolean;
+  message: string;
+  updatedWords: WordLevelData[];
+}> => {
+  const response = await fetch("/api/hanja/update-word-level", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      hanjaId,
+      oldWord,
+      newWord,
+      vocabularyRange,
+      userId,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.error || "단어 수정에 실패했습니다.");
+  }
+
+  return await response.json();
+};
+
+/**
+ * 한자의 활용단어 삭제
+ */
+export const deleteWordFromHanja = async (
+  hanjaId: number,
+  wordToDelete: WordLevelData,
+  vocabularyRange: "기본" | "중급",
+  userId: string
+): Promise<{
+  success: boolean;
+  message: string;
+  updatedWords: WordLevelData[];
+}> => {
+  const response = await fetch("/api/hanja/update-word-level", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      hanjaId,
+      wordToDelete,
+      vocabularyRange,
+      userId,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.error || "단어 삭제에 실패했습니다.");
+  }
+
+  return await response.json();
+};
+
+/**
  * 단어 추가 히스토리 조회
  */
 export interface WordHistoryItem {
@@ -348,4 +418,84 @@ export const getHanjaWordHistory = async (
   }
 
   return (data as unknown as WordHistoryItem[]) || [];
+};
+
+/**
+ * 사용자 설정 정보 조회
+ */
+export interface UserPreferences {
+  id: string;
+  user_id: string;
+  user_level: string;
+  vocabulary_range: "기본" | "중급";
+  level_filter: string[];
+  type_filter: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export const getUserPreferences = async (
+  userId: string
+): Promise<UserPreferences | null> => {
+  const supabase = getSupabaseClient();
+
+  const { data, error } = await supabase
+    .from("user_preferences")
+    .select("*")
+    .eq("user_id", userId)
+    .single();
+
+  if (error) {
+    if (error.code === "PGRST116") {
+      // 데이터가 없는 경우
+      return null;
+    }
+    console.error("Failed to load user preferences:", error);
+    throw new Error("사용자 설정 불러오기에 실패했습니다.");
+  }
+
+  return data as unknown as UserPreferences;
+};
+
+/**
+ * 사용자가 admin인지 확인
+ */
+export const isUserAdmin = async (userId: string): Promise<boolean> => {
+  try {
+    const preferences = await getUserPreferences(userId);
+    return preferences?.user_level === "admin";
+  } catch (error) {
+    console.error("Admin 권한 확인 실패:", error);
+    return false;
+  }
+};
+
+/**
+ * 사용자 설정 생성 또는 업데이트
+ */
+export const upsertUserPreferences = async (
+  userId: string,
+  preferences: Partial<UserPreferences>
+): Promise<UserPreferences> => {
+  const supabase = getSupabaseClient();
+
+  const { data, error } = await supabase
+    .from("user_preferences")
+    .upsert(
+      {
+        user_id: userId,
+        ...preferences,
+        updated_at: new Date().toISOString(),
+      },
+      { onConflict: "user_id" }
+    )
+    .select()
+    .single();
+
+  if (error) {
+    console.error("Failed to upsert user preferences:", error);
+    throw new Error("사용자 설정 저장에 실패했습니다.");
+  }
+
+  return data as unknown as UserPreferences;
 };

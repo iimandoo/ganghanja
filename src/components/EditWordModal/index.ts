@@ -1,0 +1,1 @@
+export { EditWordModal } from "./EditWordModal";

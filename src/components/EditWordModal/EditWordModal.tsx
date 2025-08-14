@@ -6,17 +6,17 @@ import styled from "styled-components";
 import { theme } from "@/styles/theme";
 import { useAuth } from "@/contexts/AuthContext";
 
-interface AddWordModalProps {
+interface EditWordModalProps {
   isOpen: boolean;
   onClose: () => void;
   vocabularyRange: "기본" | "중급";
-  currentHanja?: {
-    id: number;
-    character: string;
-    meaning: string;
-    meaning_key: string;
+  currentWord: {
+    kor: string;
+    hanja: string;
+    url: string;
   };
-  onSuccess?: () => void; // 성공 후 콜백 추가
+  hanjaId: number;
+  onSuccess?: () => void;
 }
 
 const Overlay = styled.div`
@@ -179,15 +179,16 @@ const Button = styled.button<{ $variant?: "primary" | "secondary" }>`
   `}
 `;
 
-export const AddWordModal: React.FC<AddWordModalProps> = ({
+export const EditWordModal: React.FC<EditWordModalProps> = ({
   isOpen,
   onClose,
   vocabularyRange,
-  currentHanja,
+  currentWord,
+  hanjaId,
   onSuccess,
 }) => {
-  const [hanja, setHanja] = useState("");
-  const [kor, setKor] = useState("");
+  const [hanja, setHanja] = useState(currentWord.hanja);
+  const [kor, setKor] = useState(currentWord.kor);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { user } = useAuth();
@@ -197,20 +198,27 @@ export const AddWordModal: React.FC<AddWordModalProps> = ({
     return () => setMounted(false);
   }, []);
 
+  // currentWord가 변경될 때 상태 업데이트
+  useEffect(() => {
+    setHanja(currentWord.hanja);
+    setKor(currentWord.kor);
+  }, [currentWord]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (hanja.trim() && kor.trim()) {
       try {
         setIsSubmitting(true);
 
-        // 단어 추가 API 호출
-        const { addWordToHanja } = await import("@/lib/api");
+        // 단어 수정 API 호출
+        const { updateWordInHanja } = await import("@/lib/api");
         if (!user?.id) {
           throw new Error("사용자 정보를 찾을 수 없습니다.");
         }
 
-        await addWordToHanja(
-          currentHanja?.id || 0,
+        await updateWordInHanja(
+          hanjaId,
+          currentWord,
           {
             kor: kor.trim(),
             hanja: hanja.trim(),
@@ -218,10 +226,6 @@ export const AddWordModal: React.FC<AddWordModalProps> = ({
           vocabularyRange,
           user.id
         );
-
-        // 폼 초기화
-        setHanja("");
-        setKor("");
 
         // 성공 콜백 호출
         if (onSuccess) {
@@ -231,39 +235,30 @@ export const AddWordModal: React.FC<AddWordModalProps> = ({
         // 모달 닫기
         onClose();
       } catch (error) {
-        console.error("단어 추가 실패:", error);
-        alert("단어 추가에 실패했습니다. 다시 시도해주세요.");
+        console.error("단어 수정 실패:", error);
+        alert("단어 수정에 실패했습니다. 다시 시도해주세요.");
       } finally {
         setIsSubmitting(false);
       }
     }
   };
 
+  // dim 클릭 시 모달이 닫히지 않도록 처리
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    // dim 클릭 시에도 모달을 닫지 않음
+    e.stopPropagation();
+  };
+
   if (!isOpen || !mounted) return null;
 
   // Portal을 사용하여 body에 직접 렌더링
   return createPortal(
-    <Overlay onClick={(e) => e.stopPropagation()}>
+    <Overlay onClick={handleOverlayClick}>
       <Modal onClick={(e) => e.stopPropagation()}>
         <CloseButton onClick={onClose}>×</CloseButton>
         <Header>
-          <Title>활용단어 추가하기</Title>
-          <Description>
-            {vocabularyRange === "기본"
-              ? "기본 활용단어에 새로운 한자와 음을 추가합니다"
-              : "중급 활용단어에 새로운 한자와 음을 추가합니다"}
-            {currentHanja && (
-              <>
-                <br />
-                <br />
-                <strong>한자:</strong> {currentHanja.character}
-                <br />
-                <strong>뜻:</strong> {currentHanja.meaning}
-                <br />
-                <strong>음:</strong> {currentHanja.meaning_key}
-              </>
-            )}
-          </Description>
+          <Title>단어 수정하기</Title>
+          <Description>{vocabularyRange} 활용단어를 수정합니다.</Description>
         </Header>
         <Content>
           <form onSubmit={handleSubmit}>
@@ -300,7 +295,7 @@ export const AddWordModal: React.FC<AddWordModalProps> = ({
                 $variant="primary"
                 disabled={!hanja.trim() || !kor.trim() || isSubmitting}
               >
-                {isSubmitting ? "추가 중..." : "추가하기"}
+                {isSubmitting ? "수정 중..." : "수정하기"}
               </Button>
             </ButtonGroup>
           </form>

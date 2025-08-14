@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import styled from "styled-components";
 import { theme } from "@/styles/theme";
 import { MdLock, MdClose } from "react-icons/md";
@@ -9,24 +10,23 @@ interface LoginRequiredModalProps {
   onLogin: () => void;
 }
 
-const ModalOverlay = styled.div<{ $isOpen: boolean }>`
+const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
-  opacity: ${(props) => (props.$isOpen ? 1 : 0)};
-  visibility: ${(props) => (props.$isOpen ? "visible" : "hidden")};
-  transition: all 0.3s ease;
+  z-index: 9999;
   backdrop-filter: blur(4px);
+  width: 100vw;
+  height: 100vh;
 `;
 
-const ModalContent = styled.div<{ $isOpen: boolean }>`
+const ModalContent = styled.div`
   background: white;
   border-radius: 20px;
   padding: 32px;
@@ -34,8 +34,6 @@ const ModalContent = styled.div<{ $isOpen: boolean }>`
   width: 90%;
   text-align: center;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-  transform: ${(props) => (props.$isOpen ? "scale(1)" : "scale(0.9)")};
-  transition: all 0.3s ease;
   position: relative;
   border: 1px solid ${theme.colors.gray.border};
 
@@ -182,6 +180,13 @@ export const LoginRequiredModal: React.FC<LoginRequiredModalProps> = ({
   onClose,
   onLogin,
 }) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
+
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -193,9 +198,12 @@ export const LoginRequiredModal: React.FC<LoginRequiredModalProps> = ({
     onClose();
   };
 
-  return (
-    <ModalOverlay $isOpen={isOpen} onClick={handleOverlayClick}>
-      <ModalContent $isOpen={isOpen}>
+  if (!isOpen || !mounted) return null;
+
+  // Portal을 사용하여 body에 직접 렌더링
+  return createPortal(
+    <ModalOverlay onClick={handleOverlayClick}>
+      <ModalContent onClick={(e) => e.stopPropagation()}>
         <CloseButton onClick={onClose}>
           <MdClose size={20} />
         </CloseButton>
@@ -221,6 +229,7 @@ export const LoginRequiredModal: React.FC<LoginRequiredModalProps> = ({
           </Button>
         </ButtonGroup>
       </ModalContent>
-    </ModalOverlay>
+    </ModalOverlay>,
+    document.body
   );
 };

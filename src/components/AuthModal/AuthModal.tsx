@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 import styled from "styled-components";
 import { useAuth } from "@/contexts/AuthContext";
 import { SignUpData, SignInData, AuthModalMode } from "@/types/auth";
@@ -18,6 +19,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   initialMode = "signin",
 }) => {
   const [mode, setMode] = useState<AuthModalMode>(initialMode);
+  const [mounted, setMounted] = useState(false);
   const [signUpData, setSignUpData] = useState<SignUpData>({
     username: "",
     password: "",
@@ -29,6 +31,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   });
 
   const { signUp, signIn, loading, error } = useAuth();
+
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
 
   // initialMode가 변경될 때 mode 상태 업데이트
   useEffect(() => {
@@ -98,118 +105,115 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     setSignInData({ username: "", password: "", rememberMe: false });
   }, []);
 
-  // 모달 외부 클릭 시 닫기
-  const handleOverlayClick = useCallback(
-    (e: React.MouseEvent) => {
-      if (e.target === e.currentTarget) {
-        onClose();
-      }
-    },
-    [onClose]
-  );
+  if (!isOpen || !mounted) return null;
 
-  if (!isOpen) return null;
-
-  const isSignupMode = mode === "signup";
-  const currentData = isSignupMode ? signUpData : signInData;
-
-  return (
-    <ModalOverlay onClick={handleOverlayClick}>
+  // Portal을 사용하여 body에 직접 렌더링
+  return createPortal(
+    <ModalOverlay onClick={(e) => e.stopPropagation()}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
         <ModalHeader>
-          <h2>
-            {isSignupMode
-              ? AUTH_MESSAGES.UI.SIGNUP_TITLE
-              : AUTH_MESSAGES.UI.SIGNIN_TITLE}
-          </h2>
-          <CloseButton onClick={onClose}>&times;</CloseButton>
+          <h2>{mode === "signin" ? "로그인" : "회원가입"}</h2>
+          <CloseButton onClick={onClose} aria-label="닫기">
+            ×
+          </CloseButton>
         </ModalHeader>
 
-        <Form
-          onSubmit={(e) => handleSubmit(e, isSignupMode ? "signup" : "signin")}
-        >
-          {/* 아이디 입력 필드 */}
-          <FormGroup>
-            <Label htmlFor={`${mode}-username`}>아이디</Label>
-            <Input
-              type="text"
-              id={`${mode}-username`}
-              name="username"
-              value={currentData.username}
-              onChange={(e) =>
-                handleInputChange(e, isSignupMode ? "signup" : "signin")
-              }
-              placeholder={AUTH_MESSAGES.PLACEHOLDER.USERNAME}
-              required
-              minLength={4}
-            />
-          </FormGroup>
+        <Form onSubmit={(e) => handleSubmit(e, mode)}>
+          {mode === "signin" ? (
+            <>
+              <FormGroup>
+                <Label htmlFor="signin-username">아이디</Label>
+                <Input
+                  id="signin-username"
+                  name="username"
+                  type="text"
+                  value={signInData.username}
+                  onChange={(e) => handleInputChange(e, "signin")}
+                  placeholder="아이디를 입력하세요"
+                  required
+                />
+              </FormGroup>
 
-          {/* 비밀번호 입력 필드 */}
-          <FormGroup>
-            <Label htmlFor={`${mode}-password`}>비밀번호</Label>
-            <Input
-              type="password"
-              id={`${mode}-password`}
-              name="password"
-              value={currentData.password}
-              onChange={(e) =>
-                handleInputChange(e, isSignupMode ? "signup" : "signin")
-              }
-              placeholder={
-                isSignupMode
-                  ? AUTH_MESSAGES.PLACEHOLDER.PASSWORD_SIGNUP
-                  : AUTH_MESSAGES.PLACEHOLDER.PASSWORD_SIGNIN
-              }
-              required
-              minLength={6}
-            />
-          </FormGroup>
+              <FormGroup>
+                <Label htmlFor="signin-password">비밀번호</Label>
+                <Input
+                  id="signin-password"
+                  name="password"
+                  type="password"
+                  value={signInData.password}
+                  onChange={(e) => handleInputChange(e, "signin")}
+                  placeholder="비밀번호를 입력하세요"
+                  required
+                />
+              </FormGroup>
 
-          {/* 자동 로그인 체크박스 (로그인 모드에서만) */}
-          {!isSignupMode && (
-            <CheckboxGroup>
-              <Checkbox
-                type="checkbox"
-                id="rememberMe"
-                name="rememberMe"
-                checked={(signInData as SignInData).rememberMe}
-                onChange={(e) => handleInputChange(e, "signin")}
-              />
-              <CheckboxLabel htmlFor="rememberMe">
-                {AUTH_MESSAGES.UI.AUTO_LOGIN}
-              </CheckboxLabel>
-            </CheckboxGroup>
+              <FormGroup>
+                <Label>
+                  <input
+                    type="checkbox"
+                    name="rememberMe"
+                    checked={signInData.rememberMe}
+                    onChange={(e) => handleInputChange(e, "signin")}
+                  />
+                  아이디 기억하기
+                </Label>
+              </FormGroup>
+            </>
+          ) : (
+            <>
+              <FormGroup>
+                <Label htmlFor="signup-username">아이디</Label>
+                <Input
+                  id="signup-username"
+                  name="username"
+                  type="text"
+                  value={signUpData.username}
+                  onChange={(e) => handleInputChange(e, "signup")}
+                  placeholder="아이디를 입력하세요"
+                  required
+                />
+              </FormGroup>
+
+              <FormGroup>
+                <Label htmlFor="signup-password">비밀번호</Label>
+                <Input
+                  id="signup-password"
+                  name="password"
+                  type="password"
+                  value={signUpData.password}
+                  onChange={(e) => handleInputChange(e, "signup")}
+                  placeholder="비밀번호를 입력하세요"
+                  required
+                />
+              </FormGroup>
+            </>
           )}
 
-          {/* 에러 메시지 */}
-          {error && <ErrorMessage>{error}</ErrorMessage>}
+          {error && (
+            <div
+              style={{ color: "red", marginBottom: "16px", fontSize: "14px" }}
+            >
+              {error}
+            </div>
+          )}
 
-          {/* 제출 버튼 */}
-          <SubmitButton type="submit" disabled={loading}>
-            {loading
-              ? AUTH_MESSAGES.UI.LOADING
-              : isSignupMode
-              ? AUTH_MESSAGES.UI.SIGNUP_BUTTON
-              : AUTH_MESSAGES.UI.SIGNIN_BUTTON}
-          </SubmitButton>
+          <Button
+            type="submit"
+            disabled={loading}
+            style={{ marginBottom: "16px" }}
+          >
+            {loading ? "처리 중..." : mode === "signin" ? "로그인" : "회원가입"}
+          </Button>
+
+          <ModeSwitch onClick={switchMode}>
+            {mode === "signin"
+              ? "계정이 없으신가요? 회원가입"
+              : "이미 계정이 있으신가요? 로그인"}
+          </ModeSwitch>
         </Form>
-
-        {/* 모드 전환 */}
-        <ModeSwitch>
-          <span>
-            {isSignupMode
-              ? AUTH_MESSAGES.UI.SWITCH_TO_SIGNIN
-              : AUTH_MESSAGES.UI.SWITCH_TO_SIGNUP}
-          </span>
-          <SwitchButton type="button" onClick={switchMode}>
-            {isSignupMode
-              ? AUTH_MESSAGES.UI.SIGNIN_BUTTON
-              : AUTH_MESSAGES.UI.SIGNUP_BUTTON}
-          </SwitchButton>
-        </ModeSwitch>
       </ModalContent>
-    </ModalOverlay>
+    </ModalOverlay>,
+    document.body
   );
 };
 
@@ -220,11 +224,13 @@ const ModalOverlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: ${theme.zIndex.modal};
+  z-index: 9999;
+  width: 100vw;
+  height: 100vh;
 `;
 
 const ModalContent = styled.div`
@@ -308,81 +314,37 @@ const Input = styled.input`
   }
 `;
 
-const CheckboxGroup = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${theme.spacing.sm};
-`;
-
-const Checkbox = styled.input`
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-  accent-color: ${theme.colors.primary.main};
-`;
-
-const CheckboxLabel = styled.label`
-  font-size: ${theme.fontSize.sm};
-  color: ${theme.colors.gray.medium};
-  cursor: pointer;
-`;
-
-const SubmitButton = styled.button`
-  background: ${theme.colors.primary.gradient};
-  color: ${theme.colors.secondary.main};
+const Button = styled.button`
+  background: ${theme.colors.secondary.main};
+  color: ${theme.colors.white};
   border: none;
-  padding: ${theme.spacing.md} ${theme.spacing.xxl};
+  padding: ${theme.spacing.md} ${theme.spacing.lg};
   border-radius: ${theme.borderRadius.md};
   font-size: ${theme.fontSize.md};
-  font-weight: ${theme.fontWeight.medium};
+  font-weight: ${theme.fontWeight.semibold};
   cursor: pointer;
   transition: ${theme.transitions.fast};
-  margin-top: ${theme.spacing.sm};
 
   &:hover:not(:disabled) {
-    background: ${theme.colors.primary.dark};
-    transform: translateY(-1px);
-    box-shadow: ${theme.shadows.md};
+    background: ${theme.colors.secondary.dark};
   }
 
   &:disabled {
-    background: ${theme.colors.gray.medium};
+    opacity: 0.6;
     cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
   }
 `;
 
-const ErrorMessage = styled.div`
-  color: #dc3545;
-  font-size: ${theme.fontSize.sm};
-  padding: ${theme.spacing.sm} ${theme.spacing.md};
-  background-color: #f8d7da;
-  border: 1px solid #f5c6cb;
-  border-radius: ${theme.borderRadius.sm};
-`;
-
-const ModeSwitch = styled.div`
-  margin-top: ${theme.spacing.xxl};
-  text-align: center;
-  font-size: ${theme.fontSize.sm};
-  color: ${theme.colors.gray.medium};
-
-  span {
-    margin-right: ${theme.spacing.sm};
-  }
-`;
-
-const SwitchButton = styled.button`
+const ModeSwitch = styled.button`
   background: none;
   border: none;
-  color: ${theme.colors.gray.medium};
+  color: ${theme.colors.secondary.main};
   cursor: pointer;
-  font-weight: ${theme.fontWeight.medium};
+  font-size: ${theme.fontSize.sm};
   text-decoration: underline;
   transition: ${theme.transitions.fast};
 
   &:hover {
-    color: ${theme.colors.gray.dark};
+    color: ${theme.colors.secondary.dark};
   }
 `;

@@ -1,5 +1,5 @@
-import { css } from 'styled-components';
-import { theme } from './theme';
+import { css } from "styled-components";
+import { theme } from "./theme";
 
 export const buttonBase = css`
   border: none;
@@ -8,7 +8,7 @@ export const buttonBase = css`
   font-weight: ${theme.fontWeight.medium};
   cursor: pointer;
   transition: ${theme.transitions.fast};
-  
+
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -22,13 +22,21 @@ export const primaryButton = css`
   color: ${theme.colors.white};
   padding: 12px 24px;
   font-size: ${theme.fontSize.base};
-  
+
   &:hover:not(:disabled) {
-    background: linear-gradient(135deg, ${theme.colors.secondary.light} 0%, ${theme.colors.secondary.main} 100%);
+    background: linear-gradient(
+      135deg,
+      ${theme.colors.secondary.light} 0%,
+      ${theme.colors.secondary.main} 100%
+    );
   }
-  
+
   &:active:not(:disabled) {
-    background: linear-gradient(135deg, ${theme.colors.secondary.dark} 0%, #171923 100%);
+    background: linear-gradient(
+      135deg,
+      ${theme.colors.secondary.dark} 0%,
+      #171923 100%
+    );
   }
 `;
 
@@ -38,11 +46,11 @@ export const secondaryButton = css`
   color: ${theme.colors.white};
   padding: 12px 24px;
   font-size: ${theme.fontSize.base};
-  
+
   &:hover:not(:disabled) {
     background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
   }
-  
+
   &:active:not(:disabled) {
     background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
   }
@@ -68,12 +76,12 @@ export const inputBase = css`
   font-family: "Noto Sans KR", sans-serif;
   outline: none;
   transition: ${theme.transitions.fast};
-  
+
   &:focus {
     border-color: ${theme.colors.blue.main};
     box-shadow: 0 0 0 3px ${theme.colors.blue.light};
   }
-  
+
   &::placeholder {
     color: #9ca3af;
   }
@@ -92,10 +100,12 @@ export const overlayBase = css`
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100vw;
+  height: 100vw;
 `;
 
 export const gradientText = css`

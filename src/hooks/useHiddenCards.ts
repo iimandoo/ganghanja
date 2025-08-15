@@ -12,6 +12,14 @@ export interface HiddenCardsHook {
   unhideCardsByLevels: (levels: Level[], allHanjaData: ApiHanjaData[]) => void;
   isCardHidden: (cardId: number) => boolean;
   hiddenCardsCount: number;
+  getHiddenCountByLevel: (
+    allHanjaData: ApiHanjaData[]
+  ) => Record<Level, number>;
+  getAllHanjaData: (
+    type: string,
+    levels: Level[],
+    vocabularyRange: string
+  ) => Promise<ApiHanjaData[]>;
 }
 
 /**
@@ -118,6 +126,75 @@ export const useHiddenCards = (): HiddenCardsHook => {
   // 숨겨진 카드 개수
   const hiddenCardsCount = hiddenCards.size;
 
+  // 급수별 숨겨진 카드 수 계산
+  const getHiddenCountByLevel = useCallback(
+    (allHanjaData: ApiHanjaData[]): Record<Level, number> => {
+      const counts: Record<Level, number> = {
+        "8": 0,
+        "7": 0,
+        "6": 0,
+        준5: 0,
+        "5": 0,
+        준4: 0,
+      };
+
+      // 숨겨진 카드들 중에서 해당 급수에 속하는 것들을 카운트
+      Array.from(hiddenCards).forEach((cardId) => {
+        const hanja = allHanjaData.find((h) => h.id === cardId);
+        if (hanja) {
+          const level = String(hanja.level) as Level;
+          if (counts.hasOwnProperty(level)) {
+            counts[level]++;
+          }
+        }
+      });
+
+      return counts;
+    },
+    [hiddenCards]
+  );
+
+  // 모든 한자 데이터 가져오기
+  const getAllHanjaData = useCallback(
+    async (
+      type: string,
+      levels: Level[],
+      vocabularyRange: string
+    ): Promise<ApiHanjaData[]> => {
+      try {
+        const typeParam =
+          type === "대한검정회 급수자격검정" ? "TypeA" : "TypeB";
+        const levelsParam = levels.join(",");
+
+        const params = new URLSearchParams({
+          levels: levelsParam,
+          vocabularyRange: vocabularyRange || "기본",
+        });
+
+        const response = await fetch(
+          `/api/hanja/${typeParam}/all?${params.toString()}`
+        );
+
+        if (!response.ok) {
+          throw new Error(`API 요청 실패: ${response.status}`);
+        }
+
+        const apiResponse = await response.json();
+
+        return apiResponse.data.map(
+          (item: ApiHanjaData & { meaning_key: string }) => ({
+            ...item,
+            meaningKey: item.meaning_key,
+          })
+        );
+      } catch (error) {
+        console.error("Failed to fetch all hanja data:", error);
+        return [];
+      }
+    },
+    []
+  );
+
   return {
     hiddenCards,
     hideCard,
@@ -126,5 +203,7 @@ export const useHiddenCards = (): HiddenCardsHook => {
     unhideCardsByLevels,
     isCardHidden,
     hiddenCardsCount,
+    getHiddenCountByLevel,
+    getAllHanjaData,
   };
 };

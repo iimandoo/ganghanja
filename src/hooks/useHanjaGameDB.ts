@@ -46,6 +46,7 @@ export interface UseHanjaGameReturn {
 interface UseHanjaGameParams {
   urlLevels?: string;
   urlVocabularyRange?: string;
+  urlId?: string;
 }
 
 export const useHanjaGameDB = (
@@ -94,7 +95,16 @@ export const useHanjaGameDB = (
         shouldUpdate = true;
       }
     }
-  }, [params?.urlLevels, params?.urlVocabularyRange]);
+
+    // URL의 id 파라미터가 있으면 currentIndex 설정
+    if (params?.urlId) {
+      const urlIdNum = parseInt(params.urlId);
+      if (!isNaN(urlIdNum) && urlIdNum > 0) {
+        setCurrentIndex(urlIdNum);
+        shouldUpdate = true;
+      }
+    }
+  }, [params?.urlLevels, params?.urlVocabularyRange, params?.urlId]);
 
   // 사용자 설정 불러오기
   const {
@@ -136,6 +146,12 @@ export const useHanjaGameDB = (
     [levelsData?.levels]
   );
 
+  // selectedLevels의 안정적인 문자열 표현 (useEffect 의존성용)
+  const selectedLevelsKey = useMemo(
+    () => selectedLevels.sort().join(","),
+    [selectedLevels]
+  );
+
   // 한자 데이터 조회 (현재 ID 기준으로 이전/현재/다음 데이터만)
   const {
     data: hanjaResponse,
@@ -147,10 +163,12 @@ export const useHanjaGameDB = (
       selectedType,
       // selectedLevels가 안정화된 후에만 쿼리 키에 포함
       selectedLevels.length > 0
-        ? selectedLevels.sort().join(",")
+        ? selectedLevelsKey
         : defaultLevels.sort().join(","),
       selectedVocabularyRange,
       currentIndex,
+      // URL의 id 파라미터를 쿼리 키에 포함
+      params?.urlId,
       // 숨겨진 카드 ID 목록을 쿼리 키에 포함하여 숨김 상태 변경 시 재요청
       hiddenCardsHook?.hiddenCards
         ? Array.from(hiddenCardsHook.hiddenCards).sort().join(",")
@@ -158,9 +176,12 @@ export const useHanjaGameDB = (
     ],
     queryFn: () => {
       const levels = selectedLevels.length > 0 ? selectedLevels : defaultLevels;
-      // 초기 로딩 시(currentIndex === 0) currentId를 전송하지 않음
-      // API가 자동으로 첫 번째 한자를 반환
-      const currentId = currentIndex === 0 ? undefined : currentIndex;
+      // URL의 id가 있으면 그것을 currentId로 사용, 없으면 currentIndex 사용
+      const currentId = params?.urlId
+        ? parseInt(params.urlId)
+        : currentIndex === 0
+        ? undefined
+        : currentIndex;
       return fetchHanjaData(
         selectedType,
         levels,
@@ -219,10 +240,10 @@ export const useHanjaGameDB = (
 
   // selectedLevels가 변경될 때 currentIndex를 0으로 리셋 (새로운 레벨 선택 시)
   useEffect(() => {
-    if (selectedLevels.length > 0) {
+    if (selectedLevels.length > 0 && !params?.urlId) {
       setCurrentIndex(0);
     }
-  }, [selectedLevels.join(",")]); // 문자열로 변환하여 실제 값 변경 시에만 실행
+  }, [selectedLevelsKey, params?.urlId]); // selectedLevelsKey 사용
 
   // 데이터가 변경되면 상태 초기화
   useEffect(() => {

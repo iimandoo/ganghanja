@@ -30,6 +30,7 @@ import { VocabularyRange, Level, HanjaType } from "@/constants";
 import { theme } from "@/styles/theme";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { ShareIcon } from "@/components/Icons";
+import type { HanjaData as ApiHanjaData } from "@/lib/api";
 
 const Container = styled.main`
   height: 100dvh;
@@ -271,6 +272,7 @@ export default function Home() {
     {
       urlLevels: urlLevel,
       urlVocabularyRange: urlWord,
+      urlId: urlId,
     },
     hiddenCardsHook
   );
@@ -279,6 +281,38 @@ export default function Home() {
     "signin"
   );
   const [showProgressTooltip, setShowProgressTooltip] = useState(false);
+
+  // allHanjaData 상태 추가
+  const [allHanjaData, setAllHanjaData] = useState<ApiHanjaData[]>([]);
+  const [isLoadingAllData, setIsLoadingAllData] = useState(false);
+
+  // allHanjaData를 가져오는 useEffect
+  useEffect(() => {
+    const fetchAllData = async () => {
+      if (gameHook.selectedLevels.length > 0 && gameHook.selectedType) {
+        setIsLoadingAllData(true);
+        try {
+          const data = await hiddenCardsHook.getAllHanjaData(
+            gameHook.selectedType,
+            gameHook.selectedLevels,
+            gameHook.selectedVocabularyRange
+          );
+          setAllHanjaData(data);
+        } catch (error) {
+          console.error("Failed to fetch all hanja data:", error);
+          setAllHanjaData([]);
+        } finally {
+          setIsLoadingAllData(false);
+        }
+      }
+    };
+    fetchAllData();
+  }, [
+    gameHook.selectedLevels,
+    gameHook.selectedType,
+    gameHook.selectedVocabularyRange,
+    hiddenCardsHook,
+  ]);
 
   // React Query 캐시 무효화 함수
   const handleRefreshData = async () => {
@@ -699,11 +733,11 @@ export default function Home() {
           <LandscapeCardActions
             onShuffle={handleShuffle}
             onUnhideByLevels={(levels) =>
-              hiddenCardsHook.unhideCardsByLevels(levels, [])
+              hiddenCardsHook.unhideCardsByLevels(levels, allHanjaData)
             }
             hiddenCardsCount={hiddenCardsHook.hiddenCardsCount}
             hiddenCards={hiddenCardsHook.hiddenCards}
-            allHanjaData={[]}
+            allHanjaData={allHanjaData}
             disabled={selectedLevels.length === 0}
             selectedLevels={selectedLevels}
             availableLevels={availableLevels}
@@ -745,11 +779,11 @@ export default function Home() {
         <PortraitCardActions
           onShuffle={handleShuffle}
           onUnhideByLevels={(levels) =>
-            hiddenCardsHook.unhideCardsByLevels(levels, [])
+            hiddenCardsHook.unhideCardsByLevels(levels, allHanjaData)
           }
           hiddenCardsCount={hiddenCardsHook.hiddenCardsCount}
           hiddenCards={hiddenCardsHook.hiddenCards}
-          allHanjaData={[]}
+          allHanjaData={allHanjaData}
           disabled={selectedLevels.length === 0}
           selectedLevels={selectedLevels}
           availableLevels={availableLevels}

@@ -103,7 +103,9 @@ export async function GET(
     // 3. 현재 한자 데이터 조회
     const { data: currentData, error: currentError } = await supabaseAdmin
       .from("hanja_data")
-      .select("*")
+      .select(
+        "id, character, meaning, meaning_key, level, type, naver_url, wordlevel_mid, wordlevel_es"
+      )
       .eq("id", targetId)
       .eq("type", resolvedParams.type)
       .single();
@@ -124,33 +126,33 @@ export async function GET(
         : null;
 
     // 5. 이전/다음 한자 데이터 조회
-    let previousData = null;
-    let nextData = null;
+    // let previousData = null;
+    // let nextData = null;
 
-    if (previousId) {
-      const { data: prevData } = await supabaseAdmin
-        .from("hanja_data")
-        .select("*")
-        .eq("id", previousId)
-        .single();
-      previousData = prevData;
-    }
+    // if (previousId) {
+    //   const { data: prevData } = await supabaseAdmin
+    //     .from("hanja_data")
+    //     .select("id")
+    //     .eq("id", previousId)
+    //     .single();
+    //   previousData = prevData;
+    // }
 
-    if (nextId) {
-      const { data: nextDataResult } = await supabaseAdmin
-        .from("hanja_data")
-        .select("*")
-        .eq("id", nextId)
-        .single();
-      nextData = nextDataResult;
-    }
+    // if (nextId) {
+    //   const { data: nextDataResult } = await supabaseAdmin
+    //     .from("hanja_data")
+    //     .select("id")
+    //     .eq("id", nextId)
+    //     .single();
+    //   nextData = nextDataResult;
+    // }
 
     // 6. 응답 데이터 구성
     const response = NextResponse.json({
       data: {
-        previous: previousData,
+        previous: { id: previousId },
         current: currentData,
-        next: nextData,
+        next: { id: nextId },
         totalCount: visibleIds.length, // 보이는 카드 개수
         currentIndex: currentIndex,
       },

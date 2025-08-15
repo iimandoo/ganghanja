@@ -272,7 +272,8 @@ export default function Home() {
       urlLevels: urlLevel,
       urlVocabularyRange: urlWord,
     },
-    hiddenCardsHook
+    hiddenCardsHook,
+    () => setShowProgressTooltip(true) // ProgressBar 툴팁 표시 콜백
   );
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authModalMode, setAuthModalMode] = useState<"signin" | "signup">(
@@ -374,7 +375,8 @@ export default function Home() {
     if (nextHanja) {
       updateURL(nextHanja.id, nextHanja.character);
       handleNext();
-      setShowProgressTooltip(true);
+      // API 호출 중에는 툴팁을 표시하지 않음
+      // API 응답 완료 후 자동으로 표시됨
     }
   };
 
@@ -383,6 +385,8 @@ export default function Home() {
     if (previousHanja) {
       updateURL(previousHanja.id, previousHanja.character);
       handlePrevious();
+      // API 호출 중에는 툴팁을 표시하지 않음
+      // API 응답 완료 후 자동으로 표시됨
     }
   };
 
@@ -425,11 +429,11 @@ export default function Home() {
   }, []);
 
   // totalCount가 0일 때 progress tooltip 숨기기
-  useEffect(() => {
-    if (totalCount === 0) {
-      setShowProgressTooltip(false);
-    }
-  }, [totalCount]);
+  // useEffect(() => {
+  //   if (totalCount === 0) {
+  //     setShowProgressTooltip(false);
+  //   }
+  // }, [totalCount]);
 
   // 로그인 모달 이벤트 리스너
   useEffect(() => {

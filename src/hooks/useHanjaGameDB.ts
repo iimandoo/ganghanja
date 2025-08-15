@@ -41,6 +41,7 @@ export interface UseHanjaGameReturn {
     range: VocabularyRange,
     onSave?: () => void
   ) => void;
+  onProgressTooltipShow?: () => void; // ProgressBar 툴팁 표시 콜백 추가
 }
 
 interface UseHanjaGameParams {
@@ -50,9 +51,11 @@ interface UseHanjaGameParams {
 
 export const useHanjaGameDB = (
   params?: UseHanjaGameParams,
-  hiddenCardsHook?: { hiddenCards: Set<number> }
+  hiddenCardsHook?: { hiddenCards: Set<number> },
+  onProgressTooltipShow?: () => void
 ): UseHanjaGameReturn => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [pendingIndex, setPendingIndex] = useState<number | null>(null); // 다음/이전 인덱스 추적
   const [selectedLevels, setSelectedLevels] = useState<Level[]>([]);
   const [selectedType, setSelectedType] =
     useState<HanjaType>("대한검정회 급수자격검정");
@@ -150,7 +153,7 @@ export const useHanjaGameDB = (
         ? selectedLevels.sort().join(",")
         : defaultLevels.sort().join(","),
       selectedVocabularyRange,
-      currentIndex,
+      pendingIndex !== null ? pendingIndex : currentIndex, // pendingIndex 우선 사용
       // 숨겨진 카드 ID 목록을 쿼리 키에 포함하여 숨김 상태 변경 시 재요청
       hiddenCardsHook?.hiddenCards
         ? Array.from(hiddenCardsHook.hiddenCards).sort().join(",")
@@ -158,9 +161,11 @@ export const useHanjaGameDB = (
     ],
     queryFn: () => {
       const levels = selectedLevels.length > 0 ? selectedLevels : defaultLevels;
-      // 초기 로딩 시(currentIndex === 0) currentId를 전송하지 않음
+      // pendingIndex가 있으면 해당 인덱스 사용, 없으면 currentIndex 사용
+      const targetIndex = pendingIndex !== null ? pendingIndex : currentIndex;
+      // 초기 로딩 시(targetIndex === 0) currentId를 전송하지 않음
       // API가 자동으로 첫 번째 한자를 반환
-      const currentId = currentIndex === 0 ? undefined : currentIndex;
+      const currentId = targetIndex === 0 ? undefined : targetIndex;
       return fetchHanjaData(
         selectedType,
         levels,
@@ -221,8 +226,26 @@ export const useHanjaGameDB = (
   useEffect(() => {
     if (selectedLevels.length > 0) {
       setCurrentIndex(0);
+      setPendingIndex(null); // pendingIndex도 리셋
     }
   }, [selectedLevels.join(",")]); // 문자열로 변환하여 실제 값 변경 시에만 실행
+
+  // currentIndex가 변경될 때 ProgressBar 툴팁 표시
+  useEffect(() => {
+    if (onProgressTooltipShow && currentIndex > 0) {
+      // API 응답 완료 후 툴팁 표시
+      onProgressTooltipShow();
+    }
+  }, [currentIndex, onProgressTooltipShow]);
+
+  // API 응답이 완료된 후 pendingIndex를 currentIndex로 설정
+  useEffect(() => {
+    if (pendingIndex !== null && hanjaResponse && !hanjaLoading) {
+      // API 응답이 완료되고 pendingIndex가 설정된 경우
+      setCurrentIndex(pendingIndex);
+      setPendingIndex(null); // pendingIndex 리셋
+    }
+  }, [hanjaResponse, hanjaLoading, pendingIndex]);
 
   // 데이터가 변경되면 상태 초기화
   useEffect(() => {
@@ -276,8 +299,10 @@ export const useHanjaGameDB = (
     // 마지막 카드인 경우 더 이상 진행하지 않음 (순환 방지)
     if (currentIndex >= totalCount - 1) return;
 
+    // API 호출 중에는 currentIndex를 즉시 변경하지 않음
+    // pendingIndex를 설정하여 다음 인덱스를 추적
     const nextIndex = currentIndex + 1;
-    setCurrentIndex(nextIndex);
+    setPendingIndex(nextIndex);
     resetCardFlipState();
   };
 
@@ -285,14 +310,17 @@ export const useHanjaGameDB = (
     if (totalCount === 0) return;
 
     const prevIndex = currentIndex === 0 ? totalCount - 1 : currentIndex - 1;
-    setCurrentIndex(prevIndex);
+
+    // API 호출 중에는 currentIndex를 즉시 변경하지 않음
+    // pendingIndex를 설정하여 이전 인덱스를 추적
+    setPendingIndex(prevIndex);
     resetCardFlipState();
   };
 
   const handleShuffle = () => {
     if (totalCount > 0) {
       const randomIndex = Math.floor(Math.random() * totalCount);
-      setCurrentIndex(randomIndex);
+      setPendingIndex(randomIndex);
       resetCardFlipState();
     }
   };
@@ -343,7 +371,7 @@ export const useHanjaGameDB = (
   const progress =
     selectedLevels.length === 0 || totalCount === 0
       ? 0
-      : ((currentIndex + 1) / totalCount) * 100;
+      : ((currentIndex + 1) / totalCount) * 100; // pendingIndex가 있어도 currentIndex 기반으로 진행률 계산
 
   return {
     currentIndex,
@@ -368,5 +396,6 @@ export const useHanjaGameDB = (
     handleLevelFilter,
     handleTypeChange,
     handleVocabularyRangeChange,
+    onProgressTooltipShow,
   };
 };

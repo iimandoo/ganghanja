@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import Script from "next/script";
@@ -286,33 +286,57 @@ export default function Home() {
   const [allHanjaData, setAllHanjaData] = useState<ApiHanjaData[]>([]);
   const [isLoadingAllData, setIsLoadingAllData] = useState(false);
 
-  // allHanjaData를 가져오는 useEffect
-  useEffect(() => {
-    const fetchAllData = async () => {
-      if (gameHook.selectedLevels.length > 0 && gameHook.selectedType) {
-        setIsLoadingAllData(true);
-        try {
-          const data = await hiddenCardsHook.getAllHanjaData(
-            gameHook.selectedType,
-            gameHook.selectedLevels,
-            gameHook.selectedVocabularyRange
-          );
-          setAllHanjaData(data);
-        } catch (error) {
-          console.error("Failed to fetch all hanja data:", error);
-          setAllHanjaData([]);
-        } finally {
-          setIsLoadingAllData(false);
+  // allHanjaData를 가져오는 함수
+  const fetchAllData = useCallback(async () => {
+    if (gameHook.selectedLevels.length > 0 && gameHook.selectedType) {
+      setIsLoadingAllData(true);
+      try {
+        const typeParam =
+          gameHook.selectedType === "대한검정회 급수자격검정"
+            ? "TypeA"
+            : "TypeB";
+        const levelsParam = gameHook.selectedLevels.join(",");
+
+        const params = new URLSearchParams({
+          levels: levelsParam,
+          vocabularyRange: gameHook.selectedVocabularyRange || "기본",
+        });
+
+        const response = await fetch(
+          `/api/hanja/${typeParam}/all?${params.toString()}`
+        );
+
+        if (!response.ok) {
+          throw new Error(`API 요청 실패: ${response.status}`);
         }
+
+        const apiResponse = await response.json();
+
+        const data = apiResponse.data.map(
+          (item: ApiHanjaData & { meaning_key: string }) => ({
+            ...item,
+            meaningKey: item.meaning_key,
+          })
+        );
+
+        setAllHanjaData(data);
+      } catch (error) {
+        console.error("Failed to fetch all hanja data:", error);
+        setAllHanjaData([]);
+      } finally {
+        setIsLoadingAllData(false);
       }
-    };
-    fetchAllData();
+    }
   }, [
     gameHook.selectedLevels,
     gameHook.selectedType,
     gameHook.selectedVocabularyRange,
-    hiddenCardsHook,
   ]);
+
+  // allHanjaData를 가져오는 useEffect
+  useEffect(() => {
+    fetchAllData();
+  }, [fetchAllData]);
 
   // React Query 캐시 무효화 함수
   const handleRefreshData = async () => {
@@ -498,6 +522,33 @@ export default function Home() {
   // 진행률 계산
   const progress = gameHook.progress;
 
+  // 숨겨진 카드를 제외한 실제 보이는 카드의 개수 계산
+  const visibleTotalCount = useMemo(() => {
+    if (allHanjaData.length === 0) return 0;
+    return allHanjaData.length - hiddenCardsHook.hiddenCardsCount;
+  }, [allHanjaData.length, hiddenCardsHook.hiddenCardsCount]);
+
+  // 현재 카드의 실제 인덱스 계산 (숨겨진 카드 제외)
+  const visibleCurrentIndex = useMemo(() => {
+    if (!currentHanja || allHanjaData.length === 0) return 0;
+
+    // 현재 카드까지의 보이는 카드 개수 계산
+    let visibleCount = 0;
+    for (const hanja of allHanjaData) {
+      if (hanja.id === currentHanja.id) break;
+      if (!hiddenCardsHook.isCardHidden(hanja.id)) {
+        visibleCount++;
+      }
+    }
+    return visibleCount;
+  }, [currentHanja, allHanjaData, hiddenCardsHook]);
+
+  // 실제 진행률 계산 (숨겨진 카드 제외)
+  const actualProgress = useMemo(() => {
+    if (visibleTotalCount === 0) return 0;
+    return ((visibleCurrentIndex + 1) / visibleTotalCount) * 100;
+  }, [visibleCurrentIndex, visibleTotalCount]);
+
   // 카드 숨기기 핸들러 (스낵바 표시 포함)
   const handleHideCard = useCallback(() => {
     if (!currentHanja) return;
@@ -511,12 +562,15 @@ export default function Home() {
     // 다음 카드로 이동 (다음 카드가 있으면)
     if (nextHanja && !hiddenCardsHook.isCardHidden(nextHanja.id)) {
       // 다음 카드가 숨겨지지 않았다면 다음으로 이동
+      updateURL(nextHanja.id, nextHanja.character);
       handleNext();
+      setShowProgressTooltip(true);
     } else if (
       previousHanja &&
       !hiddenCardsHook.isCardHidden(previousHanja.id)
     ) {
       // 다음 카드가 숨겨졌다면 이전 카드로 이동
+      updateURL(previousHanja.id, previousHanja.character);
       handlePrevious();
     }
     // 둘 다 숨겨졌다면 현재 상태 유지 (API가 자동으로 다음 유효한 카드를 찾음)
@@ -528,6 +582,7 @@ export default function Home() {
     handleNext,
     handlePrevious,
     snackbarHook,
+    updateURL,
   ]);
 
   // 학년설정 변경 핸들러 (URL 업데이트 포함)
@@ -723,9 +778,9 @@ export default function Home() {
             onSubmit={handleChatSubmit}
           />
           <ProgressBar
-            progress={progress}
-            currentIndex={currentIndex}
-            totalCount={totalCount}
+            progress={actualProgress}
+            currentIndex={visibleCurrentIndex}
+            totalCount={visibleTotalCount}
             showTooltip={showProgressTooltip}
             onTooltipHide={() => setShowProgressTooltip(false)}
           />

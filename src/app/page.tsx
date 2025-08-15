@@ -328,7 +328,7 @@ export default function Home() {
       }
     }
   }, [
-    gameHook.selectedLevels,
+    gameHook.selectedLevels.join(","), // 배열을 문자열로 변환하여 안정적인 의존성 생성
     gameHook.selectedType,
     gameHook.selectedVocabularyRange,
   ]);

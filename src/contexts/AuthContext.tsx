@@ -21,7 +21,6 @@ import {
 import { validateSignUpData, validateSignInData } from "@/utils/authValidation";
 import { translateSupabaseError, getErrorMessage } from "@/utils/authErrors";
 import { saveRememberMe, clearRememberMe } from "@/utils/localStorage";
-import { deleteUserSettings } from "@/lib/api";
 import { AUTH_MESSAGES } from "@/constants/authMessages";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -241,22 +240,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       // 자동 로그인 정보 제거
       clearRememberMe();
 
-      // 현재 사용자의 DB 설정 정보 삭제
-      if (authState.user?.id) {
-        try {
-          await deleteUserSettings(authState.user.id);
-        } catch (settingsError) {
-          console.error("Failed to delete user settings:", settingsError);
-        }
-      }
-
       setAuthUser(null);
     } catch (error: unknown) {
       const errorMessage = getErrorMessage(error);
       console.error("로그아웃 오류:", errorMessage);
       setAuthError(errorMessage);
     }
-  }, [supabase, setAuthLoading, setAuthError, setAuthUser, authState.user?.id]);
+  }, [supabase, setAuthLoading, setAuthError, setAuthUser]);
 
   // Context 값 메모이제이션
   const value = useMemo(

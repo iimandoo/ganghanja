@@ -10,8 +10,8 @@ import {
   fetchHanjaData,
   fetchAvailableLevels,
   HanjaData,
-  saveUserSettings,
-  loadUserSettings,
+  upsertUserPreferences,
+  getUserPreferences,
 } from "@/lib/api";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -113,18 +113,29 @@ export const useHanjaGameDB = (
     error: settingsError,
   } = useQuery({
     queryKey: ["userSettings", user?.id],
-    queryFn: () => (user?.id ? loadUserSettings(user.id) : null),
+    queryFn: () => (user?.id ? getUserPreferences(user.id) : null),
     enabled: !!user?.id,
   });
 
   // 사용자 설정이 로드되면 상태 업데이트
   useEffect(() => {
     if (userSettings) {
-      setSelectedType(userSettings.selected_type as HanjaType);
-      setSelectedVocabularyRange(
-        userSettings.selected_vocabulary_range as VocabularyRange
+      // hanja_type을 selectedType으로 변환
+      const typeMapping: { [key: string]: HanjaType } = {
+        ExamA: "대한검정회 급수자격검정",
+        ExamB: "어문회 검정시험",
+      };
+      setSelectedType(
+        typeMapping[userSettings.hanja_type] || "대한검정회 급수자격검정"
       );
+
+      // selected_levels 사용
       setSelectedLevels(userSettings.selected_levels as Level[]);
+
+      // vocabulary_range 사용
+      setSelectedVocabularyRange(
+        userSettings.vocabulary_range as VocabularyRange
+      );
     }
   }, [userSettings]);
 
@@ -263,11 +274,14 @@ export const useHanjaGameDB = (
     if (!user?.id || selectedLevels.length === 0) return;
 
     try {
-      await saveUserSettings({
-        user_id: user.id,
+      // hanja_type을 selectedType에서 변환
+      const hanjaType =
+        selectedType === "대한검정회 급수자격검정" ? "ExamA" : "ExamB";
+
+      await upsertUserPreferences(user.id, {
         selected_levels: selectedLevels,
-        selected_type: selectedType,
-        selected_vocabulary_range: selectedVocabularyRange,
+        hanja_type: hanjaType,
+        vocabulary_range: selectedVocabularyRange,
       });
     } catch (error) {
       console.error("Failed to save user settings:", error);

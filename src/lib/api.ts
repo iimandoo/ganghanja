@@ -141,62 +141,27 @@ export async function submitCustomerInquiry(
   return result;
 }
 
-export interface UserSettings {
-  id?: number;
+/**
+ * 사용자 설정 정보 조회
+ */
+export interface UserPreferences {
+  id: string;
   user_id: string;
-  selected_levels: string[];
-  selected_type: string;
-  selected_vocabulary_range: string;
-  created_at?: string;
-  updated_at?: string;
+  user_level: string;
+  hanja_type: string; // 현재 테이블에 있는 컬럼
+  selected_levels: string[]; // 현재 테이블에 있는 컬럼
+  vocabulary_range: "기본" | "중급"; // 새로 추가된 컬럼
+  created_at: string;
+  updated_at: string;
 }
 
-/**
- * 사용자 설정을 저장
- */
-export const saveUserSettings = async (settings: {
-  user_id: string;
-  selected_levels: string[];
-  selected_type: string;
-  selected_vocabulary_range: string;
-}): Promise<UserSettings> => {
-  const supabase = getSupabaseClient();
-
-  const { data, error } = await supabase
-    .from("user_settings")
-    .upsert(
-      {
-        user_id: settings.user_id,
-        selected_levels: settings.selected_levels,
-        selected_type: settings.selected_type,
-        selected_vocabulary_range: settings.selected_vocabulary_range,
-        updated_at: new Date().toISOString(),
-      },
-      {
-        onConflict: "user_id",
-      }
-    )
-    .select()
-    .single();
-
-  if (error) {
-    console.error("Failed to save user settings:", error);
-    throw new Error("사용자 설정 저장에 실패했습니다.");
-  }
-
-  return data as unknown as UserSettings;
-};
-
-/**
- * 사용자 설정을 불러오기
- */
-export const loadUserSettings = async (
+export const getUserPreferences = async (
   userId: string
-): Promise<UserSettings | null> => {
+): Promise<UserPreferences | null> => {
   const supabase = getSupabaseClient();
 
   const { data, error } = await supabase
-    .from("user_settings")
+    .from("user_preferences")
     .select("*")
     .eq("user_id", userId)
     .single();
@@ -206,28 +171,54 @@ export const loadUserSettings = async (
       // 데이터가 없는 경우
       return null;
     }
-    console.error("Failed to load user settings:", error);
+    console.error("Failed to load user preferences:", error);
     throw new Error("사용자 설정 불러오기에 실패했습니다.");
   }
 
-  return data as unknown as UserSettings;
+  return data as unknown as UserPreferences;
 };
 
 /**
- * 사용자 설정을 삭제
+ * 사용자가 admin인지 확인
  */
-export const deleteUserSettings = async (userId: string): Promise<void> => {
+export const isUserAdmin = async (userId: string): Promise<boolean> => {
+  try {
+    const preferences = await getUserPreferences(userId);
+    return preferences?.user_level === "admin";
+  } catch (error) {
+    console.error("Admin 권한 확인 실패:", error);
+    return false;
+  }
+};
+
+/**
+ * 사용자 설정 생성 또는 업데이트
+ */
+export const upsertUserPreferences = async (
+  userId: string,
+  preferences: Partial<UserPreferences>
+): Promise<UserPreferences> => {
   const supabase = getSupabaseClient();
 
-  const { error } = await supabase
-    .from("user_settings")
-    .delete()
-    .eq("user_id", userId);
+  const { data, error } = await supabase
+    .from("user_preferences")
+    .upsert(
+      {
+        user_id: userId,
+        ...preferences,
+        updated_at: new Date().toISOString(),
+      },
+      { onConflict: "user_id" }
+    )
+    .select()
+    .single();
 
   if (error) {
-    console.error("Failed to delete user settings:", error);
-    throw new Error("사용자 설정 삭제에 실패했습니다.");
+    console.error("Failed to upsert user preferences:", error);
+    throw new Error("사용자 설정 저장에 실패했습니다.");
   }
+
+  return data as unknown as UserPreferences;
 };
 
 /**
@@ -440,84 +431,4 @@ export const getHanjaWordHistory = async (
   }
 
   return (data as unknown as WordHistoryItem[]) || [];
-};
-
-/**
- * 사용자 설정 정보 조회
- */
-export interface UserPreferences {
-  id: string;
-  user_id: string;
-  user_level: string;
-  vocabulary_range: "기본" | "중급";
-  level_filter: string[];
-  type_filter: string;
-  created_at: string;
-  updated_at: string;
-}
-
-export const getUserPreferences = async (
-  userId: string
-): Promise<UserPreferences | null> => {
-  const supabase = getSupabaseClient();
-
-  const { data, error } = await supabase
-    .from("user_preferences")
-    .select("*")
-    .eq("user_id", userId)
-    .single();
-
-  if (error) {
-    if (error.code === "PGRST116") {
-      // 데이터가 없는 경우
-      return null;
-    }
-    console.error("Failed to load user preferences:", error);
-    throw new Error("사용자 설정 불러오기에 실패했습니다.");
-  }
-
-  return data as unknown as UserPreferences;
-};
-
-/**
- * 사용자가 admin인지 확인
- */
-export const isUserAdmin = async (userId: string): Promise<boolean> => {
-  try {
-    const preferences = await getUserPreferences(userId);
-    return preferences?.user_level === "admin";
-  } catch (error) {
-    console.error("Admin 권한 확인 실패:", error);
-    return false;
-  }
-};
-
-/**
- * 사용자 설정 생성 또는 업데이트
- */
-export const upsertUserPreferences = async (
-  userId: string,
-  preferences: Partial<UserPreferences>
-): Promise<UserPreferences> => {
-  const supabase = getSupabaseClient();
-
-  const { data, error } = await supabase
-    .from("user_preferences")
-    .upsert(
-      {
-        user_id: userId,
-        ...preferences,
-        updated_at: new Date().toISOString(),
-      },
-      { onConflict: "user_id" }
-    )
-    .select()
-    .single();
-
-  if (error) {
-    console.error("Failed to upsert user preferences:", error);
-    throw new Error("사용자 설정 저장에 실패했습니다.");
-  }
-
-  return data as unknown as UserPreferences;
 };

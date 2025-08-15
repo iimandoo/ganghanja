@@ -257,7 +257,6 @@ export default function Home() {
   const queryClient = useQueryClient();
 
   // URL 파라미터 처리
-  const urlLevel = searchParams.get("level") || undefined;
   const urlWord = searchParams.get("word") || undefined;
   const urlId = searchParams.get("id") || undefined;
   const urlSearch = searchParams.get("search") || undefined;
@@ -270,7 +269,6 @@ export default function Home() {
 
   const gameHook = useHanjaGameDB(
     {
-      urlLevels: urlLevel,
       urlVocabularyRange: urlWord,
       urlId: urlId,
     },
@@ -414,7 +412,6 @@ export default function Home() {
   const updateURL = (cardId?: number, cardCharacter?: string) => {
     const params = new URLSearchParams();
 
-    if (urlLevel) params.set("level", urlLevel);
     if (urlWord) params.set("word", urlWord);
 
     if (cardId) {
@@ -603,20 +600,14 @@ export default function Home() {
     });
   };
 
-  // 급수설정 변경 핸들러 (URL 업데이트 포함)
+  // 급수설정 변경 핸들러 (URL 업데이트 제거)
   const handleLevelFilterWithNotification = (level: Level) => {
     // 새로운 급수 리스트 계산
     const newLevels = selectedLevels.includes(level)
       ? selectedLevels.filter((l) => l !== level)
       : [...selectedLevels, level];
 
-    // URL 파라미터 업데이트
-    if (newLevels.length > 0) {
-      const params = new URLSearchParams(searchParams);
-      params.set("level", newLevels.join(","));
-      const newUrl = `${window.location.pathname}?${params.toString()}`;
-      router.push(newUrl);
-    }
+    // URL 업데이트 제거 - API 응답의 levels 값만 사용
 
     handleLevelFilter(level);
 

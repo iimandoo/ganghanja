@@ -42,6 +42,7 @@ export async function fetchHanjaData(
   next: HanjaData | null;
   totalCount: number;
   currentIndex: number;
+  levels: Level[]; // API 응답의 levels 필드 추가
 }> {
   const typeParam = type === "대한검정회 급수자격검정" ? "TypeA" : "TypeB";
   const levelsParam = levels.join(",");
@@ -87,6 +88,7 @@ export async function fetchHanjaData(
     next: transformItem(apiResponse.data.next),
     totalCount: apiResponse.data.totalCount,
     currentIndex: apiResponse.data.currentIndex,
+    levels: apiResponse.data.levels, // API 응답의 levels 필드 추가
   };
 }
 

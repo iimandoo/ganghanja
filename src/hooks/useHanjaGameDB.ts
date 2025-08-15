@@ -44,7 +44,6 @@ export interface UseHanjaGameReturn {
 }
 
 interface UseHanjaGameParams {
-  urlLevels?: string;
   urlVocabularyRange?: string;
   urlId?: string;
 }
@@ -70,21 +69,6 @@ export const useHanjaGameDB = (
   useEffect(() => {
     let shouldUpdate = false;
 
-    if (params?.urlLevels) {
-      const levels = params.urlLevels
-        .split(",")
-        .filter((level) =>
-          ["8", "7", "6", "준5", "5", "준4"].includes(level)
-        ) as Level[];
-      if (
-        levels.length > 0 &&
-        JSON.stringify(levels.sort()) !== JSON.stringify(selectedLevels.sort())
-      ) {
-        setSelectedLevels(levels);
-        shouldUpdate = true;
-      }
-    }
-
     if (params?.urlVocabularyRange) {
       const range = params.urlVocabularyRange as VocabularyRange;
       if (
@@ -104,7 +88,7 @@ export const useHanjaGameDB = (
         shouldUpdate = true;
       }
     }
-  }, [params?.urlLevels, params?.urlVocabularyRange, params?.urlId]);
+  }, [params?.urlVocabularyRange, params?.urlId]);
 
   // 사용자 설정 불러오기
   const {
@@ -157,12 +141,6 @@ export const useHanjaGameDB = (
     [levelsData?.levels]
   );
 
-  // selectedLevels의 안정적인 문자열 표현 (useEffect 의존성용)
-  const selectedLevelsKey = useMemo(
-    () => selectedLevels.sort().join(","),
-    [selectedLevels]
-  );
-
   // 한자 데이터 조회 (현재 ID 기준으로 이전/현재/다음 데이터만)
   const {
     data: hanjaResponse,
@@ -174,7 +152,7 @@ export const useHanjaGameDB = (
       selectedType,
       // selectedLevels가 안정화된 후에만 쿼리 키에 포함
       selectedLevels.length > 0
-        ? selectedLevelsKey
+        ? selectedLevels.sort().join(",")
         : defaultLevels.sort().join(","),
       selectedVocabularyRange,
       currentIndex,
@@ -249,12 +227,13 @@ export const useHanjaGameDB = (
     }
   }, [availableLevels, selectedLevels.length]);
 
-  // selectedLevels가 변경될 때 currentIndex를 0으로 리셋 (새로운 레벨 선택 시)
+  // selectedLevels가 변경될 때 currentIndex를 리셋 (새로운 레벨 선택 시)
+  // API 응답의 levels를 사용하므로 URL의 id 파라미터가 없을 때만 리셋
   useEffect(() => {
     if (selectedLevels.length > 0 && !params?.urlId) {
       setCurrentIndex(0);
     }
-  }, [selectedLevelsKey, params?.urlId]); // selectedLevelsKey 사용
+  }, [selectedLevels, params?.urlId]);
 
   // 데이터가 변경되면 상태 초기화
   useEffect(() => {
@@ -263,6 +242,27 @@ export const useHanjaGameDB = (
       setTimeout(() => setResetCardFlip(false), ANIMATION_DELAYS.CARD_RESET);
     }
   }, [currentHanja]);
+
+  // API 응답의 currentIndex와 로컬 상태 동기화
+  useEffect(() => {
+    if (hanjaResponse?.currentIndex !== undefined) {
+      setCurrentIndex(hanjaResponse.currentIndex);
+    }
+  }, [hanjaResponse?.currentIndex]);
+
+  // API 응답의 levels 값을 사용하여 selectedLevels 동기화
+  useEffect(() => {
+    if (hanjaResponse?.levels && hanjaResponse.levels.length > 0) {
+      // API 응답의 levels를 Level 타입으로 변환
+      const apiLevels = hanjaResponse.levels as Level[];
+      if (
+        JSON.stringify(apiLevels.sort()) !==
+        JSON.stringify(selectedLevels.sort())
+      ) {
+        setSelectedLevels(apiLevels);
+      }
+    }
+  }, [hanjaResponse?.levels, selectedLevels]);
 
   const resetCardFlipState = () => {
     setResetCardFlip(true);
@@ -381,7 +381,7 @@ export const useHanjaGameDB = (
       : ((currentIndex + 1) / totalCount) * 100;
 
   return {
-    currentIndex,
+    currentIndex, // 로컬 상태 유지
     currentHanja,
     previousHanja,
     nextHanja,

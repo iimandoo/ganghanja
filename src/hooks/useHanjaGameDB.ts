@@ -94,7 +94,6 @@ export const useHanjaGameDB = (
         range !== selectedVocabularyRange
       ) {
         setSelectedVocabularyRange(range);
-        shouldUpdate = true;
       }
     }
   }, [params?.urlLevels, params?.urlVocabularyRange]);
@@ -153,7 +152,7 @@ export const useHanjaGameDB = (
         ? selectedLevels.sort().join(",")
         : defaultLevels.sort().join(","),
       selectedVocabularyRange,
-      pendingIndex !== null ? pendingIndex : currentIndex, // pendingIndex 우선 사용
+      currentIndex, // pendingIndex 제거, currentIndex만 사용
       // 숨겨진 카드 ID 목록을 쿼리 키에 포함하여 숨김 상태 변경 시 재요청
       hiddenCardsHook?.hiddenCards
         ? Array.from(hiddenCardsHook.hiddenCards).sort().join(",")
@@ -161,11 +160,8 @@ export const useHanjaGameDB = (
     ],
     queryFn: () => {
       const levels = selectedLevels.length > 0 ? selectedLevels : defaultLevels;
-      // pendingIndex가 있으면 해당 인덱스 사용, 없으면 currentIndex 사용
-      const targetIndex = pendingIndex !== null ? pendingIndex : currentIndex;
-      // 초기 로딩 시(targetIndex === 0) currentId를 전송하지 않음
-      // API가 자동으로 첫 번째 한자를 반환
-      const currentId = targetIndex === 0 ? undefined : targetIndex;
+      // currentIndex만 사용 (pendingIndex는 API 호출 후에만 currentIndex로 설정)
+      const currentId = currentIndex === 0 ? undefined : currentIndex;
       return fetchHanjaData(
         selectedType,
         levels,
@@ -174,7 +170,7 @@ export const useHanjaGameDB = (
         hiddenCardsHook?.hiddenCards
       );
     },
-    enabled: !!selectedType && selectedLevels.length > 0,
+    enabled: !!selectedType && selectedLevels.length > 0, // pendingIndex 제한 제거
     // 캐시 설정으로 불필요한 재요청 방지
     staleTime: 5 * 60 * 1000, // 5분간 fresh 상태 유지
     gcTime: 10 * 60 * 1000, // 10분간 캐시 유지
@@ -238,14 +234,13 @@ export const useHanjaGameDB = (
     }
   }, [currentIndex, onProgressTooltipShow]);
 
-  // API 응답이 완료된 후 pendingIndex를 currentIndex로 설정
+  // pendingIndex가 설정되면 즉시 currentIndex 업데이트 (API 호출 없이)
   useEffect(() => {
-    if (pendingIndex !== null && hanjaResponse && !hanjaLoading) {
-      // API 응답이 완료되고 pendingIndex가 설정된 경우
+    if (pendingIndex !== null) {
       setCurrentIndex(pendingIndex);
-      setPendingIndex(null); // pendingIndex 리셋
+      setPendingIndex(null);
     }
-  }, [hanjaResponse, hanjaLoading, pendingIndex]);
+  }, [pendingIndex]);
 
   // 데이터가 변경되면 상태 초기화
   useEffect(() => {

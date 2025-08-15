@@ -258,8 +258,6 @@ export default function Home() {
   // URL 파라미터 처리
   const urlLevel = searchParams.get("level") || undefined;
   const urlWord = searchParams.get("word") || undefined;
-  const urlId = searchParams.get("id") || undefined;
-  const urlSearch = searchParams.get("search") || undefined;
 
   const modalHook = useModal();
   const chatHook = useChat();
@@ -308,7 +306,6 @@ export default function Home() {
     selectedType,
     selectedVocabularyRange,
     availableLevels,
-    resetCardFlip,
     handleNext,
     handlePrevious,
     handleShuffle,

@@ -9,7 +9,17 @@ export async function GET(
     const { searchParams } = new URL(request.url);
     const levels = searchParams.get("levels");
     const vocabularyRange = searchParams.get("vocabularyRange");
+    const currentId = searchParams.get("currentId");
+    const hiddenCardIds = searchParams.get("hiddenCardIds"); // 숨겨진 카드 ID 목록
     const resolvedParams = await params;
+
+    // 필수 파라미터 검증 (currentId는 선택사항)
+    if (!levels || !vocabularyRange) {
+      return NextResponse.json(
+        { error: "필수 파라미터가 누락되었습니다." },
+        { status: 400 }
+      );
+    }
 
     // 타입 검증
     if (
@@ -23,49 +33,129 @@ export async function GET(
     }
 
     const supabaseAdmin = getSupabaseAdmin();
-    let query = supabaseAdmin
+    const levelArray = levels.split(",").filter(Boolean);
+
+    // 숨겨진 카드 ID 목록 파싱
+    const hiddenIds = hiddenCardIds
+      ? hiddenCardIds
+          .split(",")
+          .map((id) => parseInt(id.trim()))
+          .filter((id) => !isNaN(id))
+      : [];
+
+    // 1. 해당 타입과 레벨의 모든 ID 목록 조회 (정렬된 순서)
+    const { data: allIds, error: idsError } = await supabaseAdmin
       .from("hanja_data")
-      .select("*")
-      .eq("type", resolvedParams.type);
+      .select("id")
+      .eq("type", resolvedParams.type)
+      .in("level", levelArray)
+      .order("meaning_key", { ascending: true });
 
-    // 급수 필터링
-    if (levels) {
-      const levelArray = levels.split(",").filter(Boolean);
-      if (levelArray.length > 0) {
-        query = query.in("level", levelArray);
-      }
-    }
-
-    // 어휘 범위 필터링 - 중급의 경우 wordLevel_mid가 존재하는 데이터만
-    if (vocabularyRange === "중급") {
-      // wordLevel_mid 컬럼이 존재하고 null이 아닌 경우만 필터링
-      // 데이터베이스에 해당 컬럼이 없거나 오류가 발생할 수 있으므로 try-catch로 처리
-    }
-
-    // 정렬 (의미 키 기준)
-    query = query.order("meaning_key", { ascending: true });
-
-    let data, error;
-
-    // 모든 데이터를 가져옴 (중급 모드여도 필터링하지 않음)
-    const result = await query;
-    data = result.data;
-    error = result.error;
-
-    if (error) {
-      console.error("Database error:", error);
+    if (idsError) {
+      console.error("Failed to fetch IDs:", idsError);
       return NextResponse.json(
-        { error: "데이터를 가져오는 중 오류가 발생했습니다." },
+        { error: "ID 목록을 가져오는 중 오류가 발생했습니다." },
         { status: 500 }
       );
     }
 
-    // 응답 헤더에 캐시 설정
+    if (!allIds || allIds.length === 0) {
+      return NextResponse.json(
+        { error: "해당 타입과 레벨에 한자 데이터가 없습니다." },
+        { status: 404 }
+      );
+    }
+
+    // 숨겨진 카드를 제외한 ID 목록 생성
+    const visibleIds = allIds
+      .map((item) => item.id)
+      .filter((id) => !hiddenIds.includes(id));
+
+    if (visibleIds.length === 0) {
+      return NextResponse.json(
+        { error: "모든 한자가 숨겨져 있습니다." },
+        { status: 404 }
+      );
+    }
+
+    // 2. currentId가 없으면 첫 번째 보이는 ID 사용, 있으면 해당 ID 검증
+    let targetId: number;
+    let currentIndex: number;
+
+    if (currentId === null || currentId === undefined) {
+      // currentId가 없으면 첫 번째 보이는 ID 사용
+      targetId = visibleIds[0];
+      currentIndex = 0;
+    } else {
+      // currentId가 있으면 해당 ID 검증
+      const currentIdNum = parseInt(currentId);
+      currentIndex = visibleIds.indexOf(currentIdNum);
+
+      if (currentIndex === -1) {
+        // 현재 ID가 숨겨져 있거나 존재하지 않는 경우, 첫 번째 보이는 ID 사용
+        targetId = visibleIds[0];
+        currentIndex = 0;
+      } else {
+        targetId = currentIdNum;
+      }
+    }
+
+    // 3. 현재 한자 데이터 조회
+    const { data: currentData, error: currentError } = await supabaseAdmin
+      .from("hanja_data")
+      .select("*")
+      .eq("id", targetId)
+      .eq("type", resolvedParams.type)
+      .single();
+
+    if (currentError || !currentData) {
+      console.error("Current hanja not found:", currentError);
+      return NextResponse.json(
+        { error: "해당 한자를 찾을 수 없습니다." },
+        { status: 404 }
+      );
+    }
+
+    // 4. 이전/다음 한자 ID 찾기 (숨겨진 카드 제외)
+    const previousId = currentIndex > 0 ? visibleIds[currentIndex - 1] : null;
+    const nextId =
+      currentIndex < visibleIds.length - 1
+        ? visibleIds[currentIndex + 1]
+        : null;
+
+    // 5. 이전/다음 한자 데이터 조회
+    let previousData = null;
+    let nextData = null;
+
+    if (previousId) {
+      const { data: prevData } = await supabaseAdmin
+        .from("hanja_data")
+        .select("*")
+        .eq("id", previousId)
+        .single();
+      previousData = prevData;
+    }
+
+    if (nextId) {
+      const { data: nextDataResult } = await supabaseAdmin
+        .from("hanja_data")
+        .select("*")
+        .eq("id", nextId)
+        .single();
+      nextData = nextDataResult;
+    }
+
+    // 6. 응답 데이터 구성
     const response = NextResponse.json({
-      data: data || [],
-      count: data?.length || 0,
+      data: {
+        previous: previousData,
+        current: currentData,
+        next: nextData,
+        totalCount: visibleIds.length, // 보이는 카드 개수
+        currentIndex: currentIndex,
+      },
       type: resolvedParams.type,
-      levels: levels?.split(",") || [],
+      levels: levelArray,
     });
 
     // 5분간 캐시

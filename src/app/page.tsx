@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import Script from "next/script";
@@ -256,20 +256,24 @@ export default function Home() {
   const queryClient = useQueryClient();
 
   // URL 파라미터 처리
-  const urlLevel = searchParams.get("level");
-  const urlWord = searchParams.get("word");
-  const urlId = searchParams.get("id");
-  const urlSearch = searchParams.get("search");
+  const urlLevel = searchParams.get("level") || undefined;
+  const urlWord = searchParams.get("word") || undefined;
+  const urlId = searchParams.get("id") || undefined;
+  const urlSearch = searchParams.get("search") || undefined;
 
-  const gameHook = useHanjaGameDB({
-    urlLevels: urlLevel,
-    urlVocabularyRange: urlWord,
-  });
   const modalHook = useModal();
   const chatHook = useChat();
   const { user, loading: authLoading } = useAuth();
   const hiddenCardsHook = useHiddenCards();
   const snackbarHook = useSnackbar();
+
+  const gameHook = useHanjaGameDB(
+    {
+      urlLevels: urlLevel,
+      urlVocabularyRange: urlWord,
+    },
+    hiddenCardsHook
+  );
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authModalMode, setAuthModalMode] = useState<"signin" | "signup">(
     "signin"
@@ -295,14 +299,15 @@ export default function Home() {
 
   const {
     currentIndex,
-    filteredData,
-    allHanjaData,
+    currentHanja,
+    previousHanja,
+    nextHanja,
+    totalCount,
     selectedLevels,
     selectedType,
     selectedVocabularyRange,
     availableLevels,
     resetCardFlip,
-    isDataLoading,
     handleNext,
     handlePrevious,
     handleShuffle,
@@ -310,6 +315,9 @@ export default function Home() {
     handleTypeChange,
     handleVocabularyRangeChange,
   } = gameHook;
+
+  // 데이터 로딩 상태
+  const isDataLoading = gameHook.isDataLoading;
 
   const {
     isModalOpen,
@@ -363,10 +371,8 @@ export default function Home() {
 
   // 다음 카드로 이동
   const handleNextWithURL = () => {
-    const nextIndex = adjustedCurrentIndex + 1;
-    if (nextIndex < visibleCards.length) {
-      const nextCard = visibleCards[nextIndex];
-      updateURL(nextCard.id, nextCard.character);
+    if (nextHanja) {
+      updateURL(nextHanja.id, nextHanja.character);
       handleNext();
       setShowProgressTooltip(true);
     }
@@ -374,10 +380,8 @@ export default function Home() {
 
   // 이전 카드로 이동
   const handlePreviousWithURL = () => {
-    const prevIndex = adjustedCurrentIndex - 1;
-    if (prevIndex >= 0) {
-      const prevCard = visibleCards[prevIndex];
-      updateURL(prevCard.id, prevCard.character);
+    if (previousHanja) {
+      updateURL(previousHanja.id, previousHanja.character);
       handlePrevious();
     }
   };
@@ -420,6 +424,13 @@ export default function Home() {
     updateDocumentMetadata();
   }, []);
 
+  // totalCount가 0일 때 progress tooltip 숨기기
+  useEffect(() => {
+    if (totalCount === 0) {
+      setShowProgressTooltip(false);
+    }
+  }, [totalCount]);
+
   // 로그인 모달 이벤트 리스너
   useEffect(() => {
     const handleOpenLoginModal = (event: CustomEvent) => {
@@ -440,68 +451,50 @@ export default function Home() {
     };
   }, []);
 
-  // 숨겨지지 않은 카드만 필터링
-  const visibleCards = filteredData.filter(
-    (card) => !hiddenCardsHook.isCardHidden(card.id)
-  );
-
-  // URL 파라미터에 따른 현재 카드 결정
-  let urlBasedCurrentCard = null;
-  let adjustedCurrentIndex = Math.min(
-    currentIndex,
-    Math.max(0, visibleCards.length - 1)
-  );
-
-  if (urlId && !isNaN(Number(urlId))) {
-    // ID로 카드 찾기
-    const cardById = visibleCards.find((card) => card.id === Number(urlId));
-    if (cardById) {
-      urlBasedCurrentCard = cardById;
-      adjustedCurrentIndex = visibleCards.findIndex(
-        (card) => card.id === Number(urlId)
-      );
-    }
-  } else if (urlSearch) {
-    // 한자 검색으로 카드 찾기
-    const cardByHanja = visibleCards.find(
-      (card) => card.character === decodeURIComponent(urlSearch)
-    );
-    if (cardByHanja) {
-      urlBasedCurrentCard = cardByHanja;
-      adjustedCurrentIndex = visibleCards.findIndex(
-        (card) => card.character === decodeURIComponent(urlSearch)
-      );
-    }
-  }
-
+  // 현재 한자 카드 (숨김 상태 확인)
   const currentCard =
-    urlBasedCurrentCard ||
-    (visibleCards.length > 0 && adjustedCurrentIndex >= 0
-      ? visibleCards[adjustedCurrentIndex]
-      : null);
+    currentHanja && !hiddenCardsHook.isCardHidden(currentHanja.id)
+      ? currentHanja
+      : null;
 
   // 다음 카드 (숨기기 시 fadeIn용)
   const nextCard =
-    visibleCards.length > 0 && adjustedCurrentIndex + 1 < visibleCards.length
-      ? visibleCards[adjustedCurrentIndex + 1]
-      : null;
+    nextHanja && !hiddenCardsHook.isCardHidden(nextHanja.id) ? nextHanja : null;
 
-  // 숨겨진 카드를 제외한 진행률 계산
-  const adjustedProgress =
-    selectedLevels.length === 0 || visibleCards.length === 0
-      ? 0
-      : ((adjustedCurrentIndex + 1) / visibleCards.length) * 100;
+  // 진행률 계산
+  const progress = gameHook.progress;
 
   // 카드 숨기기 핸들러 (스낵바 표시 포함)
-  const handleHideCard = (cardId: number) => {
-    const cardToHide = filteredData.find((card) => card.id === cardId);
-    if (cardToHide) {
-      hiddenCardsHook.hideCard(cardId);
-      snackbarHook.showSnackbar(
-        `${cardToHide.character} [${cardToHide.meaning} ${cardToHide.meaning_key}] 숨기기!`
-      );
+  const handleHideCard = useCallback(() => {
+    if (!currentHanja) return;
+
+    // 현재 카드를 ID 기반으로 숨기기
+    hiddenCardsHook.hideCard(currentHanja.id);
+
+    // 스낵바 표시
+    snackbarHook.showSnackbar("카드가 숨겨졌습니다.");
+
+    // 다음 카드로 이동 (다음 카드가 있으면)
+    if (nextHanja && !hiddenCardsHook.isCardHidden(nextHanja.id)) {
+      // 다음 카드가 숨겨지지 않았다면 다음으로 이동
+      handleNext();
+    } else if (
+      previousHanja &&
+      !hiddenCardsHook.isCardHidden(previousHanja.id)
+    ) {
+      // 다음 카드가 숨겨졌다면 이전 카드로 이동
+      handlePrevious();
     }
-  };
+    // 둘 다 숨겨졌다면 현재 상태 유지 (API가 자동으로 다음 유효한 카드를 찾음)
+  }, [
+    currentHanja,
+    nextHanja,
+    previousHanja,
+    hiddenCardsHook,
+    handleNext,
+    handlePrevious,
+    snackbarHook,
+  ]);
 
   // 학년설정 변경 핸들러 (URL 업데이트 포함)
   const handleVocabularyRangeChangeWithNotification = (
@@ -696,9 +689,9 @@ export default function Home() {
             onSubmit={handleChatSubmit}
           />
           <ProgressBar
-            progress={adjustedProgress}
-            currentIndex={adjustedCurrentIndex}
-            totalCount={visibleCards.length}
+            progress={progress}
+            currentIndex={currentIndex}
+            totalCount={totalCount}
             showTooltip={showProgressTooltip}
             onTooltipHide={() => setShowProgressTooltip(false)}
           />
@@ -706,11 +699,11 @@ export default function Home() {
           <LandscapeCardActions
             onShuffle={handleShuffle}
             onUnhideByLevels={(levels) =>
-              hiddenCardsHook.unhideCardsByLevels(levels, allHanjaData)
+              hiddenCardsHook.unhideCardsByLevels(levels, [])
             }
             hiddenCardsCount={hiddenCardsHook.hiddenCardsCount}
             hiddenCards={hiddenCardsHook.hiddenCards}
-            allHanjaData={allHanjaData}
+            allHanjaData={[]}
             disabled={selectedLevels.length === 0}
             selectedLevels={selectedLevels}
             availableLevels={availableLevels}
@@ -727,32 +720,22 @@ export default function Home() {
             <GameControls
               onPrevious={handlePreviousWithURL}
               onNext={handleNextWithURL}
-              canGoPrevious={
-                adjustedCurrentIndex > 0 && visibleCards.length > 0
-              }
-              canGoNext={
-                adjustedCurrentIndex < visibleCards.length - 1 &&
-                visibleCards.length > 0
-              }
+              canGoPrevious={gameHook.canGoPrevious}
+              canGoNext={gameHook.canGoNext}
             />
             {isDataLoading ? (
               <SkeletonCard />
             ) : selectedLevels.length === 0 ? (
               <EmptyCard reason="no-level-selected" />
-            ) : visibleCards.length === 0 && filteredData.length > 0 ? (
+            ) : !currentCard ? (
               <EmptyCard reason="no-visible-cards" />
-            ) : visibleCards.length === 0 ? (
-              <EmptyCard reason="all-hidden" />
-            ) : currentIndex >= visibleCards.length &&
-              visibleCards.length > 0 ? (
-              <EmptyCard reason="completed" />
             ) : (
               <HanjaCard
                 hanja={currentCard}
                 nextHanja={nextCard}
-                vocabularyRange={selectedVocabularyRange}
-                resetFlip={resetCardFlip}
-                disabled={false}
+                vocabularyRange={gameHook.selectedVocabularyRange}
+                resetFlip={gameHook.resetCardFlip}
+                disabled={gameHook.isDataLoading}
                 onHide={handleHideCard}
                 onSuccess={handleRefreshData}
               />
@@ -762,11 +745,11 @@ export default function Home() {
         <PortraitCardActions
           onShuffle={handleShuffle}
           onUnhideByLevels={(levels) =>
-            hiddenCardsHook.unhideCardsByLevels(levels, allHanjaData)
+            hiddenCardsHook.unhideCardsByLevels(levels, [])
           }
           hiddenCardsCount={hiddenCardsHook.hiddenCardsCount}
           hiddenCards={hiddenCardsHook.hiddenCards}
-          allHanjaData={allHanjaData}
+          allHanjaData={[]}
           disabled={selectedLevels.length === 0}
           selectedLevels={selectedLevels}
           availableLevels={availableLevels}

@@ -17,8 +17,10 @@ import { useAuth } from "@/contexts/AuthContext";
 
 export interface UseHanjaGameReturn {
   currentIndex: number;
-  filteredData: HanjaData[];
-  allHanjaData: HanjaData[];
+  currentHanja: HanjaData | null;
+  previousHanja: HanjaData | null;
+  nextHanja: HanjaData | null;
+  totalCount: number;
   selectedLevels: Level[];
   selectedType: HanjaType;
   selectedVocabularyRange: VocabularyRange;
@@ -47,7 +49,8 @@ interface UseHanjaGameParams {
 }
 
 export const useHanjaGameDB = (
-  params?: UseHanjaGameParams
+  params?: UseHanjaGameParams,
+  hiddenCardsHook?: { hiddenCards: Set<number> }
 ): UseHanjaGameReturn => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedLevels, setSelectedLevels] = useState<Level[]>([]);
@@ -58,6 +61,9 @@ export const useHanjaGameDB = (
   const [resetCardFlip, setResetCardFlip] = useState(false);
 
   const { user } = useAuth();
+
+  // 기본 레벨 설정 (availableLevels가 로드되기 전까지 사용)
+  const defaultLevels: Level[] = ["8", "7", "6", "준5", "5", "준4"];
 
   // URL 파라미터에 따른 설정 업데이트 (파라미터 변경 시마다 실행)
   useEffect(() => {
@@ -130,7 +136,7 @@ export const useHanjaGameDB = (
     [levelsData?.levels]
   );
 
-  // 한자 데이터 조회 (URL 파라미터도 queryKey에 포함)
+  // 한자 데이터 조회 (현재 ID 기준으로 이전/현재/다음 데이터만)
   const {
     data: hanjaResponse,
     isLoading: hanjaLoading,
@@ -139,44 +145,68 @@ export const useHanjaGameDB = (
     queryKey: [
       "hanja",
       selectedType,
-      selectedLevels,
+      // selectedLevels가 안정화된 후에만 쿼리 키에 포함
+      selectedLevels.length > 0
+        ? selectedLevels.sort().join(",")
+        : defaultLevels.sort().join(","),
       selectedVocabularyRange,
-      params?.urlLevels,
-      params?.urlVocabularyRange,
+      currentIndex,
+      // 숨겨진 카드 ID 목록을 쿼리 키에 포함하여 숨김 상태 변경 시 재요청
+      hiddenCardsHook?.hiddenCards
+        ? Array.from(hiddenCardsHook.hiddenCards).sort().join(",")
+        : "",
     ],
-    queryFn: () =>
-      fetchHanjaData(selectedType, selectedLevels, selectedVocabularyRange),
-    enabled: !!selectedType && selectedLevels.length > 0,
-  });
-
-  // 숨기기 취소를 위한 전체 급수 데이터 조회 (하드코딩된 급수 사용)
-  const allLevels: Level[] = ["8", "7", "6", "준5", "5", "준4"];
-  const {
-    data: allHanjaResponse,
-    isLoading: allHanjaLoading,
-    error: allHanjaError,
-  } = useQuery({
-    queryKey: ["allHanja", selectedType, "all-levels"],
     queryFn: () => {
-      return fetchHanjaData(selectedType, allLevels);
+      const levels = selectedLevels.length > 0 ? selectedLevels : defaultLevels;
+      // 초기 로딩 시(currentIndex === 0) currentId를 전송하지 않음
+      // API가 자동으로 첫 번째 한자를 반환
+      const currentId = currentIndex === 0 ? undefined : currentIndex;
+      return fetchHanjaData(
+        selectedType,
+        levels,
+        selectedVocabularyRange,
+        currentId,
+        hiddenCardsHook?.hiddenCards
+      );
     },
-    enabled: !!selectedType,
+    enabled: !!selectedType && selectedLevels.length > 0,
+    // 캐시 설정으로 불필요한 재요청 방지
+    staleTime: 5 * 60 * 1000, // 5분간 fresh 상태 유지
+    gcTime: 10 * 60 * 1000, // 10분간 캐시 유지
+    // 중복 요청 방지
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
 
-  const filteredData = useMemo(
-    () => hanjaResponse?.data || [],
-    [hanjaResponse?.data]
+  // 현재 한자 데이터
+  const currentHanja = useMemo(
+    () => hanjaResponse?.current || null,
+    [hanjaResponse?.current]
   );
-  const allHanjaData = useMemo(
-    () => allHanjaResponse?.data || [],
-    [allHanjaResponse?.data]
+
+  // 이전 한자 데이터
+  const previousHanja = useMemo(
+    () => hanjaResponse?.previous || null,
+    [hanjaResponse?.previous]
   );
+
+  // 다음 한자 데이터
+  const nextHanja = useMemo(
+    () => hanjaResponse?.next || null,
+    [hanjaResponse?.next]
+  );
+
+  // 전체 개수
+  const totalCount = useMemo(
+    () => hanjaResponse?.totalCount || 0,
+    [hanjaResponse?.totalCount]
+  );
+
   const isLoading = levelsLoading || hanjaLoading || settingsLoading;
   const isDataLoading = hanjaLoading;
   const error =
     levelsError?.message ||
     hanjaError?.message ||
-    allHanjaError?.message ||
     settingsError?.message ||
     null;
 
@@ -187,14 +217,20 @@ export const useHanjaGameDB = (
     }
   }, [availableLevels, selectedLevels.length]);
 
+  // selectedLevels가 변경될 때 currentIndex를 0으로 리셋 (새로운 레벨 선택 시)
+  useEffect(() => {
+    if (selectedLevels.length > 0) {
+      setCurrentIndex(0);
+    }
+  }, [selectedLevels.join(",")]); // 문자열로 변환하여 실제 값 변경 시에만 실행
+
   // 데이터가 변경되면 상태 초기화
   useEffect(() => {
-    if (filteredData.length > 0) {
-      setCurrentIndex(0);
+    if (currentHanja) {
       setResetCardFlip(true);
       setTimeout(() => setResetCardFlip(false), ANIMATION_DELAYS.CARD_RESET);
     }
-  }, [filteredData]);
+  }, [currentHanja]);
 
   const resetCardFlipState = () => {
     setResetCardFlip(true);
@@ -235,10 +271,10 @@ export const useHanjaGameDB = (
   ]);
 
   const handleNext = () => {
-    if (filteredData.length === 0) return;
+    if (totalCount === 0) return;
 
     // 마지막 카드인 경우 더 이상 진행하지 않음 (순환 방지)
-    if (currentIndex >= filteredData.length - 1) return;
+    if (currentIndex >= totalCount - 1) return;
 
     const nextIndex = currentIndex + 1;
     setCurrentIndex(nextIndex);
@@ -246,17 +282,16 @@ export const useHanjaGameDB = (
   };
 
   const handlePrevious = () => {
-    if (filteredData.length === 0) return;
+    if (totalCount === 0) return;
 
-    const prevIndex =
-      currentIndex === 0 ? filteredData.length - 1 : currentIndex - 1;
+    const prevIndex = currentIndex === 0 ? totalCount - 1 : currentIndex - 1;
     setCurrentIndex(prevIndex);
     resetCardFlipState();
   };
 
   const handleShuffle = () => {
-    if (filteredData.length > 0) {
-      const randomIndex = Math.floor(Math.random() * filteredData.length);
+    if (totalCount > 0) {
+      const randomIndex = Math.floor(Math.random() * totalCount);
       setCurrentIndex(randomIndex);
       resetCardFlipState();
     }
@@ -303,18 +338,19 @@ export const useHanjaGameDB = (
     onSave?.(); // 저장 완료 시 콜백 호출
   };
 
-  const canGoPrevious = filteredData.length > 0 && currentIndex > 0;
-  const canGoNext =
-    filteredData.length > 0 && currentIndex < filteredData.length - 1;
+  const canGoPrevious = totalCount > 0 && currentIndex > 0;
+  const canGoNext = totalCount > 0 && currentIndex < totalCount - 1;
   const progress =
-    selectedLevels.length === 0 || filteredData.length === 0
+    selectedLevels.length === 0 || totalCount === 0
       ? 0
-      : ((currentIndex + 1) / filteredData.length) * 100;
+      : ((currentIndex + 1) / totalCount) * 100;
 
   return {
     currentIndex,
-    filteredData,
-    allHanjaData,
+    currentHanja,
+    previousHanja,
+    nextHanja,
+    totalCount,
     selectedLevels,
     selectedType,
     selectedVocabularyRange,

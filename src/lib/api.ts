@@ -29,21 +29,37 @@ export interface LevelsApiResponse {
   type: string;
 }
 
-// 한자 데이터 조회
+// 한자 데이터 조회 (현재 ID 기준으로 이전/현재/다음 데이터만)
 export async function fetchHanjaData(
   type: HanjaType,
   levels: Level[],
-  vocabularyRange?: string
-): Promise<HanjaApiResponse> {
+  vocabularyRange?: string,
+  currentId?: number,
+  hiddenCardIds?: Set<number>
+): Promise<{
+  previous: HanjaData | null;
+  current: HanjaData | null;
+  next: HanjaData | null;
+  totalCount: number;
+  currentIndex: number;
+}> {
   const typeParam = type === "대한검정회 급수자격검정" ? "TypeA" : "TypeB";
   const levelsParam = levels.join(",");
 
   const params = new URLSearchParams({
     levels: levelsParam,
+    vocabularyRange: vocabularyRange || "기본",
   });
 
-  if (vocabularyRange) {
-    params.append("vocabularyRange", vocabularyRange);
+  // currentId가 undefined가 아닐 때만 파라미터에 추가
+  if (currentId !== undefined && currentId !== null) {
+    params.append("currentId", currentId.toString());
+  }
+
+  // 숨겨진 카드 ID 목록 추가
+  if (hiddenCardIds && hiddenCardIds.size > 0) {
+    const hiddenIdsArray = Array.from(hiddenCardIds);
+    params.append("hiddenCardIds", hiddenIdsArray.join(","));
   }
 
   const response = await fetch(`/api/hanja/${typeParam}?${params.toString()}`);
@@ -55,16 +71,22 @@ export async function fetchHanjaData(
   const apiResponse = await response.json();
 
   // API 응답 데이터를 프론트엔드 형식으로 변환
-  const transformedData = apiResponse.data.map(
-    (item: HanjaData & { meaning_key: string }) => ({
+  const transformItem = (
+    item: (HanjaData & { meaning_key: string }) | null
+  ) => {
+    if (!item) return null;
+    return {
       ...item,
       meaningKey: item.meaning_key, // snake_case를 camelCase로 변환
-    })
-  );
+    };
+  };
 
   return {
-    ...apiResponse,
-    data: transformedData,
+    previous: transformItem(apiResponse.data.previous),
+    current: transformItem(apiResponse.data.current),
+    next: transformItem(apiResponse.data.next),
+    totalCount: apiResponse.data.totalCount,
+    currentIndex: apiResponse.data.currentIndex,
   };
 }
 

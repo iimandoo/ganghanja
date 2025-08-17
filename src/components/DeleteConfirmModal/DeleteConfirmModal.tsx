@@ -190,7 +190,6 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
         <CloseButton onClick={onClose}>×</CloseButton>
         <Header>
           <Title>{title}</Title>
-          <Description>이 작업은 되돌릴 수 없습니다.</Description>
         </Header>
         <Content>
           <Message>{message}</Message>

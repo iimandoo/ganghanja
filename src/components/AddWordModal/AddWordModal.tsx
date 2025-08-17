@@ -209,7 +209,7 @@ export const AddWordModal: React.FC<AddWordModalProps> = ({
           throw new Error("사용자 정보를 찾을 수 없습니다.");
         }
 
-        await addWordToHanja(
+        const response = await addWordToHanja(
           currentHanja?.id || 0,
           {
             kor: kor.trim(),
@@ -219,17 +219,25 @@ export const AddWordModal: React.FC<AddWordModalProps> = ({
           user.id
         );
 
+        // 응답 데이터 확인
+        if (!response.success) {
+          throw new Error(response.message || "단어 추가에 실패했습니다.");
+        }
+
+        // 응답 데이터를 부모 컴포넌트로 전달
+        console.log("AddWordModal 응답 데이터:", response);
+
         // 폼 초기화
         setHanja("");
         setKor("");
 
-        // 성공 콜백 호출
+        // 모달 닫기
+        onClose();
+
+        // 응답 데이터를 부모 컴포넌트로 전달하여 로컬 상태 업데이트
         if (onSuccess) {
           onSuccess();
         }
-
-        // 모달 닫기
-        onClose();
       } catch (error) {
         console.error("단어 추가 실패:", error);
         alert("단어 추가에 실패했습니다. 다시 시도해주세요.");

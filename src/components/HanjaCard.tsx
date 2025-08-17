@@ -13,7 +13,7 @@ import { LoginRequiredModal } from "@/components/LoginRequiredModal";
 import { AddWordModal } from "@/components/AddWordModal";
 import { EditWordModal } from "@/components/EditWordModal";
 import { DeleteConfirmModal } from "@/components/DeleteConfirmModal";
-import { useQueryClient } from "@tanstack/react-query";
+
 import {
   getConsistentCardColor,
   getCardColorInfo,
@@ -502,8 +502,9 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
   const [isFadingIn, setIsFadingIn] = useState(false);
   const [currentHanja, setCurrentHanja] = useState<HanjaData | null>(hanja);
   const [nextHanja, setNextHanja] = useState<HanjaData | null>(null);
+  const [forceUpdate, setForceUpdate] = useState(0);
+  const [vocabularyLines, setVocabularyLines] = useState<VocabularyItem[]>([]);
   const { user } = useAuth();
-  const queryClient = useQueryClient();
   const [isAdmin, setIsAdmin] = useState(false);
 
   // 한자 데이터가 변경될 때 fadeIn 효과 적용
@@ -536,6 +537,61 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
 
     checkAdminStatus();
   }, [user?.id]);
+
+  // currentHanja 상태 변경 감지 및 vocabularyLines 업데이트
+  useEffect(() => {
+    console.log("currentHanja 상태 변경됨:", {
+      wordlevel_es: currentHanja?.wordlevel_es,
+      wordlevel_mid: currentHanja?.wordlevel_mid,
+      vocabularyRange,
+    });
+
+    // vocabularyLines 업데이트
+    if (currentHanja) {
+      let data: Array<Record<string, string>> | undefined;
+      if (vocabularyRange === "기본") {
+        data = currentHanja.wordlevel_es;
+      } else {
+        data = currentHanja.wordlevel_mid;
+      }
+
+      console.log("vocabularyLines 계산을 위한 데이터:", {
+        vocabularyRange,
+        data,
+        dataLength: data?.length || 0,
+      });
+
+      if (data && Array.isArray(data) && data.length > 0) {
+        const processedLines = data
+          .map((word: Record<string, string>) => ({
+            kor: word.kor || "",
+            hanja: word.hanja || "",
+            url: word.url || "",
+          }))
+          .filter((word) => word.kor && word.hanja);
+
+        console.log("vocabularyLines 상태 업데이트:", {
+          vocabularyRange,
+          data,
+          processedLines,
+        });
+
+        setVocabularyLines(processedLines);
+      } else {
+        console.log("vocabularyLines 빈 배열로 설정:", {
+          vocabularyRange,
+          data,
+        });
+        setVocabularyLines([]);
+      }
+    } else {
+      setVocabularyLines([]);
+    }
+  }, [
+    currentHanja?.wordlevel_es,
+    currentHanja?.wordlevel_mid,
+    vocabularyRange,
+  ]);
 
   // 한자 문자를 기반으로 일관된 색상 선택
   const cardColorKey = currentHanja
@@ -669,7 +725,7 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
 
     try {
       const { deleteWordFromHanja } = await import("@/lib/api");
-      await deleteWordFromHanja(
+      const response = await deleteWordFromHanja(
         currentHanja.id,
         deletingWord,
         vocabularyRange,
@@ -680,15 +736,16 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
       setIsDeleteConfirmModalOpen(false);
       setDeletingWord(null);
 
-      // 성공 메시지
-      console.log(
-        `${deletingWord.hanja} (${deletingWord.kor}) 단어가 삭제되었습니다!`
-      );
-
-      // 화면 갱신
-      if (onSuccess) {
-        onSuccess();
+      // 응답 데이터로 현재 카드 업데이트
+      if (response.success) {
+        updateCurrentCardData(response);
+        console.log(
+          `${deletingWord.hanja} (${deletingWord.kor}) 단어가 삭제되었습니다!`
+        );
       }
+
+      // 로컬 상태가 이미 업데이트되었으므로 부모 컴포넌트의 onSuccess 콜백은 호출하지 않음
+      // (중복 실행 방지)
     } catch (error) {
       console.error("단어 삭제 실패:", error);
       alert("단어 삭제에 실패했습니다. 다시 시도해주세요.");
@@ -696,19 +753,76 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
   };
 
   const handleAddWordSuccess = async () => {
-    // React Query 캐시 무효화로 데이터 새로고침
-    try {
-      await queryClient.invalidateQueries({
-        queryKey: ["hanja"],
-      });
-      console.log("React Query 캐시가 무효화되었습니다.");
+    // 로컬 상태가 이미 업데이트되었으므로 부모 컴포넌트의 onSuccess 콜백은 호출하지 않음
+    // (중복 실행 방지)
+    console.log("handleAddWordSuccess 호출됨 - onSuccess 콜백 호출하지 않음");
+  };
 
-      // 부모 컴포넌트의 onSuccess 콜백 호출
-      if (onSuccess) {
-        onSuccess();
-      }
-    } catch (error) {
-      console.error("React Query 캐시 무효화 실패:", error);
+  // 단어 추가/수정/삭제 후 응답 데이터로 현재 카드 업데이트
+  const updateCurrentCardData = (responseData: {
+    updatedWords?: Array<{ kor: string; hanja: string }>;
+  }) => {
+    if (responseData && responseData.updatedWords) {
+      // WordLevelData에는 url 필드가 없으므로 빈 문자열로 설정
+      const processedWords = responseData.updatedWords.map((word) => ({
+        kor: word.kor,
+        hanja: word.hanja,
+        url: "",
+      }));
+
+      console.log("updateCurrentCardData 호출됨:", {
+        vocabularyRange,
+        processedWords,
+        currentForceUpdate: forceUpdate,
+      });
+
+      setCurrentHanja((prev) => {
+        if (!prev) return prev;
+
+        // vocabularyRange에 따라 해당 필드만 업데이트
+        let updated;
+        if (vocabularyRange === "기본") {
+          updated = { ...prev, wordlevel_es: processedWords };
+        } else {
+          updated = { ...prev, wordlevel_mid: processedWords };
+        }
+
+        console.log("setCurrentHanja 업데이트:", {
+          vocabularyRange,
+          before:
+            vocabularyRange === "기본" ? prev.wordlevel_es : prev.wordlevel_mid,
+          after: processedWords,
+          updated,
+        });
+
+        return updated;
+      });
+
+      // vocabularyLines 직접 업데이트
+      const processedLines = processedWords
+        .map((word) => ({
+          kor: word.kor,
+          hanja: word.hanja,
+          url: word.url,
+        }))
+        .filter((word) => word.kor && word.hanja);
+
+      console.log("vocabularyLines 직접 업데이트:", {
+        vocabularyRange,
+        processedLines,
+      });
+
+      setVocabularyLines(processedLines);
+
+      // 강제로 리렌더링을 위한 상태 업데이트
+      setForceUpdate((prev) => {
+        const newValue = prev + 1;
+        console.log("forceUpdate 변경:", { prev, newValue });
+        return newValue;
+      });
+
+      // 로컬 상태가 이미 업데이트되었으므로 부모 컴포넌트의 onSuccess 콜백은 호출하지 않음
+      // (중복 실행 방지)
     }
   };
 
@@ -721,13 +835,21 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
       }
 
       const { addWordToHanja } = await import("@/lib/api");
-      await addWordToHanja(currentHanja.id, data, vocabularyRange, user.id);
+      const response = await addWordToHanja(
+        currentHanja.id,
+        data,
+        vocabularyRange,
+        user.id
+      );
 
       // 모달 닫기
       setIsAddWordModalOpen(false);
 
-      // 성공 메시지 (선택사항)
-      console.log(`${data.hanja} (${data.kor}) 단어가 추가되었습니다!`);
+      // 응답 데이터로 현재 카드 업데이트
+      if (response.success) {
+        updateCurrentCardData(response);
+        console.log(`${data.hanja} (${data.kor}) 단어가 추가되었습니다!`);
+      }
     } catch (error) {
       console.error("단어 추가 실패:", error);
     }
@@ -756,30 +878,16 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
 
   // Particle effect 제거됨
 
-  // 어휘범위에 따라 표시할 예시 텍스트 선택 (useMemo 내부로 이동하여 사용)
+  // 어휘범위에 따라 표시할 예시 텍스트 선택 (useState로 관리)
 
-  const vocabularyLines = React.useMemo((): VocabularyItem[] => {
-    if (!currentHanja) return [];
-
-    // 학년 선택에 따라 해당 데이터 사용
-    const data =
-      vocabularyRange === "기본"
-        ? currentHanja.wordlevel_es
-        : currentHanja.wordlevel_mid;
-
-    if (!data || !Array.isArray(data) || data.length === 0) {
-      return [];
-    }
-
-    // 모든 데이터를 중급 방식으로 통일 (kor(hanja) 형태)
-    return data
-      .map((word: Record<string, string>) => ({
-        kor: word.kor || "",
-        hanja: word.hanja || "",
-        url: word.url || "",
-      }))
-      .filter((word) => word.kor && word.hanja);
-  }, [currentHanja, vocabularyRange]);
+  // 디버깅을 위한 로그
+  console.log("vocabularyLines 현재 상태:", {
+    vocabularyRange,
+    wordlevel_es: currentHanja?.wordlevel_es,
+    wordlevel_mid: currentHanja?.wordlevel_mid,
+    forceUpdate,
+    result: vocabularyLines,
+  });
 
   return (
     <>

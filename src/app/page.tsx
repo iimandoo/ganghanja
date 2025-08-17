@@ -259,7 +259,6 @@ export default function Home() {
   // URL 파라미터 처리
   const urlWord = searchParams.get("word") || undefined;
   const urlId = searchParams.get("id") || undefined;
-  const urlSearch = searchParams.get("search") || undefined;
 
   const modalHook = useModal();
   const chatHook = useChat();
@@ -336,6 +335,15 @@ export default function Home() {
     fetchAllData();
   }, [fetchAllData]);
 
+  // URL 업데이트 함수
+  const updateURL = (id: number, character: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("id", id.toString());
+    params.set("word", character);
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    router.push(newUrl);
+  };
+
   // React Query 캐시 무효화 함수
   const handleRefreshData = async () => {
     try {
@@ -354,7 +362,6 @@ export default function Home() {
   };
 
   const {
-    currentIndex,
     currentHanja,
     previousHanja,
     nextHanja,
@@ -363,7 +370,6 @@ export default function Home() {
     selectedType,
     selectedVocabularyRange,
     availableLevels,
-    resetCardFlip,
     handleNext,
     handlePrevious,
     handleShuffle,
@@ -406,22 +412,6 @@ export default function Home() {
 
   const handleAuthModalClose = () => {
     setIsAuthModalOpen(false);
-  };
-
-  // URL 업데이트 함수
-  const updateURL = (cardId?: number, cardCharacter?: string) => {
-    const params = new URLSearchParams();
-
-    if (urlWord) params.set("word", urlWord);
-
-    if (cardId) {
-      params.set("id", cardId.toString());
-    } else if (cardCharacter) {
-      params.set("search", encodeURIComponent(cardCharacter));
-    }
-
-    const newUrl = `${window.location.pathname}?${params.toString()}`;
-    router.push(newUrl);
   };
 
   // 다음 카드로 이동
@@ -515,9 +505,6 @@ export default function Home() {
   // 다음 카드 (숨기기 시 fadeIn용)
   const nextCard =
     nextHanja && !hiddenCardsHook.isCardHidden(nextHanja.id) ? nextHanja : null;
-
-  // 진행률 계산
-  const progress = gameHook.progress;
 
   // 숨겨진 카드를 제외한 실제 보이는 카드의 개수 계산
   const visibleTotalCount = useMemo(() => {

@@ -216,7 +216,7 @@ export const EditWordModal: React.FC<EditWordModalProps> = ({
           throw new Error("사용자 정보를 찾을 수 없습니다.");
         }
 
-        await updateWordInHanja(
+        const response = await updateWordInHanja(
           hanjaId,
           currentWord,
           {
@@ -227,13 +227,21 @@ export const EditWordModal: React.FC<EditWordModalProps> = ({
           user.id
         );
 
-        // 성공 콜백 호출
-        if (onSuccess) {
-          onSuccess();
+        // 응답 데이터 확인
+        if (!response.success) {
+          throw new Error(response.message || "단어 수정에 실패했습니다.");
         }
+
+        // 응답 데이터를 부모 컴포넌트로 전달
+        console.log("EditWordModal 응답 데이터:", response);
 
         // 모달 닫기
         onClose();
+
+        // 응답 데이터를 부모 컴포넌트로 전달하여 로컬 상태 업데이트
+        if (onSuccess) {
+          onSuccess();
+        }
       } catch (error) {
         console.error("단어 수정 실패:", error);
         alert("단어 수정에 실패했습니다. 다시 시도해주세요.");

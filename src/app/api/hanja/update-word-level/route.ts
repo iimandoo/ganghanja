@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
     const updatedWords = [...existingWords, wordData];
 
     // 데이터베이스 업데이트
-    const { error: updateError, data: updateResult } = await supabaseAdmin
+    const { error: updateError } = await supabaseAdmin
       .from("hanja_data")
       .update({ [columnName]: updatedWords })
       .eq("id", hanjaId)
@@ -191,20 +191,22 @@ export async function PUT(request: NextRequest) {
     };
 
     // 기존 단어를 새 단어로 교체
-    const updatedWords = existingWords.map((word: any) => {
-      if (word.kor === oldWord.kor && word.hanja === oldWord.hanja) {
-        return {
-          ...word,
-          kor: newWord.kor,
-          hanja: newWord.hanja,
-          url: newWord.url,
-        };
+    const updatedWords = existingWords.map(
+      (word: { kor: string; hanja: string; url?: string }) => {
+        if (word.kor === oldWord.kor && word.hanja === oldWord.hanja) {
+          return {
+            ...word,
+            kor: newWord.kor,
+            hanja: newWord.hanja,
+            url: newWord.url,
+          };
+        }
+        return word;
       }
-      return word;
-    });
+    );
 
     // 데이터베이스 업데이트
-    const { error: updateError, data: updateResult } = await supabaseAdmin
+    const { error: updateError } = await supabaseAdmin
       .from("hanja_data")
       .update({ [columnName]: updatedWords })
       .eq("id", hanjaId)
@@ -331,12 +333,12 @@ export async function DELETE(request: NextRequest) {
 
     // 삭제할 단어 제거
     const updatedWords = existingWords.filter(
-      (word: any) =>
+      (word: { kor: string; hanja: string; url?: string }) =>
         !(word.kor === wordToDelete.kor && word.hanja === wordToDelete.hanja)
     );
 
     // 데이터베이스 업데이트
-    const { error: updateError, data: updateResult } = await supabaseAdmin
+    const { error: updateError } = await supabaseAdmin
       .from("hanja_data")
       .update({ [columnName]: updatedWords })
       .eq("id", hanjaId)

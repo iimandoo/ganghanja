@@ -28,7 +28,6 @@ interface HanjaCardProps {
   resetFlip?: boolean;
   disabled?: boolean;
   onHide?: (cardId: number) => void;
-  onSuccess?: () => void; // 성공 후 콜백 추가
 }
 
 interface WordLevelItem {
@@ -487,7 +486,6 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
   resetFlip,
   disabled = false,
   onHide,
-  onSuccess,
 }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [noAnimation, setNoAnimation] = useState(false);
@@ -587,11 +585,7 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
     } else {
       setVocabularyLines([]);
     }
-  }, [
-    currentHanja?.wordlevel_es,
-    currentHanja?.wordlevel_mid,
-    vocabularyRange,
-  ]);
+  }, [currentHanja, vocabularyRange]);
 
   // 한자 문자를 기반으로 일관된 색상 선택
   const cardColorKey = currentHanja
@@ -752,12 +746,6 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
     }
   };
 
-  const handleAddWordSuccess = async () => {
-    // 로컬 상태가 이미 업데이트되었으므로 부모 컴포넌트의 onSuccess 콜백은 호출하지 않음
-    // (중복 실행 방지)
-    console.log("handleAddWordSuccess 호출됨 - onSuccess 콜백 호출하지 않음");
-  };
-
   // 단어 추가/수정/삭제 후 응답 데이터로 현재 카드 업데이트
   const updateCurrentCardData = (responseData: {
     updatedWords?: Array<{ kor: string; hanja: string }>;
@@ -823,35 +811,6 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
 
       // 로컬 상태가 이미 업데이트되었으므로 부모 컴포넌트의 onSuccess 콜백은 호출하지 않음
       // (중복 실행 방지)
-    }
-  };
-
-  const handleAddWordSubmit = async (data: { kor: string; hanja: string }) => {
-    if (!currentHanja) return;
-
-    try {
-      if (!user?.id) {
-        throw new Error("사용자 정보를 찾을 수 없습니다.");
-      }
-
-      const { addWordToHanja } = await import("@/lib/api");
-      const response = await addWordToHanja(
-        currentHanja.id,
-        data,
-        vocabularyRange,
-        user.id
-      );
-
-      // 모달 닫기
-      setIsAddWordModalOpen(false);
-
-      // 응답 데이터로 현재 카드 업데이트
-      if (response.success) {
-        updateCurrentCardData(response);
-        console.log(`${data.hanja} (${data.kor}) 단어가 추가되었습니다!`);
-      }
-    } catch (error) {
-      console.error("단어 추가 실패:", error);
     }
   };
 
@@ -1041,7 +1000,7 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
               }
             : undefined
         }
-        onSuccess={handleAddWordSuccess}
+        onWordAdded={updateCurrentCardData}
       />
 
       <EditWordModal
@@ -1050,7 +1009,7 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
         vocabularyRange={vocabularyRange}
         currentWord={editingWord || { kor: "", hanja: "", url: "" }}
         hanjaId={currentHanja?.id || 0}
-        onSuccess={handleAddWordSuccess}
+        onWordUpdated={updateCurrentCardData}
       />
 
       <DeleteConfirmModal

@@ -67,8 +67,6 @@ export const useHanjaGameDB = (
 
   // URL 파라미터에 따른 설정 업데이트 (파라미터 변경 시마다 실행)
   useEffect(() => {
-    let shouldUpdate = false;
-
     if (params?.urlVocabularyRange) {
       const range = params.urlVocabularyRange as VocabularyRange;
       if (
@@ -76,7 +74,6 @@ export const useHanjaGameDB = (
         range !== selectedVocabularyRange
       ) {
         setSelectedVocabularyRange(range);
-        shouldUpdate = true;
       }
     }
 
@@ -85,10 +82,9 @@ export const useHanjaGameDB = (
       const urlIdNum = parseInt(params.urlId);
       if (!isNaN(urlIdNum) && urlIdNum > 0) {
         setCurrentIndex(urlIdNum);
-        shouldUpdate = true;
       }
     }
-  }, [params?.urlVocabularyRange, params?.urlId]);
+  }, [params?.urlVocabularyRange, params?.urlId, selectedVocabularyRange]);
 
   // 사용자 설정 불러오기
   const {
@@ -189,28 +185,16 @@ export const useHanjaGameDB = (
   });
 
   // 현재 한자 데이터
-  const currentHanja = useMemo(
-    () => hanjaResponse?.current || null,
-    [hanjaResponse?.current]
-  );
+  const currentHanja = hanjaResponse?.current || null;
 
   // 이전 한자 데이터
-  const previousHanja = useMemo(
-    () => hanjaResponse?.previous || null,
-    [hanjaResponse?.previous]
-  );
+  const previousHanja = hanjaResponse?.previous || null;
 
   // 다음 한자 데이터
-  const nextHanja = useMemo(
-    () => hanjaResponse?.next || null,
-    [hanjaResponse?.next]
-  );
+  const nextHanja = hanjaResponse?.next || null;
 
   // 전체 개수
-  const totalCount = useMemo(
-    () => hanjaResponse?.totalCount || 0,
-    [hanjaResponse?.totalCount]
-  );
+  const totalCount = hanjaResponse?.totalCount || 0;
 
   const isLoading = levelsLoading || hanjaLoading || settingsLoading;
   const isDataLoading = hanjaLoading;
@@ -262,7 +246,7 @@ export const useHanjaGameDB = (
         setSelectedLevels(apiLevels);
       }
     }
-  }, [hanjaResponse?.levels, selectedLevels]);
+  }, [hanjaResponse?.levels, selectedLevels, hanjaResponse]);
 
   const resetCardFlipState = () => {
     setResetCardFlip(true);

@@ -16,7 +16,10 @@ interface EditWordModalProps {
     url: string;
   };
   hanjaId: number;
-  onSuccess?: () => void;
+  onWordUpdated?: (response: {
+    success: boolean;
+    updatedWords?: Array<{ kor: string; hanja: string }>;
+  }) => void; // 단어 수정 후 응답 데이터 전달
 }
 
 const Overlay = styled.div`
@@ -185,7 +188,7 @@ export const EditWordModal: React.FC<EditWordModalProps> = ({
   vocabularyRange,
   currentWord,
   hanjaId,
-  onSuccess,
+  onWordUpdated,
 }) => {
   const [hanja, setHanja] = useState(currentWord.hanja);
   const [kor, setKor] = useState(currentWord.kor);
@@ -239,8 +242,8 @@ export const EditWordModal: React.FC<EditWordModalProps> = ({
         onClose();
 
         // 응답 데이터를 부모 컴포넌트로 전달하여 로컬 상태 업데이트
-        if (onSuccess) {
-          onSuccess();
+        if (onWordUpdated) {
+          onWordUpdated(response);
         }
       } catch (error) {
         console.error("단어 수정 실패:", error);

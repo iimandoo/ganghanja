@@ -1,11 +1,16 @@
 "use client";
 
-import React, { useEffect, useState, useCallback, useMemo } from "react";
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  useMemo,
+  Suspense,
+} from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import Script from "next/script";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
 import HanjaCard from "@/components/HanjaCard";
 import EmptyCard from "@/components/EmptyCard";
 import { SkeletonCard } from "@/components/SkeletonCard";
@@ -251,20 +256,20 @@ const muiTheme = createTheme({
   },
 });
 
-export default function Home() {
+// useSearchParams를 사용하는 컴포넌트
+function HomeContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const queryClient = useQueryClient();
-
-  // URL 파라미터 처리
-  const urlWord = searchParams.get("word") || undefined;
-  const urlId = searchParams.get("id") || undefined;
 
   const modalHook = useModal();
   const chatHook = useChat();
   const { user, loading: authLoading } = useAuth();
   const hiddenCardsHook = useHiddenCards();
   const snackbarHook = useSnackbar();
+
+  // URL 파라미터 처리 (searchParams가 없으면 기본값 사용)
+  const urlWord = searchParams?.get("word") || undefined;
+  const urlId = searchParams?.get("id") || undefined;
 
   const gameHook = useHanjaGameDB(
     {
@@ -281,12 +286,10 @@ export default function Home() {
 
   // allHanjaData 상태 추가
   const [allHanjaData, setAllHanjaData] = useState<ApiHanjaData[]>([]);
-  const [isLoadingAllData, setIsLoadingAllData] = useState(false);
 
   // allHanjaData를 가져오는 함수
   const fetchAllData = useCallback(async () => {
     if (gameHook.selectedLevels.length > 0 && gameHook.selectedType) {
-      setIsLoadingAllData(true);
       try {
         const typeParam =
           gameHook.selectedType === "대한검정회 급수자격검정"
@@ -321,11 +324,10 @@ export default function Home() {
         console.error("Failed to fetch all hanja data:", error);
         setAllHanjaData([]);
       } finally {
-        setIsLoadingAllData(false);
       }
     }
   }, [
-    gameHook.selectedLevels.join(","), // 배열을 문자열로 변환하여 안정적인 의존성 생성
+    gameHook.selectedLevels,
     gameHook.selectedType,
     gameHook.selectedVocabularyRange,
   ]);
@@ -336,30 +338,16 @@ export default function Home() {
   }, [fetchAllData]);
 
   // URL 업데이트 함수
-  const updateURL = (id: number, character: string) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("id", id.toString());
-    params.set("word", character);
-    const newUrl = `${window.location.pathname}?${params.toString()}`;
-    router.push(newUrl);
-  };
-
-  // React Query 캐시 무효화 함수
-  const handleRefreshData = async () => {
-    try {
-      await queryClient.invalidateQueries({
-        queryKey: [
-          "hanja",
-          selectedType,
-          selectedLevels,
-          selectedVocabularyRange,
-        ],
-      });
-      console.log("한자 데이터가 새로고침되었습니다.");
-    } catch (error) {
-      console.error("데이터 새로고침 실패:", error);
-    }
-  };
+  const updateURL = useCallback(
+    (id: number, character: string) => {
+      const params = new URLSearchParams(searchParams);
+      params.set("id", id.toString());
+      params.set("word", character);
+      const newUrl = `${window.location.pathname}?${params.toString()}`;
+      router.push(newUrl);
+    },
+    [searchParams, router]
+  );
 
   const {
     currentHanja,
@@ -589,13 +577,6 @@ export default function Home() {
 
   // 급수설정 변경 핸들러 (URL 업데이트 제거)
   const handleLevelFilterWithNotification = (level: Level) => {
-    // 새로운 급수 리스트 계산
-    const newLevels = selectedLevels.includes(level)
-      ? selectedLevels.filter((l) => l !== level)
-      : [...selectedLevels, level];
-
-    // URL 업데이트 제거 - API 응답의 levels 값만 사용
-
     handleLevelFilter(level);
 
     // 로그인된 사용자의 경우 저장 완료 메시지 표시
@@ -620,196 +601,148 @@ export default function Home() {
   // 선택된 급수가 없어도 카드는 보여주되, 내용은 숨김
 
   return (
-    <ThemeProvider theme={muiTheme}>
-      <Container>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebApplication",
-              name: "대한검정회 & 어문회 한자능력검정시험 학습카드",
-              alternateName: ["한자카드", "한자능력검정시험", "한자학습게임"],
-              description:
-                "대한검정회와 어문회 한자능력검정시험 대비 학습 카드게임입니다. 8급부터 준4급까지 급수별 한자를 체계적으로 학습하고 시험에 완벽 대비하세요.",
-              url: "https://www.coolhanja.site",
-              applicationCategory: "EducationalApplication",
-              operatingSystem: "Any",
-              browserRequirements: "Requires JavaScript. Requires HTML5.",
-              softwareVersion: "2.0",
-              author: {
-                "@type": "Organization",
-                name: "한자능력검정시험 학습카드",
+    <Container>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "대한검정회 & 어문회 한자능력검정시험 학습카드",
+            alternateName: ["한자카드", "한자능력검정시험", "한자학습게임"],
+            description:
+              "대한검정회와 어문회 한자능력검정시험 대비 학습 카드게임입니다. 8급부터 준4급까지 급수별 한자를 체계적으로 학습하고 시험에 완벽 대비하세요.",
+            url: "https://www.coolhanja.site",
+            applicationCategory: "EducationalApplication",
+            operatingSystem: "Any",
+            browserRequirements: "Requires JavaScript. Requires HTML5.",
+            softwareVersion: "2.0",
+            author: {
+              "@type": "Organization",
+              name: "한자능력검정시험 학습카드",
+            },
+            about: [
+              {
+                "@type": "Thing",
+                name: "대한검정회 한자능력검정시험",
+                description:
+                  "대한검정회에서 주관하는 한자능력검정시험 대비 학습",
+                sameAs: "https://www.coolhanja.site",
               },
-              about: [
-                {
-                  "@type": "Thing",
-                  name: "대한검정회 한자능력검정시험",
-                  description:
-                    "대한검정회에서 주관하는 한자능력검정시험 대비 학습",
-                  sameAs: "https://www.coolhanja.site",
-                },
-                {
-                  "@type": "Thing",
-                  name: "어문회 한자시험",
-                  description: "어문회에서 주관하는 한자시험 대비 학습",
-                },
-              ],
-              educationalUse:
-                "한자능력검정시험 대비, 한자 학습, 급수 시험 준비",
-              audience: [
-                {
-                  "@type": "EducationalAudience",
-                  educationalRole: "student",
-                  audienceType: "한자능력검정시험 응시자",
-                },
-                {
-                  "@type": "EducationalAudience",
-                  educationalRole: "learner",
-                  audienceType: "한자 학습자",
-                },
-              ],
-              educationalLevel: ["8급", "7급", "6급", "준5급", "5급", "준4급"],
-              teaches: [
-                "한자 읽기",
-                "한자 뜻",
-                "한자 예문",
-                "사자성어",
-                "한자능력검정시험",
-              ],
-              offers: {
-                "@type": "Offer",
-                price: "0",
-                priceCurrency: "KRW",
-                availability: "https://schema.org/InStock",
+              {
+                "@type": "Thing",
+                name: "어문회 한자시험",
+                description: "어문회에서 주관하는 한자시험 대비 학습",
               },
-              featureList: [
-                "대한검정회 TypeA 한자 학습",
-                "어문회 TypeB 한자 학습",
-                "급수별 한자 필터링",
-                "한자 카드 게임",
-                "진도율 표시",
-                "랜덤 셔플 기능",
-              ],
-            }),
-          }}
-        />
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-7M78VLX327" />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-7M78VLX327');
-          `}
-        </Script>
-        <HeaderBox>
-          <AuthSection>
-            {!authLoading && (
-              <>
-                {user ? (
-                  <UserInfo />
-                ) : (
-                  <>
-                    <AuthButton onClick={() => handleAuthModalOpen("signin")}>
-                      로그인
-                    </AuthButton>
-                    <AuthButton onClick={() => handleAuthModalOpen("signup")}>
-                      회원가입
-                    </AuthButton>
-                  </>
-                )}
-                <ShareButton onClick={handleShare} title="공유하기">
-                  <ShareIcon size={20} />
-                </ShareButton>
-              </>
-            )}
-          </AuthSection>
-          <Header>
-            <TitleContainer>
-              <Logo
-                src="/logo_cool.png"
-                alt="COOL한자 로고"
-                width={170}
-                height={70}
-                priority
-              />
-              <TypeSelect
-                selectedType={selectedType}
-                onTypeChange={handleTypeChangeWithNotification}
-                isLoading={isDataLoading}
-              />
-            </TitleContainer>
-          </Header>
-
-          <ChatModal
-            isOpen={isChatOpen}
-            message={chatMessage}
-            contactInfo={chatContactInfo}
-            rating={rating}
-            showSuccessMessage={showSuccessMessage}
-            onMessageChange={setChatMessage}
-            onContactInfoChange={setChatContactInfo}
-            onRatingClick={handleRatingClick}
-            onOpen={handleChatOpen}
-            onClose={handleChatClose}
-            onSubmit={handleChatSubmit}
-          />
-          <ProgressBar
-            progress={actualProgress}
-            currentIndex={visibleCurrentIndex}
-            totalCount={visibleTotalCount}
-            showTooltip={showProgressTooltip}
-            onTooltipHide={() => setShowProgressTooltip(false)}
-          />
-          {/* landscape 모드에서 ProgressBar 아래에 CardActions 표시 */}
-          <LandscapeCardActions
-            onShuffle={handleShuffle}
-            onUnhideByLevels={(levels) =>
-              hiddenCardsHook.unhideCardsByLevels(levels, allHanjaData)
-            }
-            hiddenCardsCount={hiddenCardsHook.hiddenCardsCount}
-            hiddenCards={hiddenCardsHook.hiddenCards}
-            allHanjaData={allHanjaData}
-            disabled={selectedLevels.length === 0}
-            selectedLevels={selectedLevels}
-            availableLevels={availableLevels}
-            selectedVocabularyRange={selectedVocabularyRange}
-            onLevelFilter={handleLevelFilterWithNotification}
-            onVocabularyRangeChange={
-              handleVocabularyRangeChangeWithNotification
-            }
-            isDataLoading={isDataLoading}
-          />
-        </HeaderBox>
-        <GameArea>
-          <CardSection>
-            <GameControls
-              onPrevious={handlePreviousWithURL}
-              onNext={handleNextWithURL}
-              canGoPrevious={gameHook.canGoPrevious}
-              canGoNext={gameHook.canGoNext}
+            ],
+            educationalUse: "한자능력검정시험 대비, 한자 학습, 급수 시험 준비",
+            audience: [
+              {
+                "@type": "EducationalAudience",
+                educationalRole: "student",
+                audienceType: "한자능력검정시험 응시자",
+              },
+              {
+                "@type": "EducationalAudience",
+                educationalRole: "learner",
+                audienceType: "한자 학습자",
+              },
+            ],
+            educationalLevel: ["8급", "7급", "6급", "준5급", "5급", "준4급"],
+            teaches: [
+              "한자 읽기",
+              "한자 뜻",
+              "한자 예문",
+              "사자성어",
+              "한자능력검정시험",
+            ],
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "KRW",
+              availability: "https://schema.org/InStock",
+            },
+            featureList: [
+              "대한검정회 TypeA 한자 학습",
+              "어문회 TypeB 한자 학습",
+              "급수별 한자 필터링",
+              "한자 카드 게임",
+              "진도율 표시",
+              "랜덤 셔플 기능",
+            ],
+          }),
+        }}
+      />
+      <Script src="https://www.googletagmanager.com/gtag/js?id=G-7M78VLX327" />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-7M78VLX327');
+        `}
+      </Script>
+      <HeaderBox>
+        <AuthSection>
+          {!authLoading && (
+            <>
+              {user ? (
+                <UserInfo />
+              ) : (
+                <>
+                  <AuthButton onClick={() => handleAuthModalOpen("signin")}>
+                    로그인
+                  </AuthButton>
+                  <AuthButton onClick={() => handleAuthModalOpen("signup")}>
+                    회원가입
+                  </AuthButton>
+                </>
+              )}
+              <ShareButton onClick={handleShare} title="공유하기">
+                <ShareIcon size={20} />
+              </ShareButton>
+            </>
+          )}
+        </AuthSection>
+        <Header>
+          <TitleContainer>
+            <Logo
+              src="/logo_cool.png"
+              alt="COOL한자 로고"
+              width={170}
+              height={70}
+              priority
             />
-            {isDataLoading ? (
-              <SkeletonCard />
-            ) : selectedLevels.length === 0 ? (
-              <EmptyCard reason="no-level-selected" />
-            ) : !currentCard ? (
-              <EmptyCard reason="no-visible-cards" />
-            ) : (
-              <HanjaCard
-                hanja={currentCard}
-                nextHanja={nextCard}
-                vocabularyRange={gameHook.selectedVocabularyRange}
-                resetFlip={gameHook.resetCardFlip}
-                disabled={gameHook.isDataLoading}
-                onHide={handleHideCard}
-                onSuccess={handleRefreshData}
-              />
-            )}
-          </CardSection>
-        </GameArea>
-        <PortraitCardActions
+            <TypeSelect
+              selectedType={selectedType}
+              onTypeChange={handleTypeChangeWithNotification}
+              isLoading={isDataLoading}
+            />
+          </TitleContainer>
+        </Header>
+
+        <ChatModal
+          isOpen={isChatOpen}
+          message={chatMessage}
+          contactInfo={chatContactInfo}
+          rating={rating}
+          showSuccessMessage={showSuccessMessage}
+          onMessageChange={setChatMessage}
+          onContactInfoChange={setChatContactInfo}
+          onRatingClick={handleRatingClick}
+          onOpen={handleChatOpen}
+          onClose={handleChatClose}
+          onSubmit={handleChatSubmit}
+        />
+        <ProgressBar
+          progress={actualProgress}
+          currentIndex={visibleCurrentIndex}
+          totalCount={visibleTotalCount}
+          showTooltip={showProgressTooltip}
+          onTooltipHide={() => setShowProgressTooltip(false)}
+        />
+        {/* landscape 모드에서 ProgressBar 아래에 CardActions 표시 */}
+        <LandscapeCardActions
           onShuffle={handleShuffle}
           onUnhideByLevels={(levels) =>
             hiddenCardsHook.unhideCardsByLevels(levels, allHanjaData)
@@ -825,26 +758,86 @@ export default function Home() {
           onVocabularyRangeChange={handleVocabularyRangeChangeWithNotification}
           isDataLoading={isDataLoading}
         />
-        <ContactModal
-          isOpen={isModalOpen}
-          requestText={requestText}
-          contactInfo={contactInfo}
-          onRequestTextChange={setRequestText}
-          onContactInfoChange={setContactInfo}
-          onClose={handleModalClose}
-          onSubmit={handleSubmitRequest}
-        />
-        <AuthModal
-          isOpen={isAuthModalOpen}
-          onClose={handleAuthModalClose}
-          initialMode={authModalMode}
-        />
-        <Snackbar
-          message={snackbarHook.snackbar.message}
-          isVisible={snackbarHook.snackbar.isVisible}
-          onClose={snackbarHook.hideSnackbar}
-        />
-      </Container>
+      </HeaderBox>
+      <GameArea>
+        <CardSection>
+          <GameControls
+            onPrevious={handlePreviousWithURL}
+            onNext={handleNextWithURL}
+            canGoPrevious={gameHook.canGoPrevious}
+            canGoNext={gameHook.canGoNext}
+          />
+          {isDataLoading ? (
+            <SkeletonCard />
+          ) : selectedLevels.length === 0 ? (
+            <EmptyCard reason="no-level-selected" />
+          ) : !currentCard ? (
+            <EmptyCard reason="no-visible-cards" />
+          ) : (
+            <HanjaCard
+              hanja={currentCard}
+              nextHanja={nextCard}
+              vocabularyRange={gameHook.selectedVocabularyRange}
+              resetFlip={gameHook.resetCardFlip}
+              disabled={gameHook.isDataLoading}
+              onHide={handleHideCard}
+            />
+          )}
+        </CardSection>
+      </GameArea>
+      <PortraitCardActions
+        onShuffle={handleShuffle}
+        onUnhideByLevels={(levels) =>
+          hiddenCardsHook.unhideCardsByLevels(levels, allHanjaData)
+        }
+        hiddenCardsCount={hiddenCardsHook.hiddenCardsCount}
+        hiddenCards={hiddenCardsHook.hiddenCards}
+        allHanjaData={allHanjaData}
+        disabled={selectedLevels.length === 0}
+        selectedLevels={selectedLevels}
+        availableLevels={availableLevels}
+        selectedVocabularyRange={selectedVocabularyRange}
+        onLevelFilter={handleLevelFilterWithNotification}
+        onVocabularyRangeChange={handleVocabularyRangeChangeWithNotification}
+        isDataLoading={isDataLoading}
+      />
+      <ContactModal
+        isOpen={isModalOpen}
+        requestText={requestText}
+        contactInfo={contactInfo}
+        onRequestTextChange={setRequestText}
+        onContactInfoChange={setContactInfo}
+        onClose={handleModalClose}
+        onSubmit={handleSubmitRequest}
+      />
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={handleAuthModalClose}
+        initialMode={authModalMode}
+      />
+      <Snackbar
+        message={snackbarHook.snackbar.message}
+        isVisible={snackbarHook.snackbar.isVisible}
+        onClose={snackbarHook.hideSnackbar}
+      />
+    </Container>
+  );
+}
+
+export default function Home() {
+  return (
+    <ThemeProvider theme={muiTheme}>
+      <Suspense
+        fallback={
+          <Container>
+            <div style={{ padding: "20px", textAlign: "center" }}>
+              로딩 중...
+            </div>
+          </Container>
+        }
+      >
+        <HomeContent />
+      </Suspense>
     </ThemeProvider>
   );
 }

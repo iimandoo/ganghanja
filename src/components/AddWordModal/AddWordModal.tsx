@@ -16,7 +16,10 @@ interface AddWordModalProps {
     meaning: string;
     meaning_key: string;
   };
-  onSuccess?: () => void; // 성공 후 콜백 추가
+  onWordAdded?: (response: {
+    success: boolean;
+    updatedWords?: Array<{ kor: string; hanja: string }>;
+  }) => void; // 단어 추가 후 응답 데이터 전달
 }
 
 const Overlay = styled.div`
@@ -184,7 +187,7 @@ export const AddWordModal: React.FC<AddWordModalProps> = ({
   onClose,
   vocabularyRange,
   currentHanja,
-  onSuccess,
+  onWordAdded,
 }) => {
   const [hanja, setHanja] = useState("");
   const [kor, setKor] = useState("");
@@ -235,8 +238,8 @@ export const AddWordModal: React.FC<AddWordModalProps> = ({
         onClose();
 
         // 응답 데이터를 부모 컴포넌트로 전달하여 로컬 상태 업데이트
-        if (onSuccess) {
-          onSuccess();
+        if (onWordAdded) {
+          onWordAdded(response);
         }
       } catch (error) {
         console.error("단어 추가 실패:", error);

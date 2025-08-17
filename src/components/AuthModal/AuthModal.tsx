@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { useAuth } from "@/contexts/AuthContext";
 import { SignUpData, SignInData, AuthModalMode } from "@/types/auth";
 import { theme } from "@/styles/theme";
-import { AUTH_MESSAGES } from "@/constants/authMessages";
 import { loadRememberMe } from "@/utils/localStorage";
 
 interface AuthModalProps {

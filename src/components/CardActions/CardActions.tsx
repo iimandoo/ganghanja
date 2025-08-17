@@ -76,7 +76,6 @@ export const CardActions: React.FC<CardActionsProps> = ({
   };
 
   // 숨긴 카드 취소 UI: 모든 급수를 노출하고, 각 급수에 숨긴 개수를 괄호로 표시
-  const levelsWithHiddenCards = LEVELS;
 
   const handleLevelToggle = (level: Level) => {
     setSelectedUnhideLevels((prev) =>

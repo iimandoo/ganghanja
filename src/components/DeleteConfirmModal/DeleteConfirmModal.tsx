@@ -55,13 +55,6 @@ const Title = styled.h2`
   font-family: "Noto Sans KR", sans-serif;
 `;
 
-const Description = styled.p`
-  font-size: 0.9rem;
-  color: ${theme.colors.text.secondary};
-  margin: 0 0 16px 0;
-  line-height: 1.5;
-`;
-
 const CloseButton = styled.button`
   position: absolute;
   top: 16px;

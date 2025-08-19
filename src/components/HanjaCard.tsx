@@ -202,11 +202,8 @@ const BackContent = styled.div`
   height: 100%;
   display: grid;
   grid-template-rows: auto 1fr;
-  gap: 36px;
+  gap: 20px;
   pointer-events: auto;
-
-  @media (max-width: 768px) {
-  }
 `;
 
 const InfoSection = styled.div<{
@@ -278,7 +275,7 @@ const SmallAddButton = styled.button`
   min-width: 80px;
   min-height: 36px;
   opacity: 1;
-  box-shadow: 0 4px 12px rgba(31, 41, 55, 0.3);
+  box-shadow: 0 4px 10px rgba(31, 41, 55, 0.2);
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
@@ -287,8 +284,7 @@ const SmallAddButton = styled.button`
   &:hover {
     background: #111827;
     border-color: #111827;
-    box-shadow: 0 6px 16px rgba(31, 41, 55, 0.4);
-    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 14px rgba(31, 41, 55, 0.4);
   }
 
   &:active {
@@ -431,10 +427,10 @@ const DictionaryIcon = styled.button`
 const EditIcon = styled.button`
   background: none;
   border: none;
-  padding: 2px;
+  padding: 5px;
   margin-left: 4px;
   cursor: pointer;
-  color: #f59e0b;
+  color: rgb(45, 43, 39);
   font-size: 1rem;
   display: inline-flex;
   align-items: center;
@@ -444,7 +440,7 @@ const EditIcon = styled.button`
   vertical-align: middle;
 
   &:hover {
-    background: rgba(245, 158, 11, 0.1);
+    background: rgba(41, 41, 41, 0.1);
     transform: scale(1.1);
   }
 
@@ -456,10 +452,10 @@ const EditIcon = styled.button`
 const DeleteIcon = styled.button`
   background: none;
   border: none;
-  padding: 2px;
+  padding: 5px;
   margin-left: 4px;
   cursor: pointer;
-  color: #1f2937;
+  color: rgb(45, 43, 39);
   font-size: 1rem;
   display: inline-flex;
   align-items: center;
@@ -469,7 +465,7 @@ const DeleteIcon = styled.button`
   vertical-align: middle;
 
   &:hover {
-    background: rgba(31, 41, 55, 0.1);
+    background: rgba(41, 41, 41, 0.1);
     transform: scale(1.1);
   }
 
@@ -500,7 +496,6 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
   const [isFadingIn, setIsFadingIn] = useState(false);
   const [currentHanja, setCurrentHanja] = useState<HanjaData | null>(hanja);
   const [nextHanja, setNextHanja] = useState<HanjaData | null>(null);
-  const [forceUpdate, setForceUpdate] = useState(0);
   const [vocabularyLines, setVocabularyLines] = useState<VocabularyItem[]>([]);
   const { user } = useAuth();
   const [isAdmin, setIsAdmin] = useState(false);
@@ -538,12 +533,6 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
 
   // currentHanja 상태 변경 감지 및 vocabularyLines 업데이트
   useEffect(() => {
-    console.log("currentHanja 상태 변경됨:", {
-      wordlevel_es: currentHanja?.wordlevel_es,
-      wordlevel_mid: currentHanja?.wordlevel_mid,
-      vocabularyRange,
-    });
-
     // vocabularyLines 업데이트
     if (currentHanja) {
       let data: Array<Record<string, string>> | undefined;
@@ -553,12 +542,6 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
         data = currentHanja.wordlevel_mid;
       }
 
-      console.log("vocabularyLines 계산을 위한 데이터:", {
-        vocabularyRange,
-        data,
-        dataLength: data?.length || 0,
-      });
-
       if (data && Array.isArray(data) && data.length > 0) {
         const processedLines = data
           .map((word: Record<string, string>) => ({
@@ -567,12 +550,6 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
             url: word.url || "",
           }))
           .filter((word) => word.kor && word.hanja);
-
-        console.log("vocabularyLines 상태 업데이트:", {
-          vocabularyRange,
-          data,
-          processedLines,
-        });
 
         setVocabularyLines(processedLines);
       } else {
@@ -757,60 +734,33 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
         hanja: word.hanja,
         url: "",
       }));
-
-      console.log("updateCurrentCardData 호출됨:", {
-        vocabularyRange,
-        processedWords,
-        currentForceUpdate: forceUpdate,
-      });
-
-      setCurrentHanja((prev) => {
-        if (!prev) return prev;
-
-        // vocabularyRange에 따라 해당 필드만 업데이트
-        let updated;
-        if (vocabularyRange === "기본") {
-          updated = { ...prev, wordlevel_es: processedWords };
-        } else {
-          updated = { ...prev, wordlevel_mid: processedWords };
-        }
-
-        console.log("setCurrentHanja 업데이트:", {
-          vocabularyRange,
-          before:
-            vocabularyRange === "기본" ? prev.wordlevel_es : prev.wordlevel_mid,
-          after: processedWords,
-          updated,
-        });
-
-        return updated;
-      });
-
+      // setCurrentHanja((prev) => {
+      //   if (!prev) return prev;
+      //   // vocabularyRange에 따라 해당 필드만 업데이트
+      //   let updated;
+      //   if (vocabularyRange === "기본") {
+      //     updated = { ...prev, wordlevel_es: processedWords };
+      //   } else {
+      //     updated = { ...prev, wordlevel_mid: processedWords };
+      //   }
+      //   return updated;
+      // });
       // vocabularyLines 직접 업데이트
-      const processedLines = processedWords
-        .map((word) => ({
-          kor: word.kor,
-          hanja: word.hanja,
-          url: word.url,
-        }))
-        .filter((word) => word.kor && word.hanja);
-
-      console.log("vocabularyLines 직접 업데이트:", {
-        vocabularyRange,
-        processedLines,
-      });
-
-      setVocabularyLines(processedLines);
-
+      // const processedLines = processedWords
+      //   .map((word) => ({
+      //     kor: word.kor,
+      //     hanja: word.hanja,
+      //     url: word.url,
+      //   }))
+      //   .filter((word) => word.kor && word.hanja);
+      // console.log("///////////processedLines", processedLines);
+      // console.log("///////////processedWords", processedWords);
+      setVocabularyLines(processedWords);
       // 강제로 리렌더링을 위한 상태 업데이트
-      setForceUpdate((prev) => {
-        const newValue = prev + 1;
-        console.log("forceUpdate 변경:", { prev, newValue });
-        return newValue;
-      });
-
-      // 로컬 상태가 이미 업데이트되었으므로 부모 컴포넌트의 onSuccess 콜백은 호출하지 않음
-      // (중복 실행 방지)
+      // setForceUpdate((prev) => {
+      //   const newValue = prev + 1;
+      //   return newValue;
+      // });
     }
   };
 
@@ -834,19 +784,6 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
 
     setIsAddWordModalOpen(true);
   };
-
-  // Particle effect 제거됨
-
-  // 어휘범위에 따라 표시할 예시 텍스트 선택 (useState로 관리)
-
-  // 디버깅을 위한 로그
-  console.log("vocabularyLines 현재 상태:", {
-    vocabularyRange,
-    wordlevel_es: currentHanja?.wordlevel_es,
-    wordlevel_mid: currentHanja?.wordlevel_mid,
-    forceUpdate,
-    result: vocabularyLines,
-  });
 
   return (
     <>

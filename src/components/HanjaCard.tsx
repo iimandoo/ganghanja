@@ -402,8 +402,8 @@ const DictionaryButton = styled(HideButton)`
 const DictionaryIcon = styled.button`
   background: none;
   border: none;
-  padding: 2px;
-  margin-left: 8px;
+  padding: 5px;
+  margin-left: 4px;
   cursor: pointer;
   color: #03c75a;
   font-size: 1rem;
@@ -543,13 +543,11 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
       }
 
       if (data && Array.isArray(data) && data.length > 0) {
-        const processedLines = data
-          .map((word: Record<string, string>) => ({
-            kor: word.kor || "",
-            hanja: word.hanja || "",
-            url: word.url || "",
-          }))
-          .filter((word) => word.kor && word.hanja);
+        const processedLines = data.map((word: Record<string, string>) => ({
+          kor: word.kor || "",
+          hanja: word.hanja || "",
+          url: word.url || "",
+        }));
 
         setVocabularyLines(processedLines);
       } else {
@@ -694,6 +692,11 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
   const handleDeleteWordConfirm = async () => {
     if (!currentHanja || !deletingWord || !user?.id) return;
 
+    if (!deletingWord.kor || !deletingWord.hanja) {
+      alert("삭제할 단어의 한글과 한자 정보가 모두 필요합니다.");
+      return;
+    }
+
     try {
       const { deleteWordFromHanja } = await import("@/lib/api");
       const response = await deleteWordFromHanja(
@@ -785,6 +788,8 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
     setIsAddWordModalOpen(true);
   };
 
+  console.log("vocabularyLines", vocabularyLines);
+
   return (
     <>
       <CardContainer $disabled={disabled}>
@@ -863,7 +868,8 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
                                   transition: "border-bottom-color 0.2s ease",
                                 }}
                               >
-                                {item.kor}({item.hanja})
+                                {item.kor}
+                                {item.hanja && `(${item.hanja})`}
                               </span>
                               <DictionaryIcon
                                 onClick={() =>
@@ -954,7 +960,9 @@ const HanjaCard: React.FC<HanjaCardProps> = ({
         onClose={handleDeleteConfirmModalClose}
         onConfirm={handleDeleteWordConfirm}
         title="단어 삭제하기"
-        message={`"${deletingWord?.kor} (${deletingWord?.hanja})" 단어를 삭제하시겠습니까?`}
+        message={`"${deletingWord?.kor} ${
+          deletingWord?.hanja ? `(${deletingWord?.hanja})` : ""
+        }" 단어를 삭제하시겠습니까?`}
         confirmText="삭제하기"
         cancelText="취소"
       />
